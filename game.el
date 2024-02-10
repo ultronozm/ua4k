@@ -33,6 +33,10 @@
   "Split a symbol into a list of character symbols."
   (mapcar #'intern (split-string (symbol-name sym) "" t)))
 
+(defun char-symbols-to-symbol (sym-list)
+  "Combine a list of symbols into a symbol."
+  (intern (mapconcat #'symbol-name sym-list)))
+
 (defun rule-list-from-dict (dict)
   "Return a list of rules from DICT."
   (cl-reduce #'append (mapcar #'cdr dict)))
@@ -311,6 +315,252 @@ Also return the rule applied to get there."
          . (-X))
         ((XA-)
          . (-XA))))))
+
+
+;; https://stackoverflow.com/questions/42251315/a-safe-way-to-transpose-a-list-of-of-lists-in-lisp
+(defun pop-all (list-of-lists)
+  "Pop each list in the list, return list of pop results
+and an indicator if some list has been exhausted."
+  (cl-loop for tail on list-of-lists collect (pop (car tail))))
+(defun transpose (list-of-lists)
+  "Transpose the matrix."
+  (cl-loop with tails = (cl-copy-list list-of-lists)
+           while (cl-some #'consp tails) ; or any?
+           collect (pop-all tails)))
+
+;; e.g., east = '(*-)
+(defun rotate-west (east)
+  (let* ((array (mapcar #'symbol-to-char-symbols east))
+         (flipped-horiz (mapcar #'nreverse array))
+         (rotated-180 (nreverse flipped-horiz)))
+    (mapcar #'char-symbols-to-symbol rotated-180)))
+
+(defun rotate-north (east)
+  (let* ((array (mapcar #'symbol-to-char-symbols east))
+         (flipped-horiz (mapcar #'nreverse array))
+         (rotated (transpose flipped-horiz)))
+    (mapcar #'char-symbols-to-symbol rotated)))
+
+(defun rotate-south (east)
+  (let* ((array (mapcar #'symbol-to-char-symbols east))
+         (flipped (nreverse array))
+         (rotated (transpose flipped)))
+    (mapcar #'char-symbols-to-symbol rotated)))
+
+(defun play-sokoban (&optional board)
+  (interactive)
+  (unless board
+    (setq board
+          '(XX---X
+            O*a--X
+            XX-aOX
+            OXXa-X
+            -X-O-X
+            a-AaaO
+            ---O--)))
+  (let* ((rules-east
+          '(((*-)
+             . (-*))
+            ((!-)
+             . (O*))
+            ((*O)
+             . (-!))
+            ((*a-)
+             . (-*a))
+            ((*aO)
+             . (-*A))
+            ((*A-)
+             . (-!a))
+            ((!a-)
+             . (O*a))
+            ((!aO)
+             . (O*A))
+            )
+          )
+         (rules-dict
+          `((w . ,(maprules #'rotate-north my-rules-east))
+            (s . ,(maprules #'rotate-south my-rules-east))
+            (a . ,(maprules #'rotate-west my-rules-east))
+            (d . ,my-rules-east))))
+    (init-game-expand board rules-dict)))
+
+(defun play-sokoban-2 (&optional board)
+  (interactive)
+  (unless board
+    (setq board
+          '(WW--bW
+            Oax--W
+            WW-xOW
+            OWWx-W
+            -W-O-W
+            x-XxxO
+            ---O--)))
+  (let* ((p1-east
+          '(((a-)
+             . (-a))
+            ((A-)
+             . (Oa))
+            ((aO)
+             . (-A))
+            ((ax-)
+             . (-ax))
+            ((axO)
+             . (-aX))
+            ((aX-)
+             . (-Ax))
+            ((Ax-)
+             . (Oax))
+            ((AxO)
+             . (OaX))
+            )
+          )
+         (p2-east
+          '(((b-)
+             . (-b))
+            ((B-)
+             . (Ob))
+            ((bO)
+             . (-B))
+            ((bx-)
+             . (-bx))
+            ((bxO)
+             . (-bX))
+            ((bX-)
+             . (-Bx))
+            ((Bx-)
+             . (Obx))
+            ((BxO)
+             . (ObX))
+            )
+          )
+         (rules-dict
+          `((w . ,(maprules #'rotate-north p1-east))
+            (s . ,(maprules #'rotate-south p1-east))
+            (a . ,(maprules #'rotate-west p1-east))
+            (d . ,p1-east)
+            (i . ,(maprules #'rotate-north p2-east))
+            (k . ,(maprules #'rotate-south p2-east))
+            (j . ,(maprules #'rotate-west p2-east))
+            (l . ,p2-east))))
+    (init-game-expand board rules-dict)))
+
+(defun play-fifteen (&optional board)
+  (interactive)
+  (unless board
+    (setq board
+          '(c12f
+            b658
+            7a94
+            *de3)))
+  (let* ((rules-east
+          (mapcar
+           (lambda (a)
+             (cons
+              (list (char-symbols-to-symbol (list a '*)))
+              (list (char-symbols-to-symbol (list '* a)))))
+           '(\1 \2 \3 \4 \5 \6 \7 \8 \9 a b c d e f)))
+         (rules-dict
+          `((w . ,(maprules #'rotate-north rules-east))
+            (s . ,(maprules #'rotate-south rules-east))
+            (a . ,(maprules #'rotate-west rules-east))
+            (d . ,rules-east))))
+    (init-game-expand board rules-dict)))
+
+
+(defun maprules (f rules)
+  (mapcar (lambda (x)
+            (cons (funcall f (car x))
+                  (funcall f (cdr x))))
+          rules))
+
+
+(defvar my-rule-dict-2-old
+  '((z .
+       (((-*-)
+         . (*-*))))
+    (x .
+       (((*-*)
+         . (-*-))))
+    (w .
+       (((-
+          *)
+         . (*
+            -))
+        ((-
+          !)
+         . (*
+            O))
+        ((-
+          a
+          *)
+         . (a
+            *
+            -))
+        ((O
+          a
+          *)
+         . (A
+            *
+            -))
+        ((-
+          A
+          *)
+         . (a
+            !
+            -))))
+    (s .
+       (((*
+          -)
+         . (-
+            *))
+        ((!
+          -)
+         . (-
+            *))
+        ((*
+          a
+          -)
+         . (-
+            *
+            a))
+        ((*
+          a
+          O)
+         . (-
+            *
+            A))
+        ((*
+          A
+          -)
+         . (-
+            !
+            a))))
+    (a .
+       (((-*)
+         . (*-))
+        ((-!)
+         . (*-))
+        ((-a*)
+         . (a*-))
+        ((Oa*)
+         . (A*-))
+        ((-A*)
+         . (a!-))
+        ((-A*)
+         . (a!-))))
+    (d .
+       (((*-)
+         . (-*))
+        ((!-)
+         . (-*))
+        ((*a-)
+         . (-*a))
+        ((*aO)
+         . (-*A))
+        ((*A-)
+         . (-!a))
+        ((*A-)
+         . (-!a))))))
 
 
 
