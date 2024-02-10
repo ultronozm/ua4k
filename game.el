@@ -134,10 +134,10 @@
     (and
      (>= row 0)
      (>= col 0)
-     (< (+ row pattern-height)
-        (length board))
-     (< (+ col pattern-width)
-        (length (nth 0 board))))
+     (<= (+ row pattern-height)
+         (length board))
+     (<= (+ col pattern-width)
+         (length (nth 0 board))))
     (dotimes (i pattern-height)
       (let (subgrid-row)
         (dotimes (j pattern-width)
@@ -378,181 +378,212 @@ and an indicator if some list has been exhausted."
             (l . ,p2-east))))
     (init-game (expand-board board) (expand-rule-dict rules-dict))))
 
+(defun dart-game-boards ()
+  '((-----
+     >a--o
+     -----)
+    (-----
+     >-xao
+     -----)
+    (/---\\
+     -----
+     o----
+     >a--/)
+    (oa-\\
+     --/-
+     >---)
+    (a--o
+     \\-/-
+     ---<)
+    (o--x-
+     x-\\-x
+     >-a/-)
+    (x-o---
+     x-x\\x-
+     >-a/--
+     x-----)
+    (x----
+     -x-x-
+     ox\\-x
+     >-a/-)
+    (-x----
+     oxx\\/-
+     -x-a--
+     ------
+     >-x---
+     x---xx)
+    (-xx---
+     oxx\\/-
+     -x-a--
+     ------
+     >-x---
+     ----xx)
+    (a-----o
+     -/---\\-
+     --SUP--
+     >\\---x-
+     -------)
+    ))
+
+(defun dart-game-rules ()
+  (let ((p1-east
+         '(((a-)
+            . (-a))
+           ((A-)
+            . (Oa))
+           ((aO)
+            . (-A))
+           ((a/-)
+            . (-a/))
+           ((a\\-)
+            . (-a\\))
+           ((ax-)
+            . (-ax))
+           ((axO)
+            . (-aX))
+           ((aX-)
+            . (-Ax))
+           ((Ax-)
+            . (Oax))
+           ((AxO)
+            . (OaX))
+           )
+         ))
+    `((w . ,(maprules #'rotate-north p1-east))
+      (s . ,(maprules #'rotate-south p1-east))
+      (a . ,(maprules #'rotate-west p1-east))
+      (d . ,p1-east)
+      (z . (((>-)
+             . (->))
+            ((-<)
+             . (<-))
+            ((v
+              -)
+             . (-
+                v))
+            ((-
+              ^)
+             . (^
+                -))
+            
+            ((\?-
+              >/)
+             . (\?^
+                -/))
+            ((>\\
+              \?-)
+             . (-\\
+                \?v))
+            
+            ((-?
+              \\<)
+             . (^?
+                \\-))
+            ((/<
+              -?)
+             . (/-
+                v?))
+            
+            ((/-
+              ^?)
+             . (/>
+                -?))
+            ((-\\
+              \?^)
+             . (<\\
+                \?-))
+            
+            ((v?
+              \\-)
+             . (-?
+                \\>))
+            ((\?v
+              -/)
+             . (\?-
+                </))
+
+            ((>\\
+              -/)
+             . (-\\
+                </))
+            ((-\\
+              >/)
+             . (<\\
+                -/))
+            ((/-
+              \\<)
+             . (/>
+                \\-))
+            ((/<
+              \\-)
+             . (/-
+                \\>))
+            ((v-
+              \\/)
+             . (-^
+                \\/))
+            ((-v
+              \\/)
+             . (^-
+                \\/))
+            ((/\\
+              ^-)
+             . (/\\
+                -^))
+            ((/\\
+              -^)
+             . (/\\
+                ^-))
+            
+            
+            ((>o)
+             . (-w))
+            ((o<)
+             . (w-))
+            ((o
+              ^)
+             . (w
+                -))
+            ((v
+              o)
+             . (-
+                w))
+            ))
+      )
+    )
+  )
+
 (defun play-sokoban-with-dart ()
   (interactive)
   (let* ((initial-level 10)
          (boards
-          '((-----
-             >a--o
-             -----)
-            (-----
-             >-xao
-             -----)
-            (/---\\
-             -----
-             o----
-             >a--/)
-            (oa-\\
-             --/-
-             >---)
-            (a--o
-             \\-/-
-             ---<)
-            (o--x-
-             x-\\-x
-             >-a/-)
-            (x-o---
-             x-x\\x-
-             >-a/--
-             x-----)
-            (x----
-             -x-x-
-             ox\\-x
-             >-a/-)
-            (-x----
-             oxx\\/-
-             -x-a--
-             ------
-             >-x---
-             x---xx)
-            (-xx---
-             oxx\\/-
-             -x-a--
-             ------
-             >-x---
-             ----xx)
-            (a-----o
-             -/---\\-
-             --SUP--
-             >\\---x-
-             -------)
-            ))
-         (p1-east
-          '(((a-)
-             . (-a))
-            ((A-)
-             . (Oa))
-            ((aO)
-             . (-A))
-            ((a/-)
-             . (-a/))
-            ((a\\-)
-             . (-a\\))
-            ((ax-)
-             . (-ax))
-            ((axO)
-             . (-aX))
-            ((aX-)
-             . (-Ax))
-            ((Ax-)
-             . (Oax))
-            ((AxO)
-             . (OaX))
-            )
-          )
-         (rules-dict
-          `((w . ,(maprules #'rotate-north p1-east))
-            (s . ,(maprules #'rotate-south p1-east))
-            (a . ,(maprules #'rotate-west p1-east))
-            (d . ,p1-east)
-            (z . (((>-)
-                   . (->))
-                  ((-<)
-                   . (<-))
-                  ((v
-                    -)
-                   . (-
-                      v))
-                  ((-
-                    ^)
-                   . (^
-                      -))
-                  
-                  ((\?-
-                    >/)
-                   . (\?^
-                      -/))
-                  ((>\\
-                    \?-)
-                   . (-\\
-                      \?v))
-                  
-                  ((-?
-                    \\<)
-                   . (^?
-                      \\-))
-                  ((/<
-                    -?)
-                   . (/-
-                      v?))
-                  
-                  ((/-
-                    ^?)
-                   . (/>
-                      -?))
-                  ((-\\
-                    \?^)
-                   . (<\\
-                      \?-))
-                  
-                  ((v?
-                    \\-)
-                   . (-?
-                      \\>))
-                  ((\?v
-                    -/)
-                   . (\?-
-                      </))
-
-                  ((>\\
-                    -/)
-                   . (-\\
-                      </))
-                  ((-\\
-                    >/)
-                   . (<\\
-                      -/))
-                  ((/-
-                    \\<)
-                   . (/>
-                      \\-))
-                  ((/<
-                    \\-)
-                   . (/-
-                      \\>))
-                  ((v-
-                    \\/)
-                   . (-^
-                      \\/))
-                  ((-v
-                    \\/)
-                   . (^-
-                      \\/))
-                  ((/\\
-                    ^-)
-                   . (/\\
-                      -^))
-                  ((/\\
-                    -^)
-                   . (/\\
-                      ^-))
-                  
-                  
-                  ((>o)
-                   . (-w))
-                  ((o<)
-                   . (w-))
-                  ((o
-                    ^)
-                   . (w
-                      -))
-                  ((v
-                    o)
-                   . (-
-                      w))
-                  ))
-            )))
+          (dart-game-boards))
+         (rules-dict (dart-game-rules)))
+    (export-game-series (mapcar #'expand-board boards) (expand-rule-dict rules-dict))
     (init-game-series (mapcar #'expand-board boards) (expand-rule-dict rules-dict) #'board-contains-w-p initial-level)))
+
+(defun enumerate (lst)
+  (let ((i -1)) ; start from -1 because we ++ it before using
+    (cl-loop for item in lst collect (cons (cl-incf i) item))))
+
+(defun export-game-series (boards rule-dict)
+  "Export boards and rules."
+  (let ((boards-json (json-encode (vconcat boards)))
+        (rules-json (json-encode
+                     (mapcar
+                      (lambda (item)
+                        (cons (car item)
+                              (mapcar
+                               (lambda (rule)
+                                 (vconcat
+                                  (list (car rule) (cdr rule))
+                                  ))
+                               (cdr item))))
+                      rule-dict))))
+    (with-temp-buffer
+      (insert (format "boards = %s\n" boards-json))
+      (insert (format "rules = %s\n" rules-json))
+      (write-file "output.txt"))))
 
 (defun play-fifteen (&optional board)
   (interactive)
