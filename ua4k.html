@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ULTRONO ARENA 4000</title>
+    <style>
+      #display{
+      font-family: 'Courier New', monospace;
+      font-size: 50px;
+      letter-spacing: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>ULTRONO ARENA 4000</h1>
+    <p>wsad: move.
+
+      z: piu piu.
+
+      r: restart level.
+    </p>
+    <div id="level"></div>
+    <div id="display"></div>
+    
+    <script>
+      let boards = [["-----",">a--o","-----"],["-----",">-xao","-----"],["/---\\","-----","o----",">a--/"],["oa-\\","--/-",">---"],["a--o","\\-/-","---<"],["o--x-","x-\\-x",">-a/-"],["x-o---","x-x\\x-",">-a/--","x-----"],["x----","-x-x-","ox\\-x",">-a/-"],["-x----","oxx\\/-","-x-a--","------",">-x---","x---xx"],["-xx---","oxx\\/-","-x-a--","------",">-x--x","----xx"],["a-----o","-/---\\-","--SUP--",">\\---x-","-------"]];
+      let rules_dict = {"w":[[["-","a"],["a","-"]],[["-","A"],["a","O"]],[["O","a"],["A","-"]],[["-","/","a"],["/","a","-"]],[["-","\\","a"],["\\","a","-"]],[["-","x","a"],["x","a","-"]],[["O","x","a"],["X","a","-"]],[["-","X","a"],["x","A","-"]],[["-","x","A"],["x","a","O"]],[["O","x","A"],["X","a","O"]]],"s":[[["a","-"],["-","a"]],[["A","-"],["O","a"]],[["a","O"],["-","A"]],[["a","/","-"],["-","a","/"]],[["a","\\","-"],["-","a","\\"]],[["a","x","-"],["-","a","x"]],[["a","x","O"],["-","a","X"]],[["a","X","-"],["-","A","x"]],[["A","x","-"],["O","a","x"]],[["A","x","O"],["O","a","X"]]],"a":[[["-a"],["a-"]],[["-A"],["aO"]],[["Oa"],["A-"]],[["-/a"],["/a-"]],[["-\\a"],["\\a-"]],[["-xa"],["xa-"]],[["Oxa"],["Xa-"]],[["-Xa"],["xA-"]],[["-xA"],["xaO"]],[["OxA"],["XaO"]]],"d":[[["a-"],["-a"]],[["A-"],["Oa"]],[["aO"],["-A"]],[["a/-"],["-a/"]],[["a\\-"],["-a\\"]],[["ax-"],["-ax"]],[["axO"],["-aX"]],[["aX-"],["-Ax"]],[["Ax-"],["Oax"]],[["AxO"],["OaX"]]],"z":[[[">-"],["->"]],[["-<"],["<-"]],[["v","-"],["-","v"]],[["-","^"],["^","-"]],[["?-",">/"],["?^","-/"]],[[">\\","?-"],["-\\","?v"]],[["-?","\\<"],["^?","\\-"]],[["/<","-?"],["/-","v?"]],[["/-","^?"],["/>","-?"]],[["-\\","?^"],["<\\","?-"]],[["v?","\\-"],["-?","\\>"]],[["?v","-/"],["?-","</"]],[[">\\","-/"],["-\\","</"]],[["-\\",">/"],["<\\","-/"]],[["/-","\\<"],["/>","\\-"]],[["/<","\\-"],["/-","\\>"]],[["v-","\\/"],["-^","\\/"]],[["-v","\\/"],["^-","\\/"]],[["/\\","^-"],["/\\","-^"]],[["/\\","-^"],["/\\","^-"]],[[">o"],["-w"]],[["o<"],["w-"]],[["o","^"],["w","-"]],[["v","o"],["-","w"]]]};
+
+      
+      // Define our game variables
+      var level = 0;
+      var board = 0;
+      var gameHeight = 0;
+      var gameWidth = 0;
+
+      function updateLevelDisplay() {
+          document.getElementById('level').textContent = "Level: " + level;
+      }
+
+      updateLevelDisplay();
+
+      // Function to draw the game board
+      function drawBoard() {
+          let boardStr = "";
+          // board is a 2D array, so we need to loop through each row and column
+          for (let row = 0; row < board.length; row++) {
+              for (let col = 0; col < board[row].length; col++) {
+                  boardStr += board[row][col];
+              }
+              boardStr += "<br>";
+          }
+
+          
+          // Make boardStr the contents of the display div:
+          document.getElementById('display').innerHTML = boardStr;
+      }
+
+      function initLevel() {
+          board = JSON.parse(JSON.stringify(boards[level]));
+      }
+
+      initLevel();
+      drawBoard();
+
+      // Function to check a rule can be applied
+      function checkRule(rule, row, col) {
+          let fromPattern = rule[0];
+          let toPattern = rule[1];
+          let patternHeight = fromPattern.length;
+          let patternWidth = fromPattern[0].length;
+          if (row >= 0 && col >= 0 && row + patternHeight <= board.length && col + patternWidth <= board[0].length) {
+              let boardSubgrid = [];
+              for (let i = 0; i < patternHeight; i++) {
+                  let subgridRow = [];
+                  for (let j = 0; j < patternWidth; j++) {
+                      subgridRow.push(board[row + i][col + j]);
+                  }
+                  boardSubgrid.push(subgridRow);
+              }
+              // Check if fromPattern matches boardSubgrid
+              for (let i = 0; i < patternHeight; i++) {
+                  for (let j = 0; j < patternWidth; j++) {
+                      let cell = fromPattern[i][j];
+                      let boardCell = boardSubgrid[i][j];
+                      if (cell != '?' && cell != boardCell) {
+                          // console.log("Rule cannot be applied at " + row + ", " + col + " because cell " + i + ", " + j + " does not match.");
+                          return false;
+                      }
+                  }
+              }
+              return true;
+          }
+          // console.log("Rule cannot be applied at " + row + ", " + col + " because it is out of bounds.");
+          return false;
+      }
+      
+      function applyRule(rule, row, col) {
+          console.log("Applying rule " + rule + " at " + row + ", " + col);
+          console.log("Board before applying rule: " + board);
+          let fromPattern = rule[0];
+          let toPattern = rule[1];
+          let patternHeight = toPattern.length;
+          let patternWidth = toPattern[0].length;
+          if (row >= 0 && col >= 0 && row + patternHeight <= board.length && col + patternWidth <= board[0].length) {
+              for (let i = 0; i < patternHeight; i++) {
+                  for (let j = 0; j < patternWidth; j++) {
+                      let cell = toPattern[i][j];
+                      if (cell != '?') {
+                          let tempRow = board[row + i].split('');
+                          tempRow[col + j] = cell;
+                          board[row + i] = tempRow.join('');
+                          console.log("Setting cell " + (row + i) + ", " + (col + j) + " to " + cell);
+                          // board[row + i][col + j] = cell;
+                      }
+                  }
+              }
+          } else {
+              console.log("This should never happen.")
+          }
+          console.log("Board after applying rule: " + board);
+      }
+
+      function gameAction(a) {
+          let height = board.length;
+          let width = board[0].length;
+          let rules = rules_dict[a];
+          let ruleApplied = false;
+          for (let i = 0; i < height && !ruleApplied; i++) {
+              for (let j = 0; j < width && !ruleApplied; j++) {
+                  for (let k = 0; k < rules.length && !ruleApplied; k++) {
+                      if (checkRule(rules[k], i, j)) {
+                          applyRule(rules[k], i, j);
+                          ruleApplied = true;
+                      }
+                  }
+              }
+          }
+          console.log("ruleApplied: " + ruleApplied);
+          drawBoard();
+          // let's hardcode the win condition to be: "w" occurs somewhere in the board
+          if (ruleApplied) {
+              if (board.some(row => row.includes("w"))) {
+                  level++;
+                  if (level < boards.length) {
+                      initLevel();
+                      drawBoard();
+                      updateLevelDisplay();
+                  }
+                  else {
+                      document.getElementById('display').innerHTML = "You have completed all levels.";
+                  }
+              }
+          }
+      }
+      
+
+      document.addEventListener('keypress', function(event) {
+          var charCode = event.charCode;
+          if (charCode == 'r'.charCodeAt(0)) { 
+              initLevel();
+              drawBoard();
+          }
+          else if (charCode == 'l'.charCodeAt(0)) { 
+              var newLevel = prompt("Enter level number");
+              if (newLevel != null && newLevel >= 0 && newLevel < boards.length) {
+                  level = newLevel;
+                  initLevel();
+                  drawBoard();
+                  updateLevelDisplay();
+              }
+          }
+          else if ((charCode >= 97 && charCode <= 122) || (charCode >= 48 && charCode <= 57)) { 
+              var action = String.fromCharCode(charCode);
+              gameAction(action);
+          }
+          
+      });
+      </script>
+  </body>
+</html>
