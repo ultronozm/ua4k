@@ -137,8 +137,10 @@
     (and
      (>= row 0)
      (>= col 0)
-     (< (+ row pattern-height) (length board))
-     (< (+ col pattern-width) (length (nth 0 board))))
+     (< (+ row pattern-height)
+        (length board))
+     (< (+ col pattern-width)
+        (length (nth 0 board))))
     (dotimes (i pattern-height)
       (let (subgrid-row)
         (dotimes (j pattern-width)
@@ -146,9 +148,20 @@
                      (nth (+ row i)
                           board))
                 subgrid-row))
-        (push (nreverse subgrid-row) board-subgrid)))
+        (push (nreverse subgrid-row)
+              board-subgrid)))
     (setq board-subgrid (nreverse board-subgrid))
-    (equal from-pattern board-subgrid)))
+    ;; (equal from-pattern board-subgrid)
+    (cl-every
+     (lambda (i)
+       (cl-every
+        (lambda (j)
+          (let ((cell (nth j (nth i from-pattern)))
+                (board-cell (nth j (nth i board-subgrid))))
+            (or (eq cell '\?)
+                (eq cell board-cell))))
+        (number-sequence 0 (1- pattern-width))))
+     (number-sequence 0 (1- pattern-height)))))
 
 (defun reverse-rule (rule)
   "Reverse the transformation RULE."
@@ -218,11 +231,12 @@ Also return the rule applied to get there."
         (progn
           (dotimes (i pattern-height)
             (dotimes (j pattern-width)
-              (setf (nth (+ col j)
-                         (nth (+ row i)
-                              result))
-                    (nth j
-                         (nth i to-pattern)))))
+              (let ((cell (nth j (nth i to-pattern))))
+                (when (not (eq cell '\?))
+                  (setf (nth (+ col j)
+                             (nth (+ row i)
+                                  result))
+                        cell)))))
           (message "Rule applied."))
       (message "Cannot apply rule here."))
     result))
@@ -444,6 +458,107 @@ and an indicator if some list has been exhausted."
             (l . ,p2-east))))
     (init-game-expand board rules-dict)))
 
+(defun play-sokoban-with-dart (&optional board)
+  (interactive)
+  (unless board
+    (setq board
+          '(ga-\\
+            --/-
+            >---)))
+  (let* ((p1-east
+          '(((a-)
+             . (-a))
+            ((A-)
+             . (Oa))
+            ((aO)
+             . (-A))
+            ((a/-)
+             . (-a/))
+            ((a\\-)
+             . (-a\\))
+            ((ax-)
+             . (-ax))
+            ((axO)
+             . (-aX))
+            ((aX-)
+             . (-Ax))
+            ((Ax-)
+             . (Oax))
+            ((AxO)
+             . (OaX))
+            )
+          )
+         (rules-dict
+          `((w . ,(maprules #'rotate-north p1-east))
+            (s . ,(maprules #'rotate-south p1-east))
+            (a . ,(maprules #'rotate-west p1-east))
+            (d . ,p1-east)
+            (z . (((>-)
+                   . (->))
+                  ((-<)
+                   . (<-))
+                  ((v
+                    -)
+                   . (-
+                      v))
+                  ((-
+                    ^)
+                   . (^
+                      -))
+                  
+                  ((\?-
+                    >/)
+                   . (\?^
+                      -/))
+                  ((>\\
+                    \?-)
+                   . (-\\
+                      \?v))
+                  
+                  ((-?
+                    \\<)
+                   . (^?
+                      \\-))
+                  ((/<
+                    -?)
+                   . (/-
+                      v?))
+                  
+                  ((/-
+                    ^?)
+                   . (/>
+                      -?))
+                  ((-\\
+                    \?^)
+                   . (<\\
+                      \?-))
+                  
+                  ((v?
+                    \\-)
+                   . (-?
+                      \\>))
+                  ((\?v
+                    -/)
+                   . (\?-
+                      </))
+                  
+                  
+                  ((>g)
+                   . (-w))
+                  ((g<)
+                   . (w-))
+                  ((g
+                    ^)
+                   . (w
+                      -))
+                  ((v
+                    g)
+                   . (-
+                      w))
+                  ))
+            )))
+    (init-game-expand board rules-dict)))
+
 (defun play-fifteen (&optional board)
   (interactive)
   (unless board
@@ -451,13 +566,13 @@ and an indicator if some list has been exhausted."
           '(c12f
             b658
             7a94
-            *de3)))
+            xde3)))
   (let* ((rules-east
           (mapcar
            (lambda (a)
              (cons
-              (list (char-symbols-to-symbol (list a '*)))
-              (list (char-symbols-to-symbol (list '* a)))))
+              (list (char-symbols-to-symbol (list a 'x)))
+              (list (char-symbols-to-symbol (list 'x a)))))
            '(\1 \2 \3 \4 \5 \6 \7 \8 \9 a b c d e f)))
          (rules-dict
           `((w . ,(maprules #'rotate-north rules-east))
@@ -472,97 +587,6 @@ and an indicator if some list has been exhausted."
             (cons (funcall f (car x))
                   (funcall f (cdr x))))
           rules))
-
-
-(defvar my-rule-dict-2-old
-  '((z .
-       (((-*-)
-         . (*-*))))
-    (x .
-       (((*-*)
-         . (-*-))))
-    (w .
-       (((-
-          *)
-         . (*
-            -))
-        ((-
-          !)
-         . (*
-            O))
-        ((-
-          a
-          *)
-         . (a
-            *
-            -))
-        ((O
-          a
-          *)
-         . (A
-            *
-            -))
-        ((-
-          A
-          *)
-         . (a
-            !
-            -))))
-    (s .
-       (((*
-          -)
-         . (-
-            *))
-        ((!
-          -)
-         . (-
-            *))
-        ((*
-          a
-          -)
-         . (-
-            *
-            a))
-        ((*
-          a
-          O)
-         . (-
-            *
-            A))
-        ((*
-          A
-          -)
-         . (-
-            !
-            a))))
-    (a .
-       (((-*)
-         . (*-))
-        ((-!)
-         . (*-))
-        ((-a*)
-         . (a*-))
-        ((Oa*)
-         . (A*-))
-        ((-A*)
-         . (a!-))
-        ((-A*)
-         . (a!-))))
-    (d .
-       (((*-)
-         . (-*))
-        ((!-)
-         . (-*))
-        ((*a-)
-         . (-*a))
-        ((*aO)
-         . (-*A))
-        ((*A-)
-         . (-!a))
-        ((*A-)
-         . (-!a))))))
-
-
 
 
 (provide 'game)
