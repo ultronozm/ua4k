@@ -25,9 +25,10 @@
 ;;; Code:
 
 (defvar *my-game-board* nil "2D list representing the game board.")
-(defvar *my-game-solution* nil)
 (defvar *my-game-rule-dict* nil "Map from keys to transformation rules.")
-(defvar *my-game-random* nil)
+(defvar *my-game-level* 0)
+(defvar *my-game-boards* nil)
+(defvar *my-game-win-condition* nil)
 
 (defun symbol-to-char-symbols (sym)
   "Split a symbol into a list of character symbols."
@@ -60,22 +61,19 @@
                      (number-sequence 0 (1- height)))
       (message "Cannot apply that rule.")))
   (draw-board)
-  (if (check-board-cleared)
-      (progn
-        (message "Congratulations! You have cleared the board.")
-        (setq *my-game-level* (1+ *my-game-level*))
-        (if *my-game-random*
-            (progn
-              (setq *my-game-random* (1+ *my-game-random*))
-              (let ((height (length *my-game-board*))
-                    (width (length (nth 0 *my-game-board*))))
-                (random-game height width *my-game-rule-dict* *my-game-random*)))
-          (init-level))
-        (if (< *my-game-level* (length *my-game-levels*))
-            (init-level)
-          (message "You have completed all levels.")))))
+  (when (funcall *my-game-win-condition* *my-game-board*)
+    (progn
+      (message "Congratulations! You have cleared the board.")
+      (setq *my-game-level* (1+ *my-game-level*))
+      (init-level)
+      (if (< *my-game-level* (length *my-game-boards*))
+          (init-level)
+        (message "You have completed all levels.")))))
 
-(defconst *game-keys* 'abcdefghijklmnopqrstuvwxyz1234567890)
+(defconst *game-keys* 'abcdefghijklmnopstuvwxyz1234567890)
+
+
+
 
 (define-derived-mode my-game-mode special-mode "My Game"
   "Major mode for playing my game."
@@ -85,7 +83,11 @@
     (define-key my-game-mode-map (kbd (symbol-name a))
                 (lambda ()
                   (interactive)
-                  (game-action a)))))
+                  (game-action a))))
+  (define-key my-game-mode-map (kbd "r")
+              (lambda ()
+                (interactive)
+                (init-level))))
 
 (defun init-game (board rule-dict)
   "Initialize the game with a 2D list representing BOARD and a list of RULES."
@@ -94,10 +96,6 @@
   (switch-to-buffer "*My Game*")
   (my-game-mode)
   (draw-board))
-
-(defun init-game-expand (abbr-board abbr-rule-dict)
-  (init-game (expand-board abbr-board)
-             (expand-rule-dict abbr-rule-dict)))
 
 (defun draw-board ()
   "Draw the game board in a new buffer."
@@ -122,8 +120,7 @@
                 'col j
                 'game t)))
             (insert "\n")))
-        (when *my-game-random*
-          (insert (format "\nDepth: %s\n" *my-game-random*)))
+        (when *my-game-level* (insert (format "\nLevel %s.\n" *my-game-level*)))
         (insert "\nAvailable transformations:\n")
         (insert-rule-dict *my-game-rule-dict*)
         (goto-char old-point)))))
@@ -162,53 +159,6 @@
                 (eq cell board-cell))))
         (number-sequence 0 (1- pattern-width))))
      (number-sequence 0 (1- pattern-height)))))
-
-(defun reverse-rule (rule)
-  "Reverse the transformation RULE."
-  (let ((from-pattern (car rule))
-        (to-pattern (cdr rule)))
-    (cons to-pattern from-pattern)))
-
-(defun previous-moves (rules board)
-  "Return a list of previous positions of the game board.
-Also return the rule applied to get there."
-  (let ((board-height (length board))
-        (board-width (length (nth 0 board)))
-        results)
-    (dotimes (i board-height)
-      (dotimes (j board-width)
-        (dotimes (k (length rules))
-          (let ((rule (nth k rules)))
-            (let ((reversed-rule (reverse-rule rule)))
-              (if (check-rule reversed-rule i j board)
-                  (push (cons (apply-rule reversed-rule i j board) k) results)))))))
-    results))
-
-(defun random-path (depth rules board-path)
-  "Return a random previous position of the game board."
-  (if (zerop depth)
-      board-path
-    (let* ((path (random-path (1- depth) rules board-path))
-           (moves (previous-moves rules (car path)))
-           (allowed-rules (cl-remove-duplicates (mapcar #'(lambda (move) (cdr move)) moves))))
-      (when (> (length allowed-rules) 0)
-        (let* ((chosen-rule (nth (random (length allowed-rules)) allowed-rules))
-               (moves-with-chosen-rule (cl-remove-if-not #'(lambda (move) (eq (cdr move) chosen-rule)) moves))
-               (move (nth (random (length moves-with-chosen-rule)) moves-with-chosen-rule)))
-          (cons (car move) (cons (cdr move) (cdr path))))))))
-
-(defun random-game (height width rule-dict depth)
-  (setq *my-game-random* depth)
-  (let* ((board (empty-board height width))
-         (path (random-path depth
-                            (rule-list-from-dict rule-dict)
-                            (cons board nil))))
-    ;; (setq *my-game-solution*
-    ;;       (mapconcat
-    ;;        (lambda (i)
-    ;;          (substring *key-string* i (+ i 1)))
-    ;;        (cdr path)))
-    (init-game (car path) rule-dict)))
 
 (defun empty-board (height width)
   "Return the empty game board of given HEIGHT and WIDTH."
@@ -249,16 +199,18 @@ Also return the rule applied to get there."
                              row))
                 *my-game-board*)))
 
-(defvar *my-game-level* 0)
-
-(defvar *my-game-levels* nil)
-
 (defun init-level ()
   "Initialize the current level."
-  (init-game (car (nth *my-game-level* *my-game-levels*))
-             (cdr (nth *my-game-level* *my-game-levels*)))
-  (draw-board)
-  (message "To move, call 'apply-rule' with the rule ID and coordinate of the cell to change."))
+  (init-game (nth *my-game-level* *my-game-boards*)
+             *my-game-rule-dict*))
+
+(defun init-game-series (boards rule-dict win-condition &optional initial-level)
+  (setq *my-game-boards* (copy-tree boards))
+  (setq *my-game-rule-dict* rule-dict)
+  (setq *my-game-win-condition* win-condition)
+  (setq *my-game-level* (or initial-level 0))
+  (init-level))
+
 
 (defun expand-board (abbr-board)
   (mapcar #'symbol-to-char-symbols abbr-board))
@@ -276,12 +228,6 @@ Also return the rule applied to get there."
                   (mapcar #'expand-rule (cdr x))))
           abbr-rule-dict))
 
-(defvar my-board
-  '(---X
-    -A-A
-    --A-))
-
-;; take into account horizontal/vertical space
 (defun insert-rule-dict (rule-dict)
   (dolist (x rule-dict)
     (insert (format "%s:\n" (car x)))
@@ -295,41 +241,6 @@ Also return the rule applied to get there."
                           (nth i (cdr rule)))))
         ))
     (insert "==================\n\n")))
-
-(defvar my-rule-dict
-  '((w .
-       (((-
-          X)
-         . (X
-            -))
-        ((-
-          A
-          X)
-         . (A
-            X
-            -))))
-    (s .
-       (((X
-          -)
-         . (-
-            X))
-        ((X
-          A
-          -)
-         . (-
-            X
-            A))))
-    (a .
-       (((-X)
-         . (X-))
-        ((-AX)
-         . (AX-))))
-    (d .
-       (((X-)
-         . (-X))
-        ((XA-)
-         . (-XA))))))
-
 
 ;; https://stackoverflow.com/questions/42251315/a-safe-way-to-transpose-a-list-of-of-lists-in-lisp
 (defun pop-all (list-of-lists)
@@ -360,6 +271,15 @@ and an indicator if some list has been exhausted."
          (flipped (nreverse array))
          (rotated (transpose flipped)))
     (mapcar #'char-symbols-to-symbol rotated)))
+
+(defun board-contains-w-p (board)
+  (cl-some
+   (lambda (row)
+     (cl-some
+      (lambda (cell)
+        (eq cell 'w))
+      row))
+   board))
 
 (defun play-sokoban (&optional board)
   (interactive)
@@ -396,7 +316,7 @@ and an indicator if some list has been exhausted."
             (s . ,(maprules #'rotate-south my-rules-east))
             (a . ,(maprules #'rotate-west my-rules-east))
             (d . ,my-rules-east))))
-    (init-game-expand board rules-dict)))
+    (init-game (expand-board board) (expand-rule-dict rules-dict) #'board-contains-w-p)))
 
 (defun play-sokoban-2 (&optional board)
   (interactive)
@@ -456,16 +376,58 @@ and an indicator if some list has been exhausted."
             (k . ,(maprules #'rotate-south p2-east))
             (j . ,(maprules #'rotate-west p2-east))
             (l . ,p2-east))))
-    (init-game-expand board rules-dict)))
+    (init-game (expand-board board) (expand-rule-dict rules-dict))))
 
-(defun play-sokoban-with-dart (&optional board)
+(defun play-sokoban-with-dart ()
   (interactive)
-  (unless board
-    (setq board
-          '(ga-\\
-            --/-
-            >---)))
-  (let* ((p1-east
+  (let* ((initial-level 10)
+         (boards
+          '((-----
+             >a--o
+             -----)
+            (-----
+             >-xao
+             -----)
+            (/---\\
+             -----
+             o----
+             >a--/)
+            (oa-\\
+             --/-
+             >---)
+            (a--o
+             \\-/-
+             ---<)
+            (o--x-
+             x-\\-x
+             >-a/-)
+            (x-o---
+             x-x\\x-
+             >-a/--
+             x-----)
+            (x----
+             -x-x-
+             ox\\-x
+             >-a/-)
+            (-x----
+             oxx\\/-
+             -x-a--
+             ------
+             >-x---
+             x---xx)
+            (-xx---
+             oxx\\/-
+             -x-a--
+             ------
+             >-x---
+             ----xx)
+            (a-----o
+             -/---\\-
+             --SUP--
+             >\\---x-
+             -------)
+            ))
+         (p1-east
           '(((a-)
              . (-a))
             ((A-)
@@ -541,23 +503,56 @@ and an indicator if some list has been exhausted."
                     -/)
                    . (\?-
                       </))
+
+                  ((>\\
+                    -/)
+                   . (-\\
+                      </))
+                  ((-\\
+                    >/)
+                   . (<\\
+                      -/))
+                  ((/-
+                    \\<)
+                   . (/>
+                      \\-))
+                  ((/<
+                    \\-)
+                   . (/-
+                      \\>))
+                  ((v-
+                    \\/)
+                   . (-^
+                      \\/))
+                  ((-v
+                    \\/)
+                   . (^-
+                      \\/))
+                  ((/\\
+                    ^-)
+                   . (/\\
+                      -^))
+                  ((/\\
+                    -^)
+                   . (/\\
+                      ^-))
                   
                   
-                  ((>g)
+                  ((>o)
                    . (-w))
-                  ((g<)
+                  ((o<)
                    . (w-))
-                  ((g
+                  ((o
                     ^)
                    . (w
                       -))
                   ((v
-                    g)
+                    o)
                    . (-
                       w))
                   ))
             )))
-    (init-game-expand board rules-dict)))
+    (init-game-series (mapcar #'expand-board boards) (expand-rule-dict rules-dict) #'board-contains-w-p initial-level)))
 
 (defun play-fifteen (&optional board)
   (interactive)
@@ -579,7 +574,7 @@ and an indicator if some list has been exhausted."
             (s . ,(maprules #'rotate-south rules-east))
             (a . ,(maprules #'rotate-west rules-east))
             (d . ,rules-east))))
-    (init-game-expand board rules-dict)))
+    (init-game (expand-board board) (expand-rule-dict rules-dict))))
 
 
 (defun maprules (f rules)
