@@ -40,33 +40,36 @@
 (defun game-action (a)
   "Apply the I-th rule to the game board."
   (interactive)
-  (when (get-text-property (point) 'game)
-    (let ((row (get-text-property (point) 'row))
-          (col (get-text-property (point) 'col)))
-      (if-let ((rule
-                (cl-some
-                 #'(lambda (rule)
-                     (when (check-rule rule row col *my-game-board*)
-                       rule))
-                 (cdr (assoc a *my-game-rule-dict*)))))
-          (setq *my-game-board*
-                (apply-rule rule row col *my-game-board*))
-        (message "No rule found.")))
-    (draw-board)
-    (if (check-board-cleared)
-        (progn
-          (message "Congratulations! You have cleared the board.")
-          (setq *my-game-level* (1+ *my-game-level*))
-          (if *my-game-random*
-              (progn
-                (setq *my-game-random* (1+ *my-game-random*))
-                (let ((height (length *my-game-board*))
-                      (width (length (nth 0 *my-game-board*))))
-                  (random-game height width *my-game-rule-dict* *my-game-random*)))
-            (init-level))
-          (if (< *my-game-level* (length *my-game-levels*))
-              (init-level)
-            (message "You have completed all levels."))))))
+  (let ((height (length *my-game-board*))
+        (width (length (nth 0 *my-game-board*)))
+        (rules (cdr (assoc a *my-game-rule-dict*))))
+    (unless (cl-some (lambda (i)
+                       (cl-some
+                        (lambda (j)
+                          (cl-some
+                           (lambda (rule)
+                             (when (check-rule rule i j *my-game-board*)
+                               (setq *my-game-board*
+                                     (apply-rule rule i j *my-game-board*))))
+                           rules))
+                        (number-sequence 0 (1- width))))
+                     (number-sequence 0 (1- height)))
+      (message "Cannot apply that rule.")))
+  (draw-board)
+  (if (check-board-cleared)
+      (progn
+        (message "Congratulations! You have cleared the board.")
+        (setq *my-game-level* (1+ *my-game-level*))
+        (if *my-game-random*
+            (progn
+              (setq *my-game-random* (1+ *my-game-random*))
+              (let ((height (length *my-game-board*))
+                    (width (length (nth 0 *my-game-board*))))
+                (random-game height width *my-game-rule-dict* *my-game-random*)))
+          (init-level))
+        (if (< *my-game-level* (length *my-game-levels*))
+            (init-level)
+          (message "You have completed all levels.")))))
 
 (defconst *game-keys* 'abcdefghijklmnopqrstuvwxyz1234567890)
 
