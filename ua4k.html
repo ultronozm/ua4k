@@ -12,21 +12,15 @@
   </head>
   <body>
     <h1>ULTRONO ARENA 4000</h1>
-    <p>wsad: move.
-
-      z: piu piu.
-
-      u: undo.
-
-      r: restart level.
-    </p>
     <div id="level"></div>
     <div id="display"></div>
-
+    <p>u: undo. r: restart level.</p>
+    <div id="docs"></div>
     <script src="data.js"></script>
     <script>
       let boards = jsonData.boards;
       let rules_dict = jsonData.rules_dict;
+      let docs = jsonData.docs;
       var level = 0;
       var board = 0;
       var gameHeight = 0;
@@ -38,6 +32,21 @@
       }
 
       updateLevelDisplay();
+
+      // docs should consist of lines like "w : move_north"
+      // one line for each entry in the dict "docs"
+      function updateDocsDisplay() {
+          let docsElem = document.getElementById('docs');
+          docsElem.innerHTML = '';
+          for (let key in docs) {
+              let textNode = document.createTextNode(key + " : " + docs[key]);
+              docsElem.appendChild(textNode);
+              let brNode = document.createElement("br");
+              docsElem.appendChild(brNode);
+          }
+      }
+
+      updateDocsDisplay();
 
       function drawBoard() {
           let displayElem = document.getElementById('display');

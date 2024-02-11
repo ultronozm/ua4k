@@ -69,7 +69,7 @@ x---eeo
 _______
 HP:...-
 
-BIND w
+BIND w north
 
 - *
 * -
@@ -97,7 +97,7 @@ b *
 e * hurt
 * -
 
-BIND s
+BIND s south
 
 * -
 - *
@@ -125,7 +125,7 @@ x -
 * - hurt
 e *
 
-BIND a
+BIND a west
 
 -* *-
 
@@ -141,7 +141,7 @@ xb* -*-
 
 e* *- hurt
 
-BIND d
+BIND d east
 
 *- -*
 
@@ -157,7 +157,7 @@ BIND d
 
 *e -* hurt
 
-BIND z
+BIND z piupiu
 
 >- ->
 
