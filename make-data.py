@@ -10,6 +10,7 @@ rules = {}
 temp_board = []
 temp_rule_from = []
 temp_rule_to = []
+side_effect = None
 current_rule = None
 
 for line in lines:
@@ -18,9 +19,10 @@ for line in lines:
             boards.append(temp_board)
             temp_board = []
         if len(temp_rule_from) > 0:
-            rules[current_rule].append([temp_rule_from, temp_rule_to])
+            rules[current_rule].append([temp_rule_from, temp_rule_to, side_effect])
             temp_rule_from = []
             temp_rule_to = []
+            side_effect = None
         continue
     if line.strip().startswith("BIND"):
         current_rule = line.strip().split()[1]
@@ -28,8 +30,11 @@ for line in lines:
             rules[current_rule] = []
         continue
     if current_rule in rules.keys():
-        temp_rule_from.append(line.strip().split()[0])
-        temp_rule_to.append(line.strip().split()[1])
+        split_line = line.strip().split()
+        temp_rule_from.append(split_line[0])
+        temp_rule_to.append(split_line[1])
+        if len(split_line) > 2:
+            side_effect = split_line[2]
     else:
         temp_board.append(line.strip())
 

@@ -104,9 +104,9 @@
           // console.log("Board before applying rule: " + board);
           let fromPattern = rule[0];
           let toPattern = rule[1];
+          let sideEffect = rule[2];
           let patternHeight = toPattern.length;
           let patternWidth = toPattern[0].length;
-          board_history.push(JSON.parse(JSON.stringify(board)));
           if (row >= 0 && col >= 0 && row + patternHeight <= board.length && col + patternWidth <= board[0].length) {
               for (let i = 0; i < patternHeight; i++) {
                   for (let j = 0; j < patternWidth; j++) {
@@ -119,29 +119,36 @@
                       }
                   }
               }
+              if (sideEffect) {
+                  gameAction(sideEffect);
+              }
           } else {
               console.log("This should never happen.")
           }
           // console.log("Board after applying rule: " + board);
       }
 
-      function gameAction(a) {
+      function gameAction(a, userInput = false) {
           let height = board.length;
           let width = board[0].length;
           let rules = rules_dict[a];
           let ruleApplied = false;
-          for (let i = 0; i < height && !ruleApplied; i++) {
-              for (let j = 0; j < width && !ruleApplied; j++) {
-                  for (let k = 0; k < rules.length && !ruleApplied; k++) {
-                      if (checkRule(rules[k], i, j)) {
-                          applyRule(rules[k], i, j);
-                          ruleApplied = true;
+          var board_copy = JSON.parse(JSON.stringify(board));
+          if (rules) {
+              for (let i = 0; i < height && !ruleApplied; i++) {
+                  for (let j = 0; j < width && !ruleApplied; j++) {
+                      for (let k = 0; k < rules.length && !ruleApplied; k++) {
+                          if (checkRule(rules[k], i, j)) {
+                              applyRule(rules[k], i, j);
+                              ruleApplied = true;
+                          }
                       }
                   }
               }
           }
           // console.log("ruleApplied: " + ruleApplied);
           drawBoard();
+          board_history.push(board_copy);
           // let's hardcode the win condition to be: "w" occurs somewhere in the board
           if (ruleApplied) {
               if (board.some(row => row.includes("w"))) {
@@ -160,6 +167,7 @@
                   }
               }
           }
+          return ruleApplied;
       }
 
       document.addEventListener('keypress', function(event) {
@@ -185,7 +193,7 @@
           }
           else if ((charCode >= 97 && charCode <= 122) || (charCode >= 48 && charCode <= 57)) {
               var action = String.fromCharCode(charCode);
-              gameAction(action);
+              gameAction(action, true);
           }
 
       });
