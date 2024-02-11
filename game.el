@@ -281,17 +281,17 @@ and an indicator if some list has been exhausted."
       row))
    board))
 
-(defun play-sokoban (&optional board)
-  (interactive)
-  (unless board
-    (setq board
-          '(XX---X
-            O*a--X
-            XX-aOX
-            OXXa-X
-            -X-O-X
-            a-AaaO
-            ---O--)))
+
+(defun sokoban-board ()
+  '(XX---X
+    O*a--X
+    XX-aOX
+    OXXa-X
+    -X-O-X
+    a-AaaO
+    ---O--))
+
+(defun sokoban-rules-dict ()
   (let* ((rules-east
           '(((*-)
              . (-*))
@@ -310,13 +310,17 @@ and an indicator if some list has been exhausted."
             ((!aO)
              . (O*A))
             )
-          )
-         (rules-dict
-          `((w . ,(maprules #'rotate-north my-rules-east))
-            (s . ,(maprules #'rotate-south my-rules-east))
-            (a . ,(maprules #'rotate-west my-rules-east))
-            (d . ,my-rules-east))))
-    (init-game (expand-board board) (expand-rule-dict rules-dict) #'board-contains-w-p)))
+          ))
+    `((w . ,(maprules #'rotate-north rules-east))
+      (s . ,(maprules #'rotate-south rules-east))
+      (a . ,(maprules #'rotate-west rules-east))
+      (d . ,rules-east))))
+
+(defun play-sokoban (&optional board)
+  (interactive)
+  (unless board
+    (setq board (sokoban-board)))
+  (init-game (expand-board board) (expand-rule-dict (sokoban-rules-dict)) #'board-contains-w-p))
 
 (defun play-sokoban-2 (&optional board)
   (interactive)

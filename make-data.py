@@ -1,6 +1,8 @@
 import json
+import sys
 
-file = open("game.txt", "r")
+filename = sys.argv[1]
+file = open(filename, "r")
 lines = file.readlines()
 file.close()
 
@@ -55,7 +57,19 @@ if len(temp_rule_from) > 0:
         
 result = {'boards': boards, 'rules_dict': rules, 'docs': docs}
 
-with open('data.js', 'w') as json_file:
-    json_file.write("let jsonData = ")
-    json.dump(result, json_file)
+try:
+    with open('gamesData.js', 'r') as json_file:
+        data = json_file.read()[(len("let gamesData = ")):].strip()
+        data = data[:-1]
+        data = json.loads(data)
+except:
+    data = {}
+    print("data read failed")
+
+data[filename.split('.')[0]] = result
+
+with open('gamesData.js', 'w') as json_file:
+    json_file.write("let gamesData = ")
+    # json.dump(data, json_file, indent=4)
+    json.dump(data, json_file)
     json_file.write(";")
