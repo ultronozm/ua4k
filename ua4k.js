@@ -165,6 +165,8 @@ function applyRule(rule, row, col) {
                 }
             }
         }
+        var tempBoard = JSON.parse(JSON.stringify(board));
+        console.log("Temp board: " + tempBoard);
         for (let i = 0; i < patternHeight; i++) {
             for (let j = 0; j < patternWidth; j++) {
                 let cell = toPattern[i][j];
@@ -178,13 +180,24 @@ function applyRule(rule, row, col) {
                 console.log("Setting cell " + (row + i) + ", " + (col + j) + " to " + cell);
             }
         }
-        if (sideEffect) {
-            gameAction(sideEffect);
+        console.log("Board after applying rule: " + board);
+        if (sideEffect && sideEffect.length > 0) {
+            if (sideEffect[sideEffect.length - 1] == '!') {
+                sideEffect = sideEffect.slice(0, -1);
+                if (!gameAction(sideEffect)) {
+                    board = JSON.parse(JSON.stringify(tempBoard));
+                    console.log("Board after reverting: " + board);
+                    return false;
+                }
+            } else {
+                gameAction(sideEffect);
+            }
         }
     } else {
         console.log("This should never happen.")
     }
     console.log("Board after applying rule: " + board);
+    return true;
 }
 
 function patternOccurs(pattern) {
@@ -227,8 +240,7 @@ function gameAction(a, userInput = false) {
             for (let i = 0; i < height && !ruleApplied; i++) {
                 for (let j = 0; j < width && !ruleApplied; j++) {
                     if (patternMatch(rules[k][0], i, j)) {
-                        applyRule(rules[k], i, j);
-                        ruleApplied = true;
+                        ruleApplied = applyRule(rules[k], i, j);
                     }
                 }
             }

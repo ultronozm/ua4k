@@ -1,18 +1,6 @@
 VOID
 o
 
------------
->---x-----o
-----p------
------------
------------
-SPECIALIZED
--*---------
------------
---x--q-----
------------
------------
-
 -----
 >*--o
 -----
@@ -116,6 +104,29 @@ eeeeee
 ______
 HP:...
 
+-----|---v-
+*-p--|---x-
+---x-|-q---
+-----|---o-
+
+---------xx
+>---x----xo
+---xpx---xx
+----x------
+-----------
+SPECIALIZED
+-*---------
+-----------
+--x--q--b--
+-----------
+-b---------
+
+/--*-o
+-q--EZ
+x---b-
+b-x-/-
+--\-p-
+>-xx--
 
 BIND w north
 
@@ -155,10 +166,18 @@ q x
 x *
 * -
 
-p p tele_q_north
+p p tele_q_north!
 * -
 
-q q tele_p_north
+q q tele_p_north!
+* -
+
+p p tele_bomb_q_north!
+b *
+* -
+
+q q tele_bomb_p_north!
+b *
 * -
 
 BIND s south
@@ -199,10 +218,18 @@ x *
 q x
 - q
 
-* - tele_q_south
+* - tele_q_south!
 p p
 
-* - tele_p_south
+* - tele_p_south!
+q q
+
+* - tele_bomb_q_south!
+b *
+p p
+
+* - tele_bomb_p_south!
+b *
 q q
 
 BIND a west
@@ -225,9 +252,13 @@ e* *- hurt
 
 -qx* qx*-
 
-p* p- tele_q_west
+p* p- tele_q_west!
 
-q* q- tele_p_west
+q* q- tele_p_west!
+
+pb* p*- tele_bomb_q_west!
+
+qb* q*- tele_bomb_p_west!
 
 BIND d east
 
@@ -249,65 +280,161 @@ BIND d east
 
 *xq- -*xq
 
-*p -p tele_q_east
+*p -p tele_q_east!
 
-*q -q tele_p_east
+*q -q tele_p_east!
+
+*bp -*p tele_bomb_q_east!
+
+*bq -*q tele_bomb_p_east!
 
 BIND tele_q_north
 
 - *
 q q
 
-p p
-- *
+BIND tele_dart_q_north
+
+- ^
+q q
+
+o w
+q q
+
+BIND tele_bomb_q_north
+
+- b
+q q
+
+x -
+q q
 
 BIND tele_p_north
 
 - *
 p p
 
-q q
-- *
+BIND tele_bomb_p_north
+
+- b
+p p
+
+x -
+p p
+
+BIND tele_dart_p_north
+
+- ^
+p p
+
+o w
+p p
 
 BIND tele_q_south
 
 q q
 - *
 
-- *
-p p
+BIND tele_bomb_q_south
+
+q q
+- b
+
+q q
+x -
+
+BIND tele_dart_q_south
+
+q q
+- v
+
+q q
+o w
 
 BIND tele_p_south
 
 p p
 - *
 
-- *
-q q
+BIND tele_bomb_p_south
+
+p p
+- b
+
+p p
+x -
+
+BIND tele_dart_p_south
+
+p p
+- v
+
+p p
+o w
 
 BIND tele_q_west
 
 -q *q
 
-p- p*
+BIND tele_bomb_q_west
+
+-q bq
+
+xq -q
+
+BIND tele_dart_q_west
+
+-q <q
+
+oq wq
 
 BIND tele_p_west
 
 -p *p
 
-q- q*
+BIND tele_bomb_p_west
+
+-p bp
+
+xp -p
+
+BIND tele_dart_p_west
+
+-p <p
+
+op wp
 
 BIND tele_q_east
 
 q- q*
 
--p *p
+BIND tele_bomb_q_east
+
+q- qb
+
+qx q-
+
+BIND tele_dart_q_east
+
+q- q>
+
+qo qw
 
 BIND tele_p_east
 
 p- p*
 
--q *q
+BIND tele_bomb_p_east
+
+p- pb
+
+px p-
+
+BIND tele_dart_p_east
+
+p- p>
+
+po pw
 
 BIND z piupiu
 
@@ -315,9 +442,17 @@ BIND z piupiu
 
 >e ->
 
+>p -p tele_dart_q_east!
+
+>q -q tele_dart_p_east!
+
 -< <-
 
 e< <-
+
+p< p- tele_dart_q_west!
+
+q< q- tele_dart_p_west!
 
 v -
 - v
@@ -325,10 +460,22 @@ v -
 v -
 e v
 
+v - tele_dart_p_south!
+p p
+
+v - tele_dart_q_south!
+q q
+
 - ^
 ^ -
 
 e ^
+^ -
+
+p p tele_dart_q_north!
+^ -
+
+q q tele_dart_p_north!
 ^ -
 
 ?- ?^
@@ -387,11 +534,23 @@ v- -^
 ?e ?^
 >/ -/
 
+?p ?p tele_dart_q_north!
+>/ -/
+
+?q ?q tele_dart_p_north!
+>/ -/
+
 >\ -\
 ?o ?w
 
 >\ -\
 ?e ?v
+
+>\ -\ tele_dart_q_south!
+?p ?p
+
+>\ -\ tele_dart_p_south!
+?q ?q
 
 o< w-
 
@@ -401,10 +560,22 @@ o? w?
 /< /-
 e? v?
 
+/< /- tele_dart_q_south!
+p? p?
+
+/< /- tele_dart_p_south!
+q? q?
+
 o? w?
 \< \-
 
 e? ^?
+\< \-
+
+p? p? tele_dart_q_north!
+\< \-
+
+q? q? tele_dart_p_north!
 \< \-
 
 o w
@@ -416,10 +587,22 @@ o w
 /e />
 ^? -?
 
+/p /p tele_dart_q_east!
+^? -?
+
+/q /q tele_dart_p_east!
+^? -?
+
 o\ w\
 ?^ ?-
 
 e\ <\
+?^ ?-
+
+p\ p\ tele_dart_q_west!
+?^ ?-
+
+q\ q\ tele_dart_p_west!
 ?^ ?-
 
 v -
@@ -431,11 +614,23 @@ v? -?
 v? -?
 \e \>
 
+v? -? tele_dart_q_east!
+\p \p
+
+v? -? tele_dart_p_east!
+\q \q
+
 ?v ?-
 o/ w/
 
 ?v ?-
 e/ </
+
+?v ?- tele_dart_q_west!
+p/ p/
+
+?v ?- tele_dart_p_west!
+q/ q/
 
 BIND hurt
 
