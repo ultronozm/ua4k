@@ -617,6 +617,23 @@ and an indicator if some list has been exhausted."
       (insert (format "let rules_dict = %s;\n" rules-json))
       (write-file "output.txt"))))
 
+(defun export-game-series-plain-text (boards rule-dict)
+  "Export boards and rules."
+  (with-temp-buffer
+    (insert "boards:\n\n")
+    (dolist (board boards)
+      (dolist (row board)
+        (insert (format "%s\n" row)))
+      (insert "\n"))
+    (insert "rules:\n\n")
+    (dolist (item rule-dict)
+      (insert (format "%s:\n\n" (car item)))
+      (dolist (rule (cdr item))
+        (dotimes (i (length (car rule)))
+          (insert (format "%s %s\n" (nth i (car rule)) (nth i (cdr rule)))))
+        (insert "\n")))
+    (write-file "plain.txt")))
+
 (defun play-fifteen (&optional board)
   (interactive)
   (unless board
