@@ -538,16 +538,48 @@ and an indicator if some list has been exhausted."
             
             ((>o)
              . (-w))
+            ((\?o
+              >/)
+             . (\?w
+                -/))
+            ((>\\
+              \?o)
+             . (-\\
+                \?w))
             ((o<)
              . (w-))
+            ((/<
+              o?)
+             . (/-
+                w?))
+            ((o?
+              \\<)
+             . (w?
+                \\-))
             ((o
               ^)
              . (w
                 -))
+            ((/o
+              ^?)
+             . (/w
+                -?))
+            ((o\\
+              \?^)
+             . (w\\
+                \?-))
             ((v
               o)
              . (-
                 w))
+            ((v?
+              \\o)
+             . (-?
+                \\w))
+            ((\?v
+              o/)
+             . (\?-
+                w/))
             ))
       )
     )
@@ -581,8 +613,8 @@ and an indicator if some list has been exhausted."
                                (cdr item))))
                       rule-dict))))
     (with-temp-buffer
-      (insert (format "boards = %s\n" boards-json))
-      (insert (format "rules = %s\n" rules-json))
+      (insert (format "let boards = %s;\n" boards-json))
+      (insert (format "let rules_dict = %s;\n" rules-json))
       (write-file "output.txt"))))
 
 (defun play-fifteen (&optional board)
