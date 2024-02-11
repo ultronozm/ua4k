@@ -4,9 +4,9 @@
     <title>ULTRONO ARENA 4000</title>
     <style>
       #display{
-      font-family: 'Courier New', monospace;
-      font-size: 50px;
-      letter-spacing: 5px;
+          font-family: 'Courier New', monospace;
+          font-size: 50px;
+          letter-spacing: 5px;
       }
     </style>
   </head>
@@ -31,7 +31,7 @@
       var board = 0;
       var gameHeight = 0;
       var gameWidth = 0;
-      var previous_board = null;
+      var board_history = [];
 
       function updateLevelDisplay() {
           document.getElementById('level').textContent = "Level: " + level;
@@ -62,7 +62,7 @@
 
       function initLevel() {
           board = JSON.parse(JSON.stringify(boards[level]));
-          previous_board = null;
+          board_history = [];
       }
 
       initLevel();
@@ -106,7 +106,7 @@
           let toPattern = rule[1];
           let patternHeight = toPattern.length;
           let patternWidth = toPattern[0].length;
-          previous_board = JSON.parse(JSON.stringify(board));
+          board_history.push(JSON.parse(JSON.stringify(board)));
           if (row >= 0 && col >= 0 && row + patternHeight <= board.length && col + patternWidth <= board[0].length) {
               for (let i = 0; i < patternHeight; i++) {
                   for (let j = 0; j < patternWidth; j++) {
@@ -153,6 +153,10 @@
                   }
                   else {
                       document.getElementById('display').innerHTML = "You have completed all the levels.  Wow!";
+                      // display kitten.jpg:
+                      let img = document.createElement('img');
+                      img.src = 'kitten.jpg';
+                      document.getElementById('display').appendChild(img);
                   }
               }
           }
@@ -165,7 +169,9 @@
               drawBoard();
           }
           if (charCode == 'u'.charCodeAt(0)) {
-              board = JSON.parse(JSON.stringify(previous_board));
+              if (board_history.length > 0) {
+                  board = board_history.pop();
+              }
               drawBoard();
           }
           else if (charCode == 'l'.charCodeAt(0)) {
