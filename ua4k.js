@@ -121,14 +121,14 @@ function patternMatchHelper(fromPattern, subgrid) {
             if (cell >= '0' && cell <= '9') {
                 if (digitMap[cell]) {
                     if (digitMap[cell] != subgridCell) {
-                        //console.log("Pattern match failed at " + i + ", " + j + " with " + cell + " and " + subgridCell + " due to digitMap");                        
+                        console.log("Pattern match failed at " + i + ", " + j + " with " + cell + " and " + subgridCell + " due to digitMap");                        
                         return false;
                     }
                 } else {
                     digitMap[cell] = subgridCell;
                 }
             } else if (cell != subgridCell) {
-                //console.log("Pattern match failed at " + i + ", " + j + " with " + cell + " and " + subgridCell + " due to cell");
+                console.log("Pattern match failed at " + i + ", " + j + " with " + cell + " and " + subgridCell + " due to cell");
                 return false;
             }
         }
@@ -147,8 +147,8 @@ function patternMatch(fromPattern, row, col) {
 }
 
 function applyRule(rule, row, col) {
-    //console.log("Applying rule " + rule + " at " + row + ", " + col);
-    //console.log("Board before applying rule: " + board);
+    console.log("Applying rule " + rule + " at " + row + ", " + col);
+    console.log("Board before applying rule: " + board);
     let fromPattern = rule[0];
     let toPattern = rule[1];
     let sideEffect = rule[2];
@@ -175,16 +175,16 @@ function applyRule(rule, row, col) {
                 let tempRow = board[row + i].split('');
                 tempRow[col + j] = cell;
                 board[row + i] = tempRow.join('');
-                //console.log("Setting cell " + (row + i) + ", " + (col + j) + " to " + cell);
+                console.log("Setting cell " + (row + i) + ", " + (col + j) + " to " + cell);
             }
         }
         if (sideEffect) {
             gameAction(sideEffect);
         }
     } else {
-        //console.log("This should never happen.")
+        console.log("This should never happen.")
     }
-    //console.log("Board after applying rule: " + board);
+    console.log("Board after applying rule: " + board);
 }
 
 function patternOccurs(pattern) {
@@ -223,9 +223,9 @@ function gameAction(a, userInput = false) {
     let ruleApplied = false;
     var board_copy = JSON.parse(JSON.stringify(board));
     if (rules) {
-        for (let i = 0; i < height && !ruleApplied; i++) {
-            for (let j = 0; j < width && !ruleApplied; j++) {
-                for (let k = 0; k < rules.length && !ruleApplied; k++) {
+        for (let k = 0; k < rules.length && !ruleApplied; k++) {
+            for (let i = 0; i < height && !ruleApplied; i++) {
+                for (let j = 0; j < width && !ruleApplied; j++) {
                     if (patternMatch(rules[k][0], i, j)) {
                         applyRule(rules[k], i, j);
                         ruleApplied = true;
@@ -234,7 +234,7 @@ function gameAction(a, userInput = false) {
             }
         }
     }
-    // console.log("ruleApplied: " + ruleApplied);
+    //console.log("ruleApplied: " + ruleApplied);
     drawBoard();
     board_history.push(board_copy);
     if (ruleApplied) {

@@ -1,6 +1,18 @@
 VOID
 o
 
+-----------
+>---x-----o
+----p------
+-----------
+-----------
+SPECIALIZED
+-*---------
+-----------
+--x--q-----
+-----------
+-----------
+
 -----
 >*--o
 -----
@@ -133,6 +145,22 @@ b *
 e * hurt
 * -
 
+- p
+p x
+x *
+* -
+
+- q
+q x
+x *
+* -
+
+p p tele_q_north
+* -
+
+q q tele_p_north
+* -
+
 BIND s south
 
 * -
@@ -161,6 +189,22 @@ x -
 * - hurt
 e *
 
+* -
+x *
+p x
+- p
+
+* -
+x *
+q x
+- q
+
+* - tele_q_south
+p p
+
+* - tele_p_south
+q q
+
 BIND a west
 
 -* *-
@@ -177,6 +221,14 @@ xb* -*-
 
 e* *- hurt
 
+-px* px*-
+
+-qx* qx*-
+
+p* p- tele_q_west
+
+q* q- tele_p_west
+
 BIND d east
 
 *- -*
@@ -192,6 +244,70 @@ BIND d east
 *bx -*-
 
 *e -* hurt
+
+*xp- -*xp
+
+*xq- -*xq
+
+*p -p tele_q_east
+
+*q -q tele_p_east
+
+BIND tele_q_north
+
+- *
+q q
+
+p p
+- *
+
+BIND tele_p_north
+
+- *
+p p
+
+q q
+- *
+
+BIND tele_q_south
+
+q q
+- *
+
+- *
+p p
+
+BIND tele_p_south
+
+p p
+- *
+
+- *
+q q
+
+BIND tele_q_west
+
+-q *q
+
+p- p*
+
+BIND tele_p_west
+
+-p *p
+
+q- q*
+
+BIND tele_q_east
+
+q- q*
+
+-p *p
+
+BIND tele_p_east
+
+p- p*
+
+-q *q
 
 BIND z piupiu
 
