@@ -50,6 +50,22 @@ function updateDocsDisplay() {
         let brNode = document.createElement("br");
         docsElem.appendChild(brNode);
     }
+    let goalsElem = document.getElementById('goals');
+    goalsElem.innerHTML = '';
+    for (let goal of goals) {
+        let textNode = document.createTextNode("Goal:" + goal);
+        goalsElem.appendChild(textNode);
+        let brNode = document.createElement("br");
+        goalsElem.appendChild(brNode);
+    }
+    let voidsElem = document.getElementById('voids');
+    voidsElem.innerHTML = '';
+    for (let voidPattern of voids) {
+        let textNode = document.createTextNode("Void:" + voidPattern);
+        voidsElem.appendChild(textNode);
+        let brNode = document.createElement("br");
+        voidsElem.appendChild(brNode);
+    }
 }
 
 function drawBoard() {
@@ -94,11 +110,25 @@ function getSubgrid(row, col, height, width) {
 // how boards and rules are stored (strings vs. arrays of single
 // character strings).
 function patternMatchHelper(fromPattern, subgrid) {
+    // digits serve as wildcards but need to match consistently
+    var digitMap = {};
     for (let i = 0; i < fromPattern.length; i++) {
         for (let j = 0; j < fromPattern[0].length; j++) {
             let cell = fromPattern[i][j];
             let subgridCell = subgrid[i][j];
-            if (cell != '?' && cell != subgridCell) {
+            if (cell == '?')
+                continue;
+            if (cell >= '0' && cell <= '9') {
+                if (digitMap[cell]) {
+                    if (digitMap[cell] != subgridCell) {
+                        //console.log("Pattern match failed at " + i + ", " + j + " with " + cell + " and " + subgridCell + " due to digitMap");                        
+                        return false;
+                    }
+                } else {
+                    digitMap[cell] = subgridCell;
+                }
+            } else if (cell != subgridCell) {
+                //console.log("Pattern match failed at " + i + ", " + j + " with " + cell + " and " + subgridCell + " due to cell");
                 return false;
             }
         }
@@ -117,32 +147,44 @@ function patternMatch(fromPattern, row, col) {
 }
 
 function applyRule(rule, row, col) {
-    // console.log("Applying rule " + rule + " at " + row + ", " + col);
-    // console.log("Board before applying rule: " + board);
+    //console.log("Applying rule " + rule + " at " + row + ", " + col);
+    //console.log("Board before applying rule: " + board);
     let fromPattern = rule[0];
     let toPattern = rule[1];
     let sideEffect = rule[2];
     let patternHeight = toPattern.length;
     let patternWidth = toPattern[0].length;
     if (row >= 0 && col >= 0 && row + patternHeight <= board.length && col + patternWidth <= board[0].length) {
+        var subgrid = getSubgrid(row, col, patternHeight, patternWidth);
+        var digitMap = {};
+        for (let i = 0; i < patternHeight; i++) {
+            for (let j = 0; j < patternWidth; j++) {
+                let cell = fromPattern[i][j];
+                if (cell >= '0' && cell <= '9') {
+                    digitMap[cell] = subgrid[i][j];
+                }
+            }
+        }
         for (let i = 0; i < patternHeight; i++) {
             for (let j = 0; j < patternWidth; j++) {
                 let cell = toPattern[i][j];
-                if (cell != '?') {
-                    let tempRow = board[row + i].split('');
-                    tempRow[col + j] = cell;
-                    board[row + i] = tempRow.join('');
-                    // console.log("Setting cell " + (row + i) + ", " + (col + j) + " to " + cell);
-                }
+                if (cell == '?')
+                    continue;
+                if (cell >= '0' && cell <= '9')
+                    cell = digitMap[cell];
+                let tempRow = board[row + i].split('');
+                tempRow[col + j] = cell;
+                board[row + i] = tempRow.join('');
+                //console.log("Setting cell " + (row + i) + ", " + (col + j) + " to " + cell);
             }
         }
         if (sideEffect) {
             gameAction(sideEffect);
         }
     } else {
-        console.log("This should never happen.")
+        //console.log("This should never happen.")
     }
-    // console.log("Board after applying rule: " + board);
+    //console.log("Board after applying rule: " + board);
 }
 
 function patternOccurs(pattern) {
