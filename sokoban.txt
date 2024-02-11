@@ -1,0 +1,109 @@
+VOID
+x
+
+##---#
+O*x--#
+##-xO#
+O##x-#
+-#-O-#
+x-XxxO
+---O--
+
+BIND w north
+
+- *
+* -
+
+- *
+! O
+
+O !
+* -
+
+- x
+x *
+* -
+
+O X
+x *
+* -
+
+- x
+X !
+* -
+
+- x
+x *
+! O
+
+O X
+x *
+! O
+
+BIND s south
+
+* -
+- *
+
+! O
+- *
+
+* -
+O !
+
+* -
+x *
+- x
+
+* -
+x *
+O X
+
+* -
+X !
+- x
+
+! O
+x *
+- x
+
+! O
+x *
+O X
+
+BIND a west
+
+-* *-
+
+-! *O
+
+O* !-
+
+-x* x*-
+
+Ox* X*-
+
+-X* x!-
+
+-x! x*O
+
+Ox! X*O
+
+BIND d east
+
+*- -*
+
+!- O*
+
+*O -!
+
+*x- -*x
+
+*xO -*X
+
+*X- -!x
+
+!x- O*x
+
+!xO O*X
+
