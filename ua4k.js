@@ -78,10 +78,6 @@ function initLevel() {
     board_history = [];
 }
 
-function patternOccurs(pattern) {
-
-}
-
 function getSubgrid(row, col, height, width) {
     let subgrid = [];
     for (let i = 0; i < height; i++) {
@@ -94,7 +90,10 @@ function getSubgrid(row, col, height, width) {
     return subgrid;
 }
 
-function patternMatch(fromPattern, subgrid) {
+// this function is needed because of the awkward difference between
+// how boards and rules are stored (strings vs. arrays of single
+// character strings).
+function patternMatchHelper(fromPattern, subgrid) {
     for (let i = 0; i < fromPattern.length; i++) {
         for (let j = 0; j < fromPattern[0].length; j++) {
             let cell = fromPattern[i][j];
@@ -107,14 +106,12 @@ function patternMatch(fromPattern, subgrid) {
     return true;
 }
 
-function checkRule(rule, row, col) {
-    let fromPattern = rule[0];
-    let toPattern = rule[1];
+function patternMatch(fromPattern, row, col) {
     let patternHeight = fromPattern.length;
     let patternWidth = fromPattern[0].length;
     if (row >= 0 && col >= 0 && row + patternHeight <= board.length && col + patternWidth <= board[0].length) {
         let subgrid = getSubgrid(row, col, patternHeight, patternWidth);
-        return patternMatch(fromPattern, subgrid);
+        return patternMatchHelper(fromPattern, subgrid);
     }
     return false;
 }
@@ -148,9 +145,33 @@ function applyRule(rule, row, col) {
     // console.log("Board after applying rule: " + board);
 }
 
+function patternOccurs(pattern) {
+    let height = board.length;
+    let width = board[0].length;
+    for (let i = 0; i < height; i++) {
+        for (let j = 0; j < width; j++) {
+            if (patternMatch(pattern, i, j)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 function levelComplete() {
-    // check whether all of the "goals" patterns occur, and none of the "voids" patterns occur
-    // TODO
+    let height = board.length;
+    let width = board[0].length;
+    for (let goal of goals) {
+        if (!patternOccurs(goal)) {
+            return false;
+        }
+    }
+    for (let voidPattern of voids) {
+        if (patternOccurs(voidPattern)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 function gameAction(a, userInput = false) {
@@ -163,7 +184,7 @@ function gameAction(a, userInput = false) {
         for (let i = 0; i < height && !ruleApplied; i++) {
             for (let j = 0; j < width && !ruleApplied; j++) {
                 for (let k = 0; k < rules.length && !ruleApplied; k++) {
-                    if (checkRule(rules[k], i, j)) {
+                    if (patternMatch(rules[k][0], i, j)) {
                         applyRule(rules[k], i, j);
                         ruleApplied = true;
                     }
@@ -175,8 +196,7 @@ function gameAction(a, userInput = false) {
     drawBoard();
     board_history.push(board_copy);
     if (ruleApplied) {
-        
-        if (board.some(row => row.includes("w"))) {
+        if (levelComplete()) {
             level++;
             if (level < boards.length) {
                 initLevel();
@@ -185,7 +205,6 @@ function gameAction(a, userInput = false) {
             }
             else {
                 document.getElementById('display').innerHTML = "You have completed all the levels.  Wow!";
-                // display kitten.jpg:
                 let img = document.createElement('img');
                 img.src = 'kitten.jpg';
                 document.getElementById('display').appendChild(img);
