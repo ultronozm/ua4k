@@ -4,7 +4,7 @@ let docs = {};
 let goals = [];
 let voids = [];
 let level = 0;
-let board = 0;
+let board = null;
 let board_history = [];
 
 var gamesDropdown = document.getElementById('games');
@@ -22,7 +22,7 @@ function initGame(data) {
     goals = data.goals;
     voids = data.voids;
     level = 0;
-    board = 0;
+    board = null;
     board_history = [];
     initLevel();
     drawBoard();
@@ -248,8 +248,9 @@ function gameAction(a, userInput = false) {
     }
     //console.log("ruleApplied: " + ruleApplied);
     drawBoard();
-    board_history.push(board_copy);
     if (ruleApplied) {
+        if (userInput)
+            board_history.push(board_copy);
         if (levelComplete()) {
             level++;
             if (level < boards.length) {
@@ -262,6 +263,7 @@ function gameAction(a, userInput = false) {
                 let img = document.createElement('img');
                 img.src = 'kitten.jpg';
                 document.getElementById('display').appendChild(img);
+                board = null;
             }
         }
     }
@@ -270,17 +272,7 @@ function gameAction(a, userInput = false) {
 
 document.addEventListener('keypress', function(event) {
     var charCode = event.charCode;
-    if (charCode == 'r'.charCodeAt(0)) {
-        initLevel();
-        drawBoard();
-    }
-    if (charCode == 'u'.charCodeAt(0)) {
-        if (board_history.length > 0) {
-            board = board_history.pop();
-        }
-        drawBoard();
-    }
-    else if (charCode == 'l'.charCodeAt(0)) {
+    if (charCode == 'l'.charCodeAt(0)) {
         var newLevel = prompt("Enter level number");
         if (newLevel != null && newLevel >= 0 && newLevel < boards.length) {
             level = newLevel;
@@ -288,10 +280,20 @@ document.addEventListener('keypress', function(event) {
             drawBoard();
             updateLevelDisplay();
         }
+    } else if (board) {
+        if (charCode == 'r'.charCodeAt(0)) {
+            initLevel();
+            drawBoard();
+        }
+        if (charCode == 'u'.charCodeAt(0)) {
+            if (board_history.length > 0) {
+                board = board_history.pop();
+            }
+            drawBoard();
+        }
+        else if ((charCode >= 97 && charCode <= 122) || (charCode >= 48 && charCode <= 57)) {
+            var action = String.fromCharCode(charCode);
+            gameAction(action, true);
+        }
     }
-    else if ((charCode >= 97 && charCode <= 122) || (charCode >= 48 && charCode <= 57)) {
-        var action = String.fromCharCode(charCode);
-        gameAction(action, true);
-    }
-
 });
