@@ -23,7 +23,6 @@ function initGame(data) {
     voids = data.voids;
     level = 0;
     board = null;
-    board_history = [];
     initLevel();
     drawBoard();
     updateLevelDisplay();
@@ -39,6 +38,10 @@ gamesDropdown.dispatchEvent(new Event('change'));  // Load the first game when t
 
 function updateLevelDisplay() {
     document.getElementById('level').textContent = "Level: " + level;
+}
+
+function updateMovesDisplay() {
+    document.getElementById('moves').textContent = "Moves: " + board_history.length;
 }
 
 function updateDocsDisplay() {
@@ -92,6 +95,9 @@ function drawBoard() {
 function initLevel() {
     board = JSON.parse(JSON.stringify(boards[level]));
     board_history = [];
+    updateMovesDisplay();
+    let displayElem = document.getElementById('status');
+    displayElem.innerHTML = '';
 }
 
 function getSubgrid(row, col, height, width) {
@@ -118,7 +124,9 @@ function patternMatchHelper(fromPattern, subgrid) {
             let subgridCell = subgrid[i][j];
             if (cell == '?')
                 continue;
-            if (cell >= '0' && cell <= '9') {
+            // we should modify this so that the file somehow specifies which
+            // characters to use as wildcards
+            if (false && cell >= '0' && cell <= '9') {
                 if (digitMap[cell]) {
                     if (digitMap[cell] != subgridCell) {
                         console.log("Pattern match failed at " + i + ", " + j + " with " + cell + " and " + subgridCell + " due to digitMap");                        
@@ -172,7 +180,8 @@ function applyRule(rule, row, col) {
                 let cell = toPattern[i][j];
                 if (cell == '?')
                     continue;
-                if (cell >= '0' && cell <= '9')
+                // again, TODO: modify to accomodate arbitrary wildcards
+                if (false && cell >= '0' && cell <= '9')
                     cell = digitMap[cell];
                 let tempRow = board[row + i].split('');
                 tempRow[col + j] = cell;
@@ -249,28 +258,38 @@ function gameAction(a, userInput = false) {
     //console.log("ruleApplied: " + ruleApplied);
     drawBoard();
     if (ruleApplied) {
-        if (userInput)
+        if (userInput) {
             board_history.push(board_copy);
+            updateMovesDisplay();
+        }
+        
         if (levelComplete()) {
-            level++;
-            if (level < boards.length) {
-                initLevel();
-                drawBoard();
-                updateLevelDisplay();
-            }
-            else {
-                document.getElementById('display').innerHTML = "You have completed all the levels.  Wow!";
-                let img = document.createElement('img');
-                img.src = 'kitten.jpg';
-                document.getElementById('display').appendChild(img);
-                board = null;
-            }
+            let displayElem = document.getElementById('status');
+            displayElem.innerHTML = 'Level complete!  Press any key to advance to the next level.';
         }
     }
     return ruleApplied;
 }
 
+function nextLevel() {
+    level++;
+    if (level < boards.length) {
+        initLevel();
+        drawBoard();
+        updateLevelDisplay();
+    } else {
+        document.getElementById('display').innerHTML = "You have completed all the levels.  Wow!";
+        let img = document.createElement('img');
+        img.src = 'kitten.jpg';
+        document.getElementById('display').appendChild(img);
+        board = null;
+    }
+}
+
 document.addEventListener('keypress', function(event) {
+    if (board && levelComplete()) {
+        nextLevel();
+    }
     var charCode = event.charCode;
     if (charCode == 'l'.charCodeAt(0)) {
         var newLevel = prompt("Enter level number");
@@ -288,6 +307,7 @@ document.addEventListener('keypress', function(event) {
         if (charCode == 'u'.charCodeAt(0)) {
             if (board_history.length > 0) {
                 board = board_history.pop();
+                updateMovesDisplay();
             }
             drawBoard();
         }
