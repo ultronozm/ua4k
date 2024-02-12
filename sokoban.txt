@@ -1,13 +1,13 @@
 VOID
-x
+o
 
 ##---#
-O*x--#
-##-xO#
-O##x-#
--#-O-#
-x-XxxO
----O--
+o*x--#
+##-xo#
+o##x-#
+-#-o-#
+x-Xxxo
+---o--
 
 BIND w north
 
@@ -15,16 +15,16 @@ BIND w north
 * -
 
 - *
-! O
+! o
 
-O !
+o !
 * -
 
 - x
 x *
 * -
 
-O X
+o X
 x *
 * -
 
@@ -34,22 +34,22 @@ X !
 
 - x
 x *
-! O
+! o
 
-O X
+o X
 x *
-! O
+! o
 
 BIND s south
 
 * -
 - *
 
-! O
+! o
 - *
 
 * -
-O !
+o !
 
 * -
 x *
@@ -57,52 +57,52 @@ x *
 
 * -
 x *
-O X
+o X
 
 * -
 X !
 - x
 
-! O
+! o
 x *
 - x
 
-! O
+! o
 x *
-O X
+o X
 
 BIND a west
 
 -* *-
 
--! *O
+-! *o
 
-O* !-
+o* !-
 
 -x* x*-
 
-Ox* X*-
+ox* X*-
 
 -X* x!-
 
--x! x*O
+-x! x*o
 
-Ox! X*O
+ox! X*o
 
 BIND d east
 
 *- -*
 
-!- O*
+!- o*
 
-*O -!
+*o -!
 
 *x- -*x
 
-*xO -*X
+*xo -*X
 
 *X- -!x
 
-!x- O*x
+!x- o*x
 
-!xO O*X
+!xo o*X
