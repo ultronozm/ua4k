@@ -1,6 +1,14 @@
 VOID
 o
 
+TNT----DET
+x----*---d
+xt------xx
+x------xxx
+>-----xxxo
+-b-----xxx
+--------xx
+
 -----
 >*--o
 -----
@@ -62,8 +70,8 @@ x--x--x
 --b-xx
 ------
 
-x---eeo
-----eee
+----eeo
+-x--eee
 >---eee
 -------
 *--/-\-
@@ -104,6 +112,22 @@ eeeeee
 ______
 HP:...
 
+
+-------------
+-/---------\-
+---eeeeeee---
+---eeeeeee---
+---ee-x-ee---
+---eexoxee---
+---ee-x-ee---
+---eeeeeee---
+---eeeeeee---
+-\---------/-
+^-*----------
+_____________
+HP:..--------
+
+
 -----|---v-
 *-p--|---x-
 ---x-|-q---
@@ -128,6 +152,22 @@ b-x-/-
 --\-p-
 >-xx--
 
+
+poeeeeeeeeeeeo
+-----x-x-x--OK
+xx*-x-/-/-x---
+xx---x-x-\-\--
+>---x-x-x-x--q
+______________
+HP:...--------
+
+
+>---x-x-x-
+x-/x-x-x\-
+-p--x-x-q-
+*o-x-x----
+
+
 xxxxxoxxxxx
 -pxx-xxx-kx
 -l--xxq--xx
@@ -137,6 +177,16 @@ xxxxxoxxxxx
 ___________
 KEYS:------
 HP:...-----
+
+////--\\\\
+\\\x--x///
+///----\\\
+\\\x--x///
+///------o
+x\-x-\x///
+x--x---\\\
+x/-^*--///
+
 
 BIND w north
 
@@ -153,6 +203,10 @@ BIND w north
 
 - x
 x *
+* -
+
+- t
+t *
 * -
 
 - b
@@ -173,6 +227,9 @@ k * get_key
 * -
 
 l * use_key!
+* -
+
+d * detonate
 * -
 
 - p
@@ -217,6 +274,10 @@ x *
 - x
 
 * -
+t *
+- t
+
+* -
 b *
 - b
 
@@ -235,6 +296,9 @@ k *
 
 * - use_key!
 l *
+
+* - detonate
+d *
 
 * -
 x *
@@ -270,6 +334,8 @@ BIND a west
 
 -x* x*-
 
+-t* t*-
+
 -b* b*-
 
 xb* -*-
@@ -281,6 +347,8 @@ h* *- heal
 k* *- get_key
 
 l* *- use_key!
+
+d* *- detonate
 
 -px* px*-
 
@@ -304,6 +372,8 @@ BIND d east
 
 *x- -*x
 
+*t- -*t
+
 *b- -*b
 
 *bx -*-
@@ -315,6 +385,8 @@ BIND d east
 *k -* get_key
 
 *l -* use_key!
+
+*d -* detonate
 
 *xp- -*xp
 
@@ -345,6 +417,9 @@ q q
 l * use_key!
 q q
 
+d * detonate
+q q
+
 BIND tele_dart_q_north
 
 - ^
@@ -353,7 +428,7 @@ q q
 e ^
 q q
 
-o w
+o ^
 q q
 
 /- />
@@ -362,7 +437,7 @@ q? q?
 /e />
 q? q?
 
-/o /w
+/o />
 q? q?
 
 -\ <\
@@ -371,7 +446,7 @@ q? q?
 e\ <\
 ?q ?q
 
-o\ w\
+o\ <\
 ?q ?q
 
 
@@ -400,6 +475,9 @@ p p
 l * use_key!
 p p
 
+d * detonate
+p p
+
 BIND tele_bomb_p_north
 
 - b
@@ -416,7 +494,7 @@ p p
 e ^
 p p
 
-o w
+o ^
 p p
 
 /- />
@@ -425,7 +503,7 @@ p? p?
 /e />
 p? p?
 
-/o /w
+/o />
 p? p?
 
 -\ <\
@@ -434,7 +512,7 @@ p? p?
 e\ <\
 ?p ?p
 
-o\ w\
+o\ <\
 ?p ?p
 
 BIND tele_q_south
@@ -454,6 +532,9 @@ k *
 q q use_key!
 l *
 
+q q detonate
+d *
+
 BIND tele_bomb_q_south
 
 q q
@@ -471,7 +552,7 @@ q q
 e v
 
 q q
-o w
+o v
 
 q? q?
 \- \>
@@ -480,7 +561,7 @@ q? q?
 \e \>
 
 q? q?
-\o \w
+\o \>
 
 ?q ?q
 -/ </
@@ -489,7 +570,7 @@ q? q?
 e/ </
 
 ?q ?q
-o/ w/
+o/ </
 
 BIND tele_p_south
 
@@ -508,6 +589,9 @@ k *
 p p use_key!
 l *
 
+p p detonate
+d *
+
 BIND tele_bomb_p_south
 
 p p
@@ -525,7 +609,7 @@ p p
 e v
 
 p p
-o w
+o v
 
 p? p?
 \- \>
@@ -534,7 +618,7 @@ p? p?
 \e \>
 
 p? p?
-\o \w
+\o \>
 
 ?p ?p
 -/ </
@@ -543,7 +627,7 @@ p? p?
 e/ </
 
 ?p ?p
-o/ w/
+o/ </
 
 BIND tele_q_west
 
@@ -557,6 +641,8 @@ kq *q get_key
 
 lq *q use_key!
 
+dq *q detonate
+
 BIND tele_bomb_q_west
 
 -q bq
@@ -569,7 +655,7 @@ BIND tele_dart_q_west
 
 eq <q
 
-oq wq
+oq <q
 
 /q /q
 -? v?
@@ -578,7 +664,7 @@ oq wq
 e? v?
 
 /q /q
-o? w?
+o? v?
 
 -? ^?
 \q \q
@@ -586,7 +672,7 @@ o? w?
 e? ^?
 \q \q
 
-o? w?
+o? ^?
 \q \q
 
 
@@ -602,6 +688,8 @@ kp *p get_key
 
 lp *p use_key!
 
+dp *p detonate
+
 BIND tele_bomb_p_west
 
 -p bp
@@ -614,7 +702,7 @@ BIND tele_dart_p_west
 
 ep <p
 
-op wp
+op <p
 
 /p /p
 -? v?
@@ -623,7 +711,7 @@ op wp
 e? v?
 
 /p /p
-o? w?
+o? v?
 
 -? ^?
 \p \p
@@ -631,7 +719,7 @@ o? w?
 e? ^?
 \p \p
 
-o? w?
+o? ^?
 \p \p
 
 BIND tele_q_east
@@ -646,6 +734,8 @@ q- qk get_key
 
 q- ql use_key!
 
+q- qd detonate
+
 BIND tele_bomb_q_east
 
 q- qb
@@ -658,7 +748,7 @@ q- q>
 
 qe q>
 
-qo qw
+qo q>
 
 q\ q\
 ?- ?v
@@ -667,7 +757,7 @@ q\ q\
 ?e ?v
 
 q\ q\
-?o ?w
+?o ?v
 
 ?- ?^
 q/ q/
@@ -675,7 +765,7 @@ q/ q/
 ?e ?^
 q/ q/
 
-?o ?w
+?o ?^
 q/ q/
 
 BIND tele_p_east
@@ -690,6 +780,8 @@ p- pk get_key
 
 p- pl use_key!
 
+p- pd detonate
+
 BIND tele_bomb_p_east
 
 p- pb
@@ -702,7 +794,7 @@ p- p>
 
 pe p>
 
-po pw
+po p>
 
 p\ p\
 ?- ?v
@@ -711,7 +803,7 @@ p\ p\
 ?e ?v
 
 p\ p\
-?o ?w
+?o ?v
 
 ?- ?^
 p/ p/
@@ -719,7 +811,7 @@ p/ p/
 ?e ?^
 p/ p/
 
-?o ?w
+?o ?^
 p/ p/
 
 BIND z piupiu
@@ -807,14 +899,14 @@ v- -^
 \/ \/
 
 /\ /\
-^- -^
+^- -v
 
 /\ /\
--^ ^-
+-^ v-
 
->o -w
+>o ->
 
-?o ?w
+?o ?^
 >/ -/
 
 ?e ?^
@@ -827,7 +919,7 @@ v- -^
 >/ -/
 
 >\ -\
-?o ?w
+?o ?v
 
 >\ -\
 ?e ?v
@@ -838,10 +930,10 @@ v- -^
 >\ -\ tele_dart_p_south!
 ?q ?q
 
-o< w-
+o< <-
 
 /< /-
-o? w?
+o? v?
 
 /< /-
 e? v?
@@ -852,7 +944,7 @@ p? p?
 /< /- tele_dart_p_south!
 q? q?
 
-o? w?
+o? ^?
 \< \-
 
 e? ^?
@@ -864,10 +956,10 @@ p? p? tele_dart_q_north!
 q? q? tele_dart_p_north!
 \< \-
 
-o w
+o ^
 ^ -
 
-/o /w
+/o />
 ^? -?
 
 /e />
@@ -879,7 +971,7 @@ o w
 /q /q tele_dart_p_east!
 ^? -?
 
-o\ w\
+o\ <\
 ?^ ?-
 
 e\ <\
@@ -892,10 +984,10 @@ q\ q\ tele_dart_p_west!
 ?^ ?-
 
 v -
-o w
+o v
 
 v? -?
-\o \w
+\o \>
 
 v? -?
 \e \>
@@ -907,7 +999,7 @@ v? -? tele_dart_p_east!
 \q \q
 
 ?v ?-
-o/ w/
+o/ </
 
 ?v ?-
 e/ </
@@ -951,3 +1043,37 @@ KEYS:... KEYS:..-
 KEYS:..- KEYS:.--
 
 KEYS:.-- KEYS:---
+
+BIND detonate
+
+??? ---
+?t? ---
+??? ---
+
+??? ---
+?t? ---
+
+?t? ---
+??? ---
+
+?? --
+?t --
+?? --
+
+?? --
+t? --
+?? --
+
+t? --
+?? --
+
+?? --
+t? --
+
+?t --
+?? --
+
+?? --
+?t --
+
+t -
