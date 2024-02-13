@@ -1,14 +1,6 @@
 VOID
 o
 
-TNT----DET
-x----*---d
-xt------xx
-x------xxx
->-----xxxo
--b-----xxx
---------xx
-
 -----
 >*--o
 -----
@@ -178,17 +170,22 @@ ___________
 KEYS:------
 HP:...-----
 
-////--\\\\
-\\\x--x///
-///----\\\
-\\\x--x///
-///------o
-x\-x-\x///
-x--x---\\\
-x/-^*--///
 
+TNT----DET
+x----*---d
+xt------xx
+x------xxx
+>-----xxxo
+-b-----xxx
+--------xx
 
-BIND w north
+BIND w north s south a west d east z piupiu
+
+CMD north
+
+- *
+* t
+t -
 
 - *
 * -
@@ -203,10 +200,6 @@ BIND w north
 
 - x
 x *
-* -
-
-- t
-t *
 * -
 
 - b
@@ -242,21 +235,89 @@ q x
 x *
 * -
 
-p p tele_q_north!
-* -
+ATOMIC
 
-q q tele_p_north!
-* -
+ p p
+ * -
 
-p p tele_bomb_q_north!
-b *
-* -
+ MATCH1
 
-q q tele_bomb_p_north!
-b *
-* -
+  - *
+  q q
+  
+  e * hurt
+  q q
+  
+  h * heal
+  q q
+  
+  k * get_key
+  q q
+  
+  l * use_key!
+  q q
+  
+  d * detonate
+  q q
+  
+ATOMIC
 
-BIND s south
+ q q
+ * -
+
+ MATCH1
+
+  - *
+  p p
+  
+  e * hurt
+  p p
+  
+  h * heal
+  p p
+  
+  k * get_key
+  p p
+  
+  l * use_key!
+  p p
+  
+  d * detonate
+  p p
+
+ATOMIC
+
+ p p
+ b *
+ * -
+   
+ MATCH1
+
+  - b
+  q q
+  
+  x -
+  q q
+    
+ATOMIC
+
+ q q
+ b *
+ * -
+ 
+ MATCH1
+
+  - b
+  p p
+  
+  x -
+  p p
+    
+CMD south
+
+t -
+* t
+- *
 
 * -
 - *
@@ -272,10 +333,6 @@ BIND s south
 * -
 x *
 - x
-
-* -
-t *
-- t
 
 * -
 b *
@@ -310,21 +367,87 @@ x *
 q x
 - q
 
-* - tele_q_south!
-p p
+ATOMIC
 
-* - tele_p_south!
-q q
+ * -
+ p p
+ 
+ MATCH1
+ 
+  q q
+  - *
+  
+  q q hurt
+  e *
+  
+  q q heal
+  h *
+  
+  q q get_key
+  k *
+  
+  q q use_key!
+  l *
+  
+  q q detonate
+  d *
+ 
+ATOMIC
 
-* - tele_bomb_q_south!
-b *
-p p
+ * -
+ q q
+ 
+ MATCH1
+ 
+  p p
+  - *
+  
+  p p hurt
+  e *
+  
+  p p heal
+  h *
+  
+  p p get_key
+  k *
+  
+  p p use_key!
+  l *
+  
+  p p detonate
+  d *
+  
+ATOMIC
 
-* - tele_bomb_p_south!
-b *
-q q
+ * -
+ b *
+ p p
+ 
+ MATCH1
 
-BIND a west
+  q q
+  - b
+  
+  q q
+  x -
+
+ATOMIC
+
+ * -
+ b *
+ q q
+ 
+ MATCH1
+
+  p p
+  - b
+  
+  p p
+  x -
+
+CMD west
+
+-*t *t-
 
 -* *-
 
@@ -333,8 +456,6 @@ BIND a west
 -\* \*-
 
 -x* x*-
-
--t* t*-
 
 -b* b*-
 
@@ -354,15 +475,69 @@ d* *- detonate
 
 -qx* qx*-
 
-p* p- tele_q_west!
+ATOMIC
 
-q* q- tele_p_west!
+ p* p-
 
-pb* p*- tele_bomb_q_west!
+ MATCH1
 
-qb* q*- tele_bomb_p_west!
+  -q *q
+  
+  eq *q hurt
+  
+  hq *q heal
+  
+  kq *q get_key
+  
+  lq *q use_key!
+  
+  dq *q detonate
 
-BIND d east
+ATOMIC
+
+ pb* p*-
+
+ MATCH1
+
+  -q bq
+  
+  xq -q
+
+
+ATOMIC
+
+ q* q-
+
+ MATCH1
+
+  -p *p
+  
+  ep *p hurt
+  
+  hp *p heal
+  
+  kp *p get_key
+  
+  lp *p use_key!
+  
+  dp *p detonate
+  
+
+ATOMIC
+
+ qb* q*-
+
+ MATCH1
+
+  -p bp
+  
+  xp -p
+  
+
+
+CMD east
+
+t*- -t*
 
 *- -*
 
@@ -371,8 +546,6 @@ BIND d east
 *\- -*\
 
 *x- -*x
-
-*t- -*t
 
 *b- -*b
 
@@ -392,445 +565,176 @@ BIND d east
 
 *xq- -*xq
 
-*p -p tele_q_east!
-
-*q -q tele_p_east!
-
-*bp -*p tele_bomb_q_east!
-
-*bq -*q tele_bomb_p_east!
-
-BIND tele_q_north
-
-- *
-q q
-
-e * hurt
-q q
-
-h * heal
-q q
-
-k * get_key
-q q
-
-l * use_key!
-q q
-
-d * detonate
-q q
-
-BIND tele_dart_q_north
-
-- ^
-q q
-
-e ^
-q q
-
-o ^
-q q
-
-/- />
-q? q?
-
-/e />
-q? q?
-
-/o />
-q? q?
-
--\ <\
-?q ?q
-
-e\ <\
-?q ?q
-
-o\ <\
-?q ?q
-
-
-BIND tele_bomb_q_north
-
-- b
-q q
-
-x -
-q q
-
-BIND tele_p_north
-
-- *
-p p
-
-e * hurt
-p p
-
-h * heal
-p p
-
-k * get_key
-p p
-
-l * use_key!
-p p
-
-d * detonate
-p p
-
-BIND tele_bomb_p_north
-
-- b
-p p
-
-x -
-p p
-
-BIND tele_dart_p_north
-
-- ^
-p p
-
-e ^
-p p
-
-o ^
-p p
-
-/- />
-p? p?
-
-/e />
-p? p?
-
-/o />
-p? p?
-
--\ <\
-?p ?p
-
-e\ <\
-?p ?p
-
-o\ <\
-?p ?p
-
-BIND tele_q_south
-
-q q
-- *
-
-q q hurt
-e *
-
-q q heal
-h *
-
-q q get_key
-k *
-
-q q use_key!
-l *
-
-q q detonate
-d *
-
-BIND tele_bomb_q_south
-
-q q
-- b
-
-q q
-x -
-
-BIND tele_dart_q_south
-
-q q
-- v
-
-q q
-e v
-
-q q
-o v
-
-q? q?
-\- \>
-
-q? q?
-\e \>
-
-q? q?
-\o \>
-
-?q ?q
--/ </
-
-?q ?q
-e/ </
-
-?q ?q
-o/ </
-
-BIND tele_p_south
-
-p p
-- *
-
-p p hurt
-e *
-
-p p heal
-h *
-
-p p get_key
-k *
-
-p p use_key!
-l *
-
-p p detonate
-d *
-
-BIND tele_bomb_p_south
-
-p p
-- b
-
-p p
-x -
-
-BIND tele_dart_p_south
-
-p p
-- v
-
-p p
-e v
-
-p p
-o v
-
-p? p?
-\- \>
-
-p? p?
-\e \>
-
-p? p?
-\o \>
-
-?p ?p
--/ </
-
-?p ?p
-e/ </
-
-?p ?p
-o/ </
-
-BIND tele_q_west
-
--q *q
-
-eq *q hurt
-
-hq *q heal
-
-kq *q get_key
-
-lq *q use_key!
-
-dq *q detonate
-
-BIND tele_bomb_q_west
-
--q bq
-
-xq -q
-
-BIND tele_dart_q_west
-
--q <q
-
-eq <q
-
-oq <q
-
-/q /q
--? v?
-
-/q /q
-e? v?
-
-/q /q
-o? v?
-
--? ^?
-\q \q
-
-e? ^?
-\q \q
-
-o? ^?
-\q \q
-
-
-BIND tele_p_west
-
--p *p
-
-ep *p hurt
-
-hp *p heal
-
-kp *p get_key
-
-lp *p use_key!
-
-dp *p detonate
-
-BIND tele_bomb_p_west
-
--p bp
-
-xp -p
-
-BIND tele_dart_p_west
-
--p <p
-
-ep <p
-
-op <p
-
-/p /p
--? v?
-
-/p /p
-e? v?
-
-/p /p
-o? v?
-
--? ^?
-\p \p
-
-e? ^?
-\p \p
-
-o? ^?
-\p \p
-
-BIND tele_q_east
-
-q- q*
-
-q- qe hurt
-
-q- qh heal
-
-q- qk get_key
-
-q- ql use_key!
-
-q- qd detonate
-
-BIND tele_bomb_q_east
-
-q- qb
-
-qx q-
-
-BIND tele_dart_q_east
-
-q- q>
-
-qe q>
-
-qo q>
-
-q\ q\
-?- ?v
-
-q\ q\
-?e ?v
-
-q\ q\
-?o ?v
-
-?- ?^
-q/ q/
-
-?e ?^
-q/ q/
-
-?o ?^
-q/ q/
-
-BIND tele_p_east
-
-p- p*
-
-p- pe hurt
-
-p- ph heal
-
-p- pk get_key
-
-p- pl use_key!
-
-p- pd detonate
-
-BIND tele_bomb_p_east
-
-p- pb
-
-px p-
-
-BIND tele_dart_p_east
-
-p- p>
-
-pe p>
-
-po p>
-
-p\ p\
-?- ?v
-
-p\ p\
-?e ?v
-
-p\ p\
-?o ?v
-
-?- ?^
-p/ p/
-
-?e ?^
-p/ p/
-
-?o ?^
-p/ p/
-
-BIND z piupiu
+ATOMIC
+
+ *p -p
+
+ MATCH1
+
+  q- q*
+  
+  q- qe hurt
+  
+  q- qh heal
+  
+  q- qk get_key
+  
+  q- ql use_key!
+  
+  q- qd detonate
+
+ATOMIC
+
+ *q -q
+
+ MATCH1
+
+  p- p*
+  
+  p- pe hurt
+  
+  p- ph heal
+  
+  p- pk get_key
+  
+  p- pl use_key!
+  
+  p- pd detonate
+  
+  p- p*
+  
+  p- pe hurt
+  
+  p- ph heal
+  
+  p- pk get_key
+  
+  p- pl use_key!
+  
+  p- pd detonate
+  
+
+
+ATOMIC
+
+ *bp -*p
+
+ MATCH1
+
+  q- qb
+  
+  qx q-
+  
+
+ATOMIC
+
+ *bq -*q
+
+ MATCH1
+
+  p- pb
+  
+  px p-
+  
+
+CMD piupiu
 
 >- ->
 
 >e ->
 
->p -p tele_dart_q_east!
-
->q -q tele_dart_p_east!
-
 -< <-
 
 e< <-
 
-p< p- tele_dart_q_west!
+ATOMIC
 
-q< q- tele_dart_p_west!
+ MATCH1
+
+  p< p-
+  
+  ?v ?-
+  p/ p/
+  
+  p\ p\
+  ?^ ?-
+  
+  >\ -\
+  p/ p/
+  
+  p\ p\
+  >/ -/
+  
+ MATCH1
+
+  -q <q
+  
+  eq <q
+  
+  oq <q
+  
+  /q /q
+  -? v?
+  
+  /q /q
+  e? v?
+  
+  /q /q
+  o? v?
+  
+  -? ^?
+  \q \q
+  
+  e? ^?
+  \q \q
+  
+  o? ^?
+  \q \q
+  
+
+ATOMIC
+ MATCH1
+
+  q< q-
+  
+  q\ q\
+  ?^ ?-
+  
+  ?v ?-
+  q/ q/
+  
+  >\ -\
+  q/ q/
+  
+  q\ q\
+  >/ -/
+  
+ MATCH1
+
+  -p <p
+  
+  ep <p
+  
+  op <p
+  
+  /p /p
+  -? v?
+  
+  /p /p
+  e? v?
+  
+  /p /p
+  o? v?
+  
+  -? ^?
+  \p \p
+  
+  e? ^?
+  \p \p
+  
+  o? ^?
+  \p \p
+  
 
 v -
 - v
@@ -838,11 +742,145 @@ v -
 v -
 e v
 
-v - tele_dart_p_south!
-p p
+ATOMIC
+ MATCH1
 
-v - tele_dart_q_south!
-q q
+  v -
+  q q
+  
+  >\ -\
+  ?q ?q
+  
+  /< /-
+  q? q?
+  
+  /\ /\
+  q^ q-
+  
+  /\ /\
+  ^q -q
+  
+ MATCH1
+
+  p p
+  - v
+  
+  p p
+  e v
+  
+  p p
+  o v
+  
+  p? p?
+  \- \>
+  
+  p? p?
+  \e \>
+  
+  p? p?
+  \o \>
+  
+  ?p ?p
+  -/ </
+  
+  ?p ?p
+  e/ </
+  
+  ?p ?p
+  o/ </
+  
+
+ATOMIC
+ MATCH1
+  
+  v -
+  p p
+  
+  /< /-
+  p? p?
+  
+  >\ -\
+  ?p ?p
+  
+  /\ /\
+  p^ p-
+  
+  /\ /\
+  ^p -p
+  
+ MATCH1
+  
+  q q
+  - v
+  
+  q q
+  e v
+  
+  q q
+  o v
+  
+  q? q?
+  \- \>
+  
+  q? q?
+  \e \>
+  
+  q? q?
+  \o \>
+  
+  ?q ?q
+  -/ </
+  
+  ?q ?q
+  e/ </
+  
+  ?q ?q
+  o/ </
+  
+
+ATOMIC
+ MATCH1
+  
+  >p -p
+  
+  /p /p
+  ^? -?
+  
+  v? -?
+  \p \p
+  
+  /< /-
+  \p \p
+  
+  /p /p
+  \< \-
+  
+ MATCH1
+  
+  q- q>
+  
+  qe q>
+  
+  qo q>
+  
+  q\ q\
+  ?- ?v
+  
+  q\ q\
+  ?e ?v
+  
+  q\ q\
+  ?o ?v
+  
+  ?- ?^
+  q/ q/
+  
+  ?e ?^
+  q/ q/
+  
+  ?o ?^
+  q/ q/
+  
 
 - ^
 ^ -
@@ -850,11 +888,104 @@ q q
 e ^
 ^ -
 
-p p tele_dart_q_north!
-^ -
+ATOMIC
 
-q q tele_dart_p_north!
-^ -
+ MATCH1
+  
+  p p
+  ^ -
+  
+  ?p ?p
+  >/ -/
+  
+  p? p?
+  \< \-
+  
+  pv p-
+  \/ \/
+  
+  vp -p
+  \/ \/
+  
+ MATCH1
+  
+  - ^
+  q q
+  
+  e ^
+  q q
+  
+  o ^
+  q q
+  
+  /- />
+  q? q?
+  
+  /e />
+  q? q?
+  
+  /o />
+  q? q?
+  
+  -\ <\
+  ?q ?q
+  
+  e\ <\
+  ?q ?q
+  
+  o\ <\
+  ?q ?q
+  
+
+
+ATOMIC
+
+ MATCH1
+  
+  q q
+  ^ -
+  
+  ?q ?q
+  >/ -/
+  
+  q? q?
+  \< \-
+  
+  qv q-
+  \/ \/
+  
+  vq -q
+  \/ \/
+  
+ MATCH1
+  
+  - ^
+  p p
+  
+  e ^
+  p p
+  
+  o ^
+  p p
+  
+  /- />
+  p? p?
+  
+  /e />
+  p? p?
+  
+  /o />
+  p? p?
+  
+  -\ <\
+  ?p ?p
+  
+  e\ <\
+  ?p ?p
+  
+  o\ <\
+  ?p ?p
+  
 
 ?- ?^
 >/ -/
@@ -912,23 +1043,11 @@ v- -^
 ?e ?^
 >/ -/
 
-?p ?p tele_dart_q_north!
->/ -/
-
-?q ?q tele_dart_p_north!
->/ -/
-
 >\ -\
 ?o ?v
 
 >\ -\
 ?e ?v
-
->\ -\ tele_dart_q_south!
-?p ?p
-
->\ -\ tele_dart_p_south!
-?q ?q
 
 o< <-
 
@@ -938,22 +1057,10 @@ o? v?
 /< /-
 e? v?
 
-/< /- tele_dart_q_south!
-p? p?
-
-/< /- tele_dart_p_south!
-q? q?
-
 o? ^?
 \< \-
 
 e? ^?
-\< \-
-
-p? p? tele_dart_q_north!
-\< \-
-
-q? q? tele_dart_p_north!
 \< \-
 
 o ^
@@ -965,23 +1072,56 @@ o ^
 /e />
 ^? -?
 
-/p /p tele_dart_q_east!
-^? -?
-
-/q /q tele_dart_p_east!
-^? -?
-
 o\ <\
 ?^ ?-
 
 e\ <\
 ?^ ?-
 
-p\ p\ tele_dart_q_west!
-?^ ?-
+ATOMIC
 
-q\ q\ tele_dart_p_west!
-?^ ?-
+ MATCH1
+  
+  >q -q
+  
+  /q /q
+  ^? -?
+  
+  v? -?
+  \q \q
+  
+  /< /-
+  \q \q
+  
+  /q /q
+  \< \-
+  
+ MATCH1
+  
+  p- p>
+  
+  pe p>
+  
+  po p>
+  
+  p\ p\
+  ?- ?v
+  
+  p\ p\
+  ?e ?v
+  
+  p\ p\
+  ?o ?v
+  
+  ?- ?^
+  p/ p/
+  
+  ?e ?^
+  p/ p/
+  
+  ?o ?^
+  p/ p/
+  
 
 v -
 o v
@@ -992,25 +1132,14 @@ v? -?
 v? -?
 \e \>
 
-v? -? tele_dart_q_east!
-\p \p
-
-v? -? tele_dart_p_east!
-\q \q
-
 ?v ?-
 o/ </
 
 ?v ?-
 e/ </
 
-?v ?- tele_dart_q_west!
-p/ p/
 
-?v ?- tele_dart_p_west!
-q/ q/
-
-BIND hurt
+CMD hurt
 
 HP:... HP:..-
 
@@ -1018,17 +1147,17 @@ HP:..- HP:.--
 
 HP:.-- HP:--- die
 
-BIND die
+CMD die
 
 * -
 
-BIND heal
+CMD heal
 
 HP:..- HP:... 
 
 HP:.-- HP:..-
 
-BIND get_key
+CMD get_key
 
 KEYS:--- KEYS:.--
 
@@ -1036,7 +1165,7 @@ KEYS:.-- KEYS:..-
 
 KEYS:..- KEYS:...
 
-BIND use_key
+CMD use_key
 
 KEYS:... KEYS:..-
 
@@ -1044,7 +1173,7 @@ KEYS:..- KEYS:.--
 
 KEYS:.-- KEYS:---
 
-BIND detonate
+CMD detonate
 
 ??? ---
 ?t? ---
