@@ -15,6 +15,10 @@ for (let key in gamesData) {
     gamesDropdown.appendChild(option);
 }
 
+gamesDropdown.addEventListener('change', function() {
+    gamesDropdown.blur();
+});
+
 function initGame(data) {
     boards = data.boards;
     rules_dict = data.rules;
