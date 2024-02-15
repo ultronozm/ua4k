@@ -1,0 +1,141 @@
+VOID
+@-
+
+----------------------
+----------------------
+-*------------------@-
+----------------------
+----------------------
+______________________
+*:...........---------
+@:...........---------
+POTIONS:...-----------
+STAMINA:.....---------
+STATE:PlayerTurn------
+
+BIND a attack s rest d heal z next
+
+CMD next
+
+ ATOMIC
+
+  STATE:EnemyTurn- STATE:PlayerTurn
+
+  ? ? damage_*
+
+  ? ? damage_*
+
+CMD attack
+
+ ATOMIC
+
+  STATE:PlayerTurn STATE:EnemyTurn- damage_@
+
+  ? ? spend_stamina!
+
+CMD heal
+
+ STATE:PlayerTurn STATE:EnemyTurn- use_potion
+
+CMD rest
+
+ STATE:PlayerTurn STATE:EnemyTurn- gain_stamina
+
+CMD use_potion
+
+ POTIONS:... POTIONS:..- restore_health
+
+ POTIONS:.. POTIONS:.- restore_health
+
+ POTIONS:. POTIONS:- restore_health
+
+CMD spend_stamina
+
+ STAMINA:..... STAMINA:....-
+
+ STAMINA:.... STAMINA:...-
+ 
+ STAMINA:... STAMINA:..-
+
+ STAMINA:.. STAMINA:.-
+
+ STAMINA:. STAMINA:-
+
+CMD gain_stamina
+
+ STAMINA:--- STAMINA:...
+
+ STAMINA:.--- STAMINA:....
+
+ STAMINA:...-- STAMINA:.....
+
+ STAMINA:....- STAMINA:.....
+ 
+CMD restore_health
+
+ *:????????? *:.........
+
+CMD damage_@
+
+ @:........... @:..........-
+
+ @:.......... @:.........-
+
+ @:......... @:........-
+
+ @:........ @:.......-
+
+ @:....... @:......-
+
+ @:...... @:.....-
+
+ @:..... @:....-
+
+ @:.... @:...-
+
+ @:... @:..-
+
+ @:.. @:.-
+
+ @:. @:- kill_@
+
+CMD kill_@
+
+ @ - win
+
+CMD win
+
+ STATE:???????????????? STATE:Victory---------
+
+CMD damage_*
+
+ *:........... *:..........-
+
+ *:.......... *:.........-
+
+ *:......... *:........-
+
+ *:........ *:.......-
+
+ *:....... *:......-
+
+ *:...... *:.....-
+
+ *:..... *:....-
+
+ *:.... *:...-
+
+ *:... *:..-
+
+ *:.. *:.-
+
+ *:. *:- kill_*
+
+CMD kill_*
+
+ * - lose
+
+CMD lose
+
+ STATE:???????????????? STATE:Defeat----------
+

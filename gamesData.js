@@ -19070,5 +19070,576 @@ let gamesData = {
                 "o"
             ]
         ]
+    },
+    "fight": {
+        "boards": [
+            [
+                "----------------------",
+                "----------------------",
+                "-*------------------@-",
+                "----------------------",
+                "----------------------",
+                "______________________",
+                "*:...........---------",
+                "@:...........---------",
+                "POTIONS:...-----------",
+                "STAMINA:.....---------",
+                "STATE:PlayerTurn------"
+            ]
+        ],
+        "rules": {
+            "next": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "STATE:EnemyTurn-"
+                                ],
+                                "to": [
+                                    "STATE:PlayerTurn"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "?"
+                                ],
+                                "to": [
+                                    "?"
+                                ],
+                                "side_effect": "damage_*"
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "?"
+                                ],
+                                "to": [
+                                    "?"
+                                ],
+                                "side_effect": "damage_*"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "attack": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "STATE:PlayerTurn"
+                                ],
+                                "to": [
+                                    "STATE:EnemyTurn-"
+                                ],
+                                "side_effect": "damage_@"
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "?"
+                                ],
+                                "to": [
+                                    "?"
+                                ],
+                                "side_effect": "spend_stamina!"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "heal": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "STATE:PlayerTurn"
+                        ],
+                        "to": [
+                            "STATE:EnemyTurn-"
+                        ],
+                        "side_effect": "use_potion"
+                    }
+                ]
+            },
+            "rest": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "STATE:PlayerTurn"
+                        ],
+                        "to": [
+                            "STATE:EnemyTurn-"
+                        ],
+                        "side_effect": "gain_stamina"
+                    }
+                ]
+            },
+            "use_potion": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "POTIONS:..."
+                        ],
+                        "to": [
+                            "POTIONS:..-"
+                        ],
+                        "side_effect": "restore_health"
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "POTIONS:.."
+                        ],
+                        "to": [
+                            "POTIONS:.-"
+                        ],
+                        "side_effect": "restore_health"
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "POTIONS:."
+                        ],
+                        "to": [
+                            "POTIONS:-"
+                        ],
+                        "side_effect": "restore_health"
+                    }
+                ]
+            },
+            "spend_stamina": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "STAMINA:....."
+                        ],
+                        "to": [
+                            "STAMINA:....-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "STAMINA:...."
+                        ],
+                        "to": [
+                            "STAMINA:...-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "STAMINA:..."
+                        ],
+                        "to": [
+                            "STAMINA:..-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "STAMINA:.."
+                        ],
+                        "to": [
+                            "STAMINA:.-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "STAMINA:."
+                        ],
+                        "to": [
+                            "STAMINA:-"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "gain_stamina": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "STAMINA:---"
+                        ],
+                        "to": [
+                            "STAMINA:..."
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "STAMINA:.---"
+                        ],
+                        "to": [
+                            "STAMINA:...."
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "STAMINA:...--"
+                        ],
+                        "to": [
+                            "STAMINA:....."
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "STAMINA:....-"
+                        ],
+                        "to": [
+                            "STAMINA:....."
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "restore_health": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*:?????????"
+                        ],
+                        "to": [
+                            "*:........."
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "damage_@": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:..........."
+                        ],
+                        "to": [
+                            "@:..........-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:.........."
+                        ],
+                        "to": [
+                            "@:.........-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:........."
+                        ],
+                        "to": [
+                            "@:........-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:........"
+                        ],
+                        "to": [
+                            "@:.......-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:......."
+                        ],
+                        "to": [
+                            "@:......-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:......"
+                        ],
+                        "to": [
+                            "@:.....-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:....."
+                        ],
+                        "to": [
+                            "@:....-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:...."
+                        ],
+                        "to": [
+                            "@:...-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:..."
+                        ],
+                        "to": [
+                            "@:..-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:.."
+                        ],
+                        "to": [
+                            "@:.-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:."
+                        ],
+                        "to": [
+                            "@:-"
+                        ],
+                        "side_effect": "kill_@"
+                    }
+                ]
+            },
+            "kill_@": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@"
+                        ],
+                        "to": [
+                            "-"
+                        ],
+                        "side_effect": "win"
+                    }
+                ]
+            },
+            "win": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "STATE:????????????????"
+                        ],
+                        "to": [
+                            "STATE:Victory---------"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "damage_*": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*:..........."
+                        ],
+                        "to": [
+                            "*:..........-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*:.........."
+                        ],
+                        "to": [
+                            "*:.........-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*:........."
+                        ],
+                        "to": [
+                            "*:........-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*:........"
+                        ],
+                        "to": [
+                            "*:.......-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*:......."
+                        ],
+                        "to": [
+                            "*:......-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*:......"
+                        ],
+                        "to": [
+                            "*:.....-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*:....."
+                        ],
+                        "to": [
+                            "*:....-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*:...."
+                        ],
+                        "to": [
+                            "*:...-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*:..."
+                        ],
+                        "to": [
+                            "*:..-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*:.."
+                        ],
+                        "to": [
+                            "*:.-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*:."
+                        ],
+                        "to": [
+                            "*:-"
+                        ],
+                        "side_effect": "kill_*"
+                    }
+                ]
+            },
+            "kill_*": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*"
+                        ],
+                        "to": [
+                            "-"
+                        ],
+                        "side_effect": "lose"
+                    }
+                ]
+            },
+            "lose": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "STATE:????????????????"
+                        ],
+                        "to": [
+                            "STATE:Defeat----------"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            }
+        },
+        "binds": {
+            "a": "attack",
+            "s": "rest",
+            "d": "heal",
+            "z": "next"
+        },
+        "goals": [],
+        "voids": [
+            [
+                "@-"
+            ]
+        ]
     }
 };
