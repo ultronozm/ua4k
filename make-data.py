@@ -136,6 +136,8 @@ def on_blank_line():
 
 for line in lines:
     # print("LINE: ", line)
+    if line.lstrip().startswith(";;"):
+        continue
     if line.strip() == "":
         # print("empty line")
         on_blank_line()
