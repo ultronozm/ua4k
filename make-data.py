@@ -49,7 +49,6 @@ def subs (s, assn):
     # returns a new string with all wildcards replaced by
     # their values
     return s.translate(str.maketrans(assn))
-    
 
 def deep_subs(r, assn):
     # r is a rule
@@ -59,7 +58,7 @@ def deep_subs(r, assn):
     if r['type'] == 'simple':
         r['from'] = [s.translate(trans_table) for s in r['from']]
         r['to'] = [s.translate(trans_table) for s in r['to']]
-    elif r['type'] in ['atomic', 'match1', 'cmd']:
+    elif r['type'] in ['atomic', 'match1', 'try_all', 'random', 'cmd']:
         for i in range(len(r['rules'])):
             deep_subs(r['rules'][i], assn)
     else:
@@ -88,6 +87,10 @@ def process_rule_stack_to_level(level):
             case 'atomic':
                 add_rule(rule)
             case 'match1':
+                add_rule(rule)
+            case 'try_all':
+                add_rule(rule)
+            case 'random':
                 add_rule(rule)
             case 'cmd':
                 add_rule(rule)
@@ -182,6 +185,17 @@ for line in lines:
             level = indent + 1
             process_rule_stack_to_level(level)
             rules_stack.append({'type': 'match1', 'rules': []})
+            indent_stack.append(level)
+        case "TRY_ALL":
+            level = indent + 1
+            process_rule_stack_to_level(level)
+            rules_stack.append({'type': 'try_all', 'rules': []})
+            indent_stack.append(level)
+        case "RANDOM":
+            # print("MATCH1 at indent: ", indent)
+            level = indent + 1
+            process_rule_stack_to_level(level)
+            rules_stack.append({'type': 'random', 'rules': []})
             indent_stack.append(level)
         case _:
             # print("default at indent: ", indent)

@@ -270,6 +270,17 @@ function applyRule(rule) {
             }
         }
         return ruleApplied;
+    case "try_all":
+        var rules = rule.rules;
+        for (let i = 0; i < rules.length; i++)
+            applyRule(rules[i]);
+        return true;
+    case "random":
+        var rules = rule.rules;
+        var length = rules.length;
+        // apply a random element
+        var randomIndex = Math.floor(Math.random() * length);
+        return applyRule(rules[randomIndex]);
     case "atomic":
         var board_copy = JSON.parse(JSON.stringify(board));
         var ruleApplied = true;

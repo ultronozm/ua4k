@@ -189,7 +189,6 @@ let gamesData = {
                 "HP:...-----"
             ],
             [
-                "TNT----DET",
                 "xxx--*---d",
                 "xt------xx",
                 "xxx----xxx",
@@ -19074,55 +19073,391 @@ let gamesData = {
     "fight": {
         "boards": [
             [
-                "----------------------",
-                "----------------------",
-                "-*------------------@-",
-                "----------------------",
-                "----------------------",
-                "______________________",
-                "*:...........---------",
-                "@:...........---------",
-                "POTIONS:...-----------",
-                "STAMINA:.....---------",
-                "STATE:PlayerTurn------"
+                "----------------------------",
+                "----------------------------",
+                "---------*--------@---------",
+                "----------------------------",
+                "____________________________",
+                "*:.........---@:...........-",
+                "#---------------------------",
+                "POTIONS:...-----------------",
+                "STAMINA:.....-----------%*--"
             ]
         ],
         "rules": {
-            "next": {
+            "restore_health": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*:?????????"
+                        ],
+                        "to": [
+                            "*:........."
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "animate": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "try_all",
+                        "rules": [
+                            {
+                                "type": "atomic",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "%?a?"
+                                        ],
+                                        "to": [
+                                            "%?-?"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "-*",
+                                            "--"
+                                        ],
+                                        "to": [
+                                            "--",
+                                            "*-"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "atomic",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "%?s?"
+                                        ],
+                                        "to": [
+                                            "%?-?"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "zzz",
+                                            "-*-"
+                                        ],
+                                        "to": [
+                                            "---",
+                                            "-*-"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "atomic",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "%?d?"
+                                        ],
+                                        "to": [
+                                            "%?-?"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "-o-",
+                                            "-*-",
+                                            "---"
+                                        ],
+                                        "to": [
+                                            "---",
+                                            "---",
+                                            "-*-"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "atomic",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "%??a"
+                                        ],
+                                        "to": [
+                                            "%??-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "@-",
+                                            "--"
+                                        ],
+                                        "to": [
+                                            "--",
+                                            "-@"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "atomic",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "%??A"
+                                        ],
+                                        "to": [
+                                            "%??-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "x-x",
+                                            "-@-"
+                                        ],
+                                        "to": [
+                                            "---",
+                                            "-@-"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "atomic",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "%?A?"
+                                        ],
+                                        "to": [
+                                            "%?-?"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "x-x",
+                                            "-*-"
+                                        ],
+                                        "to": [
+                                            "---",
+                                            "-*-"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "enemy_attack": {
                 "type": "match1",
                 "rules": [
                     {
                         "type": "atomic",
                         "rules": [
                             {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "?"
+                                        ],
+                                        "to": [
+                                            "?"
+                                        ],
+                                        "side_effect": "animate"
+                                    }
+                                ]
+                            },
+                            {
                                 "type": "simple",
                                 "from": [
-                                    "STATE:EnemyTurn-"
+                                    "%@"
                                 ],
                                 "to": [
-                                    "STATE:PlayerTurn"
+                                    "%*"
                                 ],
                                 "side_effect": null
                             },
                             {
                                 "type": "simple",
                                 "from": [
-                                    "?"
+                                    "--",
+                                    "-@"
                                 ],
                                 "to": [
-                                    "?"
+                                    "@-",
+                                    "--"
                                 ],
-                                "side_effect": "damage_*"
+                                "side_effect": null
                             },
                             {
                                 "type": "simple",
                                 "from": [
-                                    "?"
+                                    "%?-"
                                 ],
                                 "to": [
-                                    "?"
+                                    "%?A"
                                 ],
-                                "side_effect": "damage_*"
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "---",
+                                    "-*-"
+                                ],
+                                "to": [
+                                    "x-x",
+                                    "-*-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%???"
+                                ],
+                                "to": [
+                                    "%??a"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "random",
+                                "rules": [
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "#-??????????????????????????"
+                                                ],
+                                                "to": [
+                                                    "#-Enemy-dealt-1-damage.-----"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?"
+                                                ],
+                                                "to": [
+                                                    "?"
+                                                ],
+                                                "side_effect": "damage_*"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "#-??????????????????????????"
+                                                ],
+                                                "to": [
+                                                    "#-Enemy-dealt-2-damage.-----"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?"
+                                                ],
+                                                "to": [
+                                                    "?"
+                                                ],
+                                                "side_effect": "damage_*"
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?"
+                                                ],
+                                                "to": [
+                                                    "?"
+                                                ],
+                                                "side_effect": "damage_*"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "#-??????????????????????????"
+                                                ],
+                                                "to": [
+                                                    "#-Enemy-dealt-3-damage.-----"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?"
+                                                ],
+                                                "to": [
+                                                    "?"
+                                                ],
+                                                "side_effect": "damage_*"
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?"
+                                                ],
+                                                "to": [
+                                                    "?"
+                                                ],
+                                                "side_effect": "damage_*"
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?"
+                                                ],
+                                                "to": [
+                                                    "?"
+                                                ],
+                                                "side_effect": "damage_*"
+                                            }
+                                        ]
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -19132,15 +19467,84 @@ let gamesData = {
                 "type": "match1",
                 "rules": [
                     {
+                        "type": "simple",
+                        "from": [
+                            "?"
+                        ],
+                        "to": [
+                            "?"
+                        ],
+                        "side_effect": "enemy_attack!"
+                    },
+                    {
                         "type": "atomic",
                         "rules": [
                             {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "?"
+                                        ],
+                                        "to": [
+                                            "?"
+                                        ],
+                                        "side_effect": "animate"
+                                    }
+                                ]
+                            },
+                            {
                                 "type": "simple",
                                 "from": [
-                                    "STATE:PlayerTurn"
+                                    "#-??????????????????????????"
                                 ],
                                 "to": [
-                                    "STATE:EnemyTurn-"
+                                    "#-You-dealt-1-damage.-------"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "--",
+                                    "*-"
+                                ],
+                                "to": [
+                                    "-*",
+                                    "--"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "---",
+                                    "-@-"
+                                ],
+                                "to": [
+                                    "x-x",
+                                    "-@-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%???"
+                                ],
+                                "to": [
+                                    "%?aA"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%*"
+                                ],
+                                "to": [
+                                    "%@"
                                 ],
                                 "side_effect": "damage_@"
                             },
@@ -19155,6 +19559,16 @@ let gamesData = {
                                 "side_effect": "spend_stamina!"
                             }
                         ]
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "#-??????????????????????????"
+                        ],
+                        "to": [
+                            "#-Can't-attack,-no-stamina.-"
+                        ],
+                        "side_effect": null
                     }
                 ]
             },
@@ -19164,12 +19578,86 @@ let gamesData = {
                     {
                         "type": "simple",
                         "from": [
-                            "STATE:PlayerTurn"
+                            "?"
                         ],
                         "to": [
-                            "STATE:EnemyTurn-"
+                            "?"
                         ],
-                        "side_effect": "use_potion"
+                        "side_effect": "enemy_attack!"
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "?"
+                                        ],
+                                        "to": [
+                                            "?"
+                                        ],
+                                        "side_effect": "animate"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "#-??????????????????????????"
+                                ],
+                                "to": [
+                                    "#-You-used-a-potion.--------"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "---",
+                                    "---",
+                                    "-*-"
+                                ],
+                                "to": [
+                                    "-o-",
+                                    "-*-",
+                                    "---"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%???"
+                                ],
+                                "to": [
+                                    "%?d?"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%*"
+                                ],
+                                "to": [
+                                    "%@"
+                                ],
+                                "side_effect": "use_potion!"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "#-??????????????????????????"
+                        ],
+                        "to": [
+                            "#-Can't-heal,-no-potions.---"
+                        ],
+                        "side_effect": null
                     }
                 ]
             },
@@ -19179,12 +19667,74 @@ let gamesData = {
                     {
                         "type": "simple",
                         "from": [
-                            "STATE:PlayerTurn"
+                            "?"
                         ],
                         "to": [
-                            "STATE:EnemyTurn-"
+                            "?"
                         ],
-                        "side_effect": "gain_stamina"
+                        "side_effect": "enemy_attack!"
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "?"
+                                        ],
+                                        "to": [
+                                            "?"
+                                        ],
+                                        "side_effect": "animate"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "#-??????????????????????????"
+                                ],
+                                "to": [
+                                    "#-You-rested.---------------"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "---",
+                                    "-*-"
+                                ],
+                                "to": [
+                                    "zzz",
+                                    "-*-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%???"
+                                ],
+                                "to": [
+                                    "%?s?"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%*"
+                                ],
+                                "to": [
+                                    "%@"
+                                ],
+                                "side_effect": "gain_stamina"
+                            }
+                        ]
                     }
                 ]
             },
@@ -19318,21 +19868,6 @@ let gamesData = {
                         ],
                         "to": [
                             "STAMINA:....."
-                        ],
-                        "side_effect": null
-                    }
-                ]
-            },
-            "restore_health": {
-                "type": "match1",
-                "rules": [
-                    {
-                        "type": "simple",
-                        "from": [
-                            "*:?????????"
-                        ],
-                        "to": [
-                            "*:........."
                         ],
                         "side_effect": null
                     }
@@ -19472,14 +20007,68 @@ let gamesData = {
                 "type": "match1",
                 "rules": [
                     {
-                        "type": "simple",
-                        "from": [
-                            "STATE:????????????????"
-                        ],
-                        "to": [
-                            "STATE:Victory---------"
-                        ],
-                        "side_effect": null
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%?"
+                                ],
+                                "to": [
+                                    "%v"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "?"
+                                        ],
+                                        "to": [
+                                            "?"
+                                        ],
+                                        "side_effect": "animate"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%?-"
+                                ],
+                                "to": [
+                                    "%?v"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "-----",
+                                    "-----",
+                                    "--*--"
+                                ],
+                                "to": [
+                                    "-\\-/-",
+                                    "--*--",
+                                    "-----"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "#-??????????????????????????"
+                                ],
+                                "to": [
+                                    "#-You-won.--Good-job!-------"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
                     }
                 ]
             },
@@ -19617,14 +20206,68 @@ let gamesData = {
                 "type": "match1",
                 "rules": [
                     {
-                        "type": "simple",
-                        "from": [
-                            "STATE:????????????????"
-                        ],
-                        "to": [
-                            "STATE:Defeat----------"
-                        ],
-                        "side_effect": null
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%?"
+                                ],
+                                "to": [
+                                    "%d"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "?"
+                                        ],
+                                        "to": [
+                                            "?"
+                                        ],
+                                        "side_effect": "animate"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%??-"
+                                ],
+                                "to": [
+                                    "%??v"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "-----",
+                                    "-----",
+                                    "--@--"
+                                ],
+                                "to": [
+                                    "-\\-/-",
+                                    "--@--",
+                                    "-----"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "#-??????????????????????????"
+                                ],
+                                "to": [
+                                    "#-You-lost.--Too-bad!-------"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
                     }
                 ]
             }
@@ -19632,14 +20275,13 @@ let gamesData = {
         "binds": {
             "a": "attack",
             "s": "rest",
-            "d": "heal",
-            "z": "next"
+            "d": "heal"
         },
-        "goals": [],
-        "voids": [
+        "goals": [
             [
-                "@-"
+                "%w"
             ]
-        ]
+        ],
+        "voids": []
     }
 };

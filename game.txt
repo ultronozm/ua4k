@@ -166,7 +166,6 @@ KEYS:------
 HP:...-----
 
 
-TNT----DET
 xxx--*---d
 xt------xx
 xxx----xxx
