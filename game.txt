@@ -92,19 +92,6 @@ xx*--x\-x
 _________
 HP:...---
 
---o---
--/---\
-eeeeee
-eeeeee
-------
--/--\-
-eeeeee
-eeeeee
-\^*--/
-______
-HP:...
-
-
 -------------
 -/---------\-
 ---eeeeeee---
@@ -119,6 +106,17 @@ HP:...
 _____________
 HP:..--------
 
+--o---
+-/---\
+eeeeee
+eeeeee
+------
+-/--\-
+eeeeee
+eeeeee
+\^*--/
+______
+HP:...
 
 -----|---v-
 *-p--|---x-
@@ -144,6 +142,10 @@ b-x-/-
 --\-p-
 >-xx--
 
+>---x-x-x-
+x-/x-x-x\-
+-p--x-x-q-
+*o-x-x----
 
 poeeeeeeeeeeeo
 -----x-x-x--OK
@@ -152,13 +154,6 @@ xx---x-x-\-\--
 >---x-x-x-x--q
 ______________
 HP:...--------
-
-
->---x-x-x-
-x-/x-x-x\-
--p--x-x-q-
-*o-x-x----
-
 
 xxxxxoxxxxx
 -pxx-xxx-kx
@@ -172,9 +167,9 @@ HP:...-----
 
 
 TNT----DET
-x----*---d
+xxx--*---d
 xt------xx
-x------xxx
+xxx----xxx
 >-----xxxo
 -b-----xxx
 --------xx
@@ -183,1026 +178,795 @@ BIND w north s south a west d east z piupiu
 
 CMD north
 
-- *
-* t
-t -
-
-- *
-* -
-
-- /
-/ *
-* -
-
-- \
-\ *
-* -
-
-- x
-x *
-* -
-
-- b
-b *
-* -
-
-x -
-b *
-* -
-
-e * hurt
-* -
-
-h * heal
-* -
-
-k * get_key
-* -
-
-l * use_key!
-* -
-
-d * detonate
-* -
-
-- p
-p x
-x *
-* -
-
-- q
-q x
-x *
-* -
-
-ATOMIC
-
- p p
+ - *
+ * t
+ t -
+ 
+ - *
  * -
-
- MATCH1
-
-  - *
-  q q
+ 
+ FOR s xb/\
   
-  e * hurt
-  q q
-  
-  h * heal
-  q q
-  
-  k * get_key
-  q q
-  
-  l * use_key!
-  q q
-  
-  d * detonate
-  q q
-  
-ATOMIC
-
- q q
- * -
-
- MATCH1
-
-  - *
-  p p
-  
-  e * hurt
-  p p
-  
-  h * heal
-  p p
-  
-  k * get_key
-  p p
-  
-  l * use_key!
-  p p
-  
-  d * detonate
-  p p
-
-ATOMIC
-
- p p
- b *
- * -
-   
- MATCH1
-
-  - b
-  q q
-  
-  x -
-  q q
-    
-ATOMIC
-
- q q
+  - s
+  s *
+  * -
+ 
+ x -
  b *
  * -
  
- MATCH1
-
-  - b
-  p p
+ e * hurt
+ * -
+ 
+ h * heal
+ * -
+ 
+ k * get_key
+ * -
+ 
+ l * use_key!
+ * -
+ 
+ d * detonate
+ * -
+ 
+ FOR s pq
+ 
+  - s
+  s x
+  x *
+  * -
   
-  x -
+ ATOMIC
+ 
   p p
+  * -
+ 
+  MATCH1
+ 
+   - *
+   q q
+   
+   e * hurt
+   q q
+   
+   h * heal
+   q q
+   
+   k * get_key
+   q q
+   
+   l * use_key!
+   q q
+   
+   d * detonate
+   q q
+   
+ ATOMIC
+ 
+  q q
+  * -
+ 
+  MATCH1
+ 
+   - *
+   p p
+   
+   e * hurt
+   p p
+   
+   h * heal
+   p p
+   
+   k * get_key
+   p p
+   
+   l * use_key!
+   p p
+   
+   d * detonate
+   p p
+ 
+ ATOMIC
+ 
+  p p
+  b *
+  * -
     
+  MATCH1
+ 
+   - b
+   q q
+   
+   x -
+   q q
+     
+ ATOMIC
+ 
+  q q
+  b *
+  * -
+  
+  MATCH1
+ 
+   - b
+   p p
+   
+   x -
+   p p
+     
 CMD south
 
-t -
-* t
-- *
-
-* -
-- *
-
-* -
-/ *
-- /
-
-* -
-\ *
-- \
-
-* -
-x *
-- x
-
-* -
-b *
-- b
-
-* -
-b *
-x -
-
-* - hurt
-e *
-
-* - heal
-h *
-
-* - get_key
-k *
-
-* - use_key!
-l *
-
-* - detonate
-d *
-
-* -
-x *
-p x
-- p
-
-* -
-x *
-q x
-- q
-
-ATOMIC
-
+ t -
+ * t
+ - *
+ 
  * -
- p p
+ - *
  
- MATCH1
+ FOR s xb/\
  
-  q q
-  - *
+  * -
+  s *
+  - s
   
-  q q hurt
-  e *
-  
-  q q heal
-  h *
-  
-  q q get_key
-  k *
-  
-  q q use_key!
-  l *
-  
-  q q detonate
-  d *
- 
-ATOMIC
-
- * -
- q q
- 
- MATCH1
- 
-  p p
-  - *
-  
-  p p hurt
-  e *
-  
-  p p heal
-  h *
-  
-  p p get_key
-  k *
-  
-  p p use_key!
-  l *
-  
-  p p detonate
-  d *
-  
-ATOMIC
-
  * -
  b *
- p p
+ x -
  
- MATCH1
-
-  q q
-  - b
-  
-  q q
-  x -
-
-ATOMIC
-
- * -
- b *
- q q
+ * - hurt
+ e *
  
- MATCH1
-
+ * - heal
+ h *
+ 
+ * - get_key
+ k *
+ 
+ * - use_key!
+ l *
+ 
+ * - detonate
+ d *
+ 
+ FOR s pq
+ 
+  * -
+  x *
+  s x
+  - s
+ 
+ ATOMIC
+ 
+  * -
   p p
-  - b
   
+  MATCH1
+  
+   q q
+   - *
+   
+   q q hurt
+   e *
+   
+   q q heal
+   h *
+   
+   q q get_key
+   k *
+   
+   q q use_key!
+   l *
+   
+   q q detonate
+   d *
+  
+ ATOMIC
+ 
+  * -
+  q q
+  
+  MATCH1
+  
+   p p
+   - *
+   
+   p p hurt
+   e *
+   
+   p p heal
+   h *
+   
+   p p get_key
+   k *
+   
+   p p use_key!
+   l *
+   
+   p p detonate
+   d *
+   
+ ATOMIC
+ 
+  * -
+  b *
   p p
-  x -
-
+  
+  MATCH1
+ 
+   q q
+   - b
+   
+   q q
+   x -
+ 
+ ATOMIC
+ 
+  * -
+  b *
+  q q
+  
+  MATCH1
+ 
+   p p
+   - b
+   
+   p p
+   x -
+ 
 CMD west
 
--*t *t-
-
--* *-
-
--/* /*-
-
--\* \*-
-
--x* x*-
-
--b* b*-
-
-xb* -*-
-
-e* *- hurt
-
-h* *- heal
-
-k* *- get_key
-
-l* *- use_key!
-
-d* *- detonate
-
--px* px*-
-
--qx* qx*-
-
-ATOMIC
-
- p* p-
-
- MATCH1
-
-  -q *q
-  
-  eq *q hurt
-  
-  hq *q heal
-  
-  kq *q get_key
-  
-  lq *q use_key!
-  
-  dq *q detonate
-
-ATOMIC
-
- pb* p*-
-
- MATCH1
-
-  -q bq
-  
-  xq -q
-
-
-ATOMIC
-
- q* q-
-
- MATCH1
-
-  -p *p
-  
-  ep *p hurt
-  
-  hp *p heal
-  
-  kp *p get_key
-  
-  lp *p use_key!
-  
-  dp *p detonate
-  
-
-ATOMIC
-
- qb* q*-
-
- MATCH1
-
-  -p bp
-  
-  xp -p
-  
-
-
+ -*t *t-
+ 
+ -* *-
+ 
+ FOR s xb/\
+ 
+  -s* s*-
+ 
+ xb* -*-
+ 
+ e* *- hurt
+ 
+ h* *- heal
+ 
+ k* *- get_key
+ 
+ l* *- use_key!
+ 
+ d* *- detonate
+ 
+ FOR s pq
+ 
+  -sx* sx*-
+ 
+ ATOMIC
+ 
+  p* p-
+ 
+  MATCH1
+ 
+   -q *q
+   
+   eq *q hurt
+   
+   hq *q heal
+   
+   kq *q get_key
+   
+   lq *q use_key!
+   
+   dq *q detonate
+ 
+ ATOMIC
+ 
+  pb* p*-
+ 
+  MATCH1
+ 
+   -q bq
+   
+   xq -q
+ 
+ 
+ ATOMIC
+ 
+  q* q-
+ 
+  MATCH1
+ 
+   -p *p
+   
+   ep *p hurt
+   
+   hp *p heal
+   
+   kp *p get_key
+   
+   lp *p use_key!
+   
+   dp *p detonate
+   
+ 
+ ATOMIC
+ 
+  qb* q*-
+ 
+  MATCH1
+ 
+   -p bp
+   
+   xp -p
+ 
 CMD east
 
-t*- -t*
-
-*- -*
-
-*/- -*/
-
-*\- -*\
-
-*x- -*x
-
-*b- -*b
-
-*bx -*-
-
-*e -* hurt
-
-*h -* heal
-
-*k -* get_key
-
-*l -* use_key!
-
-*d -* detonate
-
-*xp- -*xp
-
-*xq- -*xq
-
-ATOMIC
-
- *p -p
-
- MATCH1
-
-  q- q*
-  
-  q- qe hurt
-  
-  q- qh heal
-  
-  q- qk get_key
-  
-  q- ql use_key!
-  
-  q- qd detonate
-
-ATOMIC
-
- *q -q
-
- MATCH1
-
-  p- p*
-  
-  p- pe hurt
-  
-  p- ph heal
-  
-  p- pk get_key
-  
-  p- pl use_key!
-  
-  p- pd detonate
-  
-  p- p*
-  
-  p- pe hurt
-  
-  p- ph heal
-  
-  p- pk get_key
-  
-  p- pl use_key!
-  
-  p- pd detonate
-  
-
-
-ATOMIC
-
- *bp -*p
-
- MATCH1
-
-  q- qb
-  
-  qx q-
-  
-
-ATOMIC
-
- *bq -*q
-
- MATCH1
-
-  p- pb
-  
-  px p-
-  
-
+ t*- -t*
+ 
+ *- -*
+ 
+ FOR s xb/\
+ 
+  *s- -*s
+ 
+ *bx -*-
+ 
+ *e -* hurt
+ 
+ *h -* heal
+ 
+ *k -* get_key
+ 
+ *l -* use_key!
+ 
+ *d -* detonate
+ 
+ FOR s pq
+ 
+  *xs- -*xs
+ 
+ ATOMIC
+ 
+  *p -p
+ 
+  MATCH1
+ 
+   q- q*
+   
+   q- qe hurt
+   
+   q- qh heal
+   
+   q- qk get_key
+   
+   q- ql use_key!
+   
+   q- qd detonate
+ 
+ ATOMIC
+ 
+  *q -q
+ 
+  MATCH1
+ 
+   p- p*
+   
+   p- pe hurt
+   
+   p- ph heal
+   
+   p- pk get_key
+   
+   p- pl use_key!
+   
+   p- pd detonate
+   
+   p- p*
+   
+   p- pe hurt
+   
+   p- ph heal
+   
+   p- pk get_key
+   
+   p- pl use_key!
+   
+   p- pd detonate
+ 
+ ATOMIC
+ 
+  *bp -*p
+ 
+  MATCH1
+ 
+   q- qb
+   
+   qx q-
+   
+ ATOMIC
+ 
+  *bq -*q
+ 
+  MATCH1
+ 
+   p- pb
+   
+   px p-
+   
 CMD piupiu
 
->- ->
-
->e ->
-
--< <-
-
-e< <-
-
-ATOMIC
-
- MATCH1
-
-  p< p-
-  
+ FOR s -eo
+ 
+  >s ->
+ 
+  s< <-
+ 
   ?v ?-
-  p/ p/
+  s/ </
   
-  p\ p\
+  v? -?
+  \s \>
+  
+  v -
+  s v
+  
+  s ^
+  ^ -
+  
+  s\ <\
   ?^ ?-
   
   >\ -\
-  p/ p/
-  
-  p\ p\
-  >/ -/
-  
- MATCH1
-
-  -q <q
-  
-  eq <q
-  
-  oq <q
-  
-  /q /q
-  -? v?
-  
-  /q /q
-  e? v?
-  
-  /q /q
-  o? v?
-  
-  -? ^?
-  \q \q
-  
-  e? ^?
-  \q \q
-  
-  o? ^?
-  \q \q
-  
-
-ATOMIC
- MATCH1
-
-  q< q-
-  
-  q\ q\
-  ?^ ?-
-  
-  ?v ?-
-  q/ q/
-  
-  >\ -\
-  q/ q/
-  
-  q\ q\
-  >/ -/
-  
- MATCH1
-
-  -p <p
-  
-  ep <p
-  
-  op <p
-  
-  /p /p
-  -? v?
-  
-  /p /p
-  e? v?
-  
-  /p /p
-  o? v?
-  
-  -? ^?
-  \p \p
-  
-  e? ^?
-  \p \p
-  
-  o? ^?
-  \p \p
-  
-
-v -
-- v
-
-v -
-e v
-
-ATOMIC
- MATCH1
-
-  v -
-  q q
-  
-  >\ -\
-  ?q ?q
+  ?s ?v
   
   /< /-
-  q? q?
+  s? v?
   
-  /\ /\
-  q^ q-
+  s? ^?
+  \< \-
   
-  /\ /\
-  ^q -q
-  
- MATCH1
-
-  p p
-  - v
-  
-  p p
-  e v
-  
-  p p
-  o v
-  
-  p? p?
-  \- \>
-  
-  p? p?
-  \e \>
-  
-  p? p?
-  \o \>
-  
-  ?p ?p
-  -/ </
-  
-  ?p ?p
-  e/ </
-  
-  ?p ?p
-  o/ </
-  
-
-ATOMIC
- MATCH1
-  
-  v -
-  p p
-  
-  /< /-
-  p? p?
-  
-  >\ -\
-  ?p ?p
-  
-  /\ /\
-  p^ p-
-  
-  /\ /\
-  ^p -p
-  
- MATCH1
-  
-  q q
-  - v
-  
-  q q
-  e v
-  
-  q q
-  o v
-  
-  q? q?
-  \- \>
-  
-  q? q?
-  \e \>
-  
-  q? q?
-  \o \>
-  
-  ?q ?q
-  -/ </
-  
-  ?q ?q
-  e/ </
-  
-  ?q ?q
-  o/ </
-  
-
-ATOMIC
- MATCH1
-  
-  >p -p
-  
-  /p /p
+  /s />
   ^? -?
   
-  v? -?
-  \p \p
-  
-  /< /-
-  \p \p
-  
-  /p /p
-  \< \-
-  
- MATCH1
-  
-  q- q>
-  
-  qe q>
-  
-  qo q>
-  
-  q\ q\
-  ?- ?v
-  
-  q\ q\
-  ?e ?v
-  
-  q\ q\
-  ?o ?v
-  
-  ?- ?^
-  q/ q/
-  
-  ?e ?^
-  q/ q/
-  
-  ?o ?^
-  q/ q/
-  
-
-- ^
-^ -
-
-e ^
-^ -
-
-ATOMIC
-
- MATCH1
-  
-  p p
-  ^ -
-  
-  ?p ?p
+  ?s ?^
   >/ -/
   
-  p? p?
-  \< \-
+  >\ -\
+  s/ </
   
-  pv p-
-  \/ \/
-  
-  vp -p
-  \/ \/
-  
- MATCH1
-  
-  - ^
-  q q
-  
-  e ^
-  q q
-  
-  o ^
-  q q
-  
-  /- />
-  q? q?
-  
-  /e />
-  q? q?
-  
-  /o />
-  q? q?
-  
-  -\ <\
-  ?q ?q
-  
-  e\ <\
-  ?q ?q
-  
-  o\ <\
-  ?q ?q
-  
-
-
-ATOMIC
-
- MATCH1
-  
-  q q
-  ^ -
-  
-  ?q ?q
+  s\ <\
   >/ -/
   
-  q? q?
+  /s />
   \< \-
-  
-  qv q-
-  \/ \/
-  
-  vq -q
-  \/ \/
-  
- MATCH1
-  
-  - ^
-  p p
-  
-  e ^
-  p p
-  
-  o ^
-  p p
-  
-  /- />
-  p? p?
-  
-  /e />
-  p? p?
-  
-  /o />
-  p? p?
-  
-  -\ <\
-  ?p ?p
-  
-  e\ <\
-  ?p ?p
-  
-  o\ <\
-  ?p ?p
-  
-
-?- ?^
->/ -/
-
->\ -\
-?- ?v
-
--? ^?
-\< \-
-
-/< /-
--? v?
-
-/- />
-^? -?
-
--\ <\
-?^ ?-
-
-v? -?
-\- \>
-
-?v ?-
--/ </
-
->\ -\
--/ </
-
--\ <\
->/ -/
-
-/- />
-\< \-
-
-/< /-
-\- \>
-
-v- -^
-\/ \/
-
--v ^-
-\/ \/
-
-/\ /\
-^- -v
-
-/\ /\
--^ v-
-
->o ->
-
-?o ?^
->/ -/
-
-?e ?^
->/ -/
-
->\ -\
-?o ?v
-
->\ -\
-?e ?v
-
-o< <-
-
-/< /-
-o? v?
-
-/< /-
-e? v?
-
-o? ^?
-\< \-
-
-e? ^?
-\< \-
-
-o ^
-^ -
-
-/o />
-^? -?
-
-/e />
-^? -?
-
-o\ <\
-?^ ?-
-
-e\ <\
-?^ ?-
-
-ATOMIC
-
- MATCH1
-  
-  >q -q
-  
-  /q /q
-  ^? -?
-  
-  v? -?
-  \q \q
   
   /< /-
-  \q \q
+  \s \>
   
-  /q /q
-  \< \-
+  vs -^
+  \/ \/
   
- MATCH1
+  sv ^-
+  \/ \/
   
-  p- p>
+  /\ /\
+  ^s -v
   
-  pe p>
+  /\ /\
+  s^ v-
   
-  po p>
+ ATOMIC
+ 
+  MATCH1
+ 
+   p< p-
+   
+   ?v ?-
+   p/ p/
+   
+   p\ p\
+   ?^ ?-
+   
+   >\ -\
+   p/ p/
+   
+   p\ p\
+   >/ -/
+   
+  MATCH1
+ 
+   FOR s -eo
+ 
+    sq <q
+    
+    /q /q
+    s? v?
+    
+    s? ^?
+    \q \q
+ 
+ ATOMIC
+   
+  MATCH1
+ 
+   q< q-
+   
+   q\ q\
+   ?^ ?-
+   
+   ?v ?-
+   q/ q/
+   
+   >\ -\
+   q/ q/
+   
+   q\ q\
+   >/ -/
+   
+  MATCH1
+ 
+   FOR s -eo
+   
+    sp <p
+    
+    /p /p
+    s? v?
+    
+    s? ^?
+    \p \p
+ 
+ ATOMIC
+ 
+  MATCH1
+ 
+   v -
+   q q
+   
+   >\ -\
+   ?q ?q
+   
+   /< /-
+   q? q?
+   
+   /\ /\
+   q^ q-
+   
+   /\ /\
+   ^q -q
+   
+  MATCH1
+ 
+   FOR s -eo
+   
+    p p
+    s v
+    
+    p? p?
+    \s \>
+    
+    ?p ?p
+    s/ </
   
-  p\ p\
-  ?- ?v
+ ATOMIC
   
-  p\ p\
-  ?e ?v
+  MATCH1
+   
+   v -
+   p p
+   
+   /< /-
+   p? p?
+   
+   >\ -\
+   ?p ?p
+   
+   /\ /\
+   p^ p-
+   
+   /\ /\
+   ^p -p
+   
+  MATCH1
+   
+   FOR s -eo
+   
+    q q
+    s v
+    
+    q? q?
+    \s \>
+    
+    ?q ?q
+    s/ </
+    
+ ATOMIC
+ 
+  MATCH1
+   
+   >p -p
+   
+   /p /p
+   ^? -?
+   
+   v? -?
+   \p \p
+   
+   /< /-
+   \p \p
+   
+   /p /p
+   \< \-
+   
+  MATCH1
+   
+   FOR s -eo
+    
+    qs q>
+    
+    q\ q\
+    ?s ?v
+    
+    ?s ?^
+    q/ q/
+ 
+ ATOMIC
+ 
+  MATCH1
+   
+   p p
+   ^ -
+   
+   ?p ?p
+   >/ -/
+   
+   p? p?
+   \< \-
+   
+   pv p-
+   \/ \/
+   
+   vp -p
+   \/ \/
+   
+  MATCH1
+   
+   FOR s -eo
+   
+    s ^
+    q q
+    
+    /s />
+    q? q?
+    
+    s\ <\
+    ?q ?q
   
-  p\ p\
-  ?o ?v
-  
-  ?- ?^
-  p/ p/
-  
-  ?e ?^
-  p/ p/
-  
-  ?o ?^
-  p/ p/
-  
-
-v -
-o v
-
-v? -?
-\o \>
-
-v? -?
-\e \>
-
-?v ?-
-o/ </
-
-?v ?-
-e/ </
-
-
+ ATOMIC
+ 
+  MATCH1
+   
+   q q
+   ^ -
+   
+   ?q ?q
+   >/ -/
+   
+   q? q?
+   \< \-
+   
+   qv q-
+   \/ \/
+   
+   vq -q
+   \/ \/
+   
+  MATCH1
+   
+   FOR s -eo
+   
+    s ^
+    p p
+    
+    /s />
+    p? p?
+    
+    s\ <\
+    ?p ?p
+ 
+ ATOMIC
+ 
+  MATCH1
+   
+   >q -q
+   
+   /q /q
+   ^? -?
+   
+   v? -?
+   \q \q
+   
+   /< /-
+   \q \q
+   
+   /q /q
+   \< \-
+   
+  MATCH1
+ 
+   FOR s -eo
+   
+    ps p>
+ 
+    p\ p\
+    ?s ?v
+    
+    ?s ?^
+    p/ p/
+ 
 CMD hurt
 
-HP:... HP:..-
-
-HP:..- HP:.--
-
-HP:.-- HP:--- die
-
+ HP:... HP:..-
+ 
+ HP:..- HP:.--
+ 
+ HP:.-- HP:--- die
+ 
 CMD die
 
-* -
+ * -
 
 CMD heal
 
-HP:..- HP:... 
-
-HP:.-- HP:..-
-
+ HP:..- HP:... 
+ 
+ HP:.-- HP:..-
+ 
 CMD get_key
 
-KEYS:--- KEYS:.--
-
-KEYS:.-- KEYS:..-
-
-KEYS:..- KEYS:...
-
+ KEYS:--- KEYS:.--
+ 
+ KEYS:.-- KEYS:..-
+ 
+ KEYS:..- KEYS:...
+ 
 CMD use_key
 
-KEYS:... KEYS:..-
-
-KEYS:..- KEYS:.--
-
-KEYS:.-- KEYS:---
-
+ KEYS:... KEYS:..-
+ 
+ KEYS:..- KEYS:.--
+ 
+ KEYS:.-- KEYS:---
+ 
 CMD detonate
 
-??? ---
-?t? ---
-??? ---
-
-??? ---
-?t? ---
-
-?t? ---
-??? ---
-
-?? --
-?t --
-?? --
-
-?? --
-t? --
-?? --
-
-t? --
-?? --
-
-?? --
-t? --
-
-?t --
-?? --
-
-?? --
-?t --
-
-t -
+ ??? ---
+ ?t? ---
+ ??? ---
+ 
+ ??? ---
+ ?t? ---
+ 
+ ?t? ---
+ ??? ---
+ 
+ ?? --
+ ?t --
+ ?? --
+ 
+ ?? --
+ t? --
+ ?? --
+ 
+ t? --
+ ?? --
+ 
+ ?? --
+ t? --
+ 
+ ?t --
+ ?? --
+ 
+ ?? --
+ ?t --
+ 
+ t -
+ 

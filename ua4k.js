@@ -1,6 +1,6 @@
 let boards = [];
 let rules_dict = {};
-let docs = {};
+let binds = {};
 let goals = [];
 let voids = [];
 let level = 0;
@@ -17,8 +17,8 @@ for (let key in gamesData) {
 
 function initGame(data) {
     boards = data.boards;
-    rules_dict = data.rules_dict;
-    docs = data.docs;
+    rules_dict = data.rules;
+    binds = data.binds;
     goals = data.goals;
     voids = data.voids;
     level = 0;
@@ -47,8 +47,8 @@ function updateMovesDisplay() {
 function updateDocsDisplay() {
     let docsElem = document.getElementById('docs');
     docsElem.innerHTML = '';
-    for (let key in docs) {
-        let textNode = document.createTextNode(key + " : " + docs[key]);
+    for (let key in binds) {
+        let textNode = document.createTextNode(key + " : " + binds[key]);
         docsElem.appendChild(textNode);
         let brNode = document.createElement("br");
         docsElem.appendChild(brNode);
@@ -129,14 +129,14 @@ function patternMatchHelper(fromPattern, subgrid) {
             if (false && cell >= '0' && cell <= '9') {
                 if (digitMap[cell]) {
                     if (digitMap[cell] != subgridCell) {
-                        console.log("Pattern match failed at " + i + ", " + j + " with " + cell + " and " + subgridCell + " due to digitMap");                        
+                        // console.log("Pattern match failed at " + i + ", " + j + " with " + cell + " and " + subgridCell + " due to digitMap");                        
                         return false;
                     }
                 } else {
                     digitMap[cell] = subgridCell;
                 }
             } else if (cell != subgridCell) {
-                console.log("Pattern match failed at " + i + ", " + j + " with " + cell + " and " + subgridCell + " due to cell");
+                // console.log("Pattern match failed at " + i + ", " + j + " with " + cell + " and " + subgridCell + " due to cell");
                 return false;
             }
         }
@@ -154,12 +154,15 @@ function patternMatch(fromPattern, row, col) {
     return false;
 }
 
-function applyRule(rule, row, col) {
+function applyRuleAt(rule, row, col) {
     console.log("Applying rule " + rule + " at " + row + ", " + col);
     console.log("Board before applying rule: " + board);
-    let fromPattern = rule[0];
-    let toPattern = rule[1];
-    let sideEffect = rule[2];
+    let fromPattern = rule.from;
+    let toPattern = rule.to;
+    let sideEffect = rule.side_effect;
+    console.log("fromPattern: " + fromPattern);
+    console.log("toPattern: " + toPattern);
+    console.log("sideEffect: " + sideEffect);
     let patternHeight = toPattern.length;
     let patternWidth = toPattern[0].length;
     if (row >= 0 && col >= 0 && row + patternHeight <= board.length && col + patternWidth <= board[0].length) {
@@ -191,15 +194,16 @@ function applyRule(rule, row, col) {
         }
         console.log("Board after applying rule: " + board);
         if (sideEffect && sideEffect.length > 0) {
+            console.log("Applying side effect: " + sideEffect);
             if (sideEffect[sideEffect.length - 1] == '!') {
                 sideEffect = sideEffect.slice(0, -1);
-                if (!gameAction(sideEffect)) {
+                if (!applyRule(rules_dict[sideEffect])) {
                     board = JSON.parse(JSON.stringify(tempBoard));
                     console.log("Board after reverting: " + board);
                     return false;
                 }
             } else {
-                gameAction(sideEffect);
+                applyRule(rules_dict[sideEffect]);
             }
         }
     } else {
@@ -238,31 +242,62 @@ function levelComplete() {
     return true;
 }
 
-function gameAction(a, userInput = false) {
-    let height = board.length;
-    let width = board[0].length;
-    let rules = rules_dict[a];
-    let ruleApplied = false;
-    var board_copy = JSON.parse(JSON.stringify(board));
-    if (rules) {
-        for (let k = 0; k < rules.length && !ruleApplied; k++) {
-            for (let i = 0; i < height && !ruleApplied; i++) {
-                for (let j = 0; j < width && !ruleApplied; j++) {
-                    if (patternMatch(rules[k][0], i, j)) {
-                        ruleApplied = applyRule(rules[k], i, j);
-                    }
+function applyRule(rule) {
+    switch (rule.type) {
+    case "simple":
+        var height = board.length;
+        var width = board[0].length;
+        var ruleApplied = false;
+        for (let i = 0; i < height && !ruleApplied; i++) {
+            for (let j = 0; j < width && !ruleApplied; j++) {
+                if (patternMatch(rule.from, i, j)) {
+                    ruleApplied = applyRuleAt(rule, i, j);
                 }
             }
         }
+        return ruleApplied;
+    case "match1":
+        var ruleApplied = false;
+        var rules = rule.rules;
+        for (let i = 0; i < rules.length; i++) {
+            if (applyRule(rules[i])) {
+                ruleApplied = true;
+                break;
+            }
+        }
+        return ruleApplied;
+    case "atomic":
+        var board_copy = JSON.parse(JSON.stringify(board));
+        var ruleApplied = true;
+        var rules = rule.rules;
+        for (let i = 0; i < rules.length; i++) {
+            if (!applyRule(rules[i])) {
+                ruleApplied = false;
+                break;
+            }
+        }
+        if (!ruleApplied) {
+            board = board_copy;
+        }
+        return ruleApplied;
     }
+}
+
+function gameAction(a) {
+    console.log("gameAction: " + a);
+    var board_copy = JSON.parse(JSON.stringify(board));
+    let cmd = binds[a];
+    console.log("cmd: " + cmd);
+    let rule = rules_dict[cmd];
+    console.log("rule: " + rule);
+    console.log("rule.type: " + rule.type);
+    console.log("rule.rules.length: " + rule.rules.length);
+    let ruleApplied = applyRule(rule);
     //console.log("ruleApplied: " + ruleApplied);
     drawBoard();
     if (ruleApplied) {
-        if (userInput) {
-            board_history.push(board_copy);
-            updateMovesDisplay();
-        }
-        
+        board_history.push(board_copy);
+        updateMovesDisplay();
         if (levelComplete()) {
             let displayElem = document.getElementById('status');
             displayElem.innerHTML = 'Level complete!  Press any key to advance to the next level.';
@@ -289,6 +324,7 @@ function nextLevel() {
 document.addEventListener('keypress', function(event) {
     if (board && levelComplete()) {
         nextLevel();
+        return;
     }
     var charCode = event.charCode;
     if (charCode == 'l'.charCodeAt(0)) {
@@ -313,7 +349,7 @@ document.addEventListener('keypress', function(event) {
         }
         else if ((charCode >= 97 && charCode <= 122) || (charCode >= 48 && charCode <= 57)) {
             var action = String.fromCharCode(charCode);
-            gameAction(action, true);
+            gameAction(action);
         }
     }
 });

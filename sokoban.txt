@@ -9,100 +9,103 @@ o##x-#
 x-Xxxo
 ---o--
 
-BIND w north
+BIND w north s south a west d east
 
-- *
-* -
+CMD north
 
-- *
-! o
+ - *
+ * -
+ 
+ - *
+ ! o
+ 
+ o !
+ * -
+ 
+ - x
+ x *
+ * -
+ 
+ o X
+ x *
+ * -
+ 
+ - x
+ X !
+ * -
+ 
+ - x
+ x *
+ ! o
+ 
+ o X
+ x *
+ ! o
+ 
+CMD south
 
-o !
-* -
+ * -
+ - *
+ 
+ ! o
+ - *
+ 
+ * -
+ o !
+ 
+ * -
+ x *
+ - x
+ 
+ * -
+ x *
+ o X
+ 
+ * -
+ X !
+ - x
+ 
+ ! o
+ x *
+ - x
+ 
+ ! o
+ x *
+ o X
+ 
+CMD west
 
-- x
-x *
-* -
+ -* *-
+ 
+ -! *o
+ 
+ o* !-
+ 
+ -x* x*-
+ 
+ ox* X*-
+ 
+ -X* x!-
+ 
+ -x! x*o
+ 
+ ox! X*o
+ 
+CMD east
 
-o X
-x *
-* -
-
-- x
-X !
-* -
-
-- x
-x *
-! o
-
-o X
-x *
-! o
-
-BIND s south
-
-* -
-- *
-
-! o
-- *
-
-* -
-o !
-
-* -
-x *
-- x
-
-* -
-x *
-o X
-
-* -
-X !
-- x
-
-! o
-x *
-- x
-
-! o
-x *
-o X
-
-BIND a west
-
--* *-
-
--! *o
-
-o* !-
-
--x* x*-
-
-ox* X*-
-
--X* x!-
-
--x! x*o
-
-ox! X*o
-
-BIND d east
-
-*- -*
-
-!- o*
-
-*o -!
-
-*x- -*x
-
-*xo -*X
-
-*X- -!x
-
-!x- o*x
-
-!xo o*X
+ *- -*
+ 
+ !- o*
+ 
+ *o -!
+ 
+ *x- -*x
+ 
+ *xo -*X
+ 
+ *X- -!x
+ 
+ !x- o*x
+ 
+ !xo o*X
+ 
