@@ -197,6 +197,10 @@ for line in lines:
             process_rule_stack_to_level(level)
             rules_stack.append({'type': 'random', 'rules': []})
             indent_stack.append(level)
+        case "CALL":
+            level = indent + 1
+            process_rule_stack_to_level(level)
+            add_rule({'type': 'call', 'name': line.strip().split()[1]})
         case _:
             # print("default at indent: ", indent)
             if len(rules_stack) > 0:

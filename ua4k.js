@@ -260,6 +260,9 @@ function applyRule(rule) {
             }
         }
         return ruleApplied;
+    case "call":
+        var name = rule.name;
+        return applyRule(rules_dict[name]);
     case "match1":
         var ruleApplied = false;
         var rules = rule.rules;

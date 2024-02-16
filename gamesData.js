@@ -19079,9 +19079,11 @@ let gamesData = {
                 "----------------------------",
                 "____________________________",
                 "*:.........---@:...........-",
-                "#---------------------------",
+                "#_--------------------------",
                 "POTIONS:...-----------------",
-                "STAMINA:.....-----------%*--"
+                "STAMINA:.....---------------",
+                "*|---|----------------------",
+                "@|---|------------------%*--"
             ]
         ],
         "rules": {
@@ -19122,12 +19124,14 @@ let gamesData = {
                                     {
                                         "type": "simple",
                                         "from": [
-                                            "-*",
-                                            "--"
+                                            "--^",
+                                            "-*-",
+                                            "---"
                                         ],
                                         "to": [
-                                            "--",
-                                            "*-"
+                                            "---",
+                                            "---",
+                                            "*--"
                                         ],
                                         "side_effect": null
                                     }
@@ -19205,12 +19209,14 @@ let gamesData = {
                                     {
                                         "type": "simple",
                                         "from": [
-                                            "@-",
-                                            "--"
+                                            "^--",
+                                            "-@-",
+                                            "---"
                                         ],
                                         "to": [
-                                            "--",
-                                            "-@"
+                                            "---",
+                                            "---",
+                                            "--@"
                                         ],
                                         "side_effect": null
                                     }
@@ -19274,6 +19280,166 @@ let gamesData = {
                     }
                 ]
             },
+            "restart_game": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "-\\-/-",
+                                    "--*--",
+                                    "-----"
+                                ],
+                                "to": [
+                                    "-----",
+                                    "-----",
+                                    "--*--"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "x-x",
+                                    "---"
+                                ],
+                                "to": [
+                                    "---",
+                                    "-@-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%vvA"
+                                ],
+                                "to": [
+                                    "%*--"
+                                ],
+                                "side_effect": "reset_stats"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "-\\-/-",
+                                    "--@--",
+                                    "-----"
+                                ],
+                                "to": [
+                                    "-----",
+                                    "-----",
+                                    "--@--"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "x-x",
+                                    "---"
+                                ],
+                                "to": [
+                                    "---",
+                                    "-*-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%dAv"
+                                ],
+                                "to": [
+                                    "%*--"
+                                ],
+                                "side_effect": "reset_stats"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "reset_stats": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*:?????????-"
+                                ],
+                                "to": [
+                                    "*:.........-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "@:???????????-"
+                                ],
+                                "to": [
+                                    "@:...........-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "#_??????????????????????????"
+                                ],
+                                "to": [
+                                    "#_--------------------------"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "POTIONS:???-"
+                                ],
+                                "to": [
+                                    "POTIONS:...-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "STAMINA:????????????????????"
+                                ],
+                                "to": [
+                                    "STAMINA:.....---------------"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            "next": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "call",
+                        "name": "restart_game"
+                    },
+                    {
+                        "type": "call",
+                        "name": "enemy_attack"
+                    }
+                ]
+            },
             "enemy_attack": {
                 "type": "match1",
                 "rules": [
@@ -19284,14 +19450,8 @@ let gamesData = {
                                 "type": "try_all",
                                 "rules": [
                                     {
-                                        "type": "simple",
-                                        "from": [
-                                            "?"
-                                        ],
-                                        "to": [
-                                            "?"
-                                        ],
-                                        "side_effect": "animate"
+                                        "type": "call",
+                                        "name": "animate"
                                     }
                                 ]
                             },
@@ -19308,12 +19468,14 @@ let gamesData = {
                             {
                                 "type": "simple",
                                 "from": [
-                                    "--",
-                                    "-@"
+                                    "---",
+                                    "---",
+                                    "--@"
                                 ],
                                 "to": [
-                                    "@-",
-                                    "--"
+                                    "^--",
+                                    "-@-",
+                                    "---"
                                 ],
                                 "side_effect": null
                             },
@@ -19358,22 +19520,21 @@ let gamesData = {
                                             {
                                                 "type": "simple",
                                                 "from": [
-                                                    "#-??????????????????????????"
+                                                    "#_??????????????????????????"
                                                 ],
                                                 "to": [
-                                                    "#-Enemy-dealt-1-damage.-----"
+                                                    "#_@-landed-a-light-blow.----"
                                                 ],
                                                 "side_effect": null
                                             },
                                             {
-                                                "type": "simple",
-                                                "from": [
-                                                    "?"
-                                                ],
-                                                "to": [
-                                                    "?"
-                                                ],
-                                                "side_effect": "damage_*"
+                                                "type": "try_all",
+                                                "rules": [
+                                                    {
+                                                        "type": "call",
+                                                        "name": "damage_*"
+                                                    }
+                                                ]
                                             }
                                         ]
                                     },
@@ -19383,32 +19544,25 @@ let gamesData = {
                                             {
                                                 "type": "simple",
                                                 "from": [
-                                                    "#-??????????????????????????"
+                                                    "#_??????????????????????????"
                                                 ],
                                                 "to": [
-                                                    "#-Enemy-dealt-2-damage.-----"
+                                                    "#_@-landed-a-medium-blow.---"
                                                 ],
                                                 "side_effect": null
                                             },
                                             {
-                                                "type": "simple",
-                                                "from": [
-                                                    "?"
-                                                ],
-                                                "to": [
-                                                    "?"
-                                                ],
-                                                "side_effect": "damage_*"
-                                            },
-                                            {
-                                                "type": "simple",
-                                                "from": [
-                                                    "?"
-                                                ],
-                                                "to": [
-                                                    "?"
-                                                ],
-                                                "side_effect": "damage_*"
+                                                "type": "try_all",
+                                                "rules": [
+                                                    {
+                                                        "type": "call",
+                                                        "name": "damage_*"
+                                                    },
+                                                    {
+                                                        "type": "call",
+                                                        "name": "damage_*"
+                                                    }
+                                                ]
                                             }
                                         ]
                                     },
@@ -19418,42 +19572,29 @@ let gamesData = {
                                             {
                                                 "type": "simple",
                                                 "from": [
-                                                    "#-??????????????????????????"
+                                                    "#_??????????????????????????"
                                                 ],
                                                 "to": [
-                                                    "#-Enemy-dealt-3-damage.-----"
+                                                    "#_@-landed-a-heavy-blow.----"
                                                 ],
                                                 "side_effect": null
                                             },
                                             {
-                                                "type": "simple",
-                                                "from": [
-                                                    "?"
-                                                ],
-                                                "to": [
-                                                    "?"
-                                                ],
-                                                "side_effect": "damage_*"
-                                            },
-                                            {
-                                                "type": "simple",
-                                                "from": [
-                                                    "?"
-                                                ],
-                                                "to": [
-                                                    "?"
-                                                ],
-                                                "side_effect": "damage_*"
-                                            },
-                                            {
-                                                "type": "simple",
-                                                "from": [
-                                                    "?"
-                                                ],
-                                                "to": [
-                                                    "?"
-                                                ],
-                                                "side_effect": "damage_*"
+                                                "type": "try_all",
+                                                "rules": [
+                                                    {
+                                                        "type": "call",
+                                                        "name": "damage_*"
+                                                    },
+                                                    {
+                                                        "type": "call",
+                                                        "name": "damage_*"
+                                                    },
+                                                    {
+                                                        "type": "call",
+                                                        "name": "damage_*"
+                                                    }
+                                                ]
                                             }
                                         ]
                                     }
@@ -19467,108 +19608,116 @@ let gamesData = {
                 "type": "match1",
                 "rules": [
                     {
-                        "type": "simple",
-                        "from": [
-                            "?"
-                        ],
-                        "to": [
-                            "?"
-                        ],
-                        "side_effect": "enemy_attack!"
+                        "type": "call",
+                        "name": "next"
                     },
                     {
                         "type": "atomic",
                         "rules": [
-                            {
-                                "type": "try_all",
-                                "rules": [
-                                    {
-                                        "type": "simple",
-                                        "from": [
-                                            "?"
-                                        ],
-                                        "to": [
-                                            "?"
-                                        ],
-                                        "side_effect": "animate"
-                                    }
-                                ]
-                            },
-                            {
-                                "type": "simple",
-                                "from": [
-                                    "#-??????????????????????????"
-                                ],
-                                "to": [
-                                    "#-You-dealt-1-damage.-------"
-                                ],
-                                "side_effect": null
-                            },
-                            {
-                                "type": "simple",
-                                "from": [
-                                    "--",
-                                    "*-"
-                                ],
-                                "to": [
-                                    "-*",
-                                    "--"
-                                ],
-                                "side_effect": null
-                            },
-                            {
-                                "type": "simple",
-                                "from": [
-                                    "---",
-                                    "-@-"
-                                ],
-                                "to": [
-                                    "x-x",
-                                    "-@-"
-                                ],
-                                "side_effect": null
-                            },
-                            {
-                                "type": "simple",
-                                "from": [
-                                    "%???"
-                                ],
-                                "to": [
-                                    "%?aA"
-                                ],
-                                "side_effect": null
-                            },
                             {
                                 "type": "simple",
                                 "from": [
                                     "%*"
                                 ],
                                 "to": [
-                                    "%@"
+                                    "%*"
                                 ],
-                                "side_effect": "damage_@"
+                                "side_effect": null
                             },
                             {
-                                "type": "simple",
-                                "from": [
-                                    "?"
-                                ],
-                                "to": [
-                                    "?"
-                                ],
-                                "side_effect": "spend_stamina!"
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "try_all",
+                                                "rules": [
+                                                    {
+                                                        "type": "call",
+                                                        "name": "animate"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "---",
+                                                    "---",
+                                                    "*--"
+                                                ],
+                                                "to": [
+                                                    "--^",
+                                                    "-*-",
+                                                    "---"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "---",
+                                                    "-@-"
+                                                ],
+                                                "to": [
+                                                    "x-x",
+                                                    "-@-"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "%???"
+                                                ],
+                                                "to": [
+                                                    "%?aA"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "%*"
+                                                ],
+                                                "to": [
+                                                    "%@"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "#_??????????????????????????"
+                                                ],
+                                                "to": [
+                                                    "#_*-landed-a-blow.----------"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "call",
+                                                "name": "damage_@"
+                                            },
+                                            {
+                                                "type": "call",
+                                                "name": "spend_stamina"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "#_??????????????????????????"
+                                        ],
+                                        "to": [
+                                            "#_Can't-attack,-no-stamina.-"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
                             }
                         ]
-                    },
-                    {
-                        "type": "simple",
-                        "from": [
-                            "#-??????????????????????????"
-                        ],
-                        "to": [
-                            "#-Can't-attack,-no-stamina.-"
-                        ],
-                        "side_effect": null
                     }
                 ]
             },
@@ -19576,66 +19725,131 @@ let gamesData = {
                 "type": "match1",
                 "rules": [
                     {
-                        "type": "simple",
-                        "from": [
-                            "?"
-                        ],
-                        "to": [
-                            "?"
-                        ],
-                        "side_effect": "enemy_attack!"
+                        "type": "call",
+                        "name": "next"
                     },
                     {
                         "type": "atomic",
                         "rules": [
                             {
-                                "type": "try_all",
+                                "type": "simple",
+                                "from": [
+                                    "%*"
+                                ],
+                                "to": [
+                                    "%*"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "match1",
                                 "rules": [
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "try_all",
+                                                "rules": [
+                                                    {
+                                                        "type": "call",
+                                                        "name": "animate"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "%*"
+                                                ],
+                                                "to": [
+                                                    "%@"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "#_??????????????????????????"
+                                                ],
+                                                "to": [
+                                                    "#_*-used-a-potion.----------"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "---",
+                                                    "---",
+                                                    "-*-"
+                                                ],
+                                                "to": [
+                                                    "-o-",
+                                                    "-*-",
+                                                    "---"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "%???"
+                                                ],
+                                                "to": [
+                                                    "%?d?"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "call",
+                                                "name": "use_potion"
+                                            }
+                                        ]
+                                    },
                                     {
                                         "type": "simple",
                                         "from": [
-                                            "?"
+                                            "#_??????????????????????????"
                                         ],
                                         "to": [
-                                            "?"
+                                            "#_Can't-heal,-no-potions.---"
                                         ],
-                                        "side_effect": "animate"
+                                        "side_effect": null
                                     }
                                 ]
-                            },
+                            }
+                        ]
+                    }
+                ]
+            },
+            "rest": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "call",
+                        "name": "next"
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
                             {
                                 "type": "simple",
                                 "from": [
-                                    "#-??????????????????????????"
+                                    "%*"
                                 ],
                                 "to": [
-                                    "#-You-used-a-potion.--------"
+                                    "%*"
                                 ],
                                 "side_effect": null
                             },
                             {
-                                "type": "simple",
-                                "from": [
-                                    "---",
-                                    "---",
-                                    "-*-"
-                                ],
-                                "to": [
-                                    "-o-",
-                                    "-*-",
-                                    "---"
-                                ],
-                                "side_effect": null
-                            },
-                            {
-                                "type": "simple",
-                                "from": [
-                                    "%???"
-                                ],
-                                "to": [
-                                    "%?d?"
-                                ],
-                                "side_effect": null
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "call",
+                                        "name": "animate"
+                                    }
+                                ]
                             },
                             {
                                 "type": "simple",
@@ -19645,60 +19859,15 @@ let gamesData = {
                                 "to": [
                                     "%@"
                                 ],
-                                "side_effect": "use_potion!"
-                            }
-                        ]
-                    },
-                    {
-                        "type": "simple",
-                        "from": [
-                            "#-??????????????????????????"
-                        ],
-                        "to": [
-                            "#-Can't-heal,-no-potions.---"
-                        ],
-                        "side_effect": null
-                    }
-                ]
-            },
-            "rest": {
-                "type": "match1",
-                "rules": [
-                    {
-                        "type": "simple",
-                        "from": [
-                            "?"
-                        ],
-                        "to": [
-                            "?"
-                        ],
-                        "side_effect": "enemy_attack!"
-                    },
-                    {
-                        "type": "atomic",
-                        "rules": [
-                            {
-                                "type": "try_all",
-                                "rules": [
-                                    {
-                                        "type": "simple",
-                                        "from": [
-                                            "?"
-                                        ],
-                                        "to": [
-                                            "?"
-                                        ],
-                                        "side_effect": "animate"
-                                    }
-                                ]
+                                "side_effect": null
                             },
                             {
                                 "type": "simple",
                                 "from": [
-                                    "#-??????????????????????????"
+                                    "#_??????????????????????????"
                                 ],
                                 "to": [
-                                    "#-You-rested.---------------"
+                                    "#_*-got-some-rest.----------"
                                 ],
                                 "side_effect": null
                             },
@@ -19725,14 +19894,8 @@ let gamesData = {
                                 "side_effect": null
                             },
                             {
-                                "type": "simple",
-                                "from": [
-                                    "%*"
-                                ],
-                                "to": [
-                                    "%@"
-                                ],
-                                "side_effect": "gain_stamina"
+                                "type": "call",
+                                "name": "gain_stamina"
                             }
                         ]
                     }
@@ -19992,23 +20155,18 @@ let gamesData = {
                 "type": "match1",
                 "rules": [
                     {
-                        "type": "simple",
-                        "from": [
-                            "@"
-                        ],
-                        "to": [
-                            "-"
-                        ],
-                        "side_effect": "win"
-                    }
-                ]
-            },
-            "win": {
-                "type": "match1",
-                "rules": [
-                    {
                         "type": "atomic",
                         "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "@"
+                                ],
+                                "to": [
+                                    "-"
+                                ],
+                                "side_effect": null
+                            },
                             {
                                 "type": "simple",
                                 "from": [
@@ -20023,14 +20181,8 @@ let gamesData = {
                                 "type": "try_all",
                                 "rules": [
                                     {
-                                        "type": "simple",
-                                        "from": [
-                                            "?"
-                                        ],
-                                        "to": [
-                                            "?"
-                                        ],
-                                        "side_effect": "animate"
+                                        "type": "call",
+                                        "name": "animate"
                                     }
                                 ]
                             },
@@ -20061,12 +20213,47 @@ let gamesData = {
                             {
                                 "type": "simple",
                                 "from": [
-                                    "#-??????????????????????????"
+                                    "#_??????????????????????????"
                                 ],
                                 "to": [
-                                    "#-You-won.--Good-job!-------"
+                                    "#_*-defeats-@.--Good-job!---"
                                 ],
                                 "side_effect": null
+                            },
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "*|-"
+                                        ],
+                                        "to": [
+                                            "*|#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "*|#-"
+                                        ],
+                                        "to": [
+                                            "*|##"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "*|##-"
+                                        ],
+                                        "to": [
+                                            "*|###"
+                                        ],
+                                        "side_effect": "series_won_by_*"
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -20191,23 +20378,18 @@ let gamesData = {
                 "type": "match1",
                 "rules": [
                     {
-                        "type": "simple",
-                        "from": [
-                            "*"
-                        ],
-                        "to": [
-                            "-"
-                        ],
-                        "side_effect": "lose"
-                    }
-                ]
-            },
-            "lose": {
-                "type": "match1",
-                "rules": [
-                    {
                         "type": "atomic",
                         "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*"
+                                ],
+                                "to": [
+                                    "-"
+                                ],
+                                "side_effect": null
+                            },
                             {
                                 "type": "simple",
                                 "from": [
@@ -20222,14 +20404,8 @@ let gamesData = {
                                 "type": "try_all",
                                 "rules": [
                                     {
-                                        "type": "simple",
-                                        "from": [
-                                            "?"
-                                        ],
-                                        "to": [
-                                            "?"
-                                        ],
-                                        "side_effect": "animate"
+                                        "type": "call",
+                                        "name": "animate"
                                     }
                                 ]
                             },
@@ -20260,14 +20436,79 @@ let gamesData = {
                             {
                                 "type": "simple",
                                 "from": [
-                                    "#-??????????????????????????"
+                                    "#_??????????????????????????"
                                 ],
                                 "to": [
-                                    "#-You-lost.--Too-bad!-------"
+                                    "#_@-defeats-*.--Too-bad!----"
                                 ],
                                 "side_effect": null
+                            },
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "@|-"
+                                        ],
+                                        "to": [
+                                            "@|#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "@|#-"
+                                        ],
+                                        "to": [
+                                            "@|##"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "@|##-"
+                                        ],
+                                        "to": [
+                                            "@|###"
+                                        ],
+                                        "side_effect": "series_won_by_@"
+                                    }
+                                ]
                             }
                         ]
+                    }
+                ]
+            },
+            "series_won_by_*": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "%?"
+                        ],
+                        "to": [
+                            "%w"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "series_won_by_@": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "%?"
+                        ],
+                        "to": [
+                            "%!"
+                        ],
+                        "side_effect": null
                     }
                 ]
             }
