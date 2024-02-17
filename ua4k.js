@@ -209,11 +209,11 @@ function applyRuleAt(rule, row, col) {
             } else {
                 applyRule(rules_dict[sideEffect]);
             }
+            console.log("Board after applying rule and side effect " + sideEffect + ": " + board);
         }
     } else {
         console.log("This should never happen.")
     }
-    console.log("Board after applying rule: " + board);
     return true;
 }
 
@@ -262,7 +262,10 @@ function applyRule(rule) {
         return ruleApplied;
     case "call":
         var name = rule.name;
-        return applyRule(rules_dict[name]);
+        console.log("Applying CALL " + name);
+        var ruleApplied = applyRule(rules_dict[name]);
+        console.log("CALL " + name + " applied: " + ruleApplied);
+        return ruleApplied;
     case "match1":
         var ruleApplied = false;
         var rules = rule.rules;
@@ -291,6 +294,7 @@ function applyRule(rule) {
         for (let i = 0; i < rules.length; i++) {
             if (!applyRule(rules[i])) {
                 ruleApplied = false;
+                console.log("Atomic rule fail: " + rules[i]);
                 break;
             }
         }

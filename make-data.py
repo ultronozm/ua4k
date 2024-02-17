@@ -96,18 +96,27 @@ def process_rule_stack_to_level(level):
                 add_rule(rule)
             case 'for':
                 wildcards_dict = rule['wildcards_dict']
-                # print("wildcards_dict: ", wildcards_dict)
-                # print("rule['rules']: ", rule['rules'])
                 for r in rule['rules']:
-                    # print("r in rule['rules']:", r)
                     for assn in wildcard_assignments(wildcards_dict):
-                        # print("assn: ", assn)
-                        # deep copy of r
                         modified_r = copy.deepcopy(r)
-                        # print("r: ", r)
                         deep_subs(modified_r, assn)
-                        # print("calling add_rule with modified_r:", modified_r)
                         add_rule(modified_r)
+            case 'zip':
+                # print("ZIP")
+                zip_dict = rule['zip_dict']
+                assert len(zip_dict) > 0
+                length = len(list(zip_dict.values())[0])
+                for i in range(length):
+                    for r in rule['rules']:
+                        # print("r: ", r)
+                        assn = {}
+                        for k in zip_dict:
+                            assn[k] = zip_dict[k][i]
+                        modified_r = copy.deepcopy(r)
+                        deep_subs(modified_r, assn)
+                        # print("modified_r: ", modified_r)
+                        add_rule(modified_r)
+                
             case _:
                 print("Error: unknown rule type")
                 assert False
@@ -173,6 +182,17 @@ for line in lines:
                 for char in line.strip().split()[i]:
                     wildcards_dict[char] = line.strip().split()[i+1]            
             rules_stack.append({'type': 'for', 'wildcards_dict': wildcards_dict, 'rules': []})
+            indent_stack.append(level)
+        case "ZIP":
+            # print("FOR at indent: ", indent)
+            level = indent + 1
+            process_rule_stack_to_level(level)
+            zip_dict = {}
+            for i in range(1, len(line.strip().split()), 2):
+                arg = line.strip().split()[i]
+                assert len(arg) == 1
+                zip_dict[arg] = line.strip().split()[i+1]
+            rules_stack.append({'type': 'zip', 'zip_dict': zip_dict, 'rules': []})
             indent_stack.append(level)
         case "ATOMIC":
             # print("ATOMIC at indent: ", indent)

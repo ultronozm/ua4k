@@ -62,6 +62,20 @@ x--x--x
 --b-xx
 ------
 
+vxxxxxx
+*-xxxxx
+-b-xxxx
+-x--xxx
+-x-\-xx
+---x-ox
+
+--xx-x-\
+o---x--/
+x---x--x
+-xxxxxx-
+*-/---b-
+----^---
+
 ----eeo
 -x--eee
 >---eee
@@ -166,12 +180,34 @@ KEYS:------
 HP:...-----
 
 
+////--\\\\
+\\\x--x///
+///----\\\
+\\\x--x///
+///------o
+x\-x-\x///
+x--x---\\\
+x/-^*--///
+
+
 xxx--*---d
 xt------xx
 xxx----xxx
 >-----xxxo
 -b-----xxx
 --------xx
+
+
+vepxxxL
+*-bxxxU
+et--xxL
+ex---oZ
+-xe\---
+---xbdo
+x-xq-xx
+_______
+HP:...-
+
 
 BIND w north s south a west d east z piupiu
 

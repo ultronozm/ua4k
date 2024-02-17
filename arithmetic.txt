@@ -1,0 +1,221 @@
+VOID
+o
+
+-----x--o
+--x--x---
+--x--x---
+*-x------
+_________
+_0000000$
++0000000#
+_________
+00000000@
+_________
+-------%-
+
+BIND w north s south a west d east z increment$ x increment# c compute_sum
+
+FOR s -o
+
+ CMD north
+
+  s *
+  * -
+
+ CMD south
+
+  * -
+  s *
+
+ CMD west
+
+  s* *-
+
+ CMD east
+
+  *s -*
+
+CMD increment
+
+ FOR k @#$
+
+  ATOMIC
+
+   %k
+
+   MATCH1
+
+    ZIP s 012345678 t 123456789
+    
+     sk tk
+    
+     s9k t0k
+    
+     s99k t00k
+    
+     s999k t000k
+    
+     s9999k t0000k
+     
+     s99999k t00000k
+     
+     s999999k t000000k
+ 
+CMD decrement
+
+ FOR k @#$
+
+  ATOMIC
+
+   %k
+
+   MATCH1
+
+    ZIP s 012345678 t 123456789
+    
+     tk sk
+    
+     t0k s9k
+    
+     t00k s99k
+    
+     t000k s999k
+    
+     t0000k s9999k
+     
+     t00000k s99999k
+     
+     t000000k s999999k
+
+CMD increment$
+
+ ATOMIC
+ 
+  %? %$
+ 
+  CALL increment
+
+  %? %-
+ 
+CMD decrement$
+
+ ATOMIC
+ 
+  %? %$
+ 
+  CALL decrement
+
+  %? %-
+
+CMD increment#
+
+ ATOMIC
+ 
+  %? %#
+ 
+  CALL increment
+
+  %? %-
+
+CMD decrement#
+
+ ATOMIC
+ 
+  %? %#
+ 
+  CALL decrement
+
+  %? %-
+
+CMD increment@
+
+ ATOMIC
+ 
+  %? %@
+ 
+  CALL increment
+
+  %? %-
+
+CMD decrement@
+
+ ATOMIC
+ 
+  %? %@
+ 
+  CALL decrement
+
+  %? %-
+
+CMD copy$#
+
+ ATOMIC
+
+  MATCH1
+
+   FOR s 1234567890
+
+    ATOMIC
+
+     s$
+  
+     ?# s#
+
+  MATCH1
+
+   FOR s 1234567890
+   
+    ATOMIC
+  
+     s?$
+  
+     ??# s?#
+
+  MATCH1
+
+   FOR s 1234567890
+   
+    ATOMIC
+  
+     s??$
+  
+     ???# s??#
+
+CMD compute_sum
+
+ ATOMIC
+
+  ????????@ 00000000@
+
+  CALL compute_sum_inner_loop$
+
+  CALL compute_sum_inner_loop#
+  
+
+CMD compute_sum_inner_loop$
+
+ MATCH1
+
+  0000000$
+
+  ATOMIC
+
+   CALL decrement$
+
+   CALL increment@
+
+   CALL compute_sum_inner_loop$
+
+CMD compute_sum_inner_loop#
+
+ MATCH1
+
+  0000000#
+
+  ATOMIC
+
+   CALL decrement#
+
+   CALL increment@
+
+   CALL compute_sum_inner_loop#

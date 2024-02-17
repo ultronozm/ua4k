@@ -75,6 +75,22 @@ let gamesData = {
                 "------"
             ],
             [
+                "vxxxxxx",
+                "*-xxxxx",
+                "-b-xxxx",
+                "-x--xxx",
+                "-x-\\-xx",
+                "---x-ox"
+            ],
+            [
+                "--xx-x-\\",
+                "o---x--/",
+                "x---x--x",
+                "-xxxxxx-",
+                "*-/---b-",
+                "----^---"
+            ],
+            [
                 "----eeo",
                 "-x--eee",
                 ">---eee",
@@ -189,12 +205,33 @@ let gamesData = {
                 "HP:...-----"
             ],
             [
+                "////--\\\\\\\\",
+                "\\\\\\x--x///",
+                "///----\\\\\\",
+                "\\\\\\x--x///",
+                "///------o",
+                "x\\-x-\\x///",
+                "x--x---\\\\\\",
+                "x/-^*--///"
+            ],
+            [
                 "xxx--*---d",
                 "xt------xx",
                 "xxx----xxx",
                 ">-----xxxo",
                 "-b-----xxx",
                 "--------xx"
+            ],
+            [
+                "vepxxxL",
+                "*-bxxxU",
+                "et--xxL",
+                "ex---oZ",
+                "-xe\\---",
+                "---xbdo",
+                "x-xq-xx",
+                "_______",
+                "HP:...-"
             ]
         ],
         "rules": {
@@ -19073,17 +19110,17 @@ let gamesData = {
     "fight": {
         "boards": [
             [
-                "----------------------------",
-                "----------------------------",
-                "---------*--------@---------",
-                "----------------------------",
-                "____________________________",
-                "*:.........---@:...........-",
-                "#_--------------------------",
-                "POTIONS:...-----------------",
-                "STAMINA:.....---------------",
-                "*|---|----------------------",
-                "@|---|------------------%*--"
+                "-----------------------------------",
+                "-----------------------------------",
+                "-------------*---------@-----------",
+                "-----------------------------------",
+                "___________________________________",
+                "*:...........-@:..................-",
+                "#_---------------------------------",
+                "POTIONS:...------------------------",
+                "STAMINA:....----------------<----->",
+                "*|---|-----------------------------",
+                "@|---|-------------------------%*--"
             ]
         ],
         "rules": {
@@ -19093,10 +19130,10 @@ let gamesData = {
                     {
                         "type": "simple",
                         "from": [
-                            "*:?????????"
+                            "*:???????????-"
                         ],
                         "to": [
-                            "*:........."
+                            "*:...........-"
                         ],
                         "side_effect": null
                     }
@@ -19132,6 +19169,35 @@ let gamesData = {
                                             "---",
                                             "---",
                                             "*--"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "atomic",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "%?l?"
+                                        ],
+                                        "to": [
+                                            "%?-?"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "--#$!-",
+                                            "-*----",
+                                            "------"
+                                        ],
+                                        "to": [
+                                            "------",
+                                            "------",
+                                            "*-----"
                                         ],
                                         "side_effect": null
                                     }
@@ -19374,52 +19440,56 @@ let gamesData = {
                         "type": "atomic",
                         "rules": [
                             {
+                                "type": "call",
+                                "name": "restore_health"
+                            },
+                            {
                                 "type": "simple",
                                 "from": [
-                                    "*:?????????-"
+                                    "@:??????????????????-"
                                 ],
                                 "to": [
-                                    "*:.........-"
+                                    "@:..................-"
                                 ],
                                 "side_effect": null
                             },
                             {
                                 "type": "simple",
                                 "from": [
-                                    "@:???????????-"
+                                    "#_?????????????????????????????????"
                                 ],
                                 "to": [
-                                    "@:...........-"
+                                    "#_---------------------------------"
                                 ],
                                 "side_effect": null
                             },
                             {
                                 "type": "simple",
                                 "from": [
-                                    "#_??????????????????????????"
+                                    "POTIONS:????-"
                                 ],
                                 "to": [
-                                    "#_--------------------------"
+                                    "POTIONS:....-"
                                 ],
                                 "side_effect": null
                             },
                             {
                                 "type": "simple",
                                 "from": [
-                                    "POTIONS:???-"
+                                    "STAMINA:??????"
                                 ],
                                 "to": [
-                                    "POTIONS:...-"
+                                    "STAMINA:.....-"
                                 ],
                                 "side_effect": null
                             },
                             {
                                 "type": "simple",
                                 "from": [
-                                    "STAMINA:????????????????????"
+                                    "<?????>"
                                 ],
                                 "to": [
-                                    "STAMINA:.....---------------"
+                                    "<----->"
                                 ],
                                 "side_effect": null
                             }
@@ -19458,16 +19528,6 @@ let gamesData = {
                             {
                                 "type": "simple",
                                 "from": [
-                                    "%@"
-                                ],
-                                "to": [
-                                    "%*"
-                                ],
-                                "side_effect": null
-                            },
-                            {
-                                "type": "simple",
-                                "from": [
                                     "---",
                                     "---",
                                     "--@"
@@ -19476,16 +19536,6 @@ let gamesData = {
                                     "^--",
                                     "-@-",
                                     "---"
-                                ],
-                                "side_effect": null
-                            },
-                            {
-                                "type": "simple",
-                                "from": [
-                                    "%?-"
-                                ],
-                                "to": [
-                                    "%?A"
                                 ],
                                 "side_effect": null
                             },
@@ -19504,10 +19554,10 @@ let gamesData = {
                             {
                                 "type": "simple",
                                 "from": [
-                                    "%???"
+                                    "%@-?"
                                 ],
                                 "to": [
-                                    "%??a"
+                                    "%*Aa"
                                 ],
                                 "side_effect": null
                             },
@@ -19520,10 +19570,10 @@ let gamesData = {
                                             {
                                                 "type": "simple",
                                                 "from": [
-                                                    "#_??????????????????????????"
+                                                    "#_?????????????????????????????????"
                                                 ],
                                                 "to": [
-                                                    "#_@-landed-a-light-blow.----"
+                                                    "#_@-landed-a-light-blow.-----------"
                                                 ],
                                                 "side_effect": null
                                             },
@@ -19544,10 +19594,10 @@ let gamesData = {
                                             {
                                                 "type": "simple",
                                                 "from": [
-                                                    "#_??????????????????????????"
+                                                    "#_?????????????????????????????????"
                                                 ],
                                                 "to": [
-                                                    "#_@-landed-a-medium-blow.---"
+                                                    "#_@-landed-a-medium-blow.----------"
                                                 ],
                                                 "side_effect": null
                                             },
@@ -19572,10 +19622,10 @@ let gamesData = {
                                             {
                                                 "type": "simple",
                                                 "from": [
-                                                    "#_??????????????????????????"
+                                                    "#_?????????????????????????????????"
                                                 ],
                                                 "to": [
-                                                    "#_@-landed-a-heavy-blow.----"
+                                                    "#_@-landed-a-heavy-blow.-----------"
                                                 ],
                                                 "side_effect": null
                                             },
@@ -19668,30 +19718,20 @@ let gamesData = {
                                             {
                                                 "type": "simple",
                                                 "from": [
-                                                    "%???"
+                                                    "%*??"
                                                 ],
                                                 "to": [
-                                                    "%?aA"
+                                                    "%@aA"
                                                 ],
                                                 "side_effect": null
                                             },
                                             {
                                                 "type": "simple",
                                                 "from": [
-                                                    "%*"
+                                                    "#_?????????????????????????????????"
                                                 ],
                                                 "to": [
-                                                    "%@"
-                                                ],
-                                                "side_effect": null
-                                            },
-                                            {
-                                                "type": "simple",
-                                                "from": [
-                                                    "#_??????????????????????????"
-                                                ],
-                                                "to": [
-                                                    "#_*-landed-a-blow.----------"
+                                                    "#_*-delivered-a-standard-attack.---"
                                                 ],
                                                 "side_effect": null
                                             },
@@ -19708,10 +19748,135 @@ let gamesData = {
                                     {
                                         "type": "simple",
                                         "from": [
-                                            "#_??????????????????????????"
+                                            "#_?????????????????????????????????"
                                         ],
                                         "to": [
-                                            "#_Can't-attack,-no-stamina.-"
+                                            "#_Can't-attack,-no-stamina.--------"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "limit_attack": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "call",
+                        "name": "next"
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%*"
+                                ],
+                                "to": [
+                                    "%*"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "<LIMIT>"
+                                                ],
+                                                "to": [
+                                                    "<----->"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "try_all",
+                                                "rules": []
+                                            },
+                                            {
+                                                "type": "call",
+                                                "name": "animate"
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "------",
+                                                    "------",
+                                                    "*-----"
+                                                ],
+                                                "to": [
+                                                    "--#$!-",
+                                                    "-*----",
+                                                    "------"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "---",
+                                                    "-@-"
+                                                ],
+                                                "to": [
+                                                    "x-x",
+                                                    "-@-"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "%*??"
+                                                ],
+                                                "to": [
+                                                    "%@lA"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "#_?????????????????????????????????"
+                                                ],
+                                                "to": [
+                                                    "#_*-unleashed-a-limit-attack!!!----"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "try_all",
+                                                "rules": [
+                                                    {
+                                                        "type": "call",
+                                                        "name": "damage_@"
+                                                    },
+                                                    {
+                                                        "type": "call",
+                                                        "name": "damage_@"
+                                                    },
+                                                    {
+                                                        "type": "call",
+                                                        "name": "damage_@"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "#_?????????????????????????????????"
+                                        ],
+                                        "to": [
+                                            "#_Limit-gauge-not-full.------------"
                                         ],
                                         "side_effect": null
                                     }
@@ -19759,20 +19924,10 @@ let gamesData = {
                                             {
                                                 "type": "simple",
                                                 "from": [
-                                                    "%*"
+                                                    "#_?????????????????????????????????"
                                                 ],
                                                 "to": [
-                                                    "%@"
-                                                ],
-                                                "side_effect": null
-                                            },
-                                            {
-                                                "type": "simple",
-                                                "from": [
-                                                    "#_??????????????????????????"
-                                                ],
-                                                "to": [
-                                                    "#_*-used-a-potion.----------"
+                                                    "#_*-used-a-potion.-----------------"
                                                 ],
                                                 "side_effect": null
                                             },
@@ -19793,10 +19948,10 @@ let gamesData = {
                                             {
                                                 "type": "simple",
                                                 "from": [
-                                                    "%???"
+                                                    "%*??"
                                                 ],
                                                 "to": [
-                                                    "%?d?"
+                                                    "%@d?"
                                                 ],
                                                 "side_effect": null
                                             },
@@ -19809,10 +19964,10 @@ let gamesData = {
                                     {
                                         "type": "simple",
                                         "from": [
-                                            "#_??????????????????????????"
+                                            "#_?????????????????????????????????"
                                         ],
                                         "to": [
-                                            "#_Can't-heal,-no-potions.---"
+                                            "#_Can't-heal,-no-potions.----------"
                                         ],
                                         "side_effect": null
                                     }
@@ -19864,10 +20019,10 @@ let gamesData = {
                             {
                                 "type": "simple",
                                 "from": [
-                                    "#_??????????????????????????"
+                                    "#_?????????????????????????????????"
                                 ],
                                 "to": [
-                                    "#_*-got-some-rest.----------"
+                                    "#_*-got-some-rest.-----------------"
                                 ],
                                 "side_effect": null
                             },
@@ -19907,30 +20062,40 @@ let gamesData = {
                     {
                         "type": "simple",
                         "from": [
-                            "POTIONS:..."
+                            "POTIONS:....-"
                         ],
                         "to": [
+                            "POTIONS:...--"
+                        ],
+                        "side_effect": "restore_health"
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "POTIONS:...-"
+                        ],
+                        "to": [
+                            "POTIONS:..--"
+                        ],
+                        "side_effect": "restore_health"
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
                             "POTIONS:..-"
                         ],
+                        "to": [
+                            "POTIONS:.--"
+                        ],
                         "side_effect": "restore_health"
                     },
                     {
                         "type": "simple",
                         "from": [
-                            "POTIONS:.."
-                        ],
-                        "to": [
                             "POTIONS:.-"
                         ],
-                        "side_effect": "restore_health"
-                    },
-                    {
-                        "type": "simple",
-                        "from": [
-                            "POTIONS:."
-                        ],
                         "to": [
-                            "POTIONS:-"
+                            "POTIONS:--"
                         ],
                         "side_effect": "restore_health"
                     }
@@ -19997,40 +20162,10 @@ let gamesData = {
                     {
                         "type": "simple",
                         "from": [
-                            "STAMINA:---"
+                            "STAMINA:????-"
                         ],
                         "to": [
-                            "STAMINA:..."
-                        ],
-                        "side_effect": null
-                    },
-                    {
-                        "type": "simple",
-                        "from": [
-                            "STAMINA:.---"
-                        ],
-                        "to": [
-                            "STAMINA:...."
-                        ],
-                        "side_effect": null
-                    },
-                    {
-                        "type": "simple",
-                        "from": [
-                            "STAMINA:...--"
-                        ],
-                        "to": [
-                            "STAMINA:....."
-                        ],
-                        "side_effect": null
-                    },
-                    {
-                        "type": "simple",
-                        "from": [
                             "STAMINA:....-"
-                        ],
-                        "to": [
-                            "STAMINA:....."
                         ],
                         "side_effect": null
                     }
@@ -20042,110 +20177,210 @@ let gamesData = {
                     {
                         "type": "simple",
                         "from": [
-                            "@:..........."
+                            "@:.....................-"
                         ],
                         "to": [
+                            "@:....................--"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:....................-"
+                        ],
+                        "to": [
+                            "@:...................--"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:...................-"
+                        ],
+                        "to": [
+                            "@:..................--"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:..................-"
+                        ],
+                        "to": [
+                            "@:.................--"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:.................-"
+                        ],
+                        "to": [
+                            "@:................--"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:................-"
+                        ],
+                        "to": [
+                            "@:...............--"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:...............-"
+                        ],
+                        "to": [
+                            "@:..............--"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:..............-"
+                        ],
+                        "to": [
+                            "@:.............--"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:.............-"
+                        ],
+                        "to": [
+                            "@:............--"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:............-"
+                        ],
+                        "to": [
+                            "@:...........--"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "@:...........-"
+                        ],
+                        "to": [
+                            "@:..........--"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
                             "@:..........-"
                         ],
+                        "to": [
+                            "@:.........--"
+                        ],
                         "side_effect": null
                     },
                     {
                         "type": "simple",
                         "from": [
-                            "@:.........."
-                        ],
-                        "to": [
                             "@:.........-"
                         ],
+                        "to": [
+                            "@:........--"
+                        ],
                         "side_effect": null
                     },
                     {
                         "type": "simple",
                         "from": [
-                            "@:........."
-                        ],
-                        "to": [
                             "@:........-"
                         ],
+                        "to": [
+                            "@:.......--"
+                        ],
                         "side_effect": null
                     },
                     {
                         "type": "simple",
                         "from": [
-                            "@:........"
-                        ],
-                        "to": [
                             "@:.......-"
                         ],
+                        "to": [
+                            "@:......--"
+                        ],
                         "side_effect": null
                     },
                     {
                         "type": "simple",
                         "from": [
-                            "@:......."
-                        ],
-                        "to": [
                             "@:......-"
                         ],
+                        "to": [
+                            "@:.....--"
+                        ],
                         "side_effect": null
                     },
                     {
                         "type": "simple",
                         "from": [
-                            "@:......"
-                        ],
-                        "to": [
                             "@:.....-"
                         ],
+                        "to": [
+                            "@:....--"
+                        ],
                         "side_effect": null
                     },
                     {
                         "type": "simple",
                         "from": [
-                            "@:....."
-                        ],
-                        "to": [
                             "@:....-"
                         ],
+                        "to": [
+                            "@:...--"
+                        ],
                         "side_effect": null
                     },
                     {
                         "type": "simple",
                         "from": [
-                            "@:...."
-                        ],
-                        "to": [
                             "@:...-"
                         ],
+                        "to": [
+                            "@:..--"
+                        ],
                         "side_effect": null
                     },
                     {
                         "type": "simple",
                         "from": [
-                            "@:..."
-                        ],
-                        "to": [
                             "@:..-"
                         ],
+                        "to": [
+                            "@:.--"
+                        ],
                         "side_effect": null
                     },
                     {
                         "type": "simple",
                         "from": [
-                            "@:.."
-                        ],
-                        "to": [
                             "@:.-"
                         ],
-                        "side_effect": null
-                    },
-                    {
-                        "type": "simple",
-                        "from": [
-                            "@:."
-                        ],
                         "to": [
-                            "@:-"
+                            "@:--"
                         ],
                         "side_effect": "kill_@"
                     }
@@ -20213,10 +20448,10 @@ let gamesData = {
                             {
                                 "type": "simple",
                                 "from": [
-                                    "#_??????????????????????????"
+                                    "#_?????????????????????????????????"
                                 ],
                                 "to": [
-                                    "#_*-defeats-@.--Good-job!---"
+                                    "#_*-defeats-@.--Good-job!----------"
                                 ],
                                 "side_effect": null
                             },
@@ -20263,114 +20498,133 @@ let gamesData = {
                 "type": "match1",
                 "rules": [
                     {
-                        "type": "simple",
-                        "from": [
-                            "*:..........."
-                        ],
-                        "to": [
-                            "*:..........-"
-                        ],
-                        "side_effect": null
-                    },
-                    {
-                        "type": "simple",
-                        "from": [
-                            "*:.........."
-                        ],
-                        "to": [
-                            "*:.........-"
-                        ],
-                        "side_effect": null
-                    },
-                    {
-                        "type": "simple",
-                        "from": [
-                            "*:........."
-                        ],
-                        "to": [
-                            "*:........-"
-                        ],
-                        "side_effect": null
-                    },
-                    {
-                        "type": "simple",
-                        "from": [
-                            "*:........"
-                        ],
-                        "to": [
-                            "*:.......-"
-                        ],
-                        "side_effect": null
-                    },
-                    {
-                        "type": "simple",
-                        "from": [
-                            "*:......."
-                        ],
-                        "to": [
-                            "*:......-"
-                        ],
-                        "side_effect": null
-                    },
-                    {
-                        "type": "simple",
-                        "from": [
-                            "*:......"
-                        ],
-                        "to": [
-                            "*:.....-"
-                        ],
-                        "side_effect": null
-                    },
-                    {
-                        "type": "simple",
-                        "from": [
-                            "*:....."
-                        ],
-                        "to": [
-                            "*:....-"
-                        ],
-                        "side_effect": null
-                    },
-                    {
-                        "type": "simple",
-                        "from": [
-                            "*:...."
-                        ],
-                        "to": [
-                            "*:...-"
-                        ],
-                        "side_effect": null
-                    },
-                    {
-                        "type": "simple",
-                        "from": [
-                            "*:..."
-                        ],
-                        "to": [
-                            "*:..-"
-                        ],
-                        "side_effect": null
-                    },
-                    {
-                        "type": "simple",
-                        "from": [
-                            "*:.."
-                        ],
-                        "to": [
-                            "*:.-"
-                        ],
-                        "side_effect": null
-                    },
-                    {
-                        "type": "simple",
-                        "from": [
-                            "*:."
-                        ],
-                        "to": [
-                            "*:-"
-                        ],
-                        "side_effect": "kill_*"
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "*:..........."
+                                        ],
+                                        "to": [
+                                            "*:..........-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "*:.........."
+                                        ],
+                                        "to": [
+                                            "*:.........-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "*:........."
+                                        ],
+                                        "to": [
+                                            "*:........-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "*:........"
+                                        ],
+                                        "to": [
+                                            "*:.......-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "*:......."
+                                        ],
+                                        "to": [
+                                            "*:......-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "*:......"
+                                        ],
+                                        "to": [
+                                            "*:.....-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "*:....."
+                                        ],
+                                        "to": [
+                                            "*:....-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "*:...."
+                                        ],
+                                        "to": [
+                                            "*:...-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "*:..."
+                                        ],
+                                        "to": [
+                                            "*:..-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "*:.."
+                                        ],
+                                        "to": [
+                                            "*:.-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "*:."
+                                        ],
+                                        "to": [
+                                            "*:-"
+                                        ],
+                                        "side_effect": "kill_*"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "call",
+                                        "name": "limit_raise"
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 ]
             },
@@ -20436,10 +20690,10 @@ let gamesData = {
                             {
                                 "type": "simple",
                                 "from": [
-                                    "#_??????????????????????????"
+                                    "#_?????????????????????????????????"
                                 ],
                                 "to": [
-                                    "#_@-defeats-*.--Too-bad!----"
+                                    "#_@-defeats-*.--Too-bad!-----------"
                                 ],
                                 "side_effect": null
                             },
@@ -20511,18 +20765,6891 @@ let gamesData = {
                         "side_effect": null
                     }
                 ]
+            },
+            "limit_raise": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "<----->"
+                        ],
+                        "to": [
+                            "<.---->"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "<.---->"
+                        ],
+                        "to": [
+                            "<,---->"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "<,---->"
+                        ],
+                        "to": [
+                            "<:---->"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "<:---->"
+                        ],
+                        "to": [
+                            "<:.--->"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "<:.--->"
+                        ],
+                        "to": [
+                            "<:,--->"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "<:,--->"
+                        ],
+                        "to": [
+                            "<::--->"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "<::--->"
+                        ],
+                        "to": [
+                            "<::.-->"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "<::.-->"
+                        ],
+                        "to": [
+                            "<::,-->"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "<::,-->"
+                        ],
+                        "to": [
+                            "<:::-->"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "<:::-->"
+                        ],
+                        "to": [
+                            "<:::.->"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "<:::.->"
+                        ],
+                        "to": [
+                            "<:::,->"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "<:::,->"
+                        ],
+                        "to": [
+                            "<::::->"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "<::::->"
+                        ],
+                        "to": [
+                            "<::::.>"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "<::::.>"
+                        ],
+                        "to": [
+                            "<::::,>"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "<::::,>"
+                        ],
+                        "to": [
+                            "<LIMIT>"
+                        ],
+                        "side_effect": null
+                    }
+                ]
             }
         },
         "binds": {
             "a": "attack",
-            "s": "rest",
-            "d": "heal"
+            "s": "heal",
+            "d": "rest",
+            "f": "limit_attack"
         },
         "goals": [
             [
-                "%w"
+                "NONE"
             ]
         ],
         "voids": []
+    },
+    "synth": {
+        "boards": [
+            [
+                "--cba--",
+                "-------",
+                "*------",
+                "-------"
+            ]
+        ],
+        "rules": {
+            "north": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-",
+                            "*"
+                        ],
+                        "to": [
+                            "*",
+                            "-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-",
+                            "/",
+                            "*"
+                        ],
+                        "to": [
+                            "/",
+                            "*",
+                            "-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-",
+                            "\\",
+                            "*"
+                        ],
+                        "to": [
+                            "\\",
+                            "*",
+                            "-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-",
+                            "x",
+                            "*"
+                        ],
+                        "to": [
+                            "x",
+                            "*",
+                            "-"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "south": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*",
+                            "-"
+                        ],
+                        "to": [
+                            "-",
+                            "*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*",
+                            "/",
+                            "-"
+                        ],
+                        "to": [
+                            "-",
+                            "*",
+                            "/"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*",
+                            "\\",
+                            "-"
+                        ],
+                        "to": [
+                            "-",
+                            "*",
+                            "\\"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*",
+                            "x",
+                            "-"
+                        ],
+                        "to": [
+                            "-",
+                            "*",
+                            "x"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "west": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-*"
+                        ],
+                        "to": [
+                            "*-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-/*"
+                        ],
+                        "to": [
+                            "/*-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-\\*"
+                        ],
+                        "to": [
+                            "\\*-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-x*"
+                        ],
+                        "to": [
+                            "x*-"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "east": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*-"
+                        ],
+                        "to": [
+                            "-*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*/-"
+                        ],
+                        "to": [
+                            "-*/"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*\\-"
+                        ],
+                        "to": [
+                            "-*\\"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*x-"
+                        ],
+                        "to": [
+                            "-*x"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "swap_left": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "aa",
+                            "?*"
+                        ],
+                        "to": [
+                            "aa",
+                            "?*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "ab",
+                            "?*"
+                        ],
+                        "to": [
+                            "ba",
+                            "?*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "ac",
+                            "?*"
+                        ],
+                        "to": [
+                            "ca",
+                            "?*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "ba",
+                            "?*"
+                        ],
+                        "to": [
+                            "ab",
+                            "?*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "bb",
+                            "?*"
+                        ],
+                        "to": [
+                            "bb",
+                            "?*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "bc",
+                            "?*"
+                        ],
+                        "to": [
+                            "cb",
+                            "?*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "ca",
+                            "?*"
+                        ],
+                        "to": [
+                            "ac",
+                            "?*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "cb",
+                            "?*"
+                        ],
+                        "to": [
+                            "bc",
+                            "?*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "cc",
+                            "?*"
+                        ],
+                        "to": [
+                            "cc",
+                            "?*"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "swap_right": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "aa",
+                            "*?"
+                        ],
+                        "to": [
+                            "aa",
+                            "*?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "ab",
+                            "*?"
+                        ],
+                        "to": [
+                            "ba",
+                            "*?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "ac",
+                            "*?"
+                        ],
+                        "to": [
+                            "ca",
+                            "*?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "ba",
+                            "*?"
+                        ],
+                        "to": [
+                            "ab",
+                            "*?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "bb",
+                            "*?"
+                        ],
+                        "to": [
+                            "bb",
+                            "*?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "bc",
+                            "*?"
+                        ],
+                        "to": [
+                            "cb",
+                            "*?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "ca",
+                            "*?"
+                        ],
+                        "to": [
+                            "ac",
+                            "*?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "cb",
+                            "*?"
+                        ],
+                        "to": [
+                            "bc",
+                            "*?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "cc",
+                            "*?"
+                        ],
+                        "to": [
+                            "cc",
+                            "*?"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            }
+        },
+        "binds": {
+            "w": "north",
+            "s": "south",
+            "a": "west",
+            "d": "east",
+            "j": "swap_left",
+            "k": "swap_right"
+        },
+        "goals": [
+            [
+                "abc"
+            ]
+        ],
+        "voids": []
+    },
+    "hanoi": {
+        "boards": [
+            [
+                "---------------",
+                "---1-----------",
+                "---2-----------",
+                "---3-----------",
+                "---4-----------",
+                "---!---@---#---",
+                "--*------------",
+                "_______________",
+                "%--------------"
+            ]
+        ],
+        "rules": {
+            "act": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "1"
+                                ],
+                                "to": [
+                                    "*",
+                                    "-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%-"
+                                ],
+                                "to": [
+                                    "%1"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "2"
+                                ],
+                                "to": [
+                                    "*",
+                                    "-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%-"
+                                ],
+                                "to": [
+                                    "%2"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "3"
+                                ],
+                                "to": [
+                                    "*",
+                                    "-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%-"
+                                ],
+                                "to": [
+                                    "%3"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "4"
+                                ],
+                                "to": [
+                                    "*",
+                                    "-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%-"
+                                ],
+                                "to": [
+                                    "%4"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%1"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "!"
+                                ],
+                                "to": [
+                                    "*",
+                                    "1",
+                                    "!"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%1"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "@"
+                                ],
+                                "to": [
+                                    "*",
+                                    "1",
+                                    "@"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%1"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "#"
+                                ],
+                                "to": [
+                                    "*",
+                                    "1",
+                                    "#"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%2"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "!"
+                                ],
+                                "to": [
+                                    "*",
+                                    "2",
+                                    "!"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%2"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "@"
+                                ],
+                                "to": [
+                                    "*",
+                                    "2",
+                                    "@"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%2"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "#"
+                                ],
+                                "to": [
+                                    "*",
+                                    "2",
+                                    "#"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%3"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "!"
+                                ],
+                                "to": [
+                                    "*",
+                                    "3",
+                                    "!"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%3"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "@"
+                                ],
+                                "to": [
+                                    "*",
+                                    "3",
+                                    "@"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%3"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "#"
+                                ],
+                                "to": [
+                                    "*",
+                                    "3",
+                                    "#"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%4"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "!"
+                                ],
+                                "to": [
+                                    "*",
+                                    "4",
+                                    "!"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%4"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "@"
+                                ],
+                                "to": [
+                                    "*",
+                                    "4",
+                                    "@"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%4"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "#"
+                                ],
+                                "to": [
+                                    "*",
+                                    "4",
+                                    "#"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%1"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "2"
+                                ],
+                                "to": [
+                                    "*",
+                                    "1",
+                                    "2"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%1"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "3"
+                                ],
+                                "to": [
+                                    "*",
+                                    "1",
+                                    "3"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%1"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "4"
+                                ],
+                                "to": [
+                                    "*",
+                                    "1",
+                                    "4"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%2"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "3"
+                                ],
+                                "to": [
+                                    "*",
+                                    "2",
+                                    "3"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%2"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "4"
+                                ],
+                                "to": [
+                                    "*",
+                                    "2",
+                                    "4"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%3"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "*",
+                                    "-",
+                                    "4"
+                                ],
+                                "to": [
+                                    "*",
+                                    "3",
+                                    "4"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            "north": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-",
+                            "*"
+                        ],
+                        "to": [
+                            "*",
+                            "-"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "south": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*",
+                            "-"
+                        ],
+                        "to": [
+                            "-",
+                            "*"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "west": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-*"
+                        ],
+                        "to": [
+                            "*-"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "east": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*-"
+                        ],
+                        "to": [
+                            "-*"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            }
+        },
+        "binds": {
+            "w": "north",
+            "s": "south",
+            "a": "west",
+            "d": "east",
+            "z": "act"
+        },
+        "goals": [
+            [
+                "1",
+                "2",
+                "3",
+                "4",
+                "#"
+            ]
+        ],
+        "voids": []
+    },
+    "pong": {
+        "boards": [
+            [
+                "WWWWWWWWWWWWWWWWWWW",
+                "W.----------------W",
+                "W-*---------------W",
+                "W-----------------W",
+                "W-----------------W",
+                "W-----------------W",
+                "W-----------------W",
+                "W--xxx------------W",
+                "LLLLLLLLLLLLLLLLLLL"
+            ],
+            [
+                "*? -?",
+                "L? L?"
+            ]
+        ],
+        "rules": {
+            "step": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            ".??",
+                            "?*?",
+                            "??-"
+                        ],
+                        "to": [
+                            "-??",
+                            "?.?",
+                            "??*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??.",
+                            "?*?",
+                            "-??"
+                        ],
+                        "to": [
+                            "??-",
+                            "?.?",
+                            "*??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??-",
+                            "?*?",
+                            ".??"
+                        ],
+                        "to": [
+                            "??*",
+                            "?.?",
+                            "-??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-??",
+                            "?*?",
+                            "??."
+                        ],
+                        "to": [
+                            "*??",
+                            "?.?",
+                            "??-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            ".??",
+                            "?*W",
+                            "-??"
+                        ],
+                        "to": [
+                            "-??",
+                            "?.W",
+                            "*??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??.",
+                            "W*?",
+                            "??-"
+                        ],
+                        "to": [
+                            "??-",
+                            "W.?",
+                            "??*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-??",
+                            "?*W",
+                            ".??"
+                        ],
+                        "to": [
+                            "*??",
+                            "?.W",
+                            "-??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??-",
+                            "W*?",
+                            "??."
+                        ],
+                        "to": [
+                            "??*",
+                            "W.?",
+                            "??-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?W?",
+                            "?*?",
+                            ".?-"
+                        ],
+                        "to": [
+                            "?W?",
+                            "?.?",
+                            "-?*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?W?",
+                            "?*?",
+                            "-?."
+                        ],
+                        "to": [
+                            "?W?",
+                            "?.?",
+                            "*?-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?WW",
+                            "?*W",
+                            ".??"
+                        ],
+                        "to": [
+                            "?WW",
+                            "?.W",
+                            "*??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "WW?",
+                            "W*?",
+                            "??."
+                        ],
+                        "to": [
+                            "WW?",
+                            "W.?",
+                            "??*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            ".?-",
+                            "?*?",
+                            "?x?"
+                        ],
+                        "to": [
+                            "-?*",
+                            "?.?",
+                            "?x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-?.",
+                            "?*?",
+                            "?x?"
+                        ],
+                        "to": [
+                            "*?-",
+                            "?.?",
+                            "?x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            ".??",
+                            "?*W",
+                            "x??"
+                        ],
+                        "to": [
+                            "*??",
+                            "?.W",
+                            "x??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??.",
+                            "W*?",
+                            "??x"
+                        ],
+                        "to": [
+                            "??*",
+                            "W.?",
+                            "??x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            ".??",
+                            "?*?",
+                            "?-x"
+                        ],
+                        "to": [
+                            "*??",
+                            "?.?",
+                            "?-x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??.",
+                            "?*?",
+                            "x-?"
+                        ],
+                        "to": [
+                            "??*",
+                            "?.?",
+                            "x-?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            ".?",
+                            "?*",
+                            "?L"
+                        ],
+                        "to": [
+                            "-?",
+                            "?-",
+                            "?L"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "left": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "r?."
+                        ],
+                        "to": [
+                            "?-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "-xxx"
+                                        ],
+                                        "to": [
+                                            "xxx-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "*xxx"
+                                        ],
+                                        "to": [
+                                            "*xxx"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "call",
+                                "name": "step"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "right": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "xxx-"
+                                        ],
+                                        "to": [
+                                            "-xxx"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "xxx*"
+                                        ],
+                                        "to": [
+                                            "xxx*"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "call",
+                                "name": "step"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "binds": {
+            "a": "left",
+            "s": "step",
+            "d": "right"
+        },
+        "goals": [
+            [
+                "NONE"
+            ]
+        ],
+        "voids": []
+    },
+    "arithmetic": {
+        "boards": [
+            [
+                "-----x--o",
+                "--x--x---",
+                "--x--x---",
+                "*-x------",
+                "_________",
+                "_0000000$",
+                "+0000000#",
+                "_________",
+                "00000000@",
+                "_________",
+                "-------%-"
+            ]
+        ],
+        "rules": {
+            "north": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-",
+                            "*"
+                        ],
+                        "to": [
+                            "*",
+                            "-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "o",
+                            "*"
+                        ],
+                        "to": [
+                            "*",
+                            "-"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "south": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*",
+                            "-"
+                        ],
+                        "to": [
+                            "-",
+                            "*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*",
+                            "o"
+                        ],
+                        "to": [
+                            "-",
+                            "*"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "west": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-*"
+                        ],
+                        "to": [
+                            "*-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "o*"
+                        ],
+                        "to": [
+                            "*-"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "east": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*-"
+                        ],
+                        "to": [
+                            "-*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*o"
+                        ],
+                        "to": [
+                            "-*"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "increment": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%@"
+                                ],
+                                "to": [
+                                    "%@"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "0@"
+                                        ],
+                                        "to": [
+                                            "1@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "09@"
+                                        ],
+                                        "to": [
+                                            "10@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "099@"
+                                        ],
+                                        "to": [
+                                            "100@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "0999@"
+                                        ],
+                                        "to": [
+                                            "1000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "09999@"
+                                        ],
+                                        "to": [
+                                            "10000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "099999@"
+                                        ],
+                                        "to": [
+                                            "100000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "0999999@"
+                                        ],
+                                        "to": [
+                                            "1000000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1@"
+                                        ],
+                                        "to": [
+                                            "2@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "19@"
+                                        ],
+                                        "to": [
+                                            "20@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "199@"
+                                        ],
+                                        "to": [
+                                            "200@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1999@"
+                                        ],
+                                        "to": [
+                                            "2000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "19999@"
+                                        ],
+                                        "to": [
+                                            "20000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "199999@"
+                                        ],
+                                        "to": [
+                                            "200000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1999999@"
+                                        ],
+                                        "to": [
+                                            "2000000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2@"
+                                        ],
+                                        "to": [
+                                            "3@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "29@"
+                                        ],
+                                        "to": [
+                                            "30@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "299@"
+                                        ],
+                                        "to": [
+                                            "300@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2999@"
+                                        ],
+                                        "to": [
+                                            "3000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "29999@"
+                                        ],
+                                        "to": [
+                                            "30000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "299999@"
+                                        ],
+                                        "to": [
+                                            "300000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2999999@"
+                                        ],
+                                        "to": [
+                                            "3000000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3@"
+                                        ],
+                                        "to": [
+                                            "4@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "39@"
+                                        ],
+                                        "to": [
+                                            "40@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "399@"
+                                        ],
+                                        "to": [
+                                            "400@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3999@"
+                                        ],
+                                        "to": [
+                                            "4000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "39999@"
+                                        ],
+                                        "to": [
+                                            "40000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "399999@"
+                                        ],
+                                        "to": [
+                                            "400000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3999999@"
+                                        ],
+                                        "to": [
+                                            "4000000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4@"
+                                        ],
+                                        "to": [
+                                            "5@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "49@"
+                                        ],
+                                        "to": [
+                                            "50@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "499@"
+                                        ],
+                                        "to": [
+                                            "500@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4999@"
+                                        ],
+                                        "to": [
+                                            "5000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "49999@"
+                                        ],
+                                        "to": [
+                                            "50000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "499999@"
+                                        ],
+                                        "to": [
+                                            "500000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4999999@"
+                                        ],
+                                        "to": [
+                                            "5000000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5@"
+                                        ],
+                                        "to": [
+                                            "6@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "59@"
+                                        ],
+                                        "to": [
+                                            "60@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "599@"
+                                        ],
+                                        "to": [
+                                            "600@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5999@"
+                                        ],
+                                        "to": [
+                                            "6000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "59999@"
+                                        ],
+                                        "to": [
+                                            "60000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "599999@"
+                                        ],
+                                        "to": [
+                                            "600000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5999999@"
+                                        ],
+                                        "to": [
+                                            "6000000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6@"
+                                        ],
+                                        "to": [
+                                            "7@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "69@"
+                                        ],
+                                        "to": [
+                                            "70@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "699@"
+                                        ],
+                                        "to": [
+                                            "700@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6999@"
+                                        ],
+                                        "to": [
+                                            "7000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "69999@"
+                                        ],
+                                        "to": [
+                                            "70000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "699999@"
+                                        ],
+                                        "to": [
+                                            "700000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6999999@"
+                                        ],
+                                        "to": [
+                                            "7000000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7@"
+                                        ],
+                                        "to": [
+                                            "8@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "79@"
+                                        ],
+                                        "to": [
+                                            "80@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "799@"
+                                        ],
+                                        "to": [
+                                            "800@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7999@"
+                                        ],
+                                        "to": [
+                                            "8000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "79999@"
+                                        ],
+                                        "to": [
+                                            "80000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "799999@"
+                                        ],
+                                        "to": [
+                                            "800000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7999999@"
+                                        ],
+                                        "to": [
+                                            "8000000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8@"
+                                        ],
+                                        "to": [
+                                            "9@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "89@"
+                                        ],
+                                        "to": [
+                                            "90@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "899@"
+                                        ],
+                                        "to": [
+                                            "900@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8999@"
+                                        ],
+                                        "to": [
+                                            "9000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "89999@"
+                                        ],
+                                        "to": [
+                                            "90000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "899999@"
+                                        ],
+                                        "to": [
+                                            "900000@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8999999@"
+                                        ],
+                                        "to": [
+                                            "9000000@"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%#"
+                                ],
+                                "to": [
+                                    "%#"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "0#"
+                                        ],
+                                        "to": [
+                                            "1#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "09#"
+                                        ],
+                                        "to": [
+                                            "10#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "099#"
+                                        ],
+                                        "to": [
+                                            "100#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "0999#"
+                                        ],
+                                        "to": [
+                                            "1000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "09999#"
+                                        ],
+                                        "to": [
+                                            "10000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "099999#"
+                                        ],
+                                        "to": [
+                                            "100000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "0999999#"
+                                        ],
+                                        "to": [
+                                            "1000000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1#"
+                                        ],
+                                        "to": [
+                                            "2#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "19#"
+                                        ],
+                                        "to": [
+                                            "20#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "199#"
+                                        ],
+                                        "to": [
+                                            "200#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1999#"
+                                        ],
+                                        "to": [
+                                            "2000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "19999#"
+                                        ],
+                                        "to": [
+                                            "20000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "199999#"
+                                        ],
+                                        "to": [
+                                            "200000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1999999#"
+                                        ],
+                                        "to": [
+                                            "2000000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2#"
+                                        ],
+                                        "to": [
+                                            "3#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "29#"
+                                        ],
+                                        "to": [
+                                            "30#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "299#"
+                                        ],
+                                        "to": [
+                                            "300#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2999#"
+                                        ],
+                                        "to": [
+                                            "3000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "29999#"
+                                        ],
+                                        "to": [
+                                            "30000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "299999#"
+                                        ],
+                                        "to": [
+                                            "300000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2999999#"
+                                        ],
+                                        "to": [
+                                            "3000000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3#"
+                                        ],
+                                        "to": [
+                                            "4#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "39#"
+                                        ],
+                                        "to": [
+                                            "40#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "399#"
+                                        ],
+                                        "to": [
+                                            "400#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3999#"
+                                        ],
+                                        "to": [
+                                            "4000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "39999#"
+                                        ],
+                                        "to": [
+                                            "40000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "399999#"
+                                        ],
+                                        "to": [
+                                            "400000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3999999#"
+                                        ],
+                                        "to": [
+                                            "4000000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4#"
+                                        ],
+                                        "to": [
+                                            "5#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "49#"
+                                        ],
+                                        "to": [
+                                            "50#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "499#"
+                                        ],
+                                        "to": [
+                                            "500#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4999#"
+                                        ],
+                                        "to": [
+                                            "5000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "49999#"
+                                        ],
+                                        "to": [
+                                            "50000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "499999#"
+                                        ],
+                                        "to": [
+                                            "500000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4999999#"
+                                        ],
+                                        "to": [
+                                            "5000000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5#"
+                                        ],
+                                        "to": [
+                                            "6#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "59#"
+                                        ],
+                                        "to": [
+                                            "60#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "599#"
+                                        ],
+                                        "to": [
+                                            "600#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5999#"
+                                        ],
+                                        "to": [
+                                            "6000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "59999#"
+                                        ],
+                                        "to": [
+                                            "60000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "599999#"
+                                        ],
+                                        "to": [
+                                            "600000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5999999#"
+                                        ],
+                                        "to": [
+                                            "6000000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6#"
+                                        ],
+                                        "to": [
+                                            "7#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "69#"
+                                        ],
+                                        "to": [
+                                            "70#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "699#"
+                                        ],
+                                        "to": [
+                                            "700#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6999#"
+                                        ],
+                                        "to": [
+                                            "7000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "69999#"
+                                        ],
+                                        "to": [
+                                            "70000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "699999#"
+                                        ],
+                                        "to": [
+                                            "700000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6999999#"
+                                        ],
+                                        "to": [
+                                            "7000000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7#"
+                                        ],
+                                        "to": [
+                                            "8#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "79#"
+                                        ],
+                                        "to": [
+                                            "80#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "799#"
+                                        ],
+                                        "to": [
+                                            "800#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7999#"
+                                        ],
+                                        "to": [
+                                            "8000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "79999#"
+                                        ],
+                                        "to": [
+                                            "80000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "799999#"
+                                        ],
+                                        "to": [
+                                            "800000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7999999#"
+                                        ],
+                                        "to": [
+                                            "8000000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8#"
+                                        ],
+                                        "to": [
+                                            "9#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "89#"
+                                        ],
+                                        "to": [
+                                            "90#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "899#"
+                                        ],
+                                        "to": [
+                                            "900#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8999#"
+                                        ],
+                                        "to": [
+                                            "9000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "89999#"
+                                        ],
+                                        "to": [
+                                            "90000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "899999#"
+                                        ],
+                                        "to": [
+                                            "900000#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8999999#"
+                                        ],
+                                        "to": [
+                                            "9000000#"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%$"
+                                ],
+                                "to": [
+                                    "%$"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "0$"
+                                        ],
+                                        "to": [
+                                            "1$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "09$"
+                                        ],
+                                        "to": [
+                                            "10$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "099$"
+                                        ],
+                                        "to": [
+                                            "100$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "0999$"
+                                        ],
+                                        "to": [
+                                            "1000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "09999$"
+                                        ],
+                                        "to": [
+                                            "10000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "099999$"
+                                        ],
+                                        "to": [
+                                            "100000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "0999999$"
+                                        ],
+                                        "to": [
+                                            "1000000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1$"
+                                        ],
+                                        "to": [
+                                            "2$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "19$"
+                                        ],
+                                        "to": [
+                                            "20$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "199$"
+                                        ],
+                                        "to": [
+                                            "200$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1999$"
+                                        ],
+                                        "to": [
+                                            "2000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "19999$"
+                                        ],
+                                        "to": [
+                                            "20000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "199999$"
+                                        ],
+                                        "to": [
+                                            "200000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1999999$"
+                                        ],
+                                        "to": [
+                                            "2000000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2$"
+                                        ],
+                                        "to": [
+                                            "3$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "29$"
+                                        ],
+                                        "to": [
+                                            "30$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "299$"
+                                        ],
+                                        "to": [
+                                            "300$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2999$"
+                                        ],
+                                        "to": [
+                                            "3000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "29999$"
+                                        ],
+                                        "to": [
+                                            "30000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "299999$"
+                                        ],
+                                        "to": [
+                                            "300000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2999999$"
+                                        ],
+                                        "to": [
+                                            "3000000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3$"
+                                        ],
+                                        "to": [
+                                            "4$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "39$"
+                                        ],
+                                        "to": [
+                                            "40$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "399$"
+                                        ],
+                                        "to": [
+                                            "400$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3999$"
+                                        ],
+                                        "to": [
+                                            "4000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "39999$"
+                                        ],
+                                        "to": [
+                                            "40000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "399999$"
+                                        ],
+                                        "to": [
+                                            "400000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3999999$"
+                                        ],
+                                        "to": [
+                                            "4000000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4$"
+                                        ],
+                                        "to": [
+                                            "5$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "49$"
+                                        ],
+                                        "to": [
+                                            "50$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "499$"
+                                        ],
+                                        "to": [
+                                            "500$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4999$"
+                                        ],
+                                        "to": [
+                                            "5000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "49999$"
+                                        ],
+                                        "to": [
+                                            "50000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "499999$"
+                                        ],
+                                        "to": [
+                                            "500000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4999999$"
+                                        ],
+                                        "to": [
+                                            "5000000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5$"
+                                        ],
+                                        "to": [
+                                            "6$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "59$"
+                                        ],
+                                        "to": [
+                                            "60$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "599$"
+                                        ],
+                                        "to": [
+                                            "600$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5999$"
+                                        ],
+                                        "to": [
+                                            "6000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "59999$"
+                                        ],
+                                        "to": [
+                                            "60000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "599999$"
+                                        ],
+                                        "to": [
+                                            "600000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5999999$"
+                                        ],
+                                        "to": [
+                                            "6000000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6$"
+                                        ],
+                                        "to": [
+                                            "7$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "69$"
+                                        ],
+                                        "to": [
+                                            "70$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "699$"
+                                        ],
+                                        "to": [
+                                            "700$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6999$"
+                                        ],
+                                        "to": [
+                                            "7000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "69999$"
+                                        ],
+                                        "to": [
+                                            "70000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "699999$"
+                                        ],
+                                        "to": [
+                                            "700000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6999999$"
+                                        ],
+                                        "to": [
+                                            "7000000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7$"
+                                        ],
+                                        "to": [
+                                            "8$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "79$"
+                                        ],
+                                        "to": [
+                                            "80$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "799$"
+                                        ],
+                                        "to": [
+                                            "800$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7999$"
+                                        ],
+                                        "to": [
+                                            "8000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "79999$"
+                                        ],
+                                        "to": [
+                                            "80000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "799999$"
+                                        ],
+                                        "to": [
+                                            "800000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7999999$"
+                                        ],
+                                        "to": [
+                                            "8000000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8$"
+                                        ],
+                                        "to": [
+                                            "9$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "89$"
+                                        ],
+                                        "to": [
+                                            "90$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "899$"
+                                        ],
+                                        "to": [
+                                            "900$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8999$"
+                                        ],
+                                        "to": [
+                                            "9000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "89999$"
+                                        ],
+                                        "to": [
+                                            "90000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "899999$"
+                                        ],
+                                        "to": [
+                                            "900000$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8999999$"
+                                        ],
+                                        "to": [
+                                            "9000000$"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "decrement": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%@"
+                                ],
+                                "to": [
+                                    "%@"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1@"
+                                        ],
+                                        "to": [
+                                            "0@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "10@"
+                                        ],
+                                        "to": [
+                                            "09@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "100@"
+                                        ],
+                                        "to": [
+                                            "099@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1000@"
+                                        ],
+                                        "to": [
+                                            "0999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "10000@"
+                                        ],
+                                        "to": [
+                                            "09999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "100000@"
+                                        ],
+                                        "to": [
+                                            "099999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1000000@"
+                                        ],
+                                        "to": [
+                                            "0999999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2@"
+                                        ],
+                                        "to": [
+                                            "1@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "20@"
+                                        ],
+                                        "to": [
+                                            "19@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "200@"
+                                        ],
+                                        "to": [
+                                            "199@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2000@"
+                                        ],
+                                        "to": [
+                                            "1999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "20000@"
+                                        ],
+                                        "to": [
+                                            "19999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "200000@"
+                                        ],
+                                        "to": [
+                                            "199999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2000000@"
+                                        ],
+                                        "to": [
+                                            "1999999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3@"
+                                        ],
+                                        "to": [
+                                            "2@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "30@"
+                                        ],
+                                        "to": [
+                                            "29@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "300@"
+                                        ],
+                                        "to": [
+                                            "299@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3000@"
+                                        ],
+                                        "to": [
+                                            "2999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "30000@"
+                                        ],
+                                        "to": [
+                                            "29999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "300000@"
+                                        ],
+                                        "to": [
+                                            "299999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3000000@"
+                                        ],
+                                        "to": [
+                                            "2999999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4@"
+                                        ],
+                                        "to": [
+                                            "3@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "40@"
+                                        ],
+                                        "to": [
+                                            "39@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "400@"
+                                        ],
+                                        "to": [
+                                            "399@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4000@"
+                                        ],
+                                        "to": [
+                                            "3999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "40000@"
+                                        ],
+                                        "to": [
+                                            "39999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "400000@"
+                                        ],
+                                        "to": [
+                                            "399999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4000000@"
+                                        ],
+                                        "to": [
+                                            "3999999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5@"
+                                        ],
+                                        "to": [
+                                            "4@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "50@"
+                                        ],
+                                        "to": [
+                                            "49@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "500@"
+                                        ],
+                                        "to": [
+                                            "499@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5000@"
+                                        ],
+                                        "to": [
+                                            "4999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "50000@"
+                                        ],
+                                        "to": [
+                                            "49999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "500000@"
+                                        ],
+                                        "to": [
+                                            "499999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5000000@"
+                                        ],
+                                        "to": [
+                                            "4999999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6@"
+                                        ],
+                                        "to": [
+                                            "5@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "60@"
+                                        ],
+                                        "to": [
+                                            "59@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "600@"
+                                        ],
+                                        "to": [
+                                            "599@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6000@"
+                                        ],
+                                        "to": [
+                                            "5999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "60000@"
+                                        ],
+                                        "to": [
+                                            "59999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "600000@"
+                                        ],
+                                        "to": [
+                                            "599999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6000000@"
+                                        ],
+                                        "to": [
+                                            "5999999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7@"
+                                        ],
+                                        "to": [
+                                            "6@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "70@"
+                                        ],
+                                        "to": [
+                                            "69@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "700@"
+                                        ],
+                                        "to": [
+                                            "699@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7000@"
+                                        ],
+                                        "to": [
+                                            "6999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "70000@"
+                                        ],
+                                        "to": [
+                                            "69999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "700000@"
+                                        ],
+                                        "to": [
+                                            "699999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7000000@"
+                                        ],
+                                        "to": [
+                                            "6999999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8@"
+                                        ],
+                                        "to": [
+                                            "7@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "80@"
+                                        ],
+                                        "to": [
+                                            "79@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "800@"
+                                        ],
+                                        "to": [
+                                            "799@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8000@"
+                                        ],
+                                        "to": [
+                                            "7999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "80000@"
+                                        ],
+                                        "to": [
+                                            "79999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "800000@"
+                                        ],
+                                        "to": [
+                                            "799999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8000000@"
+                                        ],
+                                        "to": [
+                                            "7999999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "9@"
+                                        ],
+                                        "to": [
+                                            "8@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "90@"
+                                        ],
+                                        "to": [
+                                            "89@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "900@"
+                                        ],
+                                        "to": [
+                                            "899@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "9000@"
+                                        ],
+                                        "to": [
+                                            "8999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "90000@"
+                                        ],
+                                        "to": [
+                                            "89999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "900000@"
+                                        ],
+                                        "to": [
+                                            "899999@"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "9000000@"
+                                        ],
+                                        "to": [
+                                            "8999999@"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%#"
+                                ],
+                                "to": [
+                                    "%#"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1#"
+                                        ],
+                                        "to": [
+                                            "0#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "10#"
+                                        ],
+                                        "to": [
+                                            "09#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "100#"
+                                        ],
+                                        "to": [
+                                            "099#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1000#"
+                                        ],
+                                        "to": [
+                                            "0999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "10000#"
+                                        ],
+                                        "to": [
+                                            "09999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "100000#"
+                                        ],
+                                        "to": [
+                                            "099999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1000000#"
+                                        ],
+                                        "to": [
+                                            "0999999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2#"
+                                        ],
+                                        "to": [
+                                            "1#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "20#"
+                                        ],
+                                        "to": [
+                                            "19#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "200#"
+                                        ],
+                                        "to": [
+                                            "199#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2000#"
+                                        ],
+                                        "to": [
+                                            "1999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "20000#"
+                                        ],
+                                        "to": [
+                                            "19999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "200000#"
+                                        ],
+                                        "to": [
+                                            "199999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2000000#"
+                                        ],
+                                        "to": [
+                                            "1999999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3#"
+                                        ],
+                                        "to": [
+                                            "2#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "30#"
+                                        ],
+                                        "to": [
+                                            "29#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "300#"
+                                        ],
+                                        "to": [
+                                            "299#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3000#"
+                                        ],
+                                        "to": [
+                                            "2999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "30000#"
+                                        ],
+                                        "to": [
+                                            "29999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "300000#"
+                                        ],
+                                        "to": [
+                                            "299999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3000000#"
+                                        ],
+                                        "to": [
+                                            "2999999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4#"
+                                        ],
+                                        "to": [
+                                            "3#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "40#"
+                                        ],
+                                        "to": [
+                                            "39#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "400#"
+                                        ],
+                                        "to": [
+                                            "399#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4000#"
+                                        ],
+                                        "to": [
+                                            "3999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "40000#"
+                                        ],
+                                        "to": [
+                                            "39999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "400000#"
+                                        ],
+                                        "to": [
+                                            "399999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4000000#"
+                                        ],
+                                        "to": [
+                                            "3999999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5#"
+                                        ],
+                                        "to": [
+                                            "4#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "50#"
+                                        ],
+                                        "to": [
+                                            "49#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "500#"
+                                        ],
+                                        "to": [
+                                            "499#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5000#"
+                                        ],
+                                        "to": [
+                                            "4999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "50000#"
+                                        ],
+                                        "to": [
+                                            "49999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "500000#"
+                                        ],
+                                        "to": [
+                                            "499999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5000000#"
+                                        ],
+                                        "to": [
+                                            "4999999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6#"
+                                        ],
+                                        "to": [
+                                            "5#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "60#"
+                                        ],
+                                        "to": [
+                                            "59#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "600#"
+                                        ],
+                                        "to": [
+                                            "599#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6000#"
+                                        ],
+                                        "to": [
+                                            "5999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "60000#"
+                                        ],
+                                        "to": [
+                                            "59999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "600000#"
+                                        ],
+                                        "to": [
+                                            "599999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6000000#"
+                                        ],
+                                        "to": [
+                                            "5999999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7#"
+                                        ],
+                                        "to": [
+                                            "6#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "70#"
+                                        ],
+                                        "to": [
+                                            "69#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "700#"
+                                        ],
+                                        "to": [
+                                            "699#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7000#"
+                                        ],
+                                        "to": [
+                                            "6999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "70000#"
+                                        ],
+                                        "to": [
+                                            "69999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "700000#"
+                                        ],
+                                        "to": [
+                                            "699999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7000000#"
+                                        ],
+                                        "to": [
+                                            "6999999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8#"
+                                        ],
+                                        "to": [
+                                            "7#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "80#"
+                                        ],
+                                        "to": [
+                                            "79#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "800#"
+                                        ],
+                                        "to": [
+                                            "799#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8000#"
+                                        ],
+                                        "to": [
+                                            "7999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "80000#"
+                                        ],
+                                        "to": [
+                                            "79999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "800000#"
+                                        ],
+                                        "to": [
+                                            "799999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8000000#"
+                                        ],
+                                        "to": [
+                                            "7999999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "9#"
+                                        ],
+                                        "to": [
+                                            "8#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "90#"
+                                        ],
+                                        "to": [
+                                            "89#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "900#"
+                                        ],
+                                        "to": [
+                                            "899#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "9000#"
+                                        ],
+                                        "to": [
+                                            "8999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "90000#"
+                                        ],
+                                        "to": [
+                                            "89999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "900000#"
+                                        ],
+                                        "to": [
+                                            "899999#"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "9000000#"
+                                        ],
+                                        "to": [
+                                            "8999999#"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%$"
+                                ],
+                                "to": [
+                                    "%$"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1$"
+                                        ],
+                                        "to": [
+                                            "0$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "10$"
+                                        ],
+                                        "to": [
+                                            "09$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "100$"
+                                        ],
+                                        "to": [
+                                            "099$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1000$"
+                                        ],
+                                        "to": [
+                                            "0999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "10000$"
+                                        ],
+                                        "to": [
+                                            "09999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "100000$"
+                                        ],
+                                        "to": [
+                                            "099999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "1000000$"
+                                        ],
+                                        "to": [
+                                            "0999999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2$"
+                                        ],
+                                        "to": [
+                                            "1$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "20$"
+                                        ],
+                                        "to": [
+                                            "19$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "200$"
+                                        ],
+                                        "to": [
+                                            "199$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2000$"
+                                        ],
+                                        "to": [
+                                            "1999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "20000$"
+                                        ],
+                                        "to": [
+                                            "19999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "200000$"
+                                        ],
+                                        "to": [
+                                            "199999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "2000000$"
+                                        ],
+                                        "to": [
+                                            "1999999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3$"
+                                        ],
+                                        "to": [
+                                            "2$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "30$"
+                                        ],
+                                        "to": [
+                                            "29$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "300$"
+                                        ],
+                                        "to": [
+                                            "299$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3000$"
+                                        ],
+                                        "to": [
+                                            "2999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "30000$"
+                                        ],
+                                        "to": [
+                                            "29999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "300000$"
+                                        ],
+                                        "to": [
+                                            "299999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "3000000$"
+                                        ],
+                                        "to": [
+                                            "2999999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4$"
+                                        ],
+                                        "to": [
+                                            "3$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "40$"
+                                        ],
+                                        "to": [
+                                            "39$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "400$"
+                                        ],
+                                        "to": [
+                                            "399$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4000$"
+                                        ],
+                                        "to": [
+                                            "3999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "40000$"
+                                        ],
+                                        "to": [
+                                            "39999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "400000$"
+                                        ],
+                                        "to": [
+                                            "399999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "4000000$"
+                                        ],
+                                        "to": [
+                                            "3999999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5$"
+                                        ],
+                                        "to": [
+                                            "4$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "50$"
+                                        ],
+                                        "to": [
+                                            "49$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "500$"
+                                        ],
+                                        "to": [
+                                            "499$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5000$"
+                                        ],
+                                        "to": [
+                                            "4999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "50000$"
+                                        ],
+                                        "to": [
+                                            "49999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "500000$"
+                                        ],
+                                        "to": [
+                                            "499999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "5000000$"
+                                        ],
+                                        "to": [
+                                            "4999999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6$"
+                                        ],
+                                        "to": [
+                                            "5$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "60$"
+                                        ],
+                                        "to": [
+                                            "59$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "600$"
+                                        ],
+                                        "to": [
+                                            "599$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6000$"
+                                        ],
+                                        "to": [
+                                            "5999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "60000$"
+                                        ],
+                                        "to": [
+                                            "59999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "600000$"
+                                        ],
+                                        "to": [
+                                            "599999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "6000000$"
+                                        ],
+                                        "to": [
+                                            "5999999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7$"
+                                        ],
+                                        "to": [
+                                            "6$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "70$"
+                                        ],
+                                        "to": [
+                                            "69$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "700$"
+                                        ],
+                                        "to": [
+                                            "699$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7000$"
+                                        ],
+                                        "to": [
+                                            "6999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "70000$"
+                                        ],
+                                        "to": [
+                                            "69999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "700000$"
+                                        ],
+                                        "to": [
+                                            "699999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "7000000$"
+                                        ],
+                                        "to": [
+                                            "6999999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8$"
+                                        ],
+                                        "to": [
+                                            "7$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "80$"
+                                        ],
+                                        "to": [
+                                            "79$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "800$"
+                                        ],
+                                        "to": [
+                                            "799$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8000$"
+                                        ],
+                                        "to": [
+                                            "7999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "80000$"
+                                        ],
+                                        "to": [
+                                            "79999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "800000$"
+                                        ],
+                                        "to": [
+                                            "799999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "8000000$"
+                                        ],
+                                        "to": [
+                                            "7999999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "9$"
+                                        ],
+                                        "to": [
+                                            "8$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "90$"
+                                        ],
+                                        "to": [
+                                            "89$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "900$"
+                                        ],
+                                        "to": [
+                                            "899$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "9000$"
+                                        ],
+                                        "to": [
+                                            "8999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "90000$"
+                                        ],
+                                        "to": [
+                                            "89999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "900000$"
+                                        ],
+                                        "to": [
+                                            "899999$"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "9000000$"
+                                        ],
+                                        "to": [
+                                            "8999999$"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "increment$": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%?"
+                                ],
+                                "to": [
+                                    "%$"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "call",
+                                "name": "increment"
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%?"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            "decrement$": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%?"
+                                ],
+                                "to": [
+                                    "%$"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "call",
+                                "name": "decrement"
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%?"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            "increment#": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%?"
+                                ],
+                                "to": [
+                                    "%#"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "call",
+                                "name": "increment"
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%?"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            "decrement#": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%?"
+                                ],
+                                "to": [
+                                    "%#"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "call",
+                                "name": "decrement"
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%?"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            "increment@": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%?"
+                                ],
+                                "to": [
+                                    "%@"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "call",
+                                "name": "increment"
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%?"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            "decrement@": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%?"
+                                ],
+                                "to": [
+                                    "%@"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "call",
+                                "name": "decrement"
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "%?"
+                                ],
+                                "to": [
+                                    "%-"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            "copy$#": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "1$"
+                                                ],
+                                                "to": [
+                                                    "1$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?#"
+                                                ],
+                                                "to": [
+                                                    "1#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "2$"
+                                                ],
+                                                "to": [
+                                                    "2$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?#"
+                                                ],
+                                                "to": [
+                                                    "2#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "3$"
+                                                ],
+                                                "to": [
+                                                    "3$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?#"
+                                                ],
+                                                "to": [
+                                                    "3#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "4$"
+                                                ],
+                                                "to": [
+                                                    "4$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?#"
+                                                ],
+                                                "to": [
+                                                    "4#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "5$"
+                                                ],
+                                                "to": [
+                                                    "5$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?#"
+                                                ],
+                                                "to": [
+                                                    "5#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "6$"
+                                                ],
+                                                "to": [
+                                                    "6$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?#"
+                                                ],
+                                                "to": [
+                                                    "6#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "7$"
+                                                ],
+                                                "to": [
+                                                    "7$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?#"
+                                                ],
+                                                "to": [
+                                                    "7#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "8$"
+                                                ],
+                                                "to": [
+                                                    "8$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?#"
+                                                ],
+                                                "to": [
+                                                    "8#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "9$"
+                                                ],
+                                                "to": [
+                                                    "9$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?#"
+                                                ],
+                                                "to": [
+                                                    "9#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "0$"
+                                                ],
+                                                "to": [
+                                                    "0$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?#"
+                                                ],
+                                                "to": [
+                                                    "0#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "1?$"
+                                                ],
+                                                "to": [
+                                                    "1?$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??#"
+                                                ],
+                                                "to": [
+                                                    "1?#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "2?$"
+                                                ],
+                                                "to": [
+                                                    "2?$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??#"
+                                                ],
+                                                "to": [
+                                                    "2?#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "3?$"
+                                                ],
+                                                "to": [
+                                                    "3?$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??#"
+                                                ],
+                                                "to": [
+                                                    "3?#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "4?$"
+                                                ],
+                                                "to": [
+                                                    "4?$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??#"
+                                                ],
+                                                "to": [
+                                                    "4?#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "5?$"
+                                                ],
+                                                "to": [
+                                                    "5?$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??#"
+                                                ],
+                                                "to": [
+                                                    "5?#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "6?$"
+                                                ],
+                                                "to": [
+                                                    "6?$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??#"
+                                                ],
+                                                "to": [
+                                                    "6?#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "7?$"
+                                                ],
+                                                "to": [
+                                                    "7?$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??#"
+                                                ],
+                                                "to": [
+                                                    "7?#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "8?$"
+                                                ],
+                                                "to": [
+                                                    "8?$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??#"
+                                                ],
+                                                "to": [
+                                                    "8?#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "9?$"
+                                                ],
+                                                "to": [
+                                                    "9?$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??#"
+                                                ],
+                                                "to": [
+                                                    "9?#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "0?$"
+                                                ],
+                                                "to": [
+                                                    "0?$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??#"
+                                                ],
+                                                "to": [
+                                                    "0?#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "1??$"
+                                                ],
+                                                "to": [
+                                                    "1??$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???#"
+                                                ],
+                                                "to": [
+                                                    "1??#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "2??$"
+                                                ],
+                                                "to": [
+                                                    "2??$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???#"
+                                                ],
+                                                "to": [
+                                                    "2??#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "3??$"
+                                                ],
+                                                "to": [
+                                                    "3??$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???#"
+                                                ],
+                                                "to": [
+                                                    "3??#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "4??$"
+                                                ],
+                                                "to": [
+                                                    "4??$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???#"
+                                                ],
+                                                "to": [
+                                                    "4??#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "5??$"
+                                                ],
+                                                "to": [
+                                                    "5??$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???#"
+                                                ],
+                                                "to": [
+                                                    "5??#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "6??$"
+                                                ],
+                                                "to": [
+                                                    "6??$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???#"
+                                                ],
+                                                "to": [
+                                                    "6??#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "7??$"
+                                                ],
+                                                "to": [
+                                                    "7??$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???#"
+                                                ],
+                                                "to": [
+                                                    "7??#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "8??$"
+                                                ],
+                                                "to": [
+                                                    "8??$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???#"
+                                                ],
+                                                "to": [
+                                                    "8??#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "9??$"
+                                                ],
+                                                "to": [
+                                                    "9??$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???#"
+                                                ],
+                                                "to": [
+                                                    "9??#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "0??$"
+                                                ],
+                                                "to": [
+                                                    "0??$"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???#"
+                                                ],
+                                                "to": [
+                                                    "0??#"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "compute_sum": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "????????@"
+                                ],
+                                "to": [
+                                    "00000000@"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "call",
+                                "name": "compute_sum_inner_loop$"
+                            },
+                            {
+                                "type": "call",
+                                "name": "compute_sum_inner_loop#"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "compute_sum_inner_loop$": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "match1",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "0000000$"
+                                ],
+                                "to": [
+                                    "0000000$"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "atomic",
+                                "rules": [
+                                    {
+                                        "type": "call",
+                                        "name": "decrement$"
+                                    },
+                                    {
+                                        "type": "call",
+                                        "name": "increment@"
+                                    },
+                                    {
+                                        "type": "call",
+                                        "name": "compute_sum_inner_loop$"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "compute_sum_inner_loop#": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "match1",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "0000000#"
+                                ],
+                                "to": [
+                                    "0000000#"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "atomic",
+                                "rules": [
+                                    {
+                                        "type": "call",
+                                        "name": "decrement#"
+                                    },
+                                    {
+                                        "type": "call",
+                                        "name": "increment@"
+                                    },
+                                    {
+                                        "type": "call",
+                                        "name": "compute_sum_inner_loop#"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "binds": {
+            "w": "north",
+            "s": "south",
+            "a": "west",
+            "d": "east",
+            "z": "increment$",
+            "x": "increment#",
+            "c": "compute_sum"
+        },
+        "goals": [],
+        "voids": [
+            [
+                "o"
+            ]
+        ]
     }
 };

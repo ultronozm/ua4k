@@ -1,0 +1,87 @@
+GOAL
+1
+2
+3
+4
+#
+
+---------------
+---1-----------
+---2-----------
+---3-----------
+---4-----------
+---!---@---#---
+--*------------
+_______________
+%--------------
+
+BIND w north s south a west d east z act
+
+CMD act
+
+ FOR s 1234
+
+  ATOMIC
+ 
+   * *
+   s -
+  
+   %- %s
+
+ FOR s 1234 t !@#
+
+  ATOMIC
+  
+   %s %-
+   
+   * *
+   - s
+   t t
+
+ FOR s 234
+  
+  ATOMIC
+ 
+   %1 %-
+   
+   * *
+   - 1
+   s s
+
+ FOR s 34
+  
+  ATOMIC
+ 
+   %2 %-
+   
+   * *
+   - 2
+   s s
+
+ FOR s 4
+  
+  ATOMIC
+ 
+   %3 %-
+   
+   * *
+   - 3
+   s s
+
+CMD north
+ 
+ - *
+ * -
+ 
+CMD south
+ 
+ * -
+ - *
+ 
+CMD west
+ 
+ -* *-
+ 
+CMD east
+ 
+ *- -*
