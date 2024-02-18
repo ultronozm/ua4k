@@ -11,7 +11,7 @@ file.close()
 
 # A rule is either a simple rule (given by a triple (fromPattern, toPattern, sideEffect)) or a compound rule (given by a type and a list of rules, which may themselves be simple or compound).
 
-boards = []
+levels = []
 rules = {} # dict mapping names to rules
 binds = {}
 goals = []
@@ -58,6 +58,8 @@ def deep_subs(r, assn):
     if r['type'] == 'simple':
         r['from'] = [s.translate(trans_table) for s in r['from']]
         r['to'] = [s.translate(trans_table) for s in r['to']]
+    elif r['type'] == 'call':
+        pass
     elif r['type'] in ['atomic', 'match1', 'try_all', 'random', 'cmd']:
         for i in range(len(r['rules'])):
             deep_subs(r['rules'][i], assn)
@@ -129,7 +131,7 @@ def on_blank_line():
     global temp_rule_to
     global side_effect
     if len(temp_board) > 0:
-        boards.append(temp_board)
+        levels.append({"board" : temp_board})
         temp_board = []
     elif temp_goal is not None and len(temp_goal) > 0:
         # print("finished goal: ", temp_goal)
@@ -140,7 +142,6 @@ def on_blank_line():
         voids.append(temp_void)
         temp_void = None
     elif len(temp_rule_from) > 0:
-
         add_rule({'type': 'simple', 'from': temp_rule_from, 'to': temp_rule_to, 'side_effect': side_effect})
         temp_rule_from = []
         temp_rule_to = []
@@ -160,6 +161,18 @@ for line in lines:
             temp_goal = []
         case "VOID":
             temp_void = []
+        case "TITLE":
+            #author = line.strip()[3:]
+            # get the remainder after "BY" but in a robust way:
+            title = line.strip().split("TITLE", 1)[1].strip()
+            if len(levels) > 0:
+                levels[-1]["title"] = title
+        case "BY":
+            #author = line.strip()[3:]
+            # get the remainder after "BY" but in a robust way:
+            author = line.strip().split("BY", 1)[1].strip()
+            if len(levels) > 0:
+                levels[-1]["author"] = author
         case "BIND":
             split_line = line.strip().split()
             for i in range(1, len(split_line), 2):
@@ -288,7 +301,7 @@ for line in lines:
 on_blank_line()
 process_rule_stack_to_level(0)
 
-result = {'boards': boards, 'rules': rules, 'binds': binds, 'goals': goals, 'voids': voids}
+result = {'levels': levels, 'rules': rules, 'binds': binds, 'goals': goals, 'voids': voids}
 
 try:
     with open('gamesData.js', 'r') as json_file:

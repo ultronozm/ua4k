@@ -1,9 +1,9 @@
-let boards = [];
+let levels = [];
 let rules_dict = {};
 let binds = {};
 let goals = [];
 let voids = [];
-let level = 0;
+let level_number = 0;
 let board = null;
 let board_history = [];
 
@@ -20,12 +20,12 @@ gamesDropdown.addEventListener('change', function() {
 });
 
 function initGame(data) {
-    boards = data.boards;
+    levels = data.levels;
     rules_dict = data.rules;
     binds = data.binds;
     goals = data.goals;
     voids = data.voids;
-    level = 0;
+    level_number = 0;
     board = null;
     initLevel();
     drawBoard();
@@ -41,7 +41,7 @@ gamesDropdown.addEventListener('change', function(){
 gamesDropdown.dispatchEvent(new Event('change'));  // Load the first game when the page loads
 
 function updateLevelDisplay() {
-    document.getElementById('level').textContent = "Level: " + level;
+    document.getElementById('level').textContent = "Level: " + level_number;
 }
 
 function updateMovesDisplay() {
@@ -97,11 +97,30 @@ function drawBoard() {
 
 
 function initLevel() {
-    board = JSON.parse(JSON.stringify(boards[level]));
+    level = levels[level_number];
+    board = JSON.parse(JSON.stringify(level['board']));
     board_history = [];
     updateMovesDisplay();
-    let displayElem = document.getElementById('status');
-    displayElem.innerHTML = '';
+    {
+        let displayElem = document.getElementById('status');
+        displayElem.innerHTML = '';
+    }
+    {
+        let displayElem = document.getElementById('title');
+        if (level['title']) {
+            displayElem.innerHTML = level['title'];
+        } else {
+            displayElem.innerHTML = '';
+        }
+    }
+    {
+        let displayElem = document.getElementById('author');
+        if (level['author']) {
+            displayElem.innerHTML = 'by ' + level['author'];
+        } else {
+            displayElem.innerHTML = '';
+        }
+    }
 }
 
 function getSubgrid(row, col, height, width) {
@@ -329,8 +348,8 @@ function gameAction(a) {
 }
 
 function nextLevel() {
-    level++;
-    if (level < boards.length) {
+    level_number++;
+    if (level_number < levels.length) {
         initLevel();
         drawBoard();
         updateLevelDisplay();
@@ -351,14 +370,14 @@ document.addEventListener('keypress', function(event) {
     var charCode = event.charCode;
     if (charCode == 'l'.charCodeAt(0)) {
         var newLevel = prompt("Enter level number");
-        if (newLevel != null && newLevel >= 0 && newLevel < boards.length) {
-            level = newLevel;
+        if (newLevel != null && newLevel >= 0 && newLevel < levels.length) {
+            level_number = newLevel;
             initLevel();
             drawBoard();
             updateLevelDisplay();
         }
     } else if (board) {
-        if (charCode == 'r'.charCodeAt(0)) {
+        if (charCode == 'U'.charCodeAt(0)) {
             initLevel();
             drawBoard();
         }
@@ -369,9 +388,12 @@ document.addEventListener('keypress', function(event) {
             }
             drawBoard();
         }
-        else if ((charCode >= 97 && charCode <= 122) || (charCode >= 48 && charCode <= 57)) {
-            var action = String.fromCharCode(charCode);
-            gameAction(action);
+        else {
+            gameAction(String.fromCharCode(charCode));
         }
+        // else if ((charCode >= 97 && charCode <= 122) || (charCode >= 48 && charCode <= 57)) {
+        //     var action = String.fromCharCode(charCode);
+        //     gameAction(action);
+        // }
     }
 });
