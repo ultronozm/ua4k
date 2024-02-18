@@ -161,15 +161,15 @@ for line in lines:
             temp_goal = []
         case "VOID":
             temp_void = []
+        case "DESCRIPTION":
+            title = line.strip().split("DESCRIPTION", 1)[1].strip()
+            if len(levels) > 0:
+                levels[-1]["description"] = title
         case "TITLE":
-            #author = line.strip()[3:]
-            # get the remainder after "BY" but in a robust way:
             title = line.strip().split("TITLE", 1)[1].strip()
             if len(levels) > 0:
                 levels[-1]["title"] = title
         case "BY":
-            #author = line.strip()[3:]
-            # get the remainder after "BY" but in a robust way:
             author = line.strip().split("BY", 1)[1].strip()
             if len(levels) > 0:
                 levels[-1]["author"] = author

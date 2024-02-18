@@ -1,106 +1,239 @@
-GOAL
-*G
+VOID
+!
 
-BIND w north s south a west d east e mine
+BIND w north s south a west d east e mine x destroy
 
-BIND o build_oxygen_station r build_refinery ! build! p build_teleport # build# b bomb
+BIND o build_oxygen_station r build_refinery
 
-BIND c register_copy_price_o
-
-----~~~~~----------8888---~~~------XXX------
---88-~~~------------88----~~~------XXX------
---88-----------------------~~------XXXX-----
----------------AA--------------------XXX----
-o*--------------AA------------------XXX----G
-----------~~~~-----------------------XXX----
-------88---~~--------~~--------AA-----XXX---
------888------------~~~~------AAA-----XXXX--
-____________________________________________
-HP:...--------------------------------------
-O2:..................................|------
-=INVENTORY=---------------------------------
-8:......--|---------------------------------
-A:......--|---------------------------------
-~:......--|---------------------------------
-=SHOP=----------------------------------->-%
-o:88~~~~|-----------------------------------
-R:88~~AA|-----------------------------------
-b:88~~AAAA|---------------------------------
-%:------------------------------------------
+BIND W look_north S look_south A look_west D look_east
 
 
 
-----------~~~~~-----------------8888-----~~~--------XXX------
---88-------~~~-------------------88------~~~--------XXX------
---88--------------------------------------~~--------XXXX-----
---------------------------AA-------------------------XXXX----
---------------------------AA--------------------------XXX----
-o*---------------------------------------------------XXX----G
----------------------------------------------------XXXX------
---------------------~~-------------------------------XXX-----
--------------------~~~~-------------------------------XXX----
-------------88------~~------------~~----------AA-------XXX---
------------888-------------------~~~~--------AAA-------XXXX--
-_____________________________________________________________
-HP:...-------------------------------------------------------
-O2:..................................|-----------------------
-8:......-----------------------------------------------------
-A:......-----------------------------------------------------
-~:......-----------------------------------------------------
----------------------------------------------------------->-%
 
-8888888888AAAAAAAAAAAAAAAAAAAA~~-----------
-8888888888AAAAAAAAAAAAAAAAAAA~~~-----------
-8888888888AAA88------~~~~AAAA~~------------
-8888888888AA88-------~~~~~AA~~-------------
-8888888888A888--------~~~~~~~--------------
-8888888888888---------~~~~~~---------------
-88888888888888-------~~~~~~----------------
-8888888888888-------~~~~~~~~---------------
-8888888888888-------~~~~~~~~~--------------
-8888888888888-------~~~~~~~~~--------------
-888888888888----------~~~~~~~--------------
-88888888888-------------~~~~---------------
-88888888888--------------------------------
-88888888888--------------------------------
-88888888888--------------------------------
-88888888888-----------------------o--------
-888888888----------------*------------q----
-88888888-----------------------------------
-___________________________________________
-HP:...-------------------------------------
-O2:.............................|----------
-8:......-----------------------------------
-A:......-----------------------------------
-~:......-----------------------------------
-------------------------------------------%
+-----------!---------------!-----
+---------------------------------
+o*---------o---------o-----------
+---------------------------------
+--------------------------------!
+_________________________________
+O2:..............|---------------
+=================================
+%:---------------------------->-%
 
-888888888888AAAAAAAAAAAAAAAAAA~~-----------
-8888888888AAAAAAAAAAAAAAAAAAAA~~-----------
-8888888888AAAAAAAAAAAAAAAAAAA~~~-----------
-8888888888AAA88------~~~~AAAA~~------------
-8888888888AA88-------~~~~~AA~~-------------
-8888888888A888--------~~~~~~~--------------
-8888888888888---------~~~~~~---------------
-88888888888888-------~~~~~~----------------
-8888888888888-------~~~~~~~~---------------
-8888888888888-------~~~~~~~~~--------------
-8888888888888-------~~~~~~~~~--------------
-888888888888----------~~~~~~~--------------
-88888888888-------------~~~~---------------
-88888888888--------------------------------
-88888888888--------------------------------
-88888888888--------------------------------
-88888888888-----------------------o--------
-888888888----------------*------------q----
-88888888-----------------------------------
-___________________________________________
-HP:...-------------------------------------
-O2:..................................|-----
-8:......-----------------------------------
-A:......-----------------------------------
-~:......-----------------------------------
-------------------------------------------%
+DESCRIPTION You have crash-landed on an alien world.  To restore power to your spaceship, you need to retrieve each of the energy cells "!".  Your oxygen supply is limited, but can be replenished at the oxygen stations "o".  Be careful out there.
+
+
+--------------------------------!
+---------------------------------
+o*-------8~~-------8~~-----------
+---------------------------------
+--------------------------------!
+_________________________________
+O2:..............|---------------
+=RESOURCES=======================
+8:________|~:________|-----------
+=CONSTRUCTION====================
+o:8~~|---------------------------
+=================================
+%:---------------------------->-%
+
+DESCRIPTION Oops, you crashed again.  This time, there's only one oxygen station -- not enough to survive the trip -- but you can build more stations using the planet's resources: wood (mined from the forests "8") and water (mined from the lakes "~").  See the "CONSTRUCTION" table below.  Mine those resources using "e", build some stations using "o", and retrieve the energy cells.
+
+
+o*----~X---------------X----X!---
+------~X-------X-------X----XXXX-
+8------X-------X------~X---------
+8------X-------X------~X---------
+-------X-------X-------X---------
+-------X------8X-------X---------
+-------------~~X-----------------
+_________________________________
+O2:..............|---------------
+=RESOURCES=======================
+8:________|~:________|-----------
+=CONSTRUCTION====================
+o:8~~|---------------------------
+=================================
+%:---------------------------->-%
+
+DESCRIPTION There are some barriers "X" obstructing the path, but you can simply walk around them.  Plan your steps carefully!
+
+---8AA8----X---------------------
+----88-----X---------X-----------
+o*---------X---------X----------!
+-----------X---------X-----------
+----~~---------------X-----------
+_________________________________
+O2:..............|---------------
+=RESOURCES=======================
+8:________|~:________|A:________|
+=CONSTRUCTION====================
+o:8~~|---------------------------
+r:88A|---------------------------
+=DESTRUCTION=====================
+X:8~AAAA|------------------------
+=================================
+%:---------------------------->-%
+
+DESCRIPTION You can mine "ore" from the mountains "A", and use that to build refineries "r" (by pressing "r").  When your character "*" lies in the 5x5 block centered at some "r", mining efficiency is doubled -- resources are worth twice as much.
+
+----------------------~88-----X--
+-----------------------~~-----X--
+----------------o*------------X-!
+-------------------------AA---X--
+------------------------AA----X--
+_________________________________
+O2:..............|---------------
+=RESOURCES=======================
+8:________|~:________|A:________|
+=CONSTRUCTION====================
+o:8~~|---------------------------
+r:88A|---------------------------
+=DESTRUCTION=====================
+X:8~AAAA|------------------------
+=================================
+%:---------------------------->-%
+
+DESCRIPTION This time, barriers "X" are blocking off the energy cell.  You can destroy a barrier (using the same button that you use for mining), but it costs resources -- see the "DESTRUCTION" table below.
+
+
+
+-----------------------~888---X--
+------------------------~~8---X--
+----------------o*------------X-!
+-------------------------A----X--
+------------------------AA----X--
+_________________________________
+O2:..............|---------------
+=RESOURCES=======================
+8:________|~:________|A:________|
+=CONSTRUCTION====================
+o:8~~|---------------------------
+r:88A|---------------------------
+=DESTRUCTION=====================
+X:8~AAAA|------------------------
+=================================
+%:---------------------------->-%
+
+
+
+8888888AAAAAAAAAAAAAAAAAAAA~~----
+8---888AAAAAAAAAAAAAAAAAAA~~~--!-
+8-!-888AAA88------~~~~AAAA~~-----
+8---888AA88-------~~~~~AA~~------
+8888888A888---!----~~~~~~~-------
+8888888888-------~~~~~~~~--------
+8888888888-------~~~~~~~~~----!--
+888888888----------~~~~~~~-------
+88888888-------------~~~~-------8
+88888888---!--------------------8
+88888888-----------------------*o
+_________________________________
+O2:..............|---------------
+=RESOURCES=======================
+8:________|A:________|~:________|
+=CONSTRUCTION====================
+o:8~~|---------------------------
+r:88A|---------------------------
+=DESTRUCTION=====================
+X:8~AAAA|------------------------
+=================================
+%:---------------------------->-%
+
+DESCRIPTION The "destroy" command, bound to "x", may be useful here -- it destroys any natural resources (without mining them) as well as any oxygen stations or refineries you have built.  (TODO: maybe it'd be interesting to be able to "reclaim" some resources by destroying your constructions?  Haven't tried.)
+
+
+
+
+----------------X------!---------
+----------------X----------------
+----------------X----------------
+----------------X----------------
+----------------X----------------
+--8~~-----------X----------------
+-o*------------------------------
+_________________________________
+O2:..............|---------------
+=RESOURCES=======================
+8:________|A:________|~:________|
+=CONSTRUCTION====================
+o:8~~|---------------------------
+r:88A|---------------------------
+=DESTRUCTION=====================
+X:8~AAAA|------------------------
+=================================
+%:---------------------------->-%
+
+
+DESCRIPTION Your character "*" is always facing in some cardinal direction, indicated near the bottom right of the display by one of the characters ^v<>.  This direction determines where you will build your structures.  Sometimes, it's useful to be able to change your direction without moving.  To do so, you can hold down "shift" while pressing a movement key.  For example, you can build an oxygen station in the empty space above you, without having moved up on the previous turn, by pressing "W" (i.e., shift + "w") followed by "o".
+
+
+-----~~---AA----888---------XXX--
+--88-------------8----------XXX--
+---------------------~~-----XXX--
+o*-----------AA-------------XXX-!
+----------------------------XXX--
+-------8-----------------AA-XXX--
+---------~~-------------AAA-XXX--
+_________________________________
+O2:..............|---------------
+=RESOURCES=======================
+8:________|A:________|~:________|
+=CONSTRUCTION====================
+o:8~~|---------------------------
+r:88A|---------------------------
+=DESTRUCTION=====================
+X:8~AAAA|------------------------
+=================================
+%:---------------------------->-%
+
+DESCRIPTION You're on your own now.  Good luck!
+
+
+o*---~~X---8A-----AA---X---88--X!
+------~X-------X-------X--------X
+88-----X-------X------~X--------~
+-------X-------X------~X--------~
+-------X-------X-------X--------X
+-------X----~--X--8A---X-----~-XX
+---A-------8~--X-8A---------AAXX!
+_________________________________
+O2:..............|---------------
+=RESOURCES=======================
+8:________|A:________|~:________|
+=CONSTRUCTION====================
+o:8~~|---------------------------
+r:88A|---------------------------
+=DESTRUCTION=====================
+X:8~AAAA|------------------------
+=================================
+%:---------------------------->-%
+
+
+!------------X~88888XX----------!
+XXX----------X~~~~~XXX--------XXX
+--------------XXXXXXX------------
+---------------------------------
+---XXXXXXXXXXXXXXXXXXXXXXXXXXX---
+---XAA---X-888~-------AAAA---X---
+---XAA---X-~~~--o*----------~X---
+---X888--X-----------------~8X---
+-X-XXXXXXXXXXXXXXXXXXXXXXXXXXX---
+-X-------------------------------
+!X------------------------------!
+_________________________________
+O2:..............|---------------
+=RESOURCES=======================
+8:________|A:________|~:________|
+=CONSTRUCTION====================
+o:8~~|---------------------------
+r:88A|---------------------------
+=DESTRUCTION=====================
+X:8~AAAA|------------------------
+=================================
+%:---------------------------->-%
+
+
 
 
 
@@ -122,25 +255,31 @@ CMD maybe_breath
 
   CALL refill_oxygen
 
+CMD look_north
+ ??% ^?%
+
+CMD look_south
+ ??% v?%
+
+CMD look_west
+ ??% <?%
+
+CMD look_east
+ ??% >?%
+
 CMD north
-
  TRY_ALL
-
   CALL maybe_breath
-
   ??% ^?%
   
   ATOMIC
-  
    MATCH1
-    
-    - *
-    * -
+    FOR s -!
+     s *
+     * -
  
     ZIP s pq t qp
-    
      ATOMIC
-     
       s s
       * -
      
@@ -150,26 +289,22 @@ CMD north
    TRY_ALL
     CALL maybe_breath
     CALL consume_oxygen
+    CALL maybe_breath
  
 CMD south
 
  TRY_ALL
-
   CALL maybe_breath
-  
   ??% v?%
   
   ATOMIC
-   
    MATCH1
-  
-    * -
-    - *
+    FOR s -!
+     * -
+     s *
  
     ZIP s pq t qp
-    
      ATOMIC
-     
       * -
       s s
      
@@ -179,25 +314,20 @@ CMD south
    TRY_ALL
     CALL maybe_breath
     CALL consume_oxygen
+    CALL maybe_breath
  
 CMD west
-
  TRY_ALL
-
   CALL maybe_breath
-
   ??% <?%
   
   ATOMIC
-  
    MATCH1
- 
-    -* *-
+    FOR s -!
+     s* *-
  
     ZIP s pq t qp
- 
      ATOMIC
- 
       s* s-
      
       -t *t
@@ -205,6 +335,7 @@ CMD west
    TRY_ALL
     CALL maybe_breath
     CALL consume_oxygen
+    CALL maybe_breath
  
 CMD east
 
@@ -215,15 +346,12 @@ CMD east
   ??% >?%
   
   ATOMIC
-   
    MATCH1
-  
-    *- -*
+    FOR s -!
+     *s -*
    
     ZIP s pq t qp
- 
      ATOMIC
- 
       *s -s
      
       t- t*
@@ -231,37 +359,62 @@ CMD east
    TRY_ALL
     CALL maybe_breath
     CALL consume_oxygen
+    CALL maybe_breath
  
-CMD mine
+CMD destroy
 
- FOR s ~A8
+ FOR s ~A8or
 
   ATOMIC
-
    MATCH1
-
     ATOMIC
-
      ^?%
      
      s -
      * *
 
     ATOMIC
-
      v?%
      
      * *
      s -
  
     ATOMIC
-
      <?%
      
      s* -*
  
     ATOMIC
+     >?%
+     
+     *s *-
 
+CMD mine
+
+ ;; mine ordinary minerals
+
+ FOR s ~A8
+
+  ATOMIC
+   MATCH1
+    ATOMIC
+     ^?%
+     
+     s -
+     * *
+
+    ATOMIC
+     v?%
+     
+     * *
+     s -
+ 
+    ATOMIC
+     <?%
+     
+     s* -*
+ 
+    ATOMIC
      >?%
      
      *s *-
@@ -269,17 +422,44 @@ CMD mine
    -% s%
 
    CALL increment_resource
-
    TRY_ALL
-
     ATOMIC
-
      CALL nearby_refinery
-    
+     
      -% s%
   
      CALL increment_resource
-  
+
+ ;; destroy X -- costs something
+
+ ATOMIC
+  -% X%
+
+  CALL register_copy_price
+  CALL register_spend
+  MATCH1
+   ATOMIC
+    ^?%
+    
+    X -
+    * *
+
+   ATOMIC
+    v?%
+    
+    * *
+    X -
+
+   ATOMIC
+    <?%
+    
+    X* -*
+
+   ATOMIC
+    >?%
+    
+    *X *-
+
 CMD increment_resource
 
  FOR s ~A8
@@ -290,83 +470,83 @@ CMD increment_resource
 
    MATCH1
 
-    s:- s:.
+    s:_ s:s
                                  
-    s:.- s:..
+    s:s_ s:ss
                                  
-    s:..- s:...
+    s:ss_ s:sss
                                  
-    s:...- s:....
+    s:sss_ s:ssss
                                  
-    s:....- s:.....
+    s:ssss_ s:sssss
                                  
-    s:.....- s:......
+    s:sssss_ s:ssssss
                                  
-    s:......- s:.......
+    s:ssssss_ s:sssssss
                                  
-    s:.......- s:........
+    s:sssssss_ s:ssssssss
                                  
-    s:........- s:.........
+    s:ssssssss_ s:sssssssss
                                  
-    s:.........- s:..........
+    s:sssssssss_ s:ssssssssss
                                  
-    s:..........- s:...........
+    s:ssssssssss_ s:sssssssssss
                                  
-    s:...........- s:............
+    s:sssssssssss_ s:ssssssssssss
                                  
-    s:............- s:.............
+    s:ssssssssssss_ s:sssssssssssss
                                  
-    s:.............- s:..............
+    s:sssssssssssss_ s:ssssssssssssss
                                  
-    s:..............- s:...............
+    s:ssssssssssssss_ s:sssssssssssssss
                                  
-    s:...............- s:................
+    s:sssssssssssssss_ s:ssssssssssssssss
                                  
-    s:................- s:.................
+    s:ssssssssssssssss_ s:sssssssssssssssss
                                  
-    s:.................- s:..................
+    s:sssssssssssssssss_ s:ssssssssssssssssss
                                  
-    s:..................- s:...................
+    s:ssssssssssssssssss_ s:sssssssssssssssssss
                                  
-    s:...................- s:....................
+    s:sssssssssssssssssss_ s:ssssssssssssssssssss
                                  
-    s:....................- s:.....................
+    s:ssssssssssssssssssss_ s:sssssssssssssssssssss
                                  
-    s:.....................- s:......................
+    s:sssssssssssssssssssss_ s:ssssssssssssssssssssss
                                  
-    s:......................- s:.......................
+    s:ssssssssssssssssssssss_ s:sssssssssssssssssssssss
                                  
-    s:.......................- s:........................
+    s:sssssssssssssssssssssss_ s:ssssssssssssssssssssssss
                                  
-    s:........................- s:.........................
+    s:ssssssssssssssssssssssss_ s:sssssssssssssssssssssssss
                                  
-    s:.........................- s:..........................
+    s:sssssssssssssssssssssssss_ s:ssssssssssssssssssssssssss
                                  
-    s:..........................- s:...........................
+    s:ssssssssssssssssssssssssss_ s:sssssssssssssssssssssssssss
                                  
-    s:...........................- s:............................
+    s:sssssssssssssssssssssssssss_ s:ssssssssssssssssssssssssssss
                                  
-    s:............................- s:.............................
+    s:ssssssssssssssssssssssssssss_ s:sssssssssssssssssssssssssssss
                                  
-    s:.............................- s:..............................
+    s:sssssssssssssssssssssssssssss_ s:ssssssssssssssssssssssssssssss
                                  
-    s:..............................- s:...............................
+    s:ssssssssssssssssssssssssssssss_ s:sssssssssssssssssssssssssssssss
                                  
-    s:...............................- s:................................
+    s:sssssssssssssssssssssssssssssss_ s:ssssssssssssssssssssssssssssssss
                                  
-    s:................................- s:.................................
+    s:ssssssssssssssssssssssssssssssss_ s:sssssssssssssssssssssssssssssssss
                                  
-    s:.................................- s:..................................
+    s:sssssssssssssssssssssssssssssssss_ s:ssssssssssssssssssssssssssssssssss
                                  
-    s:..................................- s:...................................
+    s:ssssssssssssssssssssssssssssssssss_ s:sssssssssssssssssssssssssssssssssss
                                  
-    s:...................................- s:....................................
+    s:sssssssssssssssssssssssssssssssssss_ s:ssssssssssssssssssssssssssssssssssss
                                  
-    s:....................................- s:.....................................
+    s:ssssssssssssssssssssssssssssssssssss_ s:sssssssssssssssssssssssssssssssssssss
                                  
-    s:.....................................- s:......................................
+    s:sssssssssssssssssssssssssssssssssssss_ s:ssssssssssssssssssssssssssssssssssssss
                                  
-    s:......................................- s:.......................................
+    s:ssssssssssssssssssssssssssssssssssssss_ s:sssssssssssssssssssssssssssssssssssssss
                                  
 
 CMD decrement_resource
@@ -379,89 +559,89 @@ CMD decrement_resource
 
    MATCH1
    
-    FOR d -|
+    FOR d _|
  
-     s:.d s:-d
+     s:sd s:_d
                                    
-     s:..d s:.-d
+     s:ssd s:s_d
                                    
-     s:...d s:..-d
+     s:sssd s:ss_d
                                    
-     s:....d s:...-d
+     s:ssssd s:sss_d
                                    
-     s:.....d s:....-d
+     s:sssssd s:ssss_d
                                    
-     s:......d s:.....-d
+     s:ssssssd s:sssss_d
                                    
-     s:.......d s:......-d
+     s:sssssssd s:ssssss_d
                                    
-     s:........d s:.......-d
+     s:ssssssssd s:sssssss_d
                                    
-     s:.........d s:........-d
+     s:sssssssssd s:ssssssss_d
                                    
-     s:..........d s:.........-d
+     s:ssssssssssd s:sssssssss_d
                                    
-     s:...........d s:..........-d
+     s:sssssssssssd s:ssssssssss_d
                                    
-     s:............d s:...........-d
+     s:ssssssssssssd s:sssssssssss_d
                                    
-     s:.............d s:............-d
+     s:sssssssssssssd s:ssssssssssss_d
                                    
-     s:..............d s:.............-d
+     s:ssssssssssssssd s:sssssssssssss_d
                                    
-     s:...............d s:..............-d
+     s:sssssssssssssssd s:ssssssssssssss_d
                                    
-     s:................d s:...............-d
+     s:ssssssssssssssssd s:sssssssssssssss_d
                                    
-     s:.................d s:................-d
+     s:sssssssssssssssssd s:ssssssssssssssss_d
                                    
-     s:..................d s:.................-d
+     s:ssssssssssssssssssd s:sssssssssssssssss_d
                                    
-     s:...................d s:..................-d
+     s:sssssssssssssssssssd s:ssssssssssssssssss_d
                                    
-     s:....................d s:...................-d
+     s:ssssssssssssssssssssd s:sssssssssssssssssss_d
                                    
-     s:.....................d s:....................-d
+     s:sssssssssssssssssssssd s:ssssssssssssssssssss_d
                                    
-     s:......................d s:.....................-d
+     s:ssssssssssssssssssssssd s:sssssssssssssssssssss_d
                                    
-     s:.......................d s:......................-d
+     s:sssssssssssssssssssssssd s:ssssssssssssssssssssss_d
                                    
-     s:........................d s:.......................-d
+     s:ssssssssssssssssssssssssd s:sssssssssssssssssssssss_d
                                    
-     s:.........................d s:........................-d
+     s:sssssssssssssssssssssssssd s:ssssssssssssssssssssssss_d
                                    
-     s:..........................d s:.........................-d
+     s:ssssssssssssssssssssssssssd s:sssssssssssssssssssssssss_d
                                    
-     s:...........................d s:..........................-d
+     s:sssssssssssssssssssssssssssd s:ssssssssssssssssssssssssss_d
                                    
-     s:............................d s:...........................-d
+     s:ssssssssssssssssssssssssssssd s:sssssssssssssssssssssssssss_d
                                    
-     s:.............................d s:............................-d
+     s:sssssssssssssssssssssssssssssd s:ssssssssssssssssssssssssssss_d
                                    
-     s:..............................d s:.............................-d
+     s:ssssssssssssssssssssssssssssssd s:sssssssssssssssssssssssssssss_d
                                    
-     s:...............................d s:..............................-d
+     s:sssssssssssssssssssssssssssssssd s:ssssssssssssssssssssssssssssss_d
                                    
-     s:................................d s:...............................-d
+     s:ssssssssssssssssssssssssssssssssd s:sssssssssssssssssssssssssssssss_d
                                    
-     s:.................................d s:................................-d
+     s:sssssssssssssssssssssssssssssssssd s:ssssssssssssssssssssssssssssssss_d
                                    
-     s:..................................d s:.................................-d
+     s:ssssssssssssssssssssssssssssssssssd s:sssssssssssssssssssssssssssssssss_d
                                    
-     s:...................................d s:..................................-d
+     s:sssssssssssssssssssssssssssssssssssd s:ssssssssssssssssssssssssssssssssss_d
                                    
-     s:....................................d s:...................................-d
+     s:ssssssssssssssssssssssssssssssssssssd s:sssssssssssssssssssssssssssssssssss_d
                                    
-     s:.....................................d s:....................................-d
+     s:sssssssssssssssssssssssssssssssssssssd s:ssssssssssssssssssssssssssssssssssss_d
                                    
-     s:......................................d s:.....................................-d
+     s:ssssssssssssssssssssssssssssssssssssssd s:sssssssssssssssssssssssssssssssssssss_d
                                    
-     s:.......................................d s:......................................-d
+     s:sssssssssssssssssssssssssssssssssssssssd s:ssssssssssssssssssssssssssssssssssssss_d
                                    
-     s:........................................d s:.......................................-d
+     s:ssssssssssssssssssssssssssssssssssssssssd s:sssssssssssssssssssssssssssssssssssssss_d
                                    
-     s:.........................................d s:........................................-d
+     s:sssssssssssssssssssssssssssssssssssssssssd s:ssssssssssssssssssssssssssssssssssssssss_d
  
 CMD decrement8
 
@@ -557,116 +737,45 @@ CMD build_teleport
   -% p%
   
   CALL build_thing
+ 
+CMD buy_and_build
 
-CMD build_oxygen_station_old
-
- ATOMIC
-
-  CALL decrement8
-
-  CALL decrement8
-
-  CALL decrement~
-
-  CALL decrement~
-
-  CALL decrement~
-
-  CALL decrement~
-
-  -% o%
-  
-  CALL build_thing
-
-  CALL maybe_breath
-
+ FOR s !@#orp
+ 
+  ATOMIC
+ 
+   s%
+ 
+   CALL register_copy_price
+ 
+   CALL register_spend
+ 
+   -% s%
+   
+   CALL build_thing
+   
+ 
 CMD build_oxygen_station
 
  ATOMIC
 
   -% o%
 
-  CALL register_copy_price
-
-  CALL register_spend
-
-  -% o%
-  
-  CALL build_thing
+  CALL buy_and_build
 
   CALL maybe_breath
-
-CMD bomb
-
- ATOMIC
-
-  CALL decrement8
-
-  CALL decrement8
-
-  CALL decrement~
-
-  CALL decrement~
-
-  CALL decrementA
-
-  CALL decrementA
-  
-  CALL decrementA
-
-  CALL decrementA
-
-  MATCH1
-
-   ATOMIC
-
-    ^?%
-
-    X -
-    * *
-  
-   ATOMIC
-
-    v?%
-
-    * *
-    X -
-  
-   ATOMIC
-
-    >?%
-
-    *X *-
-    
-   ATOMIC
-
-    <?%
-
-    X* -*
 
 CMD build_refinery
 
  ATOMIC
 
-  CALL decrement8
-
-  CALL decrement8
-
-  CALL decrement~
-
-  CALL decrement~
-
-  CALL decrementA
-
-  CALL decrementA
-
-  -% R%
+  -% r%
   
-  CALL build_thing
+  CALL buy_and_build
 
 CMD build_thing
 
- FOR s !@#oRp
+ FOR s !@#orp
 
   ATOMIC
  
@@ -781,149 +890,83 @@ CMD die
 
 CMD nearby_refinery
 
- *????
- ?????
- ??R??
- ?????
- ?????
+ *??
+ ???
+ ??r
 
- ?*???
- ?????
- ??R??
- ?????
- ?????
+ *?
+ ??
+ ?r
 
- ??*??
- ?????
- ??R??
- ?????
- ?????
+ *
+ ?
+ r
 
- ???*?
- ?????
- ??R??
- ?????
- ?????
+ ?*
+ ??
+ r?
 
- ????*
- ?????
- ??R??
- ?????
- ?????
+ ??*
+ ???
+ r??
 
- ?????
- *????
- ??R??
- ?????
- ?????
+ *??
+ ??r
 
- ?????
- ?*???
- ??R??
- ?????
- ?????
+ ?*?
+ ??r
 
- ?????
- ??*??
- ??R??
- ?????
- ?????
+ *
+ r
 
- ?????
- ???*?
- ??R??
- ?????
- ?????
+ ?*
+ r?
 
- ?????
- ????*
- ??R??
- ?????
- ?????
+ ??*
+ r??
 
- ?????
- ?????
- *?R??
- ?????
- ?????
+ *?r
 
- ?????
- ?????
- ?*R??
- ?????
- ?????
+ *r
 
- ?????
- ?????
- ??R*?
- ?????
- ?????
+ r*
 
- ?????
- ?????
- ??R?*
- ?????
- ?????
+ r?*
 
- ?????
- ?????
- ??R??
- *????
- ?????
+ ??r
+ *??
 
- ?????
- ?????
- ??R??
- ?*???
- ?????
+ ?r
+ *?
 
- ?????
- ?????
- ??R??
- ??*??
- ?????
+ r
+ *
 
- ?????
- ?????
- ??R??
- ???*?
- ?????
+ r?
+ ?*
+ 
+ r??
+ ??*
 
- ?????
- ?????
- ??R??
- ????*
- ?????
+ ??r
+ ???
+ *??
 
- ?????
- ?????
- ??R??
- ?????
- *????
+ ?r
+ ??
+ *?
 
- ?????
- ?????
- ??R??
- ?????
- ?*???
+ r
+ ?
+ *
 
- ?????
- ?????
- ??R??
- ?????
- ??*??
+ r?
+ ??
+ ?*
 
- ?????
- ?????
- ??R??
- ?????
- ???*?
-
- ?????
- ?????
- ??R??
- ?????
- ????*
+ r??
+ ???
+ ??*
 
 
 CMD refill_oxygen
@@ -1010,52 +1053,37 @@ CMD refill_oxygen
 
  O2:?????????????????????????????????????????| O2:.........................................|
 
-CMD register_copy_price_o
-
- ATOMIC
-
-  -% o%
-
-  CALL register_copy_price
-
 CMD register_copy_price
 
- FOR s oRb#
-
+ FOR s orX#
   ATOMIC
-
    s% -%
 
+   s:
+   
    FOR t 8A~
-
     TRY_ALL
- 
      ATOMIC
- 
       s:t
  
       %:? %:t
  
      ATOMIC
- 
       s:?t
  
       %:?? %:?t
  
      ATOMIC
- 
       s:??t
  
       %:??? %:??t
  
      ATOMIC
- 
       s:???t
  
       %:???? %:???t
  
      ATOMIC
- 
       s:????t
  
       %:????? %:????t

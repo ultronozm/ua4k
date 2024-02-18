@@ -121,6 +121,14 @@ function initLevel() {
             displayElem.innerHTML = '';
         }
     }
+    {
+        let displayElem = document.getElementById('description');
+        if (level['description']) {
+            displayElem.innerHTML = level['description'];
+        } else {
+            displayElem.innerHTML = '';
+        }
+    }
 }
 
 function getSubgrid(row, col, height, width) {
