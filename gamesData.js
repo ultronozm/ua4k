@@ -72,7 +72,7 @@ let gamesData = {
                     "=================================",
                     "%:---------------------------->-%"
                 ],
-                "description": "You can mine \"ore\" from the mountains \"A\", and use that to build refineries \"r\" (by pressing \"r\").  When your character \"*\" lies in the 5x5 block centered at some \"r\", mining efficiency is doubled -- resources are worth twice as much."
+                "description": "You can mine \"ore\" from the mountains \"A\", and use that to build refineries \"r\" (by pressing \"r\").  When your character \"*\" lies in the 5x5 block centered at some refinery \"r\", mining efficiency is doubled -- resources are worth twice as much."
             },
             {
                 "board": [
@@ -163,7 +163,7 @@ let gamesData = {
                     "=================================",
                     "%:---------------------------->-%"
                 ],
-                "description": "Your character \"*\" is always facing in some cardinal direction, indicated near the bottom right of the display by one of the characters ^v<>.  This direction determines where you will build your structures.  Sometimes, it's useful to be able to change your direction without moving.  To do so, you can hold down \"shift\" while pressing a movement key.  For example, you can build an oxygen station in the empty space above you, without having moved up on the previous turn, by pressing \"W\" (i.e., shift + \"w\") followed by \"o\"."
+                "description": "Your character \"*\" is always facing in some cardinal direction, indicated near the bottom right of the display by one of the characters ^v<>.  This direction determines where you will build your structures.  It's occasionally useful to be able to change your direction without moving.  To do so, you can hold down \"shift\" while pressing a movement key.  For example, to build an oxygen station in the empty space above you (without having moved up on the previous turn), press \"W\" (i.e., shift + \"w\") followed by \"o\"."
             },
             {
                 "board": [
@@ -190,17 +190,13 @@ let gamesData = {
             },
             {
                 "board": [
-                    "!------------X~88888XX----------!",
-                    "XXX----------X~~~~~XXX--------XXX",
-                    "--------------XXXXXXX------------",
-                    "---------------------------------",
-                    "---XXXXXXXXXXXXXXXXXXXXXXXXXXX---",
-                    "---XAA---X-888~-------AAAA---X---",
-                    "---XAA---X-~~~--o*----------~X---",
-                    "---X888--X-----------------~8X---",
-                    "-X-XXXXXXXXXXXXXXXXXXXXXXXXXXX---",
-                    "-X-------------------------------",
-                    "!X------------------------------!",
+                    "o*---~~X---8A-----AA---X---88--X!",
+                    "------~X-------X-------X--------X",
+                    "88-----X-------X------~X--------~",
+                    "-------X-------X------~X--------~",
+                    "-------X-------X-------X--------X",
+                    "-------X----~--X--8A---X-----~-XX",
+                    "---A-------8~--X-8A---------AAXX!",
                     "_________________________________",
                     "O2:..............|---------------",
                     "=RESOURCES=======================",
@@ -216,13 +212,17 @@ let gamesData = {
             },
             {
                 "board": [
-                    "o*---~~X---8A-----AA---X---88--X!",
-                    "------~X-------X-------X--------X",
-                    "88-----X-------X------~X--------~",
-                    "-------X-------X------~X--------~",
-                    "-------X-------X-------X--------X",
-                    "-------X----~--X--8A---X-----~-XX",
-                    "---A-------8~--X-8A---------AAXX!",
+                    "!------------X~88888XX----------!",
+                    "XXX----------X~~~~~XXX--------XXX",
+                    "--------------XXXXXXX------------",
+                    "---------------------------------",
+                    "---XXXXXXXXXXXXXXXXXXXXXXXXXXX---",
+                    "---XAA---X-888~-------AAAA---X---",
+                    "---XAA---X-~~~--o*----------~X---",
+                    "---X888--X-----------------~8X---",
+                    "-X-XXXXXXXXXXXXXXXXXXXXXXXXXXX---",
+                    "-X-------------------------------",
+                    "!X------------------------------!",
                     "_________________________________",
                     "O2:..............|---------------",
                     "=RESOURCES=======================",
@@ -19052,42 +19052,6 @@ let gamesData = {
         "levels": [
             {
                 "board": [
-                    "/\\/\\xx/\\/\\xx/\\/\\/\\",
-                    "\\---\\/----\\/----o/",
-                    "x\\------/-------/x",
-                    "x/--------------\\x",
-                    "/----------------\\",
-                    "\\----------------/",
-                    "/>*---/\\----/\\---\\",
-                    "\\/\\/\\/xx\\/\\/xx\\/\\/"
-                ]
-            },
-            {
-                "board": [
-                    "/\\/\\xx/\\/\\xx/\\/\\/\\",
-                    "\\---\\/----\\/-----/",
-                    "x\\------/-------/x",
-                    "x/--x-x-x-x-x---\\x",
-                    "/----x-x-x-x-x---\\",
-                    "\\o---------------/",
-                    "/>*---/\\----/\\---\\",
-                    "\\/\\/\\/xx\\/\\/xx\\/\\/"
-                ]
-            },
-            {
-                "board": [
-                    "/\\/\\/\\/\\/\\/\\/\\/\\/\\",
-                    "\\----------------/",
-                    "/-------/--------\\",
-                    "\\---xxxxxxxxxx---/",
-                    "/---xxxxxxxxxx---\\",
-                    "\\o---------------/",
-                    "/>---------------\\",
-                    "\\/\\/\\/\\/\\/\\/\\/\\/\\/"
-                ]
-            },
-            {
-                "board": [
                     "-----",
                     ">*--o",
                     "-----"
@@ -19349,8 +19313,7 @@ let gamesData = {
                     "x\\-x-\\x///",
                     "x--x---\\\\\\",
                     "x/-^*--///"
-                ],
-                "author": "Nina Zubrilina"
+                ]
             },
             {
                 "board": [
