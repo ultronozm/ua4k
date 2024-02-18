@@ -109,16 +109,29 @@ def process_rule_stack_to_level(level):
                 assert len(zip_dict) > 0
                 length = len(list(zip_dict.values())[0])
                 for i in range(length):
+                    assn = {}
+                    for k in zip_dict:
+                        assn[k] = zip_dict[k][i]
                     for r in rule['rules']:
                         # print("r: ", r)
-                        assn = {}
-                        for k in zip_dict:
-                            assn[k] = zip_dict[k][i]
                         modified_r = copy.deepcopy(r)
                         deep_subs(modified_r, assn)
                         # print("modified_r: ", modified_r)
                         add_rule(modified_r)
-                
+            case 'let_repeat':
+                initial = rule['initial']
+                final = rule['final']
+                step = rule['step']
+                let_repeat_dict = rule['let_repeat_dict']
+                for i in range(initial, final, step):
+                    assert i >= 0
+                    assn = {}
+                    for k in let_repeat_dict:
+                        assn[k] = let_repeat_dict[k] * i
+                    for r in rule['rules']:
+                        modified_r = copy.deepcopy(r)
+                        deep_subs(modified_r, assn)
+                        add_rule(modified_r)
             case _:
                 print("Error: unknown rule type")
                 assert False
@@ -206,6 +219,24 @@ for line in lines:
                 assert len(arg) == 1
                 zip_dict[arg] = line.strip().split()[i+1]
             rules_stack.append({'type': 'zip', 'zip_dict': zip_dict, 'rules': []})
+            indent_stack.append(level)
+        case "LET_REPEAT":
+            # print("LET_REPEAT at indent: ", indent)
+            level = indent + 1
+            process_rule_stack_to_level(level)
+            initial = int(line.strip().split()[1])
+            final = int(line.strip().split()[2])
+            step = int(line.strip().split()[3])
+            let_repeat_dict = {}
+            for i in range(4, len(line.strip().split()), 2):
+                arg = line.strip().split()[i]
+                let_repeat_dict[arg] = line.strip().split()[i+1]
+            rules_stack.append({'type': 'let_repeat',
+                                'initial': initial,
+                                'final': final,
+                                'step': step,
+                                'let_repeat_dict': let_repeat_dict,
+                                'rules': []})
             indent_stack.append(level)
         case "ATOMIC":
             # print("ATOMIC at indent: ", indent)
