@@ -1,0 +1,228 @@
+VOID
+o
+
+--T--#-
+-###-##
+---#--o
+-###-##
+--M--#-
+
+DESCRIPTION (Text from Wikipedia, level designs from https://estivalet.github.io/theseus-minotaur/.)  Theseus and the Minotaur is a type of logic maze designed by Robert Abbott.  In this maze, the player acts as Theseus, the king of Athens who is attempting to escape the Labyrinth. The main difference between this and the standard type of labyrinth, beyond the fact that it is set on a grid, is the fact that the maze is not empty, but also contains a Minotaur who hunts the player down, taking two steps for every one the player takes.  While the Minotaur is faster than the player, his moves are predictable and often inefficient: they are determined by checking to see if he can get closer to the player by moving horizontally, then checking to see if he can get any closer by moving vertically.  If neither move would place him closer to the player, the Minotaur skips his turn.  Theseus may also skip his turn.
+
+-------------
+-#-#---------
+M#-#T--------
+-###-----#-#-
+---------#-#-
+---------###-
+-------------
+##-##########
+-#o#---------
+
+#######--
+#--M--#--
+#-###-###
+#--T---o-
+#-#---###
+#-#---#--
+###---#--
+#-----#--
+#######--
+
+-----#o#-
+######-##
+-#T------
+-#-#-###-
+---#---#M
+-###-#-#-
+-----#---
+-#####-#-
+-----#-#-
+-----###-
+---------
+
+---------#o#-
+##########-#-
+----T--#---#-
+-#-----#-###-
+-#-----#-----
+-###-#-#-###-
+-----#-----#-
+---###-#-###-
+---#M--#-#---
+---#######---
+-------------
+
+-------#o#-
+########-##
+T--------#-
+##-#---#-#-
+---#---#-#-
+-###-#-###-
+-#-#-#--M--
+-#-###-###-
+-#-----#---
+-#-###-#---
+-#-#-------
+-#-#-------
+-----------
+
+-#o#-------
+##-########
+---------#-
+-###-#-###-
+-----#-----
+-----#-###-
+-----#---#-
+-#---#-#-#-
+-#-----#-#-
+##-----###-
+M-------T#-
+---###---#-
+-----------
+
+T------#---#-----
+####-#-#-#-#-###-
+---#-#-#-#-#---#-
+-#-###-#-#-#-###-
+-#--M#---#---#---
+-###-#-#######---
+---#-#---#-------
+##-#-###-#-######
+-#-#-----#-------
+-#-###-#########-
+---#---#---------
+-###-###-#-######
+-#-#---#-#-------
+-#-#-###-#######-
+-#---------#-----
+##-##############
+-#o#-------------
+
+-----#o#---------
+######-##########
+M---------------T
+####-----###-----
+-----------------
+-----------------
+-----------------
+-#---###-------#-
+-#---#-#-------#-
+-###-#-#-------#-
+-#-------------#-
+-#-----------###-
+-#-------------#-
+-#-------------#-
+---------------#-
+-----###-------#-
+-----------------
+
+o-M#-------------
+##-#-------###-##
+-#--T----------#-
+-#---------#---#-
+-#---------#-----
+-#-------#-#-----
+-#-------#-------
+-#-###-#-#-###---
+-#-----#---------
+-#-#-#-#-----#---
+-#-#-#-------#---
+-###-#---#---###-
+-#---#---#-------
+-###-#---###-----
+-#---------#-----
+
+
+BIND w north s south a west d east e wait
+
+CMD wait
+ CALL minotaur_turn
+ 
+
+CMD north
+ FOR s -o
+  ATOMIC
+   s T
+   - -
+   T -
+  
+   CALL minotaur_turn
+
+CMD south
+ FOR s -o
+  ATOMIC
+   T -
+   - -
+   s T
+  
+   CALL minotaur_turn
+
+CMD west
+ FOR s -o
+  ATOMIC
+   s-T T--
+  
+   CALL minotaur_turn
+
+CMD east
+ FOR s -o
+  ATOMIC
+   T-s --T
+  
+   CALL minotaur_turn
+
+CMD minotaur_turn
+ TRY_ALL
+  ATOMIC
+   o o
+  
+   TRY_ALL
+    CALL minotaur_step
+    CALL minotaur_step
+
+CMD minotaur_step
+
+ ATOMIC
+  ATOMIC_HORIZONTAL
+   T
+   
+   M
+
+  MATCH1
+   FOR s -T
+    s-M M--
+
+ ATOMIC
+  ATOMIC_HORIZONTAL
+   M
+   
+   T
+
+  MATCH1
+   FOR s -T
+    M-s --M
+
+ ATOMIC
+  ATOMIC_VERTICAL
+   M
+   
+   T
+
+  MATCH1
+   FOR s -T
+    M -
+    - -
+    s M
+  
+ ATOMIC
+  ATOMIC_VERTICAL
+   T
+   
+   M
+
+  MATCH1
+   FOR s -T
+    s M
+    - -
+    M -

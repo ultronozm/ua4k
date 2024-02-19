@@ -244,6 +244,16 @@ for line in lines:
             process_rule_stack_to_level(level)
             rules_stack.append({'type': 'atomic', 'rules': []})
             indent_stack.append(level)
+        case "ATOMIC_VERTICAL":
+            level = indent + 1
+            process_rule_stack_to_level(level)
+            rules_stack.append({'type': 'atomic', 'condition': 'vertical', 'rules': []})
+            indent_stack.append(level)
+        case "ATOMIC_HORIZONTAL":
+            level = indent + 1
+            process_rule_stack_to_level(level)
+            rules_stack.append({'type': 'atomic', 'condition': 'horizontal', 'rules': []})
+            indent_stack.append(level)
         case "MATCH1":
             # print("MATCH1 at indent: ", indent)
             level = indent + 1

@@ -4609,28 +4609,6 @@ let gamesData = {
         "levels": [
             {
                 "board": [
-                    "-----X!--!!8-------!------------!",
-                    "-----X!---8----------------------",
-                    "o*---X!-Z----------------------AA",
-                    "-----X!---~~---------------------",
-                    "-----X!--!!~-------!------------!",
-                    "_________________________________",
-                    "O2:..............|---------------",
-                    "=RESOURCES=======================",
-                    "8:88888888|A:AAAAAAAA|~:~~~~~~~~|",
-                    "=CONSTRUCTION====================",
-                    "o:8~~|---------------------------",
-                    "r:88A|---------------------------",
-                    "#:8|-----------------------------",
-                    "=DESTRUCTION=====================",
-                    "X:8~AAAA|------------------------",
-                    "=================================",
-                    "%:---------------------------->-%"
-                ],
-                "description": "On this planet, the energy cells are guarded by a zombie \"Z\".  The zombie chases when \"*\" ends an action in the 7x7 grid centered at \"Z\"."
-            },
-            {
-                "board": [
                     "-----------!---------------!-----",
                     "---------------------------------",
                     "o*---------o---------o-----------",
@@ -4695,8 +4673,6 @@ let gamesData = {
                     "=CONSTRUCTION====================",
                     "o:8~~|---------------------------",
                     "r:88A|---------------------------",
-                    "=DESTRUCTION=====================",
-                    "X:8~AAAA|------------------------",
                     "=================================",
                     "%:---------------------------->-%"
                 ],
@@ -4863,6 +4839,28 @@ let gamesData = {
                     "=================================",
                     "%:---------------------------->-%"
                 ]
+            },
+            {
+                "board": [
+                    "-----X!--!!8-------!------------!",
+                    "-----X!---8----------------------",
+                    "o*---X!Z-----------------------AA",
+                    "-----X!---~~---------------------",
+                    "-----X!--!!~-------!------------!",
+                    "_________________________________",
+                    "O2:..............|---------------",
+                    "=RESOURCES=======================",
+                    "8:88888888|A:AAAAAAAA|~:~~~~~~~~|",
+                    "=CONSTRUCTION====================",
+                    "o:8~~|---------------------------",
+                    "r:88A|---------------------------",
+                    "#:8|-----------------------------",
+                    "=DESTRUCTION=====================",
+                    "X:8~AAAA|------------------------",
+                    "=================================",
+                    "%:---------------------------->-%"
+                ],
+                "description": "The energy cells are guarded by a zombie \"Z\", who chases when you end an action with \"*\" in the 7x7 grid centered at \"Z\"."
             }
         ],
         "rules": {
@@ -28351,8 +28349,7 @@ let gamesData = {
             "W": "look_north",
             "S": "look_south",
             "A": "look_west",
-            "D": "look_east",
-            "z": "zombie_march"
+            "D": "look_east"
         },
         "goals": [],
         "voids": [
@@ -68589,5 +68586,665 @@ let gamesData = {
             ]
         ],
         "voids": []
+    },
+    "theseus-minotaur": {
+        "levels": [
+            {
+                "board": [
+                    "--T--#-",
+                    "-###-##",
+                    "---#--o",
+                    "-###-##",
+                    "--M--#-"
+                ],
+                "description": "(Text from Wikipedia, level designs from https://estivalet.github.io/theseus-minotaur/.)  Theseus and the Minotaur is a type of logic maze designed by Robert Abbott.  In this maze, the player acts as Theseus, the king of Athens who is attempting to escape the Labyrinth. The main difference between this and the standard type of labyrinth, beyond the fact that it is set on a grid, is the fact that the maze is not empty, but also contains a Minotaur who hunts the player down, taking two steps for every one the player takes.  While the Minotaur is faster than the player, his moves are predictable and often inefficient: they are determined by checking to see if he can get closer to the player by moving horizontally, then checking to see if he can get any closer by moving vertically.  If neither move would place him closer to the player, the Minotaur skips his turn.  Theseus may also skip his turn."
+            },
+            {
+                "board": [
+                    "-------------",
+                    "-#-#---------",
+                    "M#-#T--------",
+                    "-###-----#-#-",
+                    "---------#-#-",
+                    "---------###-",
+                    "-------------",
+                    "##-##########",
+                    "-#o#---------"
+                ]
+            },
+            {
+                "board": [
+                    "#######--",
+                    "#--M--#--",
+                    "#-###-###",
+                    "#--T---o-",
+                    "#-#---###",
+                    "#-#---#--",
+                    "###---#--",
+                    "#-----#--",
+                    "#######--"
+                ]
+            },
+            {
+                "board": [
+                    "-----#o#-",
+                    "######-##",
+                    "-#T------",
+                    "-#-#-###-",
+                    "---#---#M",
+                    "-###-#-#-",
+                    "-----#---",
+                    "-#####-#-",
+                    "-----#-#-",
+                    "-----###-",
+                    "---------"
+                ]
+            },
+            {
+                "board": [
+                    "---------#o#-",
+                    "##########-#-",
+                    "----T--#---#-",
+                    "-#-----#-###-",
+                    "-#-----#-----",
+                    "-###-#-#-###-",
+                    "-----#-----#-",
+                    "---###-#-###-",
+                    "---#M--#-#---",
+                    "---#######---",
+                    "-------------"
+                ]
+            },
+            {
+                "board": [
+                    "-------#o#-",
+                    "########-##",
+                    "T--------#-",
+                    "##-#---#-#-",
+                    "---#---#-#-",
+                    "-###-#-###-",
+                    "-#-#-#--M--",
+                    "-#-###-###-",
+                    "-#-----#---",
+                    "-#-###-#---",
+                    "-#-#-------",
+                    "-#-#-------",
+                    "-----------"
+                ]
+            },
+            {
+                "board": [
+                    "-#o#-------",
+                    "##-########",
+                    "---------#-",
+                    "-###-#-###-",
+                    "-----#-----",
+                    "-----#-###-",
+                    "-----#---#-",
+                    "-#---#-#-#-",
+                    "-#-----#-#-",
+                    "##-----###-",
+                    "M-------T#-",
+                    "---###---#-",
+                    "-----------"
+                ]
+            },
+            {
+                "board": [
+                    "T------#---#-----",
+                    "####-#-#-#-#-###-",
+                    "---#-#-#-#-#---#-",
+                    "-#-###-#-#-#-###-",
+                    "-#--M#---#---#---",
+                    "-###-#-#######---",
+                    "---#-#---#-------",
+                    "##-#-###-#-######",
+                    "-#-#-----#-------",
+                    "-#-###-#########-",
+                    "---#---#---------",
+                    "-###-###-#-######",
+                    "-#-#---#-#-------",
+                    "-#-#-###-#######-",
+                    "-#---------#-----",
+                    "##-##############",
+                    "-#o#-------------"
+                ]
+            },
+            {
+                "board": [
+                    "-----#o#---------",
+                    "######-##########",
+                    "M---------------T",
+                    "####-----###-----",
+                    "-----------------",
+                    "-----------------",
+                    "-----------------",
+                    "-#---###-------#-",
+                    "-#---#-#-------#-",
+                    "-###-#-#-------#-",
+                    "-#-------------#-",
+                    "-#-----------###-",
+                    "-#-------------#-",
+                    "-#-------------#-",
+                    "---------------#-",
+                    "-----###-------#-",
+                    "-----------------"
+                ]
+            },
+            {
+                "board": [
+                    "o-M#-------------",
+                    "##-#-------###-##",
+                    "-#--T----------#-",
+                    "-#---------#---#-",
+                    "-#---------#-----",
+                    "-#-------#-#-----",
+                    "-#-------#-------",
+                    "-#-###-#-#-###---",
+                    "-#-----#---------",
+                    "-#-#-#-#-----#---",
+                    "-#-#-#-------#---",
+                    "-###-#---#---###-",
+                    "-#---#---#-------",
+                    "-###-#---###-----",
+                    "-#---------#-----"
+                ]
+            }
+        ],
+        "rules": {
+            "wait": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "call",
+                        "name": "minotaur_turn"
+                    }
+                ]
+            },
+            "north": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "-",
+                                    "-",
+                                    "T"
+                                ],
+                                "to": [
+                                    "T",
+                                    "-",
+                                    "-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "call",
+                                "name": "minotaur_turn"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "o",
+                                    "-",
+                                    "T"
+                                ],
+                                "to": [
+                                    "T",
+                                    "-",
+                                    "-"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "call",
+                                "name": "minotaur_turn"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "south": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "T",
+                                    "-",
+                                    "-"
+                                ],
+                                "to": [
+                                    "-",
+                                    "-",
+                                    "T"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "call",
+                                "name": "minotaur_turn"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "T",
+                                    "-",
+                                    "o"
+                                ],
+                                "to": [
+                                    "-",
+                                    "-",
+                                    "T"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "call",
+                                "name": "minotaur_turn"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "west": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "--T"
+                                ],
+                                "to": [
+                                    "T--"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "call",
+                                "name": "minotaur_turn"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "o-T"
+                                ],
+                                "to": [
+                                    "T--"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "call",
+                                "name": "minotaur_turn"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "east": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "T--"
+                                ],
+                                "to": [
+                                    "--T"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "call",
+                                "name": "minotaur_turn"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "T-o"
+                                ],
+                                "to": [
+                                    "--T"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "call",
+                                "name": "minotaur_turn"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "minotaur_turn": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "try_all",
+                        "rules": [
+                            {
+                                "type": "atomic",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "o"
+                                        ],
+                                        "to": [
+                                            "o"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "try_all",
+                                        "rules": [
+                                            {
+                                                "type": "call",
+                                                "name": "minotaur_step"
+                                            },
+                                            {
+                                                "type": "call",
+                                                "name": "minotaur_step"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "minotaur_step": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "atomic",
+                                "condition": "horizontal",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "T"
+                                        ],
+                                        "to": [
+                                            "T"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "M"
+                                        ],
+                                        "to": [
+                                            "M"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "--M"
+                                        ],
+                                        "to": [
+                                            "M--"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "T-M"
+                                        ],
+                                        "to": [
+                                            "M--"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "atomic",
+                                "condition": "horizontal",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "M"
+                                        ],
+                                        "to": [
+                                            "M"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "T"
+                                        ],
+                                        "to": [
+                                            "T"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "M--"
+                                        ],
+                                        "to": [
+                                            "--M"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "M-T"
+                                        ],
+                                        "to": [
+                                            "--M"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "atomic",
+                                "condition": "vertical",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "M"
+                                        ],
+                                        "to": [
+                                            "M"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "T"
+                                        ],
+                                        "to": [
+                                            "T"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "M",
+                                            "-",
+                                            "-"
+                                        ],
+                                        "to": [
+                                            "-",
+                                            "-",
+                                            "M"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "M",
+                                            "-",
+                                            "T"
+                                        ],
+                                        "to": [
+                                            "-",
+                                            "-",
+                                            "M"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "atomic",
+                                "condition": "vertical",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "T"
+                                        ],
+                                        "to": [
+                                            "T"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "M"
+                                        ],
+                                        "to": [
+                                            "M"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "-",
+                                            "-",
+                                            "M"
+                                        ],
+                                        "to": [
+                                            "M",
+                                            "-",
+                                            "-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "T",
+                                            "-",
+                                            "M"
+                                        ],
+                                        "to": [
+                                            "M",
+                                            "-",
+                                            "-"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "binds": {
+            "w": "north",
+            "s": "south",
+            "a": "west",
+            "d": "east",
+            "e": "wait"
+        },
+        "goals": [],
+        "voids": [
+            [
+                "o"
+            ]
+        ]
     }
 };

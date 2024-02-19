@@ -273,16 +273,22 @@ function levelComplete() {
     return true;
 }
 
-function applyRule(rule) {
+let lastRow = -1;
+let lastCol = -1;
+
+function applyRule(rule, min_row=0, min_col=0) {
     switch (rule.type) {
     case "simple":
         var height = board.length;
         var width = board[0].length;
         var ruleApplied = false;
-        for (let i = 0; i < height && !ruleApplied; i++) {
-            for (let j = 0; j < width && !ruleApplied; j++) {
+        console.log("Applying SIMPLE " + rule.from + " with min_row, min_col: " + min_row + ", " + min_col);
+        for (let i = min_row; i < height && !ruleApplied; i++) {
+            for (let j = min_col; j < width && !ruleApplied; j++) {
                 if (patternMatch(rule.from, i, j)) {
                     ruleApplied = applyRuleAt(rule, i, j);
+                    lastRow = i;
+                    lastCol = j;
                 }
             }
         }
@@ -318,11 +324,23 @@ function applyRule(rule) {
         var board_copy = JSON.parse(JSON.stringify(board));
         var ruleApplied = true;
         var rules = rule.rules;
+        var condition = rule.condition;
+        var min_row = 0;
+        var min_col =0;
         for (let i = 0; i < rules.length; i++) {
-            if (!applyRule(rules[i])) {
+            var rule = rules[i];
+            console.log("Applying atomic rule " + rule + ", step " + i + " with min_row, min_col: " + min_row + ", " + min_col);
+            console.log("condition: " + condition);
+            if (!applyRule(rule, min_row, min_col)) {
                 ruleApplied = false;
                 console.log("Atomic rule fail: " + rules[i]);
                 break;
+            }
+            if (condition == 'vertical') {
+                min_row = lastRow + 1;
+            }
+            else if (condition == 'horizontal') {
+                min_col = lastCol + 1;
             }
         }
         if (!ruleApplied) {
