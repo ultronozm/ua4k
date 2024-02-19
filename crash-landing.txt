@@ -2,9 +2,7 @@ VOID
 !
 
 BIND w north s south a west d east e mine x destroy
-
 BIND o build_oxygen_station r build_refinery
-
 BIND W look_north S look_south A look_west D look_east
 
 -----------!---------------!-----
@@ -454,70 +452,6 @@ CMD decrement_resource
     FOR d _|
      LET_REPEAT 0 40 1 t s
       s:std s:t_d
- 
-CMD decrement8
- ATOMIC
-  -% 8%
-
-  CALL decrement_resource
-
-CMD decrementA
- ATOMIC
-  -% A%
-
-  CALL decrement_resource
-
-CMD decrement~
- ATOMIC
-  -% ~%
-
-  CALL decrement_resource
-
-CMD build!
- ATOMIC
-  CALL decrement8
-  CALL decrementA
-  -% !%
-  
-  CALL build_thing
-
-CMD build@
- ATOMIC
-  CALL decrement8
-  CALL decrement~
-  -% @%
-  
-  CALL build_thing
-
-CMD build#
- ATOMIC
-  CALL decrementA
-  CALL decrement~
-  -% #%
-  
-  CALL build_thing
-
-;; not being used at the moment, should switch to the new build/buy approach
-CMD build_teleport
- ATOMIC
-  CALL decrement8
-  CALL decrement8
-  CALL decrement8
-  CALL decrement8
-  CALL decrementA
-  CALL decrementA
-  CALL decrementA
-  CALL decrementA
-  CALL decrement~
-  CALL decrement~
-  CALL decrement~
-  CALL decrement~
-  TRY_ALL
-   p -
-
-  -% p%
-  
-  CALL build_thing
  
 CMD buy_and_build
  FOR s !@#orp
