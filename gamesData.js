@@ -4609,6 +4609,28 @@ let gamesData = {
         "levels": [
             {
                 "board": [
+                    "-----X!--!!8-------!------------!",
+                    "-----X!---8----------------------",
+                    "o*---X!-Z----------------------AA",
+                    "-----X!---~~---------------------",
+                    "-----X!--!!~-------!------------!",
+                    "_________________________________",
+                    "O2:..............|---------------",
+                    "=RESOURCES=======================",
+                    "8:88888888|A:AAAAAAAA|~:~~~~~~~~|",
+                    "=CONSTRUCTION====================",
+                    "o:8~~|---------------------------",
+                    "r:88A|---------------------------",
+                    "#:8|-----------------------------",
+                    "=DESTRUCTION=====================",
+                    "X:8~AAAA|------------------------",
+                    "=================================",
+                    "%:---------------------------->-%"
+                ],
+                "description": "On this planet, the energy cells are guarded by a zombie \"Z\".  The zombie chases when \"*\" ends an action in the 7x7 grid centered at \"Z\"."
+            },
+            {
+                "board": [
                     "-----------!---------------!-----",
                     "---------------------------------",
                     "o*---------o---------o-----------",
@@ -5084,6 +5106,10 @@ let gamesData = {
                                             },
                                             {
                                                 "type": "call",
+                                                "name": "zombie_march"
+                                            },
+                                            {
+                                                "type": "call",
                                                 "name": "maybe_breath"
                                             }
                                         ]
@@ -5211,6 +5237,10 @@ let gamesData = {
                                             },
                                             {
                                                 "type": "call",
+                                                "name": "zombie_march"
+                                            },
+                                            {
+                                                "type": "call",
                                                 "name": "maybe_breath"
                                             }
                                         ]
@@ -5326,6 +5356,10 @@ let gamesData = {
                                             },
                                             {
                                                 "type": "call",
+                                                "name": "zombie_march"
+                                            },
+                                            {
+                                                "type": "call",
                                                 "name": "maybe_breath"
                                             }
                                         ]
@@ -5438,6 +5472,10 @@ let gamesData = {
                                             {
                                                 "type": "call",
                                                 "name": "consume_oxygen"
+                                            },
+                                            {
+                                                "type": "call",
+                                                "name": "zombie_march"
                                             },
                                             {
                                                 "type": "call",
@@ -5565,6 +5603,15 @@ let gamesData = {
                                         ]
                                     }
                                 ]
+                            },
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "call",
+                                        "name": "zombie_march"
+                                    }
+                                ]
                             }
                         ]
                     },
@@ -5677,6 +5724,15 @@ let gamesData = {
                                                 "side_effect": null
                                             }
                                         ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "call",
+                                        "name": "zombie_march"
                                     }
                                 ]
                             }
@@ -5793,6 +5849,15 @@ let gamesData = {
                                         ]
                                     }
                                 ]
+                            },
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "call",
+                                        "name": "zombie_march"
+                                    }
+                                ]
                             }
                         ]
                     },
@@ -5907,6 +5972,15 @@ let gamesData = {
                                         ]
                                     }
                                 ]
+                            },
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "call",
+                                        "name": "zombie_march"
+                                    }
+                                ]
                             }
                         ]
                     },
@@ -6019,6 +6093,15 @@ let gamesData = {
                                                 "side_effect": null
                                             }
                                         ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "call",
+                                        "name": "zombie_march"
                                     }
                                 ]
                             }
@@ -6180,6 +6263,10 @@ let gamesData = {
                                                 "name": "increment_resource"
                                             }
                                         ]
+                                    },
+                                    {
+                                        "type": "call",
+                                        "name": "zombie_march"
                                     }
                                 ]
                             }
@@ -6336,6 +6423,10 @@ let gamesData = {
                                                 "name": "increment_resource"
                                             }
                                         ]
+                                    },
+                                    {
+                                        "type": "call",
+                                        "name": "zombie_march"
                                     }
                                 ]
                             }
@@ -6492,6 +6583,10 @@ let gamesData = {
                                                 "name": "increment_resource"
                                             }
                                         ]
+                                    },
+                                    {
+                                        "type": "call",
+                                        "name": "zombie_march"
                                     }
                                 ]
                             }
@@ -6624,6 +6719,15 @@ let gamesData = {
                                                 "side_effect": null
                                             }
                                         ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "call",
+                                        "name": "zombie_march"
                                     }
                                 ]
                             }
@@ -10398,6 +10502,15 @@ let gamesData = {
                             {
                                 "type": "call",
                                 "name": "build_thing"
+                            },
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "call",
+                                        "name": "zombie_march"
+                                    }
+                                ]
                             }
                         ]
                     },
@@ -10435,6 +10548,15 @@ let gamesData = {
                             {
                                 "type": "call",
                                 "name": "build_thing"
+                            },
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "call",
+                                        "name": "zombie_march"
+                                    }
+                                ]
                             }
                         ]
                     },
@@ -10472,6 +10594,15 @@ let gamesData = {
                             {
                                 "type": "call",
                                 "name": "build_thing"
+                            },
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "call",
+                                        "name": "zombie_march"
+                                    }
+                                ]
                             }
                         ]
                     },
@@ -10509,6 +10640,15 @@ let gamesData = {
                             {
                                 "type": "call",
                                 "name": "build_thing"
+                            },
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "call",
+                                        "name": "zombie_march"
+                                    }
+                                ]
                             }
                         ]
                     },
@@ -10546,6 +10686,15 @@ let gamesData = {
                             {
                                 "type": "call",
                                 "name": "build_thing"
+                            },
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "call",
+                                        "name": "zombie_march"
+                                    }
+                                ]
                             }
                         ]
                     },
@@ -10583,6 +10732,15 @@ let gamesData = {
                             {
                                 "type": "call",
                                 "name": "build_thing"
+                            },
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "call",
+                                        "name": "zombie_march"
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -27022,6 +27180,1163 @@ let gamesData = {
                         ]
                     }
                 ]
+            },
+            "zombie_march": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*???",
+                            "????",
+                            "???-",
+                            "???Z"
+                        ],
+                        "to": [
+                            "*???",
+                            "????",
+                            "???Z",
+                            "???-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*???",
+                            "????",
+                            "????",
+                            "??-Z"
+                        ],
+                        "to": [
+                            "*???",
+                            "????",
+                            "????",
+                            "??Z-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "???Z",
+                            "???-",
+                            "????",
+                            "*???"
+                        ],
+                        "to": [
+                            "???-",
+                            "???Z",
+                            "????",
+                            "*???"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??-Z",
+                            "????",
+                            "????",
+                            "*???"
+                        ],
+                        "to": [
+                            "??Z-",
+                            "????",
+                            "????",
+                            "*???"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "???*",
+                            "????",
+                            "-???",
+                            "Z???"
+                        ],
+                        "to": [
+                            "???*",
+                            "????",
+                            "Z???",
+                            "-???"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "???*",
+                            "????",
+                            "????",
+                            "Z-??"
+                        ],
+                        "to": [
+                            "???*",
+                            "????",
+                            "????",
+                            "-Z??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z???",
+                            "-???",
+                            "????",
+                            "???*"
+                        ],
+                        "to": [
+                            "-???",
+                            "Z???",
+                            "????",
+                            "???*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z-??",
+                            "????",
+                            "????",
+                            "???*"
+                        ],
+                        "to": [
+                            "-Z??",
+                            "????",
+                            "????",
+                            "???*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*??",
+                            "???",
+                            "??-",
+                            "??Z"
+                        ],
+                        "to": [
+                            "*??",
+                            "???",
+                            "??Z",
+                            "??-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*??",
+                            "???",
+                            "???",
+                            "?-Z"
+                        ],
+                        "to": [
+                            "*??",
+                            "???",
+                            "???",
+                            "?Z-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??Z",
+                            "??-",
+                            "???",
+                            "*??"
+                        ],
+                        "to": [
+                            "??-",
+                            "??Z",
+                            "???",
+                            "*??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?-Z",
+                            "???",
+                            "???",
+                            "*??"
+                        ],
+                        "to": [
+                            "?Z-",
+                            "???",
+                            "???",
+                            "*??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??*",
+                            "???",
+                            "-??",
+                            "Z??"
+                        ],
+                        "to": [
+                            "??*",
+                            "???",
+                            "Z??",
+                            "-??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??*",
+                            "???",
+                            "???",
+                            "Z-?"
+                        ],
+                        "to": [
+                            "??*",
+                            "???",
+                            "???",
+                            "-Z?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z??",
+                            "-??",
+                            "???",
+                            "??*"
+                        ],
+                        "to": [
+                            "-??",
+                            "Z??",
+                            "???",
+                            "??*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z-?",
+                            "???",
+                            "???",
+                            "??*"
+                        ],
+                        "to": [
+                            "-Z?",
+                            "???",
+                            "???",
+                            "??*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*?",
+                            "??",
+                            "?-",
+                            "?Z"
+                        ],
+                        "to": [
+                            "*?",
+                            "??",
+                            "?Z",
+                            "?-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*?",
+                            "??",
+                            "??",
+                            "-Z"
+                        ],
+                        "to": [
+                            "*?",
+                            "??",
+                            "??",
+                            "Z-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?Z",
+                            "?-",
+                            "??",
+                            "*?"
+                        ],
+                        "to": [
+                            "?-",
+                            "?Z",
+                            "??",
+                            "*?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-Z",
+                            "??",
+                            "??",
+                            "*?"
+                        ],
+                        "to": [
+                            "Z-",
+                            "??",
+                            "??",
+                            "*?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?*",
+                            "??",
+                            "-?",
+                            "Z?"
+                        ],
+                        "to": [
+                            "?*",
+                            "??",
+                            "Z?",
+                            "-?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?*",
+                            "??",
+                            "??",
+                            "Z-"
+                        ],
+                        "to": [
+                            "?*",
+                            "??",
+                            "??",
+                            "-Z"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z?",
+                            "-?",
+                            "??",
+                            "?*"
+                        ],
+                        "to": [
+                            "-?",
+                            "Z?",
+                            "??",
+                            "?*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z-",
+                            "??",
+                            "??",
+                            "?*"
+                        ],
+                        "to": [
+                            "-Z",
+                            "??",
+                            "??",
+                            "?*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*",
+                            "?",
+                            "-",
+                            "Z"
+                        ],
+                        "to": [
+                            "*",
+                            "?",
+                            "Z",
+                            "-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z",
+                            "-",
+                            "?",
+                            "*"
+                        ],
+                        "to": [
+                            "-",
+                            "Z",
+                            "?",
+                            "*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*???",
+                            "???-",
+                            "???Z"
+                        ],
+                        "to": [
+                            "*???",
+                            "???Z",
+                            "???-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*???",
+                            "????",
+                            "??-Z"
+                        ],
+                        "to": [
+                            "*???",
+                            "????",
+                            "??Z-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "???Z",
+                            "???-",
+                            "*???"
+                        ],
+                        "to": [
+                            "???-",
+                            "???Z",
+                            "*???"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??-Z",
+                            "????",
+                            "*???"
+                        ],
+                        "to": [
+                            "??Z-",
+                            "????",
+                            "*???"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "???*",
+                            "-???",
+                            "Z???"
+                        ],
+                        "to": [
+                            "???*",
+                            "Z???",
+                            "-???"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "???*",
+                            "????",
+                            "Z-??"
+                        ],
+                        "to": [
+                            "???*",
+                            "????",
+                            "-Z??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z???",
+                            "-???",
+                            "???*"
+                        ],
+                        "to": [
+                            "-???",
+                            "Z???",
+                            "???*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z-??",
+                            "????",
+                            "???*"
+                        ],
+                        "to": [
+                            "-Z??",
+                            "????",
+                            "???*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*??",
+                            "??-",
+                            "??Z"
+                        ],
+                        "to": [
+                            "*??",
+                            "??Z",
+                            "??-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*??",
+                            "???",
+                            "?-Z"
+                        ],
+                        "to": [
+                            "*??",
+                            "???",
+                            "?Z-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??Z",
+                            "??-",
+                            "*??"
+                        ],
+                        "to": [
+                            "??-",
+                            "??Z",
+                            "*??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?-Z",
+                            "???",
+                            "*??"
+                        ],
+                        "to": [
+                            "?Z-",
+                            "???",
+                            "*??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??*",
+                            "-??",
+                            "Z??"
+                        ],
+                        "to": [
+                            "??*",
+                            "Z??",
+                            "-??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??*",
+                            "???",
+                            "Z-?"
+                        ],
+                        "to": [
+                            "??*",
+                            "???",
+                            "-Z?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z??",
+                            "-??",
+                            "??*"
+                        ],
+                        "to": [
+                            "-??",
+                            "Z??",
+                            "??*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z-?",
+                            "???",
+                            "??*"
+                        ],
+                        "to": [
+                            "-Z?",
+                            "???",
+                            "??*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*?",
+                            "?-",
+                            "?Z"
+                        ],
+                        "to": [
+                            "*?",
+                            "?Z",
+                            "?-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*?",
+                            "??",
+                            "-Z"
+                        ],
+                        "to": [
+                            "*?",
+                            "??",
+                            "Z-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?Z",
+                            "?-",
+                            "*?"
+                        ],
+                        "to": [
+                            "?-",
+                            "?Z",
+                            "*?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-Z",
+                            "??",
+                            "*?"
+                        ],
+                        "to": [
+                            "Z-",
+                            "??",
+                            "*?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?*",
+                            "-?",
+                            "Z?"
+                        ],
+                        "to": [
+                            "?*",
+                            "Z?",
+                            "-?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?*",
+                            "??",
+                            "Z-"
+                        ],
+                        "to": [
+                            "?*",
+                            "??",
+                            "-Z"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z?",
+                            "-?",
+                            "?*"
+                        ],
+                        "to": [
+                            "-?",
+                            "Z?",
+                            "?*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z-",
+                            "??",
+                            "?*"
+                        ],
+                        "to": [
+                            "-Z",
+                            "??",
+                            "?*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*",
+                            "-",
+                            "Z"
+                        ],
+                        "to": [
+                            "*",
+                            "Z",
+                            "-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z",
+                            "-",
+                            "*"
+                        ],
+                        "to": [
+                            "-",
+                            "Z",
+                            "*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*??-",
+                            "???Z"
+                        ],
+                        "to": [
+                            "*??Z",
+                            "???-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*???",
+                            "??-Z"
+                        ],
+                        "to": [
+                            "*???",
+                            "??Z-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "???Z",
+                            "*??-"
+                        ],
+                        "to": [
+                            "???-",
+                            "*??Z"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??-Z",
+                            "*???"
+                        ],
+                        "to": [
+                            "??Z-",
+                            "*???"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-??*",
+                            "Z???"
+                        ],
+                        "to": [
+                            "Z??*",
+                            "-???"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "???*",
+                            "Z-??"
+                        ],
+                        "to": [
+                            "???*",
+                            "-Z??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z???",
+                            "-??*"
+                        ],
+                        "to": [
+                            "-???",
+                            "Z??*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z-??",
+                            "???*"
+                        ],
+                        "to": [
+                            "-Z??",
+                            "???*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*?-",
+                            "??Z"
+                        ],
+                        "to": [
+                            "*?Z",
+                            "??-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*??",
+                            "?-Z"
+                        ],
+                        "to": [
+                            "*??",
+                            "?Z-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??Z",
+                            "*?-"
+                        ],
+                        "to": [
+                            "??-",
+                            "*?Z"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?-Z",
+                            "*??"
+                        ],
+                        "to": [
+                            "?Z-",
+                            "*??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-?*",
+                            "Z??"
+                        ],
+                        "to": [
+                            "Z?*",
+                            "-??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??*",
+                            "Z-?"
+                        ],
+                        "to": [
+                            "??*",
+                            "-Z?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z??",
+                            "-?*"
+                        ],
+                        "to": [
+                            "-??",
+                            "Z?*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z-?",
+                            "??*"
+                        ],
+                        "to": [
+                            "-Z?",
+                            "??*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*-",
+                            "?Z"
+                        ],
+                        "to": [
+                            "*Z",
+                            "?-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*?",
+                            "-Z"
+                        ],
+                        "to": [
+                            "*?",
+                            "Z-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?Z",
+                            "*-"
+                        ],
+                        "to": [
+                            "?-",
+                            "*Z"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-Z",
+                            "*?"
+                        ],
+                        "to": [
+                            "Z-",
+                            "*?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-*",
+                            "Z?"
+                        ],
+                        "to": [
+                            "Z*",
+                            "-?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?*",
+                            "Z-"
+                        ],
+                        "to": [
+                            "?*",
+                            "-Z"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z?",
+                            "-*"
+                        ],
+                        "to": [
+                            "-?",
+                            "Z*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z-",
+                            "?*"
+                        ],
+                        "to": [
+                            "-Z",
+                            "?*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*",
+                            "Z"
+                        ],
+                        "to": [
+                            "Z",
+                            "-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z",
+                            "*"
+                        ],
+                        "to": [
+                            "-",
+                            "Z"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*?-Z"
+                        ],
+                        "to": [
+                            "*?Z-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z-?*"
+                        ],
+                        "to": [
+                            "-Z?*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*-Z"
+                        ],
+                        "to": [
+                            "*Z-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z-*"
+                        ],
+                        "to": [
+                            "-Z*"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "*Z"
+                        ],
+                        "to": [
+                            "Z-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "Z*"
+                        ],
+                        "to": [
+                            "-Z"
+                        ],
+                        "side_effect": null
+                    }
+                ]
             }
         },
         "binds": {
@@ -27036,7 +28351,8 @@ let gamesData = {
             "W": "look_north",
             "S": "look_south",
             "A": "look_west",
-            "D": "look_east"
+            "D": "look_east",
+            "z": "zombie_march"
         },
         "goals": [],
         "voids": [
