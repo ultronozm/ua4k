@@ -1,0 +1,110 @@
+GOAL
+W
+G
+C
+$
+
+W-----------------------
+G-----------------------
+C-----------------------
+#B--------------------$-
+------------------------
+
+TITLE Wolf, goat and cabbage
+
+DESCRIPTION A farmer with a wolf, a goat, and a cabbage must cross a river by boat. The boat can carry only the farmer and a single item. If left unattended together, the wolf would eat the goat, or the goat would eat the cabbage. How can they cross the river without anything being eaten?
+
+BIND w wolf g goat c cabbage b boat
+
+CMD wolf
+ TRY_ALL
+  CALL wolf_internal
+  CALL check
+
+CMD goat
+ TRY_ALL
+  CALL goat_internal
+  CALL check
+
+CMD cabbage
+ TRY_ALL
+  CALL cabbage_internal
+  CALL check
+
+CMD boat
+ TRY_ALL
+  CALL boat_internal
+  CALL check
+
+CMD wolf_internal
+ FOR ! #$
+  W- -W
+  ?- ?-
+  ?- ?-
+  !B ??
+  
+  -W W-
+  ?? ??
+  ?? ??
+  !B ??
+
+CMD goat_internal
+ FOR ! #$
+  ?- ??
+  G- -G
+  ?- ??
+  !B ??
+  
+  ?? ??
+  -G G-
+  ?? ??
+  !B ??
+
+CMD cabbage_internal
+ FOR ! #$
+  ?- ??
+  ?- ??
+  C- -C
+  !B ??
+  
+  ?? ??
+  ?? ??
+  -C C-
+  !B ??
+
+CMD check
+ TRY_ALL
+  FOR ! #$
+   W? W?
+   G? -?
+   ?? ??
+   !- ??
+  
+   ?? ??
+   G? G?
+   C? -?
+   !- ??
+
+CMD boat_internal
+ FOR a W- b G- c C-
+  ATOMIC
+   ?a ?-
+   ?b ?-
+   ?c ?-
+   #B #-
+
+   ?- ?a
+   ?- ?b
+   ?- ?c
+   $- $B
+  
+  ATOMIC
+   ?a ?-
+   ?b ?-
+   ?c ?-
+   $B $-
+   
+   ?- ?a
+   ?- ?b
+   ?- ?c
+   #- #B

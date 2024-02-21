@@ -17,7 +17,8 @@ binds = {}
 goals = []
 voids = []
 whitespace_char = None
-charmap = {}
+char_map = {}
+color_map = {}
 
 temp_board = []
 temp_goal = None
@@ -188,7 +189,10 @@ for line in lines:
             whitespace_char = line.strip().split(" ", 1)[1].strip()
         case "CHARMAP":
             for i in range(1, len(line.strip().split()), 2):
-                charmap[line.strip().split()[i]] = line.strip().split()[i+1]
+                char_map[line.strip().split()[i]] = line.strip().split()[i+1]
+        case "COLOR":
+            for i in range(1, len(line.strip().split()), 2):
+                color_map[line.strip().split()[i]] = line.strip().split()[i+1]
         case "BY":
             author = line.strip().split("BY", 1)[1].strip()
             if len(levels) > 0:
@@ -350,7 +354,9 @@ on_blank_line()
 process_rule_stack_to_level(0)
 
 result = {'levels': levels, 'rules': rules, 'binds': binds, 'goals': goals, 'voids': voids,
-          'whitespace_char': whitespace_char, 'charmap': charmap}
+          'whitespaceChar': whitespace_char,
+          'charMap': char_map,
+          'colorMap': color_map}
 
 try:
     with open('gamesData.js', 'r') as json_file:

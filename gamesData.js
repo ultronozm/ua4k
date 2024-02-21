@@ -4604,8 +4604,26 @@ let gamesData = {
                 "o"
             ]
         ],
-        "whitespace_char": "-",
-        "charmap": {}
+        "whitespaceChar": "-",
+        "charMap": {},
+        "colorMap": {
+            "x": "#444444",
+            "-": "#aaaaaa",
+            ">": "#0000aa",
+            "<": "#0000aa",
+            "^": "#0000aa",
+            "v": "#0000aa",
+            "/": "#aa0077",
+            "\\": "#aa0077",
+            "b": "#007700",
+            "e": "#cc0000",
+            "p": "#aaaa00",
+            "q": "#aaaa00",
+            "t": "#990055",
+            "d": "#990000",
+            "k": "#00aa77",
+            "l": "#0077aa"
+        }
     },
     "crash-landing": {
         "levels": [
@@ -28379,7 +28397,19 @@ let gamesData = {
             [
                 "!"
             ]
-        ]
+        ],
+        "whitespaceChar": null,
+        "charMap": {},
+        "colorMap": {
+            "*": "#000000",
+            "~": "#0000ff",
+            "8": "#007700",
+            "A": "#00aaaa",
+            "o": "#ff7700",
+            "!": "#aaaa00",
+            "-": "#aaaaaa",
+            "r": "#990055"
+        }
     },
     "turing": {
         "levels": [
@@ -43042,9 +43072,17 @@ let gamesData = {
                 "o"
             ]
         ],
-        "whitespace_char": "-",
-        "charmap": {
+        "whitespaceChar": "-",
+        "charMap": {
             "!": "*"
+        },
+        "colorMap": {
+            "*": "#3300ff",
+            "x": "#777777",
+            "X": "#333333",
+            "o": "#ff7700",
+            "!": "#cc0000",
+            "#": "#779977"
         }
     },
     "fight": {
@@ -69273,6 +69311,13224 @@ let gamesData = {
                 "o"
             ]
         ],
-        "whitespace_char": "."
+        "whitespaceChar": ".",
+        "charMap": {},
+        "colorMap": {
+            "#": "#779977",
+            "T": "#0000ff",
+            "M": "#990055",
+            "o": "#aaaa00"
+        }
+    },
+    "tetris": {
+        "levels": [
+            {
+                "board": [
+                    "___^_______",
+                    "----------0",
+                    "----------1",
+                    "----------2",
+                    "----------3",
+                    "----------4",
+                    "----------5",
+                    "----------6",
+                    "----------7",
+                    "----------8",
+                    "----------9",
+                    "----------A",
+                    "----------B",
+                    "----------C",
+                    "----------D",
+                    "----------E",
+                    "----------F",
+                    "----------G",
+                    "----------H",
+                    "----------I",
+                    "----------J",
+                    "----------K",
+                    "----------L",
+                    "----------M",
+                    "----------N"
+                ]
+            }
+        ],
+        "rules": {
+            "freeze_piece": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "try_all",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "x"
+                                ],
+                                "to": [
+                                    "X"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "x"
+                                ],
+                                "to": [
+                                    "X"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "x"
+                                ],
+                                "to": [
+                                    "X"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "x"
+                                ],
+                                "to": [
+                                    "X"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "o"
+                                ],
+                                "to": [
+                                    "X"
+                                ],
+                                "side_effect": null
+                            }
+                        ]
+                    }
+                ]
+            },
+            "rotate_right": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??-?",
+                            "xoxx",
+                            "??-?",
+                            "??-?"
+                        ],
+                        "to": [
+                            "??x?",
+                            "--o-",
+                            "??x?",
+                            "??x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??x?",
+                            "??o?",
+                            "--x-",
+                            "??x?"
+                        ],
+                        "to": [
+                            "??-?",
+                            "??-?",
+                            "xxox",
+                            "??-?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?-??",
+                            "?-??",
+                            "xxox",
+                            "?-??"
+                        ],
+                        "to": [
+                            "?x??",
+                            "?x??",
+                            "-o--",
+                            "?x??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?x??",
+                            "-x--",
+                            "?o??",
+                            "?x??"
+                        ],
+                        "to": [
+                            "?-??",
+                            "xoxx",
+                            "?-??",
+                            "?-??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "x--",
+                            "xxx",
+                            "?-?"
+                        ],
+                        "to": [
+                            "-xx",
+                            "-x-",
+                            "?x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?xx",
+                            "-x-",
+                            "?x-"
+                        ],
+                        "to": [
+                            "?--",
+                            "xxx",
+                            "?-x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?-?",
+                            "xxx",
+                            "--x"
+                        ],
+                        "to": [
+                            "?x?",
+                            "-x-",
+                            "xx-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-x?",
+                            "-x-",
+                            "xx?"
+                        ],
+                        "to": [
+                            "x-?",
+                            "xxx",
+                            "--?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "--x",
+                            "xxx",
+                            "?-?"
+                        ],
+                        "to": [
+                            "xx-",
+                            "-x-",
+                            "?x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xx?",
+                            "-x-",
+                            "-x?"
+                        ],
+                        "to": [
+                            "--?",
+                            "xxx",
+                            "x-?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?-?",
+                            "xxx",
+                            "x--"
+                        ],
+                        "to": [
+                            "?x?",
+                            "-x-",
+                            "-xx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?x-",
+                            "-x-",
+                            "?xx"
+                        ],
+                        "to": [
+                            "?-x",
+                            "xxx",
+                            "?--"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xx",
+                            "xx"
+                        ],
+                        "to": [
+                            "xx",
+                            "xx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?xx",
+                            "xo-",
+                            "??-"
+                        ],
+                        "to": [
+                            "?x-",
+                            "-ox",
+                            "??x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?x?",
+                            "?ox",
+                            "--x"
+                        ],
+                        "to": [
+                            "?-?",
+                            "?ox",
+                            "xx-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-??",
+                            "-ox",
+                            "xx?"
+                        ],
+                        "to": [
+                            "x??",
+                            "xo-",
+                            "-x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "x--",
+                            "xo?",
+                            "?x?"
+                        ],
+                        "to": [
+                            "-xx",
+                            "xo?",
+                            "?-?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?x?",
+                            "xxx",
+                            "?-?"
+                        ],
+                        "to": [
+                            "?x?",
+                            "-xx",
+                            "?x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?x?",
+                            "-xx",
+                            "?x?"
+                        ],
+                        "to": [
+                            "?-?",
+                            "xxx",
+                            "?x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?-?",
+                            "xxx",
+                            "?x?"
+                        ],
+                        "to": [
+                            "?x?",
+                            "xx-",
+                            "?x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?x?",
+                            "xx-",
+                            "?x?"
+                        ],
+                        "to": [
+                            "?x?",
+                            "xxx",
+                            "?-?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xx-",
+                            "?ox",
+                            "?-?"
+                        ],
+                        "to": [
+                            "--x",
+                            "?ox",
+                            "?x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??x",
+                            "-ox",
+                            "?x-"
+                        ],
+                        "to": [
+                            "??-",
+                            "xo-",
+                            "?xx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?-?",
+                            "xo?",
+                            "-xx"
+                        ],
+                        "to": [
+                            "?x?",
+                            "xo?",
+                            "x--"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-x?",
+                            "xo-",
+                            "x??"
+                        ],
+                        "to": [
+                            "xx?",
+                            "-ox",
+                            "-??"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "step": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "call",
+                        "name": "step_internal"
+                    },
+                    {
+                        "type": "try_all",
+                        "rules": [
+                            {
+                                "type": "call",
+                                "name": "freeze_piece"
+                            },
+                            {
+                                "type": "call",
+                                "name": "line_clear"
+                            },
+                            {
+                                "type": "call",
+                                "name": "line_clear"
+                            },
+                            {
+                                "type": "call",
+                                "name": "line_clear"
+                            },
+                            {
+                                "type": "call",
+                                "name": "line_clear"
+                            },
+                            {
+                                "type": "match1",
+                                "rules": [
+                                    {
+                                        "type": "call",
+                                        "name": "spawn_piece"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "line_clear": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "XXXXXXXXXXN"
+                                ],
+                                "to": [
+                                    "XXXXXXXXXXN"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "try_all",
+                                "rules": [
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-M"
+                                                ],
+                                                "to": [
+                                                    "-M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?N"
+                                                ],
+                                                "to": [
+                                                    "-N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "XM"
+                                                ],
+                                                "to": [
+                                                    "XM"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?N"
+                                                ],
+                                                "to": [
+                                                    "XN"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?M"
+                                                ],
+                                                "to": [
+                                                    "-?M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??N"
+                                                ],
+                                                "to": [
+                                                    "-?N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?M"
+                                                ],
+                                                "to": [
+                                                    "X?M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??N"
+                                                ],
+                                                "to": [
+                                                    "X?N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??M"
+                                                ],
+                                                "to": [
+                                                    "-??M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???N"
+                                                ],
+                                                "to": [
+                                                    "-??N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??M"
+                                                ],
+                                                "to": [
+                                                    "X??M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???N"
+                                                ],
+                                                "to": [
+                                                    "X??N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???M"
+                                                ],
+                                                "to": [
+                                                    "-???M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????N"
+                                                ],
+                                                "to": [
+                                                    "-???N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???M"
+                                                ],
+                                                "to": [
+                                                    "X???M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????N"
+                                                ],
+                                                "to": [
+                                                    "X???N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????M"
+                                                ],
+                                                "to": [
+                                                    "-????M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????N"
+                                                ],
+                                                "to": [
+                                                    "-????N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????M"
+                                                ],
+                                                "to": [
+                                                    "X????M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????N"
+                                                ],
+                                                "to": [
+                                                    "X????N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????M"
+                                                ],
+                                                "to": [
+                                                    "-?????M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????N"
+                                                ],
+                                                "to": [
+                                                    "-?????N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????M"
+                                                ],
+                                                "to": [
+                                                    "X?????M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????N"
+                                                ],
+                                                "to": [
+                                                    "X?????N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????M"
+                                                ],
+                                                "to": [
+                                                    "-??????M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????N"
+                                                ],
+                                                "to": [
+                                                    "-??????N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????M"
+                                                ],
+                                                "to": [
+                                                    "X??????M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????N"
+                                                ],
+                                                "to": [
+                                                    "X??????N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????M"
+                                                ],
+                                                "to": [
+                                                    "-???????M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????N"
+                                                ],
+                                                "to": [
+                                                    "-???????N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????M"
+                                                ],
+                                                "to": [
+                                                    "X???????M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????N"
+                                                ],
+                                                "to": [
+                                                    "X???????N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????M"
+                                                ],
+                                                "to": [
+                                                    "-????????M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????N"
+                                                ],
+                                                "to": [
+                                                    "-????????N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????M"
+                                                ],
+                                                "to": [
+                                                    "X????????M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????N"
+                                                ],
+                                                "to": [
+                                                    "X????????N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????M"
+                                                ],
+                                                "to": [
+                                                    "-?????????M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????N"
+                                                ],
+                                                "to": [
+                                                    "-?????????N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????M"
+                                                ],
+                                                "to": [
+                                                    "X?????????M"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????N"
+                                                ],
+                                                "to": [
+                                                    "X?????????N"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-L"
+                                                ],
+                                                "to": [
+                                                    "-L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?M"
+                                                ],
+                                                "to": [
+                                                    "-M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "XL"
+                                                ],
+                                                "to": [
+                                                    "XL"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?M"
+                                                ],
+                                                "to": [
+                                                    "XM"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?L"
+                                                ],
+                                                "to": [
+                                                    "-?L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??M"
+                                                ],
+                                                "to": [
+                                                    "-?M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?L"
+                                                ],
+                                                "to": [
+                                                    "X?L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??M"
+                                                ],
+                                                "to": [
+                                                    "X?M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??L"
+                                                ],
+                                                "to": [
+                                                    "-??L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???M"
+                                                ],
+                                                "to": [
+                                                    "-??M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??L"
+                                                ],
+                                                "to": [
+                                                    "X??L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???M"
+                                                ],
+                                                "to": [
+                                                    "X??M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???L"
+                                                ],
+                                                "to": [
+                                                    "-???L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????M"
+                                                ],
+                                                "to": [
+                                                    "-???M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???L"
+                                                ],
+                                                "to": [
+                                                    "X???L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????M"
+                                                ],
+                                                "to": [
+                                                    "X???M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????L"
+                                                ],
+                                                "to": [
+                                                    "-????L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????M"
+                                                ],
+                                                "to": [
+                                                    "-????M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????L"
+                                                ],
+                                                "to": [
+                                                    "X????L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????M"
+                                                ],
+                                                "to": [
+                                                    "X????M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????L"
+                                                ],
+                                                "to": [
+                                                    "-?????L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????M"
+                                                ],
+                                                "to": [
+                                                    "-?????M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????L"
+                                                ],
+                                                "to": [
+                                                    "X?????L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????M"
+                                                ],
+                                                "to": [
+                                                    "X?????M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????L"
+                                                ],
+                                                "to": [
+                                                    "-??????L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????M"
+                                                ],
+                                                "to": [
+                                                    "-??????M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????L"
+                                                ],
+                                                "to": [
+                                                    "X??????L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????M"
+                                                ],
+                                                "to": [
+                                                    "X??????M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????L"
+                                                ],
+                                                "to": [
+                                                    "-???????L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????M"
+                                                ],
+                                                "to": [
+                                                    "-???????M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????L"
+                                                ],
+                                                "to": [
+                                                    "X???????L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????M"
+                                                ],
+                                                "to": [
+                                                    "X???????M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????L"
+                                                ],
+                                                "to": [
+                                                    "-????????L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????M"
+                                                ],
+                                                "to": [
+                                                    "-????????M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????L"
+                                                ],
+                                                "to": [
+                                                    "X????????L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????M"
+                                                ],
+                                                "to": [
+                                                    "X????????M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????L"
+                                                ],
+                                                "to": [
+                                                    "-?????????L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????M"
+                                                ],
+                                                "to": [
+                                                    "-?????????M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????L"
+                                                ],
+                                                "to": [
+                                                    "X?????????L"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????M"
+                                                ],
+                                                "to": [
+                                                    "X?????????M"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-K"
+                                                ],
+                                                "to": [
+                                                    "-K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?L"
+                                                ],
+                                                "to": [
+                                                    "-L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "XK"
+                                                ],
+                                                "to": [
+                                                    "XK"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?L"
+                                                ],
+                                                "to": [
+                                                    "XL"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?K"
+                                                ],
+                                                "to": [
+                                                    "-?K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??L"
+                                                ],
+                                                "to": [
+                                                    "-?L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?K"
+                                                ],
+                                                "to": [
+                                                    "X?K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??L"
+                                                ],
+                                                "to": [
+                                                    "X?L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??K"
+                                                ],
+                                                "to": [
+                                                    "-??K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???L"
+                                                ],
+                                                "to": [
+                                                    "-??L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??K"
+                                                ],
+                                                "to": [
+                                                    "X??K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???L"
+                                                ],
+                                                "to": [
+                                                    "X??L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???K"
+                                                ],
+                                                "to": [
+                                                    "-???K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????L"
+                                                ],
+                                                "to": [
+                                                    "-???L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???K"
+                                                ],
+                                                "to": [
+                                                    "X???K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????L"
+                                                ],
+                                                "to": [
+                                                    "X???L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????K"
+                                                ],
+                                                "to": [
+                                                    "-????K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????L"
+                                                ],
+                                                "to": [
+                                                    "-????L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????K"
+                                                ],
+                                                "to": [
+                                                    "X????K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????L"
+                                                ],
+                                                "to": [
+                                                    "X????L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????K"
+                                                ],
+                                                "to": [
+                                                    "-?????K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????L"
+                                                ],
+                                                "to": [
+                                                    "-?????L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????K"
+                                                ],
+                                                "to": [
+                                                    "X?????K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????L"
+                                                ],
+                                                "to": [
+                                                    "X?????L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????K"
+                                                ],
+                                                "to": [
+                                                    "-??????K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????L"
+                                                ],
+                                                "to": [
+                                                    "-??????L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????K"
+                                                ],
+                                                "to": [
+                                                    "X??????K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????L"
+                                                ],
+                                                "to": [
+                                                    "X??????L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????K"
+                                                ],
+                                                "to": [
+                                                    "-???????K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????L"
+                                                ],
+                                                "to": [
+                                                    "-???????L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????K"
+                                                ],
+                                                "to": [
+                                                    "X???????K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????L"
+                                                ],
+                                                "to": [
+                                                    "X???????L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????K"
+                                                ],
+                                                "to": [
+                                                    "-????????K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????L"
+                                                ],
+                                                "to": [
+                                                    "-????????L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????K"
+                                                ],
+                                                "to": [
+                                                    "X????????K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????L"
+                                                ],
+                                                "to": [
+                                                    "X????????L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????K"
+                                                ],
+                                                "to": [
+                                                    "-?????????K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????L"
+                                                ],
+                                                "to": [
+                                                    "-?????????L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????K"
+                                                ],
+                                                "to": [
+                                                    "X?????????K"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????L"
+                                                ],
+                                                "to": [
+                                                    "X?????????L"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-J"
+                                                ],
+                                                "to": [
+                                                    "-J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?K"
+                                                ],
+                                                "to": [
+                                                    "-K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "XJ"
+                                                ],
+                                                "to": [
+                                                    "XJ"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?K"
+                                                ],
+                                                "to": [
+                                                    "XK"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?J"
+                                                ],
+                                                "to": [
+                                                    "-?J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??K"
+                                                ],
+                                                "to": [
+                                                    "-?K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?J"
+                                                ],
+                                                "to": [
+                                                    "X?J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??K"
+                                                ],
+                                                "to": [
+                                                    "X?K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??J"
+                                                ],
+                                                "to": [
+                                                    "-??J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???K"
+                                                ],
+                                                "to": [
+                                                    "-??K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??J"
+                                                ],
+                                                "to": [
+                                                    "X??J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???K"
+                                                ],
+                                                "to": [
+                                                    "X??K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???J"
+                                                ],
+                                                "to": [
+                                                    "-???J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????K"
+                                                ],
+                                                "to": [
+                                                    "-???K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???J"
+                                                ],
+                                                "to": [
+                                                    "X???J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????K"
+                                                ],
+                                                "to": [
+                                                    "X???K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????J"
+                                                ],
+                                                "to": [
+                                                    "-????J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????K"
+                                                ],
+                                                "to": [
+                                                    "-????K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????J"
+                                                ],
+                                                "to": [
+                                                    "X????J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????K"
+                                                ],
+                                                "to": [
+                                                    "X????K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????J"
+                                                ],
+                                                "to": [
+                                                    "-?????J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????K"
+                                                ],
+                                                "to": [
+                                                    "-?????K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????J"
+                                                ],
+                                                "to": [
+                                                    "X?????J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????K"
+                                                ],
+                                                "to": [
+                                                    "X?????K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????J"
+                                                ],
+                                                "to": [
+                                                    "-??????J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????K"
+                                                ],
+                                                "to": [
+                                                    "-??????K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????J"
+                                                ],
+                                                "to": [
+                                                    "X??????J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????K"
+                                                ],
+                                                "to": [
+                                                    "X??????K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????J"
+                                                ],
+                                                "to": [
+                                                    "-???????J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????K"
+                                                ],
+                                                "to": [
+                                                    "-???????K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????J"
+                                                ],
+                                                "to": [
+                                                    "X???????J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????K"
+                                                ],
+                                                "to": [
+                                                    "X???????K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????J"
+                                                ],
+                                                "to": [
+                                                    "-????????J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????K"
+                                                ],
+                                                "to": [
+                                                    "-????????K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????J"
+                                                ],
+                                                "to": [
+                                                    "X????????J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????K"
+                                                ],
+                                                "to": [
+                                                    "X????????K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????J"
+                                                ],
+                                                "to": [
+                                                    "-?????????J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????K"
+                                                ],
+                                                "to": [
+                                                    "-?????????K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????J"
+                                                ],
+                                                "to": [
+                                                    "X?????????J"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????K"
+                                                ],
+                                                "to": [
+                                                    "X?????????K"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-I"
+                                                ],
+                                                "to": [
+                                                    "-I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?J"
+                                                ],
+                                                "to": [
+                                                    "-J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "XI"
+                                                ],
+                                                "to": [
+                                                    "XI"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?J"
+                                                ],
+                                                "to": [
+                                                    "XJ"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?I"
+                                                ],
+                                                "to": [
+                                                    "-?I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??J"
+                                                ],
+                                                "to": [
+                                                    "-?J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?I"
+                                                ],
+                                                "to": [
+                                                    "X?I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??J"
+                                                ],
+                                                "to": [
+                                                    "X?J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??I"
+                                                ],
+                                                "to": [
+                                                    "-??I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???J"
+                                                ],
+                                                "to": [
+                                                    "-??J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??I"
+                                                ],
+                                                "to": [
+                                                    "X??I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???J"
+                                                ],
+                                                "to": [
+                                                    "X??J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???I"
+                                                ],
+                                                "to": [
+                                                    "-???I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????J"
+                                                ],
+                                                "to": [
+                                                    "-???J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???I"
+                                                ],
+                                                "to": [
+                                                    "X???I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????J"
+                                                ],
+                                                "to": [
+                                                    "X???J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????I"
+                                                ],
+                                                "to": [
+                                                    "-????I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????J"
+                                                ],
+                                                "to": [
+                                                    "-????J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????I"
+                                                ],
+                                                "to": [
+                                                    "X????I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????J"
+                                                ],
+                                                "to": [
+                                                    "X????J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????I"
+                                                ],
+                                                "to": [
+                                                    "-?????I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????J"
+                                                ],
+                                                "to": [
+                                                    "-?????J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????I"
+                                                ],
+                                                "to": [
+                                                    "X?????I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????J"
+                                                ],
+                                                "to": [
+                                                    "X?????J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????I"
+                                                ],
+                                                "to": [
+                                                    "-??????I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????J"
+                                                ],
+                                                "to": [
+                                                    "-??????J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????I"
+                                                ],
+                                                "to": [
+                                                    "X??????I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????J"
+                                                ],
+                                                "to": [
+                                                    "X??????J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????I"
+                                                ],
+                                                "to": [
+                                                    "-???????I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????J"
+                                                ],
+                                                "to": [
+                                                    "-???????J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????I"
+                                                ],
+                                                "to": [
+                                                    "X???????I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????J"
+                                                ],
+                                                "to": [
+                                                    "X???????J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????I"
+                                                ],
+                                                "to": [
+                                                    "-????????I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????J"
+                                                ],
+                                                "to": [
+                                                    "-????????J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????I"
+                                                ],
+                                                "to": [
+                                                    "X????????I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????J"
+                                                ],
+                                                "to": [
+                                                    "X????????J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????I"
+                                                ],
+                                                "to": [
+                                                    "-?????????I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????J"
+                                                ],
+                                                "to": [
+                                                    "-?????????J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????I"
+                                                ],
+                                                "to": [
+                                                    "X?????????I"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????J"
+                                                ],
+                                                "to": [
+                                                    "X?????????J"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-H"
+                                                ],
+                                                "to": [
+                                                    "-H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?I"
+                                                ],
+                                                "to": [
+                                                    "-I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "XH"
+                                                ],
+                                                "to": [
+                                                    "XH"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?I"
+                                                ],
+                                                "to": [
+                                                    "XI"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?H"
+                                                ],
+                                                "to": [
+                                                    "-?H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??I"
+                                                ],
+                                                "to": [
+                                                    "-?I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?H"
+                                                ],
+                                                "to": [
+                                                    "X?H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??I"
+                                                ],
+                                                "to": [
+                                                    "X?I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??H"
+                                                ],
+                                                "to": [
+                                                    "-??H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???I"
+                                                ],
+                                                "to": [
+                                                    "-??I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??H"
+                                                ],
+                                                "to": [
+                                                    "X??H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???I"
+                                                ],
+                                                "to": [
+                                                    "X??I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???H"
+                                                ],
+                                                "to": [
+                                                    "-???H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????I"
+                                                ],
+                                                "to": [
+                                                    "-???I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???H"
+                                                ],
+                                                "to": [
+                                                    "X???H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????I"
+                                                ],
+                                                "to": [
+                                                    "X???I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????H"
+                                                ],
+                                                "to": [
+                                                    "-????H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????I"
+                                                ],
+                                                "to": [
+                                                    "-????I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????H"
+                                                ],
+                                                "to": [
+                                                    "X????H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????I"
+                                                ],
+                                                "to": [
+                                                    "X????I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????H"
+                                                ],
+                                                "to": [
+                                                    "-?????H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????I"
+                                                ],
+                                                "to": [
+                                                    "-?????I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????H"
+                                                ],
+                                                "to": [
+                                                    "X?????H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????I"
+                                                ],
+                                                "to": [
+                                                    "X?????I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????H"
+                                                ],
+                                                "to": [
+                                                    "-??????H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????I"
+                                                ],
+                                                "to": [
+                                                    "-??????I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????H"
+                                                ],
+                                                "to": [
+                                                    "X??????H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????I"
+                                                ],
+                                                "to": [
+                                                    "X??????I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????H"
+                                                ],
+                                                "to": [
+                                                    "-???????H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????I"
+                                                ],
+                                                "to": [
+                                                    "-???????I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????H"
+                                                ],
+                                                "to": [
+                                                    "X???????H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????I"
+                                                ],
+                                                "to": [
+                                                    "X???????I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????H"
+                                                ],
+                                                "to": [
+                                                    "-????????H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????I"
+                                                ],
+                                                "to": [
+                                                    "-????????I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????H"
+                                                ],
+                                                "to": [
+                                                    "X????????H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????I"
+                                                ],
+                                                "to": [
+                                                    "X????????I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????H"
+                                                ],
+                                                "to": [
+                                                    "-?????????H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????I"
+                                                ],
+                                                "to": [
+                                                    "-?????????I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????H"
+                                                ],
+                                                "to": [
+                                                    "X?????????H"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????I"
+                                                ],
+                                                "to": [
+                                                    "X?????????I"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-G"
+                                                ],
+                                                "to": [
+                                                    "-G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?H"
+                                                ],
+                                                "to": [
+                                                    "-H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "XG"
+                                                ],
+                                                "to": [
+                                                    "XG"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?H"
+                                                ],
+                                                "to": [
+                                                    "XH"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?G"
+                                                ],
+                                                "to": [
+                                                    "-?G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??H"
+                                                ],
+                                                "to": [
+                                                    "-?H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?G"
+                                                ],
+                                                "to": [
+                                                    "X?G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??H"
+                                                ],
+                                                "to": [
+                                                    "X?H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??G"
+                                                ],
+                                                "to": [
+                                                    "-??G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???H"
+                                                ],
+                                                "to": [
+                                                    "-??H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??G"
+                                                ],
+                                                "to": [
+                                                    "X??G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???H"
+                                                ],
+                                                "to": [
+                                                    "X??H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???G"
+                                                ],
+                                                "to": [
+                                                    "-???G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????H"
+                                                ],
+                                                "to": [
+                                                    "-???H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???G"
+                                                ],
+                                                "to": [
+                                                    "X???G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????H"
+                                                ],
+                                                "to": [
+                                                    "X???H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????G"
+                                                ],
+                                                "to": [
+                                                    "-????G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????H"
+                                                ],
+                                                "to": [
+                                                    "-????H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????G"
+                                                ],
+                                                "to": [
+                                                    "X????G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????H"
+                                                ],
+                                                "to": [
+                                                    "X????H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????G"
+                                                ],
+                                                "to": [
+                                                    "-?????G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????H"
+                                                ],
+                                                "to": [
+                                                    "-?????H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????G"
+                                                ],
+                                                "to": [
+                                                    "X?????G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????H"
+                                                ],
+                                                "to": [
+                                                    "X?????H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????G"
+                                                ],
+                                                "to": [
+                                                    "-??????G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????H"
+                                                ],
+                                                "to": [
+                                                    "-??????H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????G"
+                                                ],
+                                                "to": [
+                                                    "X??????G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????H"
+                                                ],
+                                                "to": [
+                                                    "X??????H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????G"
+                                                ],
+                                                "to": [
+                                                    "-???????G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????H"
+                                                ],
+                                                "to": [
+                                                    "-???????H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????G"
+                                                ],
+                                                "to": [
+                                                    "X???????G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????H"
+                                                ],
+                                                "to": [
+                                                    "X???????H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????G"
+                                                ],
+                                                "to": [
+                                                    "-????????G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????H"
+                                                ],
+                                                "to": [
+                                                    "-????????H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????G"
+                                                ],
+                                                "to": [
+                                                    "X????????G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????H"
+                                                ],
+                                                "to": [
+                                                    "X????????H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????G"
+                                                ],
+                                                "to": [
+                                                    "-?????????G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????H"
+                                                ],
+                                                "to": [
+                                                    "-?????????H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????G"
+                                                ],
+                                                "to": [
+                                                    "X?????????G"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????H"
+                                                ],
+                                                "to": [
+                                                    "X?????????H"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-F"
+                                                ],
+                                                "to": [
+                                                    "-F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?G"
+                                                ],
+                                                "to": [
+                                                    "-G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "XF"
+                                                ],
+                                                "to": [
+                                                    "XF"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?G"
+                                                ],
+                                                "to": [
+                                                    "XG"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?F"
+                                                ],
+                                                "to": [
+                                                    "-?F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??G"
+                                                ],
+                                                "to": [
+                                                    "-?G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?F"
+                                                ],
+                                                "to": [
+                                                    "X?F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??G"
+                                                ],
+                                                "to": [
+                                                    "X?G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??F"
+                                                ],
+                                                "to": [
+                                                    "-??F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???G"
+                                                ],
+                                                "to": [
+                                                    "-??G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??F"
+                                                ],
+                                                "to": [
+                                                    "X??F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???G"
+                                                ],
+                                                "to": [
+                                                    "X??G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???F"
+                                                ],
+                                                "to": [
+                                                    "-???F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????G"
+                                                ],
+                                                "to": [
+                                                    "-???G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???F"
+                                                ],
+                                                "to": [
+                                                    "X???F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????G"
+                                                ],
+                                                "to": [
+                                                    "X???G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????F"
+                                                ],
+                                                "to": [
+                                                    "-????F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????G"
+                                                ],
+                                                "to": [
+                                                    "-????G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????F"
+                                                ],
+                                                "to": [
+                                                    "X????F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????G"
+                                                ],
+                                                "to": [
+                                                    "X????G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????F"
+                                                ],
+                                                "to": [
+                                                    "-?????F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????G"
+                                                ],
+                                                "to": [
+                                                    "-?????G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????F"
+                                                ],
+                                                "to": [
+                                                    "X?????F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????G"
+                                                ],
+                                                "to": [
+                                                    "X?????G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????F"
+                                                ],
+                                                "to": [
+                                                    "-??????F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????G"
+                                                ],
+                                                "to": [
+                                                    "-??????G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????F"
+                                                ],
+                                                "to": [
+                                                    "X??????F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????G"
+                                                ],
+                                                "to": [
+                                                    "X??????G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????F"
+                                                ],
+                                                "to": [
+                                                    "-???????F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????G"
+                                                ],
+                                                "to": [
+                                                    "-???????G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????F"
+                                                ],
+                                                "to": [
+                                                    "X???????F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????G"
+                                                ],
+                                                "to": [
+                                                    "X???????G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????F"
+                                                ],
+                                                "to": [
+                                                    "-????????F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????G"
+                                                ],
+                                                "to": [
+                                                    "-????????G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????F"
+                                                ],
+                                                "to": [
+                                                    "X????????F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????G"
+                                                ],
+                                                "to": [
+                                                    "X????????G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????F"
+                                                ],
+                                                "to": [
+                                                    "-?????????F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????G"
+                                                ],
+                                                "to": [
+                                                    "-?????????G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????F"
+                                                ],
+                                                "to": [
+                                                    "X?????????F"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????G"
+                                                ],
+                                                "to": [
+                                                    "X?????????G"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-E"
+                                                ],
+                                                "to": [
+                                                    "-E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?F"
+                                                ],
+                                                "to": [
+                                                    "-F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "XE"
+                                                ],
+                                                "to": [
+                                                    "XE"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?F"
+                                                ],
+                                                "to": [
+                                                    "XF"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?E"
+                                                ],
+                                                "to": [
+                                                    "-?E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??F"
+                                                ],
+                                                "to": [
+                                                    "-?F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?E"
+                                                ],
+                                                "to": [
+                                                    "X?E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??F"
+                                                ],
+                                                "to": [
+                                                    "X?F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??E"
+                                                ],
+                                                "to": [
+                                                    "-??E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???F"
+                                                ],
+                                                "to": [
+                                                    "-??F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??E"
+                                                ],
+                                                "to": [
+                                                    "X??E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???F"
+                                                ],
+                                                "to": [
+                                                    "X??F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???E"
+                                                ],
+                                                "to": [
+                                                    "-???E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????F"
+                                                ],
+                                                "to": [
+                                                    "-???F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???E"
+                                                ],
+                                                "to": [
+                                                    "X???E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????F"
+                                                ],
+                                                "to": [
+                                                    "X???F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????E"
+                                                ],
+                                                "to": [
+                                                    "-????E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????F"
+                                                ],
+                                                "to": [
+                                                    "-????F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????E"
+                                                ],
+                                                "to": [
+                                                    "X????E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????F"
+                                                ],
+                                                "to": [
+                                                    "X????F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????E"
+                                                ],
+                                                "to": [
+                                                    "-?????E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????F"
+                                                ],
+                                                "to": [
+                                                    "-?????F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????E"
+                                                ],
+                                                "to": [
+                                                    "X?????E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????F"
+                                                ],
+                                                "to": [
+                                                    "X?????F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????E"
+                                                ],
+                                                "to": [
+                                                    "-??????E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????F"
+                                                ],
+                                                "to": [
+                                                    "-??????F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????E"
+                                                ],
+                                                "to": [
+                                                    "X??????E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????F"
+                                                ],
+                                                "to": [
+                                                    "X??????F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????E"
+                                                ],
+                                                "to": [
+                                                    "-???????E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????F"
+                                                ],
+                                                "to": [
+                                                    "-???????F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????E"
+                                                ],
+                                                "to": [
+                                                    "X???????E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????F"
+                                                ],
+                                                "to": [
+                                                    "X???????F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????E"
+                                                ],
+                                                "to": [
+                                                    "-????????E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????F"
+                                                ],
+                                                "to": [
+                                                    "-????????F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????E"
+                                                ],
+                                                "to": [
+                                                    "X????????E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????F"
+                                                ],
+                                                "to": [
+                                                    "X????????F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????E"
+                                                ],
+                                                "to": [
+                                                    "-?????????E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????F"
+                                                ],
+                                                "to": [
+                                                    "-?????????F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????E"
+                                                ],
+                                                "to": [
+                                                    "X?????????E"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????F"
+                                                ],
+                                                "to": [
+                                                    "X?????????F"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-D"
+                                                ],
+                                                "to": [
+                                                    "-D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?E"
+                                                ],
+                                                "to": [
+                                                    "-E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "XD"
+                                                ],
+                                                "to": [
+                                                    "XD"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?E"
+                                                ],
+                                                "to": [
+                                                    "XE"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?D"
+                                                ],
+                                                "to": [
+                                                    "-?D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??E"
+                                                ],
+                                                "to": [
+                                                    "-?E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?D"
+                                                ],
+                                                "to": [
+                                                    "X?D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??E"
+                                                ],
+                                                "to": [
+                                                    "X?E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??D"
+                                                ],
+                                                "to": [
+                                                    "-??D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???E"
+                                                ],
+                                                "to": [
+                                                    "-??E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??D"
+                                                ],
+                                                "to": [
+                                                    "X??D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???E"
+                                                ],
+                                                "to": [
+                                                    "X??E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???D"
+                                                ],
+                                                "to": [
+                                                    "-???D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????E"
+                                                ],
+                                                "to": [
+                                                    "-???E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???D"
+                                                ],
+                                                "to": [
+                                                    "X???D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????E"
+                                                ],
+                                                "to": [
+                                                    "X???E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????D"
+                                                ],
+                                                "to": [
+                                                    "-????D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????E"
+                                                ],
+                                                "to": [
+                                                    "-????E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????D"
+                                                ],
+                                                "to": [
+                                                    "X????D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????E"
+                                                ],
+                                                "to": [
+                                                    "X????E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????D"
+                                                ],
+                                                "to": [
+                                                    "-?????D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????E"
+                                                ],
+                                                "to": [
+                                                    "-?????E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????D"
+                                                ],
+                                                "to": [
+                                                    "X?????D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????E"
+                                                ],
+                                                "to": [
+                                                    "X?????E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????D"
+                                                ],
+                                                "to": [
+                                                    "-??????D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????E"
+                                                ],
+                                                "to": [
+                                                    "-??????E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????D"
+                                                ],
+                                                "to": [
+                                                    "X??????D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????E"
+                                                ],
+                                                "to": [
+                                                    "X??????E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????D"
+                                                ],
+                                                "to": [
+                                                    "-???????D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????E"
+                                                ],
+                                                "to": [
+                                                    "-???????E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????D"
+                                                ],
+                                                "to": [
+                                                    "X???????D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????E"
+                                                ],
+                                                "to": [
+                                                    "X???????E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????D"
+                                                ],
+                                                "to": [
+                                                    "-????????D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????E"
+                                                ],
+                                                "to": [
+                                                    "-????????E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????D"
+                                                ],
+                                                "to": [
+                                                    "X????????D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????E"
+                                                ],
+                                                "to": [
+                                                    "X????????E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????D"
+                                                ],
+                                                "to": [
+                                                    "-?????????D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????E"
+                                                ],
+                                                "to": [
+                                                    "-?????????E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????D"
+                                                ],
+                                                "to": [
+                                                    "X?????????D"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????E"
+                                                ],
+                                                "to": [
+                                                    "X?????????E"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-C"
+                                                ],
+                                                "to": [
+                                                    "-C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?D"
+                                                ],
+                                                "to": [
+                                                    "-D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "XC"
+                                                ],
+                                                "to": [
+                                                    "XC"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?D"
+                                                ],
+                                                "to": [
+                                                    "XD"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?C"
+                                                ],
+                                                "to": [
+                                                    "-?C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??D"
+                                                ],
+                                                "to": [
+                                                    "-?D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?C"
+                                                ],
+                                                "to": [
+                                                    "X?C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??D"
+                                                ],
+                                                "to": [
+                                                    "X?D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??C"
+                                                ],
+                                                "to": [
+                                                    "-??C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???D"
+                                                ],
+                                                "to": [
+                                                    "-??D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??C"
+                                                ],
+                                                "to": [
+                                                    "X??C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???D"
+                                                ],
+                                                "to": [
+                                                    "X??D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???C"
+                                                ],
+                                                "to": [
+                                                    "-???C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????D"
+                                                ],
+                                                "to": [
+                                                    "-???D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???C"
+                                                ],
+                                                "to": [
+                                                    "X???C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????D"
+                                                ],
+                                                "to": [
+                                                    "X???D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????C"
+                                                ],
+                                                "to": [
+                                                    "-????C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????D"
+                                                ],
+                                                "to": [
+                                                    "-????D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????C"
+                                                ],
+                                                "to": [
+                                                    "X????C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????D"
+                                                ],
+                                                "to": [
+                                                    "X????D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????C"
+                                                ],
+                                                "to": [
+                                                    "-?????C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????D"
+                                                ],
+                                                "to": [
+                                                    "-?????D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????C"
+                                                ],
+                                                "to": [
+                                                    "X?????C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????D"
+                                                ],
+                                                "to": [
+                                                    "X?????D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????C"
+                                                ],
+                                                "to": [
+                                                    "-??????C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????D"
+                                                ],
+                                                "to": [
+                                                    "-??????D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????C"
+                                                ],
+                                                "to": [
+                                                    "X??????C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????D"
+                                                ],
+                                                "to": [
+                                                    "X??????D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????C"
+                                                ],
+                                                "to": [
+                                                    "-???????C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????D"
+                                                ],
+                                                "to": [
+                                                    "-???????D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????C"
+                                                ],
+                                                "to": [
+                                                    "X???????C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????D"
+                                                ],
+                                                "to": [
+                                                    "X???????D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????C"
+                                                ],
+                                                "to": [
+                                                    "-????????C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????D"
+                                                ],
+                                                "to": [
+                                                    "-????????D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????C"
+                                                ],
+                                                "to": [
+                                                    "X????????C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????D"
+                                                ],
+                                                "to": [
+                                                    "X????????D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????C"
+                                                ],
+                                                "to": [
+                                                    "-?????????C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????D"
+                                                ],
+                                                "to": [
+                                                    "-?????????D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????C"
+                                                ],
+                                                "to": [
+                                                    "X?????????C"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????D"
+                                                ],
+                                                "to": [
+                                                    "X?????????D"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-B"
+                                                ],
+                                                "to": [
+                                                    "-B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?C"
+                                                ],
+                                                "to": [
+                                                    "-C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "XB"
+                                                ],
+                                                "to": [
+                                                    "XB"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?C"
+                                                ],
+                                                "to": [
+                                                    "XC"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?B"
+                                                ],
+                                                "to": [
+                                                    "-?B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??C"
+                                                ],
+                                                "to": [
+                                                    "-?C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?B"
+                                                ],
+                                                "to": [
+                                                    "X?B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??C"
+                                                ],
+                                                "to": [
+                                                    "X?C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??B"
+                                                ],
+                                                "to": [
+                                                    "-??B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???C"
+                                                ],
+                                                "to": [
+                                                    "-??C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??B"
+                                                ],
+                                                "to": [
+                                                    "X??B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???C"
+                                                ],
+                                                "to": [
+                                                    "X??C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???B"
+                                                ],
+                                                "to": [
+                                                    "-???B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????C"
+                                                ],
+                                                "to": [
+                                                    "-???C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???B"
+                                                ],
+                                                "to": [
+                                                    "X???B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????C"
+                                                ],
+                                                "to": [
+                                                    "X???C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????B"
+                                                ],
+                                                "to": [
+                                                    "-????B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????C"
+                                                ],
+                                                "to": [
+                                                    "-????C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????B"
+                                                ],
+                                                "to": [
+                                                    "X????B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????C"
+                                                ],
+                                                "to": [
+                                                    "X????C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????B"
+                                                ],
+                                                "to": [
+                                                    "-?????B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????C"
+                                                ],
+                                                "to": [
+                                                    "-?????C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????B"
+                                                ],
+                                                "to": [
+                                                    "X?????B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????C"
+                                                ],
+                                                "to": [
+                                                    "X?????C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????B"
+                                                ],
+                                                "to": [
+                                                    "-??????B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????C"
+                                                ],
+                                                "to": [
+                                                    "-??????C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????B"
+                                                ],
+                                                "to": [
+                                                    "X??????B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????C"
+                                                ],
+                                                "to": [
+                                                    "X??????C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????B"
+                                                ],
+                                                "to": [
+                                                    "-???????B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????C"
+                                                ],
+                                                "to": [
+                                                    "-???????C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????B"
+                                                ],
+                                                "to": [
+                                                    "X???????B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????C"
+                                                ],
+                                                "to": [
+                                                    "X???????C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????B"
+                                                ],
+                                                "to": [
+                                                    "-????????B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????C"
+                                                ],
+                                                "to": [
+                                                    "-????????C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????B"
+                                                ],
+                                                "to": [
+                                                    "X????????B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????C"
+                                                ],
+                                                "to": [
+                                                    "X????????C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????B"
+                                                ],
+                                                "to": [
+                                                    "-?????????B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????C"
+                                                ],
+                                                "to": [
+                                                    "-?????????C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????B"
+                                                ],
+                                                "to": [
+                                                    "X?????????B"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????C"
+                                                ],
+                                                "to": [
+                                                    "X?????????C"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-A"
+                                                ],
+                                                "to": [
+                                                    "-A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?B"
+                                                ],
+                                                "to": [
+                                                    "-B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "XA"
+                                                ],
+                                                "to": [
+                                                    "XA"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?B"
+                                                ],
+                                                "to": [
+                                                    "XB"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?A"
+                                                ],
+                                                "to": [
+                                                    "-?A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??B"
+                                                ],
+                                                "to": [
+                                                    "-?B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?A"
+                                                ],
+                                                "to": [
+                                                    "X?A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??B"
+                                                ],
+                                                "to": [
+                                                    "X?B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??A"
+                                                ],
+                                                "to": [
+                                                    "-??A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???B"
+                                                ],
+                                                "to": [
+                                                    "-??B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??A"
+                                                ],
+                                                "to": [
+                                                    "X??A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???B"
+                                                ],
+                                                "to": [
+                                                    "X??B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???A"
+                                                ],
+                                                "to": [
+                                                    "-???A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????B"
+                                                ],
+                                                "to": [
+                                                    "-???B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???A"
+                                                ],
+                                                "to": [
+                                                    "X???A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????B"
+                                                ],
+                                                "to": [
+                                                    "X???B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????A"
+                                                ],
+                                                "to": [
+                                                    "-????A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????B"
+                                                ],
+                                                "to": [
+                                                    "-????B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????A"
+                                                ],
+                                                "to": [
+                                                    "X????A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????B"
+                                                ],
+                                                "to": [
+                                                    "X????B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????A"
+                                                ],
+                                                "to": [
+                                                    "-?????A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????B"
+                                                ],
+                                                "to": [
+                                                    "-?????B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????A"
+                                                ],
+                                                "to": [
+                                                    "X?????A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????B"
+                                                ],
+                                                "to": [
+                                                    "X?????B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????A"
+                                                ],
+                                                "to": [
+                                                    "-??????A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????B"
+                                                ],
+                                                "to": [
+                                                    "-??????B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????A"
+                                                ],
+                                                "to": [
+                                                    "X??????A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????B"
+                                                ],
+                                                "to": [
+                                                    "X??????B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????A"
+                                                ],
+                                                "to": [
+                                                    "-???????A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????B"
+                                                ],
+                                                "to": [
+                                                    "-???????B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????A"
+                                                ],
+                                                "to": [
+                                                    "X???????A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????B"
+                                                ],
+                                                "to": [
+                                                    "X???????B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????A"
+                                                ],
+                                                "to": [
+                                                    "-????????A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????B"
+                                                ],
+                                                "to": [
+                                                    "-????????B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????A"
+                                                ],
+                                                "to": [
+                                                    "X????????A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????B"
+                                                ],
+                                                "to": [
+                                                    "X????????B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????A"
+                                                ],
+                                                "to": [
+                                                    "-?????????A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????B"
+                                                ],
+                                                "to": [
+                                                    "-?????????B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????A"
+                                                ],
+                                                "to": [
+                                                    "X?????????A"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????B"
+                                                ],
+                                                "to": [
+                                                    "X?????????B"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-9"
+                                                ],
+                                                "to": [
+                                                    "-9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?A"
+                                                ],
+                                                "to": [
+                                                    "-A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X9"
+                                                ],
+                                                "to": [
+                                                    "X9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?A"
+                                                ],
+                                                "to": [
+                                                    "XA"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?9"
+                                                ],
+                                                "to": [
+                                                    "-?9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??A"
+                                                ],
+                                                "to": [
+                                                    "-?A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?9"
+                                                ],
+                                                "to": [
+                                                    "X?9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??A"
+                                                ],
+                                                "to": [
+                                                    "X?A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??9"
+                                                ],
+                                                "to": [
+                                                    "-??9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???A"
+                                                ],
+                                                "to": [
+                                                    "-??A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??9"
+                                                ],
+                                                "to": [
+                                                    "X??9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???A"
+                                                ],
+                                                "to": [
+                                                    "X??A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???9"
+                                                ],
+                                                "to": [
+                                                    "-???9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????A"
+                                                ],
+                                                "to": [
+                                                    "-???A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???9"
+                                                ],
+                                                "to": [
+                                                    "X???9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????A"
+                                                ],
+                                                "to": [
+                                                    "X???A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????9"
+                                                ],
+                                                "to": [
+                                                    "-????9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????A"
+                                                ],
+                                                "to": [
+                                                    "-????A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????9"
+                                                ],
+                                                "to": [
+                                                    "X????9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????A"
+                                                ],
+                                                "to": [
+                                                    "X????A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????9"
+                                                ],
+                                                "to": [
+                                                    "-?????9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????A"
+                                                ],
+                                                "to": [
+                                                    "-?????A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????9"
+                                                ],
+                                                "to": [
+                                                    "X?????9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????A"
+                                                ],
+                                                "to": [
+                                                    "X?????A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????9"
+                                                ],
+                                                "to": [
+                                                    "-??????9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????A"
+                                                ],
+                                                "to": [
+                                                    "-??????A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????9"
+                                                ],
+                                                "to": [
+                                                    "X??????9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????A"
+                                                ],
+                                                "to": [
+                                                    "X??????A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????9"
+                                                ],
+                                                "to": [
+                                                    "-???????9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????A"
+                                                ],
+                                                "to": [
+                                                    "-???????A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????9"
+                                                ],
+                                                "to": [
+                                                    "X???????9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????A"
+                                                ],
+                                                "to": [
+                                                    "X???????A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????9"
+                                                ],
+                                                "to": [
+                                                    "-????????9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????A"
+                                                ],
+                                                "to": [
+                                                    "-????????A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????9"
+                                                ],
+                                                "to": [
+                                                    "X????????9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????A"
+                                                ],
+                                                "to": [
+                                                    "X????????A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????9"
+                                                ],
+                                                "to": [
+                                                    "-?????????9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????A"
+                                                ],
+                                                "to": [
+                                                    "-?????????A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????9"
+                                                ],
+                                                "to": [
+                                                    "X?????????9"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????A"
+                                                ],
+                                                "to": [
+                                                    "X?????????A"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-8"
+                                                ],
+                                                "to": [
+                                                    "-8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?9"
+                                                ],
+                                                "to": [
+                                                    "-9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X8"
+                                                ],
+                                                "to": [
+                                                    "X8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?9"
+                                                ],
+                                                "to": [
+                                                    "X9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?8"
+                                                ],
+                                                "to": [
+                                                    "-?8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??9"
+                                                ],
+                                                "to": [
+                                                    "-?9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?8"
+                                                ],
+                                                "to": [
+                                                    "X?8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??9"
+                                                ],
+                                                "to": [
+                                                    "X?9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??8"
+                                                ],
+                                                "to": [
+                                                    "-??8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???9"
+                                                ],
+                                                "to": [
+                                                    "-??9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??8"
+                                                ],
+                                                "to": [
+                                                    "X??8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???9"
+                                                ],
+                                                "to": [
+                                                    "X??9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???8"
+                                                ],
+                                                "to": [
+                                                    "-???8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????9"
+                                                ],
+                                                "to": [
+                                                    "-???9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???8"
+                                                ],
+                                                "to": [
+                                                    "X???8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????9"
+                                                ],
+                                                "to": [
+                                                    "X???9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????8"
+                                                ],
+                                                "to": [
+                                                    "-????8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????9"
+                                                ],
+                                                "to": [
+                                                    "-????9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????8"
+                                                ],
+                                                "to": [
+                                                    "X????8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????9"
+                                                ],
+                                                "to": [
+                                                    "X????9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????8"
+                                                ],
+                                                "to": [
+                                                    "-?????8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????9"
+                                                ],
+                                                "to": [
+                                                    "-?????9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????8"
+                                                ],
+                                                "to": [
+                                                    "X?????8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????9"
+                                                ],
+                                                "to": [
+                                                    "X?????9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????8"
+                                                ],
+                                                "to": [
+                                                    "-??????8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????9"
+                                                ],
+                                                "to": [
+                                                    "-??????9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????8"
+                                                ],
+                                                "to": [
+                                                    "X??????8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????9"
+                                                ],
+                                                "to": [
+                                                    "X??????9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????8"
+                                                ],
+                                                "to": [
+                                                    "-???????8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????9"
+                                                ],
+                                                "to": [
+                                                    "-???????9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????8"
+                                                ],
+                                                "to": [
+                                                    "X???????8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????9"
+                                                ],
+                                                "to": [
+                                                    "X???????9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????8"
+                                                ],
+                                                "to": [
+                                                    "-????????8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????9"
+                                                ],
+                                                "to": [
+                                                    "-????????9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????8"
+                                                ],
+                                                "to": [
+                                                    "X????????8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????9"
+                                                ],
+                                                "to": [
+                                                    "X????????9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????8"
+                                                ],
+                                                "to": [
+                                                    "-?????????8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????9"
+                                                ],
+                                                "to": [
+                                                    "-?????????9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????8"
+                                                ],
+                                                "to": [
+                                                    "X?????????8"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????9"
+                                                ],
+                                                "to": [
+                                                    "X?????????9"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-7"
+                                                ],
+                                                "to": [
+                                                    "-7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?8"
+                                                ],
+                                                "to": [
+                                                    "-8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X7"
+                                                ],
+                                                "to": [
+                                                    "X7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?8"
+                                                ],
+                                                "to": [
+                                                    "X8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?7"
+                                                ],
+                                                "to": [
+                                                    "-?7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??8"
+                                                ],
+                                                "to": [
+                                                    "-?8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?7"
+                                                ],
+                                                "to": [
+                                                    "X?7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??8"
+                                                ],
+                                                "to": [
+                                                    "X?8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??7"
+                                                ],
+                                                "to": [
+                                                    "-??7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???8"
+                                                ],
+                                                "to": [
+                                                    "-??8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??7"
+                                                ],
+                                                "to": [
+                                                    "X??7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???8"
+                                                ],
+                                                "to": [
+                                                    "X??8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???7"
+                                                ],
+                                                "to": [
+                                                    "-???7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????8"
+                                                ],
+                                                "to": [
+                                                    "-???8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???7"
+                                                ],
+                                                "to": [
+                                                    "X???7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????8"
+                                                ],
+                                                "to": [
+                                                    "X???8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????7"
+                                                ],
+                                                "to": [
+                                                    "-????7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????8"
+                                                ],
+                                                "to": [
+                                                    "-????8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????7"
+                                                ],
+                                                "to": [
+                                                    "X????7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????8"
+                                                ],
+                                                "to": [
+                                                    "X????8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????7"
+                                                ],
+                                                "to": [
+                                                    "-?????7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????8"
+                                                ],
+                                                "to": [
+                                                    "-?????8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????7"
+                                                ],
+                                                "to": [
+                                                    "X?????7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????8"
+                                                ],
+                                                "to": [
+                                                    "X?????8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????7"
+                                                ],
+                                                "to": [
+                                                    "-??????7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????8"
+                                                ],
+                                                "to": [
+                                                    "-??????8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????7"
+                                                ],
+                                                "to": [
+                                                    "X??????7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????8"
+                                                ],
+                                                "to": [
+                                                    "X??????8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????7"
+                                                ],
+                                                "to": [
+                                                    "-???????7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????8"
+                                                ],
+                                                "to": [
+                                                    "-???????8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????7"
+                                                ],
+                                                "to": [
+                                                    "X???????7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????8"
+                                                ],
+                                                "to": [
+                                                    "X???????8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????7"
+                                                ],
+                                                "to": [
+                                                    "-????????7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????8"
+                                                ],
+                                                "to": [
+                                                    "-????????8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????7"
+                                                ],
+                                                "to": [
+                                                    "X????????7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????8"
+                                                ],
+                                                "to": [
+                                                    "X????????8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????7"
+                                                ],
+                                                "to": [
+                                                    "-?????????7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????8"
+                                                ],
+                                                "to": [
+                                                    "-?????????8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????7"
+                                                ],
+                                                "to": [
+                                                    "X?????????7"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????8"
+                                                ],
+                                                "to": [
+                                                    "X?????????8"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-6"
+                                                ],
+                                                "to": [
+                                                    "-6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?7"
+                                                ],
+                                                "to": [
+                                                    "-7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X6"
+                                                ],
+                                                "to": [
+                                                    "X6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?7"
+                                                ],
+                                                "to": [
+                                                    "X7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?6"
+                                                ],
+                                                "to": [
+                                                    "-?6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??7"
+                                                ],
+                                                "to": [
+                                                    "-?7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?6"
+                                                ],
+                                                "to": [
+                                                    "X?6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??7"
+                                                ],
+                                                "to": [
+                                                    "X?7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??6"
+                                                ],
+                                                "to": [
+                                                    "-??6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???7"
+                                                ],
+                                                "to": [
+                                                    "-??7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??6"
+                                                ],
+                                                "to": [
+                                                    "X??6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???7"
+                                                ],
+                                                "to": [
+                                                    "X??7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???6"
+                                                ],
+                                                "to": [
+                                                    "-???6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????7"
+                                                ],
+                                                "to": [
+                                                    "-???7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???6"
+                                                ],
+                                                "to": [
+                                                    "X???6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????7"
+                                                ],
+                                                "to": [
+                                                    "X???7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????6"
+                                                ],
+                                                "to": [
+                                                    "-????6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????7"
+                                                ],
+                                                "to": [
+                                                    "-????7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????6"
+                                                ],
+                                                "to": [
+                                                    "X????6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????7"
+                                                ],
+                                                "to": [
+                                                    "X????7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????6"
+                                                ],
+                                                "to": [
+                                                    "-?????6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????7"
+                                                ],
+                                                "to": [
+                                                    "-?????7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????6"
+                                                ],
+                                                "to": [
+                                                    "X?????6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????7"
+                                                ],
+                                                "to": [
+                                                    "X?????7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????6"
+                                                ],
+                                                "to": [
+                                                    "-??????6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????7"
+                                                ],
+                                                "to": [
+                                                    "-??????7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????6"
+                                                ],
+                                                "to": [
+                                                    "X??????6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????7"
+                                                ],
+                                                "to": [
+                                                    "X??????7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????6"
+                                                ],
+                                                "to": [
+                                                    "-???????6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????7"
+                                                ],
+                                                "to": [
+                                                    "-???????7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????6"
+                                                ],
+                                                "to": [
+                                                    "X???????6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????7"
+                                                ],
+                                                "to": [
+                                                    "X???????7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????6"
+                                                ],
+                                                "to": [
+                                                    "-????????6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????7"
+                                                ],
+                                                "to": [
+                                                    "-????????7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????6"
+                                                ],
+                                                "to": [
+                                                    "X????????6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????7"
+                                                ],
+                                                "to": [
+                                                    "X????????7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????6"
+                                                ],
+                                                "to": [
+                                                    "-?????????6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????7"
+                                                ],
+                                                "to": [
+                                                    "-?????????7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????6"
+                                                ],
+                                                "to": [
+                                                    "X?????????6"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????7"
+                                                ],
+                                                "to": [
+                                                    "X?????????7"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-5"
+                                                ],
+                                                "to": [
+                                                    "-5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?6"
+                                                ],
+                                                "to": [
+                                                    "-6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X5"
+                                                ],
+                                                "to": [
+                                                    "X5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?6"
+                                                ],
+                                                "to": [
+                                                    "X6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?5"
+                                                ],
+                                                "to": [
+                                                    "-?5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??6"
+                                                ],
+                                                "to": [
+                                                    "-?6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?5"
+                                                ],
+                                                "to": [
+                                                    "X?5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??6"
+                                                ],
+                                                "to": [
+                                                    "X?6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??5"
+                                                ],
+                                                "to": [
+                                                    "-??5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???6"
+                                                ],
+                                                "to": [
+                                                    "-??6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??5"
+                                                ],
+                                                "to": [
+                                                    "X??5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???6"
+                                                ],
+                                                "to": [
+                                                    "X??6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???5"
+                                                ],
+                                                "to": [
+                                                    "-???5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????6"
+                                                ],
+                                                "to": [
+                                                    "-???6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???5"
+                                                ],
+                                                "to": [
+                                                    "X???5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????6"
+                                                ],
+                                                "to": [
+                                                    "X???6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????5"
+                                                ],
+                                                "to": [
+                                                    "-????5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????6"
+                                                ],
+                                                "to": [
+                                                    "-????6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????5"
+                                                ],
+                                                "to": [
+                                                    "X????5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????6"
+                                                ],
+                                                "to": [
+                                                    "X????6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????5"
+                                                ],
+                                                "to": [
+                                                    "-?????5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????6"
+                                                ],
+                                                "to": [
+                                                    "-?????6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????5"
+                                                ],
+                                                "to": [
+                                                    "X?????5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????6"
+                                                ],
+                                                "to": [
+                                                    "X?????6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????5"
+                                                ],
+                                                "to": [
+                                                    "-??????5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????6"
+                                                ],
+                                                "to": [
+                                                    "-??????6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????5"
+                                                ],
+                                                "to": [
+                                                    "X??????5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????6"
+                                                ],
+                                                "to": [
+                                                    "X??????6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????5"
+                                                ],
+                                                "to": [
+                                                    "-???????5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????6"
+                                                ],
+                                                "to": [
+                                                    "-???????6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????5"
+                                                ],
+                                                "to": [
+                                                    "X???????5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????6"
+                                                ],
+                                                "to": [
+                                                    "X???????6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????5"
+                                                ],
+                                                "to": [
+                                                    "-????????5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????6"
+                                                ],
+                                                "to": [
+                                                    "-????????6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????5"
+                                                ],
+                                                "to": [
+                                                    "X????????5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????6"
+                                                ],
+                                                "to": [
+                                                    "X????????6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????5"
+                                                ],
+                                                "to": [
+                                                    "-?????????5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????6"
+                                                ],
+                                                "to": [
+                                                    "-?????????6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????5"
+                                                ],
+                                                "to": [
+                                                    "X?????????5"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????6"
+                                                ],
+                                                "to": [
+                                                    "X?????????6"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-4"
+                                                ],
+                                                "to": [
+                                                    "-4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?5"
+                                                ],
+                                                "to": [
+                                                    "-5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X4"
+                                                ],
+                                                "to": [
+                                                    "X4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?5"
+                                                ],
+                                                "to": [
+                                                    "X5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?4"
+                                                ],
+                                                "to": [
+                                                    "-?4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??5"
+                                                ],
+                                                "to": [
+                                                    "-?5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?4"
+                                                ],
+                                                "to": [
+                                                    "X?4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??5"
+                                                ],
+                                                "to": [
+                                                    "X?5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??4"
+                                                ],
+                                                "to": [
+                                                    "-??4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???5"
+                                                ],
+                                                "to": [
+                                                    "-??5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??4"
+                                                ],
+                                                "to": [
+                                                    "X??4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???5"
+                                                ],
+                                                "to": [
+                                                    "X??5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???4"
+                                                ],
+                                                "to": [
+                                                    "-???4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????5"
+                                                ],
+                                                "to": [
+                                                    "-???5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???4"
+                                                ],
+                                                "to": [
+                                                    "X???4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????5"
+                                                ],
+                                                "to": [
+                                                    "X???5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????4"
+                                                ],
+                                                "to": [
+                                                    "-????4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????5"
+                                                ],
+                                                "to": [
+                                                    "-????5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????4"
+                                                ],
+                                                "to": [
+                                                    "X????4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????5"
+                                                ],
+                                                "to": [
+                                                    "X????5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????4"
+                                                ],
+                                                "to": [
+                                                    "-?????4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????5"
+                                                ],
+                                                "to": [
+                                                    "-?????5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????4"
+                                                ],
+                                                "to": [
+                                                    "X?????4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????5"
+                                                ],
+                                                "to": [
+                                                    "X?????5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????4"
+                                                ],
+                                                "to": [
+                                                    "-??????4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????5"
+                                                ],
+                                                "to": [
+                                                    "-??????5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????4"
+                                                ],
+                                                "to": [
+                                                    "X??????4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????5"
+                                                ],
+                                                "to": [
+                                                    "X??????5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????4"
+                                                ],
+                                                "to": [
+                                                    "-???????4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????5"
+                                                ],
+                                                "to": [
+                                                    "-???????5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????4"
+                                                ],
+                                                "to": [
+                                                    "X???????4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????5"
+                                                ],
+                                                "to": [
+                                                    "X???????5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????4"
+                                                ],
+                                                "to": [
+                                                    "-????????4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????5"
+                                                ],
+                                                "to": [
+                                                    "-????????5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????4"
+                                                ],
+                                                "to": [
+                                                    "X????????4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????5"
+                                                ],
+                                                "to": [
+                                                    "X????????5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????4"
+                                                ],
+                                                "to": [
+                                                    "-?????????4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????5"
+                                                ],
+                                                "to": [
+                                                    "-?????????5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????4"
+                                                ],
+                                                "to": [
+                                                    "X?????????4"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????5"
+                                                ],
+                                                "to": [
+                                                    "X?????????5"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-3"
+                                                ],
+                                                "to": [
+                                                    "-3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?4"
+                                                ],
+                                                "to": [
+                                                    "-4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X3"
+                                                ],
+                                                "to": [
+                                                    "X3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?4"
+                                                ],
+                                                "to": [
+                                                    "X4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?3"
+                                                ],
+                                                "to": [
+                                                    "-?3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??4"
+                                                ],
+                                                "to": [
+                                                    "-?4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?3"
+                                                ],
+                                                "to": [
+                                                    "X?3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??4"
+                                                ],
+                                                "to": [
+                                                    "X?4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??3"
+                                                ],
+                                                "to": [
+                                                    "-??3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???4"
+                                                ],
+                                                "to": [
+                                                    "-??4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??3"
+                                                ],
+                                                "to": [
+                                                    "X??3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???4"
+                                                ],
+                                                "to": [
+                                                    "X??4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???3"
+                                                ],
+                                                "to": [
+                                                    "-???3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????4"
+                                                ],
+                                                "to": [
+                                                    "-???4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???3"
+                                                ],
+                                                "to": [
+                                                    "X???3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????4"
+                                                ],
+                                                "to": [
+                                                    "X???4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????3"
+                                                ],
+                                                "to": [
+                                                    "-????3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????4"
+                                                ],
+                                                "to": [
+                                                    "-????4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????3"
+                                                ],
+                                                "to": [
+                                                    "X????3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????4"
+                                                ],
+                                                "to": [
+                                                    "X????4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????3"
+                                                ],
+                                                "to": [
+                                                    "-?????3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????4"
+                                                ],
+                                                "to": [
+                                                    "-?????4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????3"
+                                                ],
+                                                "to": [
+                                                    "X?????3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????4"
+                                                ],
+                                                "to": [
+                                                    "X?????4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????3"
+                                                ],
+                                                "to": [
+                                                    "-??????3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????4"
+                                                ],
+                                                "to": [
+                                                    "-??????4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????3"
+                                                ],
+                                                "to": [
+                                                    "X??????3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????4"
+                                                ],
+                                                "to": [
+                                                    "X??????4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????3"
+                                                ],
+                                                "to": [
+                                                    "-???????3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????4"
+                                                ],
+                                                "to": [
+                                                    "-???????4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????3"
+                                                ],
+                                                "to": [
+                                                    "X???????3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????4"
+                                                ],
+                                                "to": [
+                                                    "X???????4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????3"
+                                                ],
+                                                "to": [
+                                                    "-????????3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????4"
+                                                ],
+                                                "to": [
+                                                    "-????????4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????3"
+                                                ],
+                                                "to": [
+                                                    "X????????3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????4"
+                                                ],
+                                                "to": [
+                                                    "X????????4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????3"
+                                                ],
+                                                "to": [
+                                                    "-?????????3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????4"
+                                                ],
+                                                "to": [
+                                                    "-?????????4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????3"
+                                                ],
+                                                "to": [
+                                                    "X?????????3"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????4"
+                                                ],
+                                                "to": [
+                                                    "X?????????4"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-2"
+                                                ],
+                                                "to": [
+                                                    "-2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?3"
+                                                ],
+                                                "to": [
+                                                    "-3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X2"
+                                                ],
+                                                "to": [
+                                                    "X2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?3"
+                                                ],
+                                                "to": [
+                                                    "X3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?2"
+                                                ],
+                                                "to": [
+                                                    "-?2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??3"
+                                                ],
+                                                "to": [
+                                                    "-?3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?2"
+                                                ],
+                                                "to": [
+                                                    "X?2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??3"
+                                                ],
+                                                "to": [
+                                                    "X?3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??2"
+                                                ],
+                                                "to": [
+                                                    "-??2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???3"
+                                                ],
+                                                "to": [
+                                                    "-??3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??2"
+                                                ],
+                                                "to": [
+                                                    "X??2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???3"
+                                                ],
+                                                "to": [
+                                                    "X??3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???2"
+                                                ],
+                                                "to": [
+                                                    "-???2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????3"
+                                                ],
+                                                "to": [
+                                                    "-???3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???2"
+                                                ],
+                                                "to": [
+                                                    "X???2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????3"
+                                                ],
+                                                "to": [
+                                                    "X???3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????2"
+                                                ],
+                                                "to": [
+                                                    "-????2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????3"
+                                                ],
+                                                "to": [
+                                                    "-????3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????2"
+                                                ],
+                                                "to": [
+                                                    "X????2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????3"
+                                                ],
+                                                "to": [
+                                                    "X????3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????2"
+                                                ],
+                                                "to": [
+                                                    "-?????2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????3"
+                                                ],
+                                                "to": [
+                                                    "-?????3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????2"
+                                                ],
+                                                "to": [
+                                                    "X?????2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????3"
+                                                ],
+                                                "to": [
+                                                    "X?????3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????2"
+                                                ],
+                                                "to": [
+                                                    "-??????2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????3"
+                                                ],
+                                                "to": [
+                                                    "-??????3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????2"
+                                                ],
+                                                "to": [
+                                                    "X??????2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????3"
+                                                ],
+                                                "to": [
+                                                    "X??????3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????2"
+                                                ],
+                                                "to": [
+                                                    "-???????2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????3"
+                                                ],
+                                                "to": [
+                                                    "-???????3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????2"
+                                                ],
+                                                "to": [
+                                                    "X???????2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????3"
+                                                ],
+                                                "to": [
+                                                    "X???????3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????2"
+                                                ],
+                                                "to": [
+                                                    "-????????2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????3"
+                                                ],
+                                                "to": [
+                                                    "-????????3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????2"
+                                                ],
+                                                "to": [
+                                                    "X????????2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????3"
+                                                ],
+                                                "to": [
+                                                    "X????????3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????2"
+                                                ],
+                                                "to": [
+                                                    "-?????????2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????3"
+                                                ],
+                                                "to": [
+                                                    "-?????????3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????2"
+                                                ],
+                                                "to": [
+                                                    "X?????????2"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????3"
+                                                ],
+                                                "to": [
+                                                    "X?????????3"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-1"
+                                                ],
+                                                "to": [
+                                                    "-1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?2"
+                                                ],
+                                                "to": [
+                                                    "-2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X1"
+                                                ],
+                                                "to": [
+                                                    "X1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?2"
+                                                ],
+                                                "to": [
+                                                    "X2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?1"
+                                                ],
+                                                "to": [
+                                                    "-?1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??2"
+                                                ],
+                                                "to": [
+                                                    "-?2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?1"
+                                                ],
+                                                "to": [
+                                                    "X?1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??2"
+                                                ],
+                                                "to": [
+                                                    "X?2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??1"
+                                                ],
+                                                "to": [
+                                                    "-??1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???2"
+                                                ],
+                                                "to": [
+                                                    "-??2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??1"
+                                                ],
+                                                "to": [
+                                                    "X??1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???2"
+                                                ],
+                                                "to": [
+                                                    "X??2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???1"
+                                                ],
+                                                "to": [
+                                                    "-???1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????2"
+                                                ],
+                                                "to": [
+                                                    "-???2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???1"
+                                                ],
+                                                "to": [
+                                                    "X???1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????2"
+                                                ],
+                                                "to": [
+                                                    "X???2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????1"
+                                                ],
+                                                "to": [
+                                                    "-????1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????2"
+                                                ],
+                                                "to": [
+                                                    "-????2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????1"
+                                                ],
+                                                "to": [
+                                                    "X????1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????2"
+                                                ],
+                                                "to": [
+                                                    "X????2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????1"
+                                                ],
+                                                "to": [
+                                                    "-?????1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????2"
+                                                ],
+                                                "to": [
+                                                    "-?????2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????1"
+                                                ],
+                                                "to": [
+                                                    "X?????1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????2"
+                                                ],
+                                                "to": [
+                                                    "X?????2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????1"
+                                                ],
+                                                "to": [
+                                                    "-??????1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????2"
+                                                ],
+                                                "to": [
+                                                    "-??????2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????1"
+                                                ],
+                                                "to": [
+                                                    "X??????1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????2"
+                                                ],
+                                                "to": [
+                                                    "X??????2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????1"
+                                                ],
+                                                "to": [
+                                                    "-???????1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????2"
+                                                ],
+                                                "to": [
+                                                    "-???????2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????1"
+                                                ],
+                                                "to": [
+                                                    "X???????1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????2"
+                                                ],
+                                                "to": [
+                                                    "X???????2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????1"
+                                                ],
+                                                "to": [
+                                                    "-????????1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????2"
+                                                ],
+                                                "to": [
+                                                    "-????????2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????1"
+                                                ],
+                                                "to": [
+                                                    "X????????1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????2"
+                                                ],
+                                                "to": [
+                                                    "X????????2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????1"
+                                                ],
+                                                "to": [
+                                                    "-?????????1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????2"
+                                                ],
+                                                "to": [
+                                                    "-?????????2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????1"
+                                                ],
+                                                "to": [
+                                                    "X?????????1"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????2"
+                                                ],
+                                                "to": [
+                                                    "X?????????2"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-0"
+                                                ],
+                                                "to": [
+                                                    "-0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?1"
+                                                ],
+                                                "to": [
+                                                    "-1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X0"
+                                                ],
+                                                "to": [
+                                                    "X0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?1"
+                                                ],
+                                                "to": [
+                                                    "X1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?0"
+                                                ],
+                                                "to": [
+                                                    "-?0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??1"
+                                                ],
+                                                "to": [
+                                                    "-?1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?0"
+                                                ],
+                                                "to": [
+                                                    "X?0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??1"
+                                                ],
+                                                "to": [
+                                                    "X?1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??0"
+                                                ],
+                                                "to": [
+                                                    "-??0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???1"
+                                                ],
+                                                "to": [
+                                                    "-??1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??0"
+                                                ],
+                                                "to": [
+                                                    "X??0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???1"
+                                                ],
+                                                "to": [
+                                                    "X??1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???0"
+                                                ],
+                                                "to": [
+                                                    "-???0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????1"
+                                                ],
+                                                "to": [
+                                                    "-???1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???0"
+                                                ],
+                                                "to": [
+                                                    "X???0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????1"
+                                                ],
+                                                "to": [
+                                                    "X???1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????0"
+                                                ],
+                                                "to": [
+                                                    "-????0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????1"
+                                                ],
+                                                "to": [
+                                                    "-????1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????0"
+                                                ],
+                                                "to": [
+                                                    "X????0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????1"
+                                                ],
+                                                "to": [
+                                                    "X????1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????0"
+                                                ],
+                                                "to": [
+                                                    "-?????0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????1"
+                                                ],
+                                                "to": [
+                                                    "-?????1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????0"
+                                                ],
+                                                "to": [
+                                                    "X?????0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????1"
+                                                ],
+                                                "to": [
+                                                    "X?????1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-??????0"
+                                                ],
+                                                "to": [
+                                                    "-??????0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????1"
+                                                ],
+                                                "to": [
+                                                    "-??????1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X??????0"
+                                                ],
+                                                "to": [
+                                                    "X??????0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "???????1"
+                                                ],
+                                                "to": [
+                                                    "X??????1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-???????0"
+                                                ],
+                                                "to": [
+                                                    "-???????0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????1"
+                                                ],
+                                                "to": [
+                                                    "-???????1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X???????0"
+                                                ],
+                                                "to": [
+                                                    "X???????0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "????????1"
+                                                ],
+                                                "to": [
+                                                    "X???????1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-????????0"
+                                                ],
+                                                "to": [
+                                                    "-????????0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????1"
+                                                ],
+                                                "to": [
+                                                    "-????????1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X????????0"
+                                                ],
+                                                "to": [
+                                                    "X????????0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "?????????1"
+                                                ],
+                                                "to": [
+                                                    "X????????1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "-?????????0"
+                                                ],
+                                                "to": [
+                                                    "-?????????0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????1"
+                                                ],
+                                                "to": [
+                                                    "-?????????1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "atomic",
+                                        "rules": [
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "X?????????0"
+                                                ],
+                                                "to": [
+                                                    "X?????????0"
+                                                ],
+                                                "side_effect": null
+                                            },
+                                            {
+                                                "type": "simple",
+                                                "from": [
+                                                    "??????????1"
+                                                ],
+                                                "to": [
+                                                    "X?????????1"
+                                                ],
+                                                "side_effect": null
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "spawn_piece": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "atomic",
+                        "rules": [
+                            {
+                                "type": "simple",
+                                "from": [
+                                    "^___",
+                                    "----",
+                                    "----"
+                                ],
+                                "to": [
+                                    "^___",
+                                    "----",
+                                    "----"
+                                ],
+                                "side_effect": null
+                            },
+                            {
+                                "type": "random",
+                                "rules": [
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "^___",
+                                            "----",
+                                            "----"
+                                        ],
+                                        "to": [
+                                            "^___",
+                                            "-xx-",
+                                            "-xx-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "^___",
+                                            "----",
+                                            "----"
+                                        ],
+                                        "to": [
+                                            "^___",
+                                            "----",
+                                            "xoxx"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "^___",
+                                            "----",
+                                            "----"
+                                        ],
+                                        "to": [
+                                            "^___",
+                                            "x---",
+                                            "xxx-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "^___",
+                                            "----",
+                                            "----"
+                                        ],
+                                        "to": [
+                                            "^___",
+                                            "--x-",
+                                            "xxx-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "^___",
+                                            "----",
+                                            "----"
+                                        ],
+                                        "to": [
+                                            "^___",
+                                            "-xx-",
+                                            "xo--"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "^___",
+                                            "----",
+                                            "----"
+                                        ],
+                                        "to": [
+                                            "^___",
+                                            "xx--",
+                                            "-ox-"
+                                        ],
+                                        "side_effect": null
+                                    },
+                                    {
+                                        "type": "simple",
+                                        "from": [
+                                            "^___",
+                                            "----",
+                                            "----"
+                                        ],
+                                        "to": [
+                                            "^___",
+                                            "-x--",
+                                            "xxx-"
+                                        ],
+                                        "side_effect": null
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "move_left": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-xoxx"
+                        ],
+                        "to": [
+                            "xoxx-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-xxox"
+                        ],
+                        "to": [
+                            "xxox-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-x",
+                            "-o",
+                            "-x",
+                            "-x"
+                        ],
+                        "to": [
+                            "x-",
+                            "o-",
+                            "x-",
+                            "x-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-x",
+                            "-x",
+                            "-o",
+                            "-x"
+                        ],
+                        "to": [
+                            "x-",
+                            "x-",
+                            "o-",
+                            "x-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-x??",
+                            "-xxx"
+                        ],
+                        "to": [
+                            "x-??",
+                            "xxx-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-xx",
+                            "-x?",
+                            "-x?"
+                        ],
+                        "to": [
+                            "xx-",
+                            "x-?",
+                            "x-?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-xxx",
+                            "??-x"
+                        ],
+                        "to": [
+                            "xxx-",
+                            "??x-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?-x",
+                            "?-x",
+                            "-xx"
+                        ],
+                        "to": [
+                            "?x-",
+                            "?x-",
+                            "xx-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??-x",
+                            "-xxx"
+                        ],
+                        "to": [
+                            "??x-",
+                            "xxx-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-xx",
+                            "?-x",
+                            "?-x"
+                        ],
+                        "to": [
+                            "xx-",
+                            "?x-",
+                            "?x-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-xxx",
+                            "-x??"
+                        ],
+                        "to": [
+                            "xxx-",
+                            "x-??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-x?",
+                            "-x?",
+                            "-xx"
+                        ],
+                        "to": [
+                            "x-?",
+                            "x-?",
+                            "xx-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-xx",
+                            "-xx"
+                        ],
+                        "to": [
+                            "xx-",
+                            "xx-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?-ox",
+                            "-xx?"
+                        ],
+                        "to": [
+                            "?ox-",
+                            "xx-?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-x?",
+                            "-ox",
+                            "?-x"
+                        ],
+                        "to": [
+                            "x-?",
+                            "ox-",
+                            "?x-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?-xx",
+                            "-xo-"
+                        ],
+                        "to": [
+                            "?xx-",
+                            "xo-?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-x?",
+                            "-xo",
+                            "?-x"
+                        ],
+                        "to": [
+                            "x-?",
+                            "xo-",
+                            "?x-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?-x?",
+                            "-xxx"
+                        ],
+                        "to": [
+                            "?x-?",
+                            "xxx-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-x?",
+                            "-xx",
+                            "-x?"
+                        ],
+                        "to": [
+                            "x-?",
+                            "xx-",
+                            "x-?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-xxx",
+                            "?-x?"
+                        ],
+                        "to": [
+                            "xxx-",
+                            "?x-?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?-x",
+                            "-xx",
+                            "?-x"
+                        ],
+                        "to": [
+                            "?x-",
+                            "xx-",
+                            "?x-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-xo?",
+                            "?-xx"
+                        ],
+                        "to": [
+                            "xo-?",
+                            "?xx-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?-x",
+                            "-ox",
+                            "-x?"
+                        ],
+                        "to": [
+                            "?x-",
+                            "ox-",
+                            "x-?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "-xx?",
+                            "?-ox"
+                        ],
+                        "to": [
+                            "xx-?",
+                            "?ox-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?-x",
+                            "-xo",
+                            "-x?"
+                        ],
+                        "to": [
+                            "?x-",
+                            "xo-",
+                            "x-?"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "move_right": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xoxx-"
+                        ],
+                        "to": [
+                            "-xoxx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xxox-"
+                        ],
+                        "to": [
+                            "-xxox"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "x-",
+                            "o-",
+                            "x-",
+                            "x-"
+                        ],
+                        "to": [
+                            "-x",
+                            "-o",
+                            "-x",
+                            "-x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "x-",
+                            "x-",
+                            "o-",
+                            "x-"
+                        ],
+                        "to": [
+                            "-x",
+                            "-x",
+                            "-o",
+                            "-x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "x-??",
+                            "xxx-"
+                        ],
+                        "to": [
+                            "-x??",
+                            "-xxx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xx-",
+                            "x-?",
+                            "x-?"
+                        ],
+                        "to": [
+                            "-xx",
+                            "-x?",
+                            "-x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xxx-",
+                            "??x-"
+                        ],
+                        "to": [
+                            "-xxx",
+                            "??-x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?x-",
+                            "?x-",
+                            "xx-"
+                        ],
+                        "to": [
+                            "?-x",
+                            "?-x",
+                            "-xx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??x-",
+                            "xxx-"
+                        ],
+                        "to": [
+                            "??-x",
+                            "-xxx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xx-",
+                            "?x-",
+                            "?x-"
+                        ],
+                        "to": [
+                            "-xx",
+                            "?-x",
+                            "?-x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xxx-",
+                            "x-??"
+                        ],
+                        "to": [
+                            "-xxx",
+                            "-x??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "x-?",
+                            "x-?",
+                            "xx-"
+                        ],
+                        "to": [
+                            "-x?",
+                            "-x?",
+                            "-xx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xx-",
+                            "xx-"
+                        ],
+                        "to": [
+                            "-xx",
+                            "-xx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?ox-",
+                            "xx-?"
+                        ],
+                        "to": [
+                            "?-ox",
+                            "-xx?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "x-?",
+                            "ox-",
+                            "?x-"
+                        ],
+                        "to": [
+                            "-x?",
+                            "-ox",
+                            "?-x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?xx-",
+                            "xo-?"
+                        ],
+                        "to": [
+                            "?-xx",
+                            "-xo-"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "x-?",
+                            "xo-",
+                            "?x-"
+                        ],
+                        "to": [
+                            "-x?",
+                            "-xo",
+                            "?-x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?x-?",
+                            "xxx-"
+                        ],
+                        "to": [
+                            "?-x?",
+                            "-xxx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "x-?",
+                            "xx-",
+                            "x-?"
+                        ],
+                        "to": [
+                            "-x?",
+                            "-xx",
+                            "-x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xxx-",
+                            "?x-?"
+                        ],
+                        "to": [
+                            "-xxx",
+                            "?-x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?x-",
+                            "xx-",
+                            "?x-"
+                        ],
+                        "to": [
+                            "?-x",
+                            "-xx",
+                            "?-x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xo-?",
+                            "?xx-"
+                        ],
+                        "to": [
+                            "-xo?",
+                            "?-xx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?x-",
+                            "ox-",
+                            "x-?"
+                        ],
+                        "to": [
+                            "?-x",
+                            "-ox",
+                            "-x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xx-?",
+                            "?ox-"
+                        ],
+                        "to": [
+                            "-xx?",
+                            "?-ox"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?x-",
+                            "xo-",
+                            "x-?"
+                        ],
+                        "to": [
+                            "?-x",
+                            "-xo",
+                            "-x?"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            },
+            "step_internal": {
+                "type": "match1",
+                "rules": [
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xoxx",
+                            "----"
+                        ],
+                        "to": [
+                            "----",
+                            "xoxx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xxox",
+                            "----"
+                        ],
+                        "to": [
+                            "----",
+                            "xxox"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "x",
+                            "x",
+                            "o",
+                            "x",
+                            "-"
+                        ],
+                        "to": [
+                            "-",
+                            "x",
+                            "x",
+                            "o",
+                            "x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "x",
+                            "o",
+                            "x",
+                            "x",
+                            "-"
+                        ],
+                        "to": [
+                            "-",
+                            "x",
+                            "o",
+                            "x",
+                            "x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "x??",
+                            "xxx",
+                            "---"
+                        ],
+                        "to": [
+                            "-??",
+                            "x--",
+                            "xxx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xx",
+                            "x-",
+                            "x?",
+                            "-?"
+                        ],
+                        "to": [
+                            "--",
+                            "xx",
+                            "x?",
+                            "x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xxx",
+                            "--x",
+                            "??-"
+                        ],
+                        "to": [
+                            "---",
+                            "xxx",
+                            "??x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?x",
+                            "?x",
+                            "xx",
+                            "--"
+                        ],
+                        "to": [
+                            "?-",
+                            "?x",
+                            "-x",
+                            "xx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "??x",
+                            "xxx",
+                            "---"
+                        ],
+                        "to": [
+                            "??-",
+                            "--x",
+                            "xxx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xx",
+                            "-x",
+                            "?x",
+                            "?-"
+                        ],
+                        "to": [
+                            "--",
+                            "xx",
+                            "?x",
+                            "?x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xxx",
+                            "x--",
+                            "???"
+                        ],
+                        "to": [
+                            "---",
+                            "xxx",
+                            "x??"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "x?",
+                            "x?",
+                            "xx",
+                            "--"
+                        ],
+                        "to": [
+                            "-?",
+                            "x?",
+                            "x-",
+                            "xx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xx",
+                            "xx",
+                            "--"
+                        ],
+                        "to": [
+                            "--",
+                            "xx",
+                            "xx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?ox",
+                            "xx-",
+                            "--?"
+                        ],
+                        "to": [
+                            "?--",
+                            "-ox",
+                            "xx?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "x?",
+                            "ox",
+                            "-x",
+                            "?-"
+                        ],
+                        "to": [
+                            "-?",
+                            "x-",
+                            "ox",
+                            "?x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?xx",
+                            "xo-",
+                            "--?"
+                        ],
+                        "to": [
+                            "?--",
+                            "-xx",
+                            "xo?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "x?",
+                            "xo",
+                            "-x",
+                            "?-"
+                        ],
+                        "to": [
+                            "-?",
+                            "x-",
+                            "xo",
+                            "?x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?x?",
+                            "xxx",
+                            "---"
+                        ],
+                        "to": [
+                            "?-?",
+                            "-x-",
+                            "xxx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "x?",
+                            "xx",
+                            "x-",
+                            "-?"
+                        ],
+                        "to": [
+                            "-?",
+                            "x-",
+                            "xx",
+                            "x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xxx",
+                            "-x-",
+                            "?-?"
+                        ],
+                        "to": [
+                            "---",
+                            "xxx",
+                            "?x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?x",
+                            "xx",
+                            "-x",
+                            "?-"
+                        ],
+                        "to": [
+                            "?-",
+                            "-x",
+                            "xx",
+                            "?x"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xo?",
+                            "-xx",
+                            "?--"
+                        ],
+                        "to": [
+                            "--?",
+                            "xo-",
+                            "?xx"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?x",
+                            "ox",
+                            "x-",
+                            "-?"
+                        ],
+                        "to": [
+                            "?-",
+                            "-x",
+                            "ox",
+                            "x?"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "xx?",
+                            "-ox",
+                            "?--"
+                        ],
+                        "to": [
+                            "--?",
+                            "xx-",
+                            "?ox"
+                        ],
+                        "side_effect": null
+                    },
+                    {
+                        "type": "simple",
+                        "from": [
+                            "?x",
+                            "xo",
+                            "x-",
+                            "-?"
+                        ],
+                        "to": [
+                            "?-",
+                            "-x",
+                            "xo",
+                            "x?"
+                        ],
+                        "side_effect": null
+                    }
+                ]
+            }
+        },
+        "binds": {
+            "a": "move_left",
+            "s": "step",
+            "d": "move_right",
+            "e": "rotate_right",
+            "l": "line_clear"
+        },
+        "goals": [
+            [
+                "NONE"
+            ]
+        ],
+        "voids": [],
+        "whitespaceChar": null,
+        "charMap": {
+            "o": "x",
+            "^": "_"
+        },
+        "colorMap": {
+            "x": "#cc0000",
+            "o": "#cc0000",
+            "X": "#333333"
+        }
     }
 };

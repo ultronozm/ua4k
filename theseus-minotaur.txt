@@ -1,6 +1,11 @@
 VOID
 o
 
+COLOR # #779977
+COLOR T #0000ff
+COLOR M #990055
+COLOR o #aaaa00
+
 WHITESPACE .
 
 _.T._#_

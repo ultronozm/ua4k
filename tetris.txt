@@ -1,0 +1,515 @@
+GOAL
+NONE
+
+
+COLOR x #cc0000
+COLOR o #cc0000
+COLOR X #333333
+
+CHARMAP o x ^ _
+
+___^_______
+----------0
+----------1
+----------2
+----------3
+----------4
+----------5
+----------6
+----------7
+----------8
+----------9
+----------A
+----------B
+----------C
+----------D
+----------E
+----------F
+----------G
+----------H
+----------I
+----------J
+----------K
+----------L
+----------M
+----------N
+
+BIND a move_left s step d move_right e rotate_right l line_clear
+
+CMD freeze_piece
+ TRY_ALL
+  x X
+  
+  x X
+  
+  x X
+  
+  x X
+  
+  o X
+
+CMD rotate_right
+
+ ??-? ??x?
+ xoxx --o-
+ ??-? ??x?
+ ??-? ??x?
+ 
+ ??x? ??-?
+ ??o? ??-?
+ --x- xxox
+ ??x? ??-?
+ 
+ ?-?? ?x??
+ ?-?? ?x??
+ xxox -o--
+ ?-?? ?x??
+ 
+ ?x?? ?-??
+ -x-- xoxx
+ ?o?? ?-??
+ ?x?? ?-??
+ 
+ x-- -xx
+ xxx -x-
+ ?-? ?x?
+ 
+ ?xx ?--
+ -x- xxx
+ ?x- ?-x
+ 
+ ?-? ?x?
+ xxx -x-
+ --x xx-
+ 
+ -x? x-?
+ -x- xxx
+ xx? --?
+ 
+ 
+ --x xx-
+ xxx -x-
+ ?-? ?x?
+ 
+ xx? --?
+ -x- xxx
+ -x? x-?
+ 
+ ?-? ?x?
+ xxx -x-
+ x-- -xx
+ 
+ ?x- ?-x
+ -x- xxx
+ ?xx ?--
+ 
+ xx
+ xx 
+ 
+ ?xx ?x-
+ xo- -ox
+ ??- ??x
+ 
+ ?x? ?-?
+ ?ox ?ox
+ --x xx-
+ 
+ -?? x??
+ -ox xo-
+ xx? -x?
+ 
+ x-- -xx
+ xo? xo?
+ ?x? ?-?
+ 
+ ?x? ?x?
+ xxx -xx
+ ?-? ?x?
+ 
+ ?x? ?-?
+ -xx xxx
+ ?x? ?x?
+ 
+ ?-? ?x?
+ xxx xx-
+ ?x? ?x?
+ 
+ ?x? ?x?
+ xx- xxx
+ ?x? ?-?
+ 
+ 
+ 
+ xx- --x
+ ?ox ?ox
+ ?-? ?x?
+ 
+ ??x ??-
+ -ox xo-
+ ?x- ?xx
+ 
+ ?-? ?x?
+ xo? xo?
+ -xx x--
+ 
+ -x? xx?
+ xo- -ox
+ x?? -??
+ 
+
+;; CMD rotate_left
+
+CMD step
+ CALL step_internal
+ TRY_ALL
+  CALL freeze_piece
+  CALL line_clear
+  CALL line_clear
+  CALL line_clear
+  CALL line_clear
+  MATCH1
+   CALL spawn_piece
+   ;; CALL gameover
+
+CMD line_clear
+ ATOMIC             
+  XXXXXXXXXXN
+
+  TRY_ALL
+   ZIP p MLKJIHGFEDCBA9876543210 q NMLKJIHGFEDCBA987654321
+    LET_REPEAT 0 10 1 t ?
+     FOR * -X
+      ATOMIC
+       *tp
+       
+       ?tq *tq
+
+CMD spawn_piece
+
+ ATOMIC
+  ^___
+  ----
+  ----
+
+  RANDOM
+   ^___ ^___
+   ---- -xx-
+   ---- -xx-
+   
+   ^___ ^___
+   ---- ----
+   ---- xoxx
+   
+   ^___ ^___
+   ---- x---
+   ---- xxx-
+   
+   ^___ ^___
+   ---- --x-
+   ---- xxx-
+   
+   ^___ ^___
+   ---- -xx-
+   ---- xo--
+   
+   ^___ ^___
+   ---- xx--
+   ---- -ox-
+   
+   ^___ ^___
+   ---- -x--
+   ---- xxx-
+  
+CMD move_left
+ 
+ -xoxx xoxx-
+  
+ -xxox xxox-
+ 
+ -x x-
+ -o o-
+ -x x-
+ -x x-
+ 
+ -x x-
+ -x x-
+ -o o-
+ -x x-
+ 
+ -x?? x-??
+ -xxx xxx-
+ 
+ -xx xx-
+ -x? x-?
+ -x? x-?
+ 
+ -xxx xxx-
+ ??-x ??x-
+ 
+ ?-x ?x-
+ ?-x ?x-
+ -xx xx-
+ 
+ ??-x ??x-
+ -xxx xxx-
+ 
+ -xx xx-
+ ?-x ?x-
+ ?-x ?x-
+  
+ -xxx xxx-
+ -x?? x-??
+ 
+ -x? x-?
+ -x? x-?
+ -xx xx-
+  
+ -xx xx-
+ -xx xx-
+  
+ ?-ox ?ox-
+ -xx? xx-?
+  
+ -x? x-?
+ -ox ox-
+ ?-x ?x-
+  
+ ?-xx ?xx-
+ -xo- xo-?
+  
+ -x? x-?
+ -xo xo-
+ ?-x ?x-
+  
+ ?-x? ?x-?
+ -xxx xxx-
+  
+ -x? x-?
+ -xx xx-
+ -x? x-?
+  
+ -xxx xxx-
+ ?-x? ?x-?
+  
+ ?-x ?x-
+ -xx xx-
+ ?-x ?x-
+  
+ -xo? xo-?
+ ?-xx ?xx-
+  
+ ?-x ?x-
+ -ox ox-
+ -x? x-?
+ 
+ -xx? xx-?
+ ?-ox ?ox-
+  
+ ?-x ?x-
+ -xo xo-
+ -x? x-?
+  
+CMD move_right
+  
+ xoxx- -xoxx
+  
+ xxox- -xxox
+ 
+ x- -x
+ o- -o
+ x- -x
+ x- -x
+ 
+ x- -x
+ x- -x
+ o- -o
+ x- -x
+ 
+ x-?? -x??
+ xxx- -xxx
+ 
+ xx- -xx
+ x-? -x?
+ x-? -x?
+ 
+ xxx- -xxx
+ ??x- ??-x
+ 
+ ?x- ?-x
+ ?x- ?-x
+ xx- -xx
+ 
+ ??x- ??-x
+ xxx- -xxx
+ 
+ xx- -xx
+ ?x- ?-x
+ ?x- ?-x
+  
+ xxx- -xxx
+ x-?? -x??
+ 
+ x-? -x?
+ x-? -x?
+ xx- -xx
+  
+ xx- -xx
+ xx- -xx
+  
+ ?ox- ?-ox
+ xx-? -xx?
+  
+ x-? -x?
+ ox- -ox
+ ?x- ?-x
+  
+ ?xx- ?-xx
+ xo-? -xo-
+  
+ x-? -x?
+ xo- -xo
+ ?x- ?-x
+  
+ ?x-? ?-x?
+ xxx- -xxx
+  
+ x-? -x?
+ xx- -xx
+ x-? -x?
+  
+ xxx- -xxx
+ ?x-? ?-x?
+  
+ ?x- ?-x
+ xx- -xx
+ ?x- ?-x
+  
+ xo-? -xo?
+ ?xx- ?-xx
+  
+ ?x- ?-x
+ ox- -ox
+ x-? -x?
+ 
+ xx-? -xx?
+ ?ox- ?-ox
+  
+ ?x- ?-x
+ xo- -xo
+ x-? -x?
+ 
+ 
+CMD step_internal
+
+ xoxx ----
+ ---- xoxx
+
+ xxox ----
+ ---- xxox
+ 
+ x -
+ x x
+ o x
+ x o
+ - x
+ 
+ x -
+ o x
+ x o
+ x x
+ - x
+ 
+ x?? -??
+ xxx x--
+ --- xxx
+ 
+ xx --
+ x- xx
+ x? x?
+ -? x?
+ 
+ xxx ---
+ --x xxx
+ ??- ??x
+ 
+ ?x ?-
+ ?x ?x
+ xx -x
+ -- xx
+ 
+ ??x ??-
+ xxx --x
+ --- xxx
+ 
+ xx --
+ -x xx
+ ?x ?x
+ ?- ?x
+ 
+ xxx ---
+ x-- xxx
+ ??? x??
+ 
+ x? -?
+ x? x?
+ xx x-
+ -- xx
+ 
+ xx --
+ xx xx
+ -- xx
+ 
+ ?ox ?--
+ xx- -ox
+ --? xx?
+ 
+ x? -?
+ ox x-
+ -x ox
+ ?- ?x
+ 
+ ?xx ?--
+ xo- -xx
+ --? xo?
+ 
+ x? -?
+ xo x-
+ -x xo
+ ?- ?x
+ 
+ ?x? ?-?
+ xxx -x-
+ --- xxx
+ 
+ x? -?
+ xx x-
+ x- xx
+ -? x?
+ 
+ xxx ---
+ -x- xxx
+ ?-? ?x?
+ 
+ ?x ?-
+ xx -x
+ -x xx
+ ?- ?x
+ 
+ xo? --?
+ -xx xo-
+ ?-- ?xx
+ 
+ ?x ?-
+ ox -x
+ x- ox
+ -? x?
+
+ xx? --?
+ -ox xx-
+ ?-- ?ox
+ 
+ ?x ?-
+ xo -x
+ x- xo
+ -? x?
+  

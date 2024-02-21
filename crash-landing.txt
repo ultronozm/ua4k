@@ -1,6 +1,15 @@
 VOID
 !
 
+COLOR * #000000
+COLOR ~ #0000ff
+COLOR 8 #007700
+COLOR A #00aaaa
+COLOR o #ff7700
+COLOR ! #aaaa00
+COLOR - #aaaaaa
+COLOR r #990055
+
 BIND w north s south a west d east e mine x destroy
 BIND f build_oxygen_station o build_oxygen_station r build_refinery
 BIND W look_north S look_south A look_west D look_east

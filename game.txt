@@ -1,6 +1,24 @@
 VOID
 o
 
+COLOR x #444444
+COLOR - #aaaaaa
+COLOR > #0000aa
+COLOR < #0000aa
+COLOR ^ #0000aa
+COLOR v #0000aa
+COLOR / #aa0077
+COLOR \ #aa0077
+COLOR b #007700
+COLOR e #cc0000
+COLOR p #aaaa00
+COLOR q #aaaa00
+COLOR t #990055
+COLOR d #990000
+COLOR k #00aa77
+COLOR l #0077aa
+
+
 WHITESPACE -
 
 -----

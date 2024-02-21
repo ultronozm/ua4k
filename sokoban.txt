@@ -3,6 +3,14 @@ o
 
 WHITESPACE -
 
+COLOR * #3300ff
+COLOR x #777777
+COLOR X #333333
+COLOR o #ff7700
+COLOR ! #cc0000
+COLOR # #779977
+
+
 CHARMAP ! *
 
 ##---#

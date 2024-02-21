@@ -8,6 +8,7 @@ let board = null;
 let board_history = [];
 // let whitespaceChar = null;
 let charMap = {};
+let colorMap = {};
 
 var gamesDropdown = document.getElementById('games');
 for (let key in gamesData) {
@@ -27,8 +28,9 @@ function initGame(data) {
     binds = data.binds;
     goals = data.goals;
     voids = data.voids;
-    whitespaceChar = data.whitespace_char;
-    charMap = data.charmap;
+    whitespaceChar = data.whitespaceChar;
+    charMap = data.charMap;
+    colorMap = data.colorMap;
     level_number = 0;
     board = null;
     initLevel();
@@ -83,16 +85,30 @@ function drawBoard() {
     let displayElem = document.getElementById('display');
     displayElem.innerHTML = '';
     
+    // Example colorMap
+    // const colorMap = {
+    //     '*': '#ff0000', // Red for 'A'
+    //     'x': '#0000ff', // Blue for 'B'
+    //     // Add more mappings as needed
+    // };
+    
     for (let row = 0; row < board.length; row++) {
         let boardStr = '';
         for (let col = 0; col < board[row].length; col++) {
-            let newChar = board[row][col];
-            if (newChar == whitespaceChar) {
+            let baseChar = board[row][col];
+            let newChar = baseChar;
+            if (baseChar == whitespaceChar) {
                 newChar = '&nbsp;'; // update here
             }
             else if (charMap[newChar]) {
                 newChar = charMap[newChar];
             }
+            // Check if the character has a specified color
+            if (colorMap[baseChar]) {
+                // Wrap the character in a span with the color style
+                newChar = `<span style="color: ${colorMap[baseChar]}">${newChar}</span>`;
+            }
+
             boardStr += newChar;
         }
         // No longer creating separate text nodes. Instead, appending strings directly to innerHTML.
