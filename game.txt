@@ -1,6 +1,8 @@
 VOID
 o
 
+WHITESPACE -
+
 -----
 >*--o
 -----

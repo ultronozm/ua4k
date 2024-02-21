@@ -16,6 +16,8 @@ rules = {} # dict mapping names to rules
 binds = {}
 goals = []
 voids = []
+whitespace_char = None
+charmap = {}
 
 temp_board = []
 temp_goal = None
@@ -182,6 +184,11 @@ for line in lines:
             title = line.strip().split("TITLE", 1)[1].strip()
             if len(levels) > 0:
                 levels[-1]["title"] = title
+        case "WHITESPACE":
+            whitespace_char = line.strip().split(" ", 1)[1].strip()
+        case "CHARMAP":
+            for i in range(1, len(line.strip().split()), 2):
+                charmap[line.strip().split()[i]] = line.strip().split()[i+1]
         case "BY":
             author = line.strip().split("BY", 1)[1].strip()
             if len(levels) > 0:
@@ -342,7 +349,8 @@ for line in lines:
 on_blank_line()
 process_rule_stack_to_level(0)
 
-result = {'levels': levels, 'rules': rules, 'binds': binds, 'goals': goals, 'voids': voids}
+result = {'levels': levels, 'rules': rules, 'binds': binds, 'goals': goals, 'voids': voids,
+          'whitespace_char': whitespace_char, 'charmap': charmap}
 
 try:
     with open('gamesData.js', 'r') as json_file:

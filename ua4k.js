@@ -6,6 +6,8 @@ let voids = [];
 let level_number = 0;
 let board = null;
 let board_history = [];
+// let whitespaceChar = null;
+let charMap = {};
 
 var gamesDropdown = document.getElementById('games');
 for (let key in gamesData) {
@@ -25,6 +27,8 @@ function initGame(data) {
     binds = data.binds;
     goals = data.goals;
     voids = data.voids;
+    whitespaceChar = data.whitespace_char;
+    charMap = data.charmap;
     level_number = 0;
     board = null;
     initLevel();
@@ -78,22 +82,28 @@ function updateDocsDisplay() {
 function drawBoard() {
     let displayElem = document.getElementById('display');
     displayElem.innerHTML = '';
-
+    
     for (let row = 0; row < board.length; row++) {
         let boardStr = '';
         for (let col = 0; col < board[row].length; col++) {
-            boardStr += board[row][col];
+            let newChar = board[row][col];
+            if (newChar == whitespaceChar) {
+                newChar = '&nbsp;'; // update here
+            }
+            else if (charMap[newChar]) {
+                newChar = charMap[newChar];
+            }
+            boardStr += newChar;
         }
-
-        let textNode = document.createTextNode(boardStr);
-        displayElem.appendChild(textNode);
-
+        // No longer creating separate text nodes. Instead, appending strings directly to innerHTML.
+        displayElem.innerHTML += boardStr;
+        
         if (row !== board.length - 1) {
-            let brNode = document.createElement("br");
-            displayElem.appendChild(brNode);
+            displayElem.innerHTML += "<br>";  // also changed appending br directly
         }
     }
 }
+
 
 
 function initLevel() {

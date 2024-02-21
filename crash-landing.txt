@@ -2,8 +2,9 @@ VOID
 !
 
 BIND w north s south a west d east e mine x destroy
-BIND o build_oxygen_station r build_refinery
+BIND f build_oxygen_station o build_oxygen_station r build_refinery
 BIND W look_north S look_south A look_west D look_east
+
 
 -----------!---------------!-----
 ---------------------------------
@@ -240,14 +241,33 @@ O2:..............|---------------
 =CONSTRUCTION====================
 o:8~~|---------------------------
 r:88A|---------------------------
-#:8|-----------------------------
 =DESTRUCTION=====================
 X:8~AAAA|------------------------
 =================================
 %:---------------------------->-%
 
-DESCRIPTION The energy cells are guarded by a zombie "Z", who chases when you end an action with "*" in the 7x7 grid centered at "Z".
+DESCRIPTION This time, you start with full resources, but the energy cells are guarded by a zombie "Z", who chases when you end an action with your character "*" in the 7x7 grid centered at the zombie "Z".
 
+
+
+-------88A-X!-----!X-------------
+------o*---X---Z---X----o--------
+-----------X!-----!X-------------
+------~~---XXXXXXXXX----~8-------
+------~~8--------------~8AA------
+_________________________________
+O2:..............|---------------
+=RESOURCES=======================
+8:________|A:________|~:________|
+=CONSTRUCTION====================
+o:8~~|---------------------------
+r:88A|---------------------------
+=DESTRUCTION=====================
+X:8~AAAA|------------------------
+=================================
+%:---------------------------->-%
+
+DESCRIPTION This level is not particularly inspired, and should be replaced with something better.
 
 
 CMD look_north

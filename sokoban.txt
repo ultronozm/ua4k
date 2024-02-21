@@ -1,6 +1,10 @@
 VOID
 o
 
+WHITESPACE -
+
+CHARMAP ! *
+
 ##---#
 o*x--#
 ##-xo#
