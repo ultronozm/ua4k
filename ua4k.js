@@ -6,9 +6,18 @@ let voids = [];
 let level_number = 0;
 let board = null;
 let board_history = [];
-// let whitespaceChar = null;
 let charMap = {};
 let colorMap = {};
+let timerId = null;
+let whitespaceChars = [];
+
+function onTimerTick() {
+    console.log("onTimerTick");
+    if (rules_dict['_tick']) {
+        applyRule(rules_dict['_tick']);
+        drawBoard();
+    }
+}
 
 var gamesDropdown = document.getElementById('games');
 for (let key in gamesData) {
@@ -23,12 +32,13 @@ gamesDropdown.addEventListener('change', function() {
 });
 
 function initGame(data) {
+    console.log("initGame");
     levels = data.levels;
     rules_dict = data.rules;
     binds = data.binds;
     goals = data.goals;
     voids = data.voids;
-    whitespaceChar = data.whitespaceChar;
+    whitespaceChars = data.whitespaceChars;
     charMap = data.charMap;
     colorMap = data.colorMap;
     level_number = 0;
@@ -37,6 +47,7 @@ function initGame(data) {
     drawBoard();
     updateLevelDisplay();
     updateDocsDisplay();
+    console.log("initGame done");
 }
 
 gamesDropdown.addEventListener('change', function(){
@@ -85,19 +96,13 @@ function drawBoard() {
     let displayElem = document.getElementById('display');
     displayElem.innerHTML = '';
     
-    // Example colorMap
-    // const colorMap = {
-    //     '*': '#ff0000', // Red for 'A'
-    //     'x': '#0000ff', // Blue for 'B'
-    //     // Add more mappings as needed
-    // };
-    
     for (let row = 0; row < board.length; row++) {
         let boardStr = '';
         for (let col = 0; col < board[row].length; col++) {
             let baseChar = board[row][col];
             let newChar = baseChar;
-            if (baseChar == whitespaceChar) {
+            // check if whitespaceChars contains newChar
+            if (whitespaceChars.includes(newChar)) {
                 newChar = '&nbsp;'; // update here
             }
             else if (charMap[newChar]) {
@@ -154,6 +159,18 @@ function initLevel() {
         } else {
             displayElem.innerHTML = '';
         }
+    }
+    if (timerId) {
+        console.log("Clearing timer");
+        clearInterval(timerId);
+    }
+    if (rules_dict['_init']) {
+        applyRule(rules_dict['_init']);
+    }
+    var tickInterval = level.tickInterval;
+    if (tickInterval && rules_dict['_tick']) {
+        console.log("Starting timer");
+        timerId = setInterval(onTimerTick, tickInterval);
     }
 }
 
@@ -216,10 +233,10 @@ function applyRuleAt(rule, row, col) {
     console.log("Board before applying rule: " + board);
     let fromPattern = rule.from;
     let toPattern = rule.to;
-    let sideEffect = rule.side_effect;
+    let sideEffects = rule.side_effects;
     console.log("fromPattern: " + fromPattern);
     console.log("toPattern: " + toPattern);
-    console.log("sideEffect: " + sideEffect);
+    console.log("sideEffects: " + sideEffects);
     let patternHeight = toPattern.length;
     let patternWidth = toPattern[0].length;
     if (row >= 0 && col >= 0 && row + patternHeight <= board.length && col + patternWidth <= board[0].length) {
@@ -250,7 +267,8 @@ function applyRuleAt(rule, row, col) {
             }
         }
         console.log("Board after applying rule: " + board);
-        if (sideEffect && sideEffect.length > 0) {
+
+        for (let sideEffect of sideEffects) {
             console.log("Applying side effect: " + sideEffect);
             if (sideEffect[sideEffect.length - 1] == '!') {
                 sideEffect = sideEffect.slice(0, -1);
@@ -262,8 +280,24 @@ function applyRuleAt(rule, row, col) {
             } else {
                 applyRule(rules_dict[sideEffect]);
             }
-            console.log("Board after applying rule and side effect " + sideEffect + ": " + board);
-        }
+            console.log("Board after applying side effect " + sideEffect + ": " + board);
+        }            
+
+        
+        // if (sideEffect && sideEffect.length > 0) {
+        //     console.log("Applying side effect: " + sideEffect);
+        //     if (sideEffect[sideEffect.length - 1] == '!') {
+        //         sideEffect = sideEffect.slice(0, -1);
+        //         if (!applyRule(rules_dict[sideEffect])) {
+        //             board = JSON.parse(JSON.stringify(tempBoard));
+        //             console.log("Board after reverting: " + board);
+        //             return false;
+        //         }
+        //     } else {
+        //         applyRule(rules_dict[sideEffect]);
+        //     }
+        //     console.log("Board after applying rule and side effect " + sideEffect + ": " + board);
+        // }
     } else {
         console.log("This should never happen.")
     }
@@ -307,15 +341,45 @@ function applyRule(rule, min_row=0, min_col=0) {
     case "simple":
         var height = board.length;
         var width = board[0].length;
-        var ruleApplied = false;
         console.log("Applying SIMPLE " + rule.from + " with min_row, min_col: " + min_row + ", " + min_col);
-        for (let i = min_row; i < height && !ruleApplied; i++) {
-            for (let j = min_col; j < width && !ruleApplied; j++) {
-                if (patternMatch(rule.from, i, j)) {
-                    ruleApplied = applyRuleAt(rule, i, j);
-                    lastRow = i;
-                    lastCol = j;
+
+        var ruleApplied = false;
+        if (rule.method == 'firstmatch') {
+            for (let i = min_row; i < height && !ruleApplied; i++) {
+                for (let j = min_col; j < width && !ruleApplied; j++) {
+                    if (patternMatch(rule.from, i, j)) {
+                        ruleApplied = applyRuleAt(rule, i, j);
+                        lastRow = i;
+                        lastCol = j;
+                    }
                 }
+            }
+        } else if (rule.method == 'lastmatch') {
+            for (let i = height - 1; i >= min_row && !ruleApplied; i--) {
+                for (let j = width - 1; j >= min_col && !ruleApplied; j--) {
+                    if (patternMatch(rule.from, i, j)) {
+                        ruleApplied = applyRuleAt(rule, i, j);
+                        lastRow = i;
+                        lastCol = j;
+                    }
+                }
+            }
+        }
+        else if (rule.method == 'random') {
+            var matchPositions = [];
+            for (let i = min_row; i < height; i++) {
+                for (let j = min_col; j < width; j++) {
+                    if (patternMatch(rule.from, i, j)) {
+                        matchPositions.push([i, j]);
+                    }
+                }
+            }
+            if (matchPositions.length > 0) {
+                var randomIndex = Math.floor(Math.random() * matchPositions.length);
+                var matchPosition = matchPositions[randomIndex];
+                ruleApplied = applyRuleAt(rule, matchPosition[0], matchPosition[1]);
+                lastRow = matchPosition[0];
+                lastCol = matchPosition[1];
             }
         }
         return ruleApplied;

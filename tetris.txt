@@ -1,12 +1,110 @@
 GOAL
 NONE
 
+WHITESPACE .
 
+COLOR - #aaaaaa
 COLOR x #cc0000
 COLOR o #cc0000
 COLOR X #333333
+COLOR O #333333
+COLOR = #ffffff
+COLOR % #ffffff
+COLOR _ #ffffff
+COLOR ^ #ffffff
+COLOR 0 #ffffff
+COLOR 1 #ffffff
+COLOR 2 #ffffff
+COLOR 3 #ffffff
+COLOR 4 #ffffff
+COLOR 5 #ffffff
+COLOR 6 #ffffff
+COLOR 7 #ffffff
+COLOR 8 #ffffff
+COLOR 9 #ffffff
+COLOR A #ffffff
+COLOR B #ffffff
+COLOR C #ffffff
+COLOR D #ffffff
+COLOR E #ffffff
+COLOR F #ffffff
+COLOR G #ffffff
+COLOR H #ffffff
+COLOR I #ffffff
+COLOR J #ffffff
+COLOR K #ffffff
+COLOR L #ffffff
+COLOR M #ffffff
+COLOR N #ffffff
+
+
+CHARMAP o x ^ _ O x X x
+
+;; CHARMAP 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | A | B | C | D | E | F | G | H | I | J | K | L | M | N |
 
 CHARMAP o x ^ _
+
+
+
+___^______.======
+----------0=----=
+----------1=----=
+----------2======
+----------3......
+----------4......
+----------5......
+----------6......
+----------7......
+----------8......
+----------9......
+----------A......
+----------B......
+----------C......
+----------D......
+----------E......
+----------F......
+----------G......
+----------H......
+----------I......
+----------J......
+----------K......
+----------L......
+----------M......
+----------N......
+%__________......
+
+TICK 250
+
+DESCRIPTION TODO: add score
+
+___^_______
+----------0
+----------1
+----------2
+----------3
+----------4
+----------5
+----------6
+----------7
+----------8
+----------9
+----------A
+----------B
+----------C
+----------D
+----------E
+----------F
+x---------G
+xx--------H
+x---------I
+----------J
+----------K
+----------L
+----------M
+-XXXXXXXXXN
+%__________
+
+
 
 ___^_______
 ----------0
@@ -33,9 +131,18 @@ ___^_______
 ----------L
 ----------M
 ----------N
+%__________
 
-BIND a move_left s step d move_right e rotate_right l line_clear
+TICK 100
 
+BIND a move_left s step d move_right w rotate_right
+
+BIND c copy_from_preview
+
+
+CMD _tick
+ CALL step
+ 
 CMD freeze_piece
  TRY_ALL
   x X
@@ -171,55 +278,49 @@ CMD step
    CALL spawn_piece
    ;; CALL gameover
 
-CMD line_clear
- ATOMIC             
-  XXXXXXXXXXN
-
-  TRY_ALL
-   ZIP p MLKJIHGFEDCBA9876543210 q NMLKJIHGFEDCBA987654321
-    LET_REPEAT 0 10 1 t ?
-     FOR * -X
-      ATOMIC
-       *tp
-       
-       ?tq *tq
-
-CMD spawn_piece
-
- ATOMIC
-  ^___
-  ----
-  ----
-
-  RANDOM
-   ^___ ^___
-   ---- -xx-
-   ---- -xx-
-   
-   ^___ ^___
-   ---- ----
-   ---- xoxx
-   
-   ^___ ^___
-   ---- x---
-   ---- xxx-
-   
-   ^___ ^___
-   ---- --x-
-   ---- xxx-
-   
-   ^___ ^___
-   ---- -xx-
-   ---- xo--
-   
-   ^___ ^___
-   ---- xx--
-   ---- -ox-
-   
-   ^___ ^___
-   ---- -x--
-   ---- xxx-
+CMD line_clear_internal
+ TRY_ALL
+  MATCH1
+   FOR r NMLKJIHGFEDCBA987654321
+    ATOMIC
+     %r
   
+     ??????????r ??????????r
+     ??????????? ??????????!
+   
+  ZIP p MLKJIHGFEDCBA9876543210 q NMLKJIHGFEDCBA987654321
+   ATOMIC
+    ATOMIC_VERTICAL
+     ??????????q
+
+     ??????????!
+
+    TRY_ALL
+     LET_REPEAT 0 10 1 t ?
+      FOR * -X
+       ATOMIC
+        *tp
+        
+        ?tq *tq
+ 
+  MATCH1
+   ZIP r NMLKJIHGFEDCBA987654321 s _NMLKJIHGFEDCBA98765432
+    ATOMIC
+     %r %_
+ 
+     r r
+     ! s
+ 
+
+CMD line_clear
+ FOR p NMLKJIHGFEDCBA987654321
+  ATOMIC
+   XXXXXXXXXXp
+
+   %_ %p
+
+   CALL line_clear_internal
+
 CMD move_left
  
  -xoxx xoxx-
@@ -513,3 +614,73 @@ CMD step_internal
  x- xo
  -? x?
   
+
+CMD copy_from_preview
+ ATOMIC
+  LET_REPEAT 0 4 1 s ? t = r _
+   MATCH1
+    ZIP * .XO @ -xo
+     ATOMIC
+      =t=
+      =s*
+
+      ^r ^r
+      s- s@
+
+   MATCH1
+    ZIP * .XO @ -xo
+     ATOMIC
+      =t=
+      =s?
+      =s*
+
+      ^r ^r
+      s? s?
+      s- s@
+
+   
+
+
+CMD _init
+ ATOMIC
+  CALL populate_preview
+  CALL copy_from_preview
+  CALL populate_preview
+
+CMD spawn_piece
+ ATOMIC
+  CALL copy_from_preview
+  CALL populate_preview
+ 
+
+CMD populate_preview
+ RANDOM
+  ===== =====
+  =???? =.XX.
+  =???? =.XX.
+  
+  ===== =====
+  =???? =....
+  =???? =XOXX
+  
+  ===== =====
+  =???? =X...
+  =???? =XXX.
+  
+  ===== =====
+  =???? =..X.
+  =???? =XXX.
+  
+  ===== =====
+  =???? =.XX.
+  =???? =XO..
+  
+  ===== =====
+  =???? =XX..
+  =???? =.OX.
+  
+  ===== =====
+  =???? =.X..
+  =???? =XXX.
+ 
+

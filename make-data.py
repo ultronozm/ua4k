@@ -16,7 +16,7 @@ rules = {} # dict mapping names to rules
 binds = {}
 goals = []
 voids = []
-whitespace_char = None
+whitespace = []
 char_map = {}
 color_map = {}
 
@@ -25,7 +25,8 @@ temp_goal = None
 temp_void = None
 
 wildcards_stack = []
-side_effect = None
+side_effects = []
+method = 'firstmatch'
 temp_rule_from = []
 temp_rule_to = []
 
@@ -145,7 +146,8 @@ def on_blank_line():
     global temp_void
     global temp_rule_from
     global temp_rule_to
-    global side_effect
+    global side_effects
+    global method
     if len(temp_board) > 0:
         levels.append({"board" : temp_board})
         temp_board = []
@@ -158,10 +160,11 @@ def on_blank_line():
         voids.append(temp_void)
         temp_void = None
     elif len(temp_rule_from) > 0:
-        add_rule({'type': 'simple', 'from': temp_rule_from, 'to': temp_rule_to, 'side_effect': side_effect})
+        add_rule({'type': 'simple', 'from': temp_rule_from, 'to': temp_rule_to, 'side_effects': side_effects, 'method': method})
         temp_rule_from = []
         temp_rule_to = []
-        side_effect = None
+        side_effects = []
+        method = 'firstmatch'
 
 for line in lines:
     # print("LINE: ", line)
@@ -181,12 +184,19 @@ for line in lines:
             title = line.strip().split("DESCRIPTION", 1)[1].strip()
             if len(levels) > 0:
                 levels[-1]["description"] = title
+        case "TICK":
+            tick = int(line.strip().split()[1])
+            assert tick > 0
+            if len(levels) > 0:
+                levels[-1]["tickInterval"] = tick
         case "TITLE":
             title = line.strip().split("TITLE", 1)[1].strip()
             if len(levels) > 0:
                 levels[-1]["title"] = title
         case "WHITESPACE":
-            whitespace_char = line.strip().split(" ", 1)[1].strip()
+            for char in line.strip().split()[1]:
+                whitespace.append(char)
+            # whitespace_char = line.strip().split(" ", 1)[1].strip()
         case "CHARMAP":
             for i in range(1, len(line.strip().split()), 2):
                 char_map[line.strip().split()[i]] = line.strip().split()[i+1]
@@ -294,7 +304,12 @@ for line in lines:
                 temp_rule_from.append(line.strip().split()[0])
                 temp_rule_to.append(line.strip().split()[1] if len(line.strip().split()) > 1 else line.strip().split()[0])
                 if len(line.strip().split()) > 2:
-                    side_effect = line.strip().split()[2]
+                    for name in line.strip().split()[2:]:
+                        if name[0] == "[" and name[-1] == "]":
+                            name = name[1:-1]
+                            method = name
+                        else:
+                            side_effects.append(name)
                 # print("temp_rule_from: ", temp_rule_from)
                 # print("temp_rule_to: ", temp_rule_to)
                 # print("side_effect: ", side_effect)
@@ -354,7 +369,7 @@ on_blank_line()
 process_rule_stack_to_level(0)
 
 result = {'levels': levels, 'rules': rules, 'binds': binds, 'goals': goals, 'voids': voids,
-          'whitespaceChar': whitespace_char,
+          'whitespaceChars': whitespace,
           'charMap': char_map,
           'colorMap': color_map}
 

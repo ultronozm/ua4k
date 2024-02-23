@@ -1,0 +1,132 @@
+GOAL
+NONE
+
+CHARMAP N * S * E * W * n * s * e * w * > * < * ^ * v * z *
+;; COLOR n #007700
+;; COLOR s #007700
+;; COLOR w #007700
+;; COLOR e #007700
+COLOR x #aaaaaa
+
+
+WHITESPACE -_
+
+;; need some way to make * appear at some random .
+
+;; also, need some way to check that a given point has NO arrow pointing at it.
+
+xxxxxxxxxxxxxxxx
+x--------------x
+x--------------x
+x-----.--------x
+x--------------x
+x----E>e-------x
+x--------------x
+x--------------x
+xxxxxxxxxxxxxxxx
+___________0000_
+
+
+TICK 250
+
+CMD _tick
+ CALL step
+
+BIND w up s down a left d right e step
+
+CMD up
+ TRY_ALL
+  FOR d nsew
+   MATCH1
+    v
+    d
+    
+    d n
+
+CMD down
+ TRY_ALL
+  FOR d nsew
+   MATCH1
+    d
+    ^
+    
+    d s
+
+CMD left
+ TRY_ALL
+  FOR d nsew
+   MATCH1
+    >d
+    
+    d w
+
+CMD right
+ TRY_ALL
+  FOR d nsew
+   MATCH1
+    d<
+    
+    d e
+
+CMD drag_tail
+ ZIP d ^v<> D NSWE
+  Ed -D
+
+  dW D-
+
+  d D
+  N -
+  
+  S -
+  d D
+  
+CMD forward_head
+ e- >e
+
+ -w w<
+
+ s v
+ - s
+
+ - n
+ n ^
+
+CMD eat
+ e. >e
+
+ .w w<
+
+ s v
+ . s
+
+ . n
+ n ^
+
+CMD die
+ FOR d nsew
+  d z
+
+CMD spawn
+ - . [random]
+
+CMD step
+ ATOMIC
+  CALL forward_head
+  CALL drag_tail
+
+ ATOMIC
+  CALL eat
+  CALL spawn
+  CALL increment
+
+ CALL die
+   
+CMD increment
+ ZIP s 012345678 t 123456789
+  s_ t_
+ 
+  s9_ t0_
+ 
+  s99_ t00_
+ 
+  s999_ t000_
