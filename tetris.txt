@@ -3,6 +3,8 @@ NONE
 
 WHITESPACE .
 
+HIDDEN_LINE_CHAR %
+
 COLOR - #aaaaaa
 COLOR x #cc0000
 COLOR o #cc0000
@@ -12,30 +14,30 @@ COLOR = #ffffff
 COLOR % #ffffff
 COLOR _ #ffffff
 COLOR ^ #ffffff
-COLOR 0 #ffffff
-COLOR 1 #ffffff
-COLOR 2 #ffffff
-COLOR 3 #ffffff
-COLOR 4 #ffffff
-COLOR 5 #ffffff
-COLOR 6 #ffffff
-COLOR 7 #ffffff
-COLOR 8 #ffffff
-COLOR 9 #ffffff
-COLOR A #ffffff
-COLOR B #ffffff
-COLOR C #ffffff
-COLOR D #ffffff
-COLOR E #ffffff
-COLOR F #ffffff
-COLOR G #ffffff
-COLOR H #ffffff
-COLOR I #ffffff
-COLOR J #ffffff
-COLOR K #ffffff
-COLOR L #ffffff
-COLOR M #ffffff
-COLOR N #ffffff
+;; COLOR 0 #ffffff
+;; COLOR 1 #ffffff
+;; COLOR 2 #ffffff
+;; COLOR 3 #ffffff
+;; COLOR 4 #ffffff
+;; COLOR 5 #ffffff
+;; COLOR 6 #ffffff
+;; COLOR 7 #ffffff
+;; COLOR 8 #ffffff
+;; COLOR 9 #ffffff
+;; COLOR A #ffffff
+;; COLOR B #ffffff
+;; COLOR C #ffffff
+;; COLOR D #ffffff
+;; COLOR E #ffffff
+;; COLOR F #ffffff
+;; COLOR G #ffffff
+;; COLOR H #ffffff
+;; COLOR I #ffffff
+;; COLOR J #ffffff
+;; COLOR K #ffffff
+;; COLOR L #ffffff
+;; COLOR M #ffffff
+;; COLOR N #ffffff
 
 
 CHARMAP o x ^ _ O x X x
@@ -43,7 +45,6 @@ CHARMAP o x ^ _ O x X x
 ;; CHARMAP 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | A | B | C | D | E | F | G | H | I | J | K | L | M | N |
 
 CHARMAP o x ^ _
-
 
 
 ___^______.======
@@ -72,68 +73,11 @@ ___^______.======
 ----------M......
 ----------N......
 %__________......
+____000000_......
 
 TICK 250
 
 DESCRIPTION TODO: add score
-
-___^_______
-----------0
-----------1
-----------2
-----------3
-----------4
-----------5
-----------6
-----------7
-----------8
-----------9
-----------A
-----------B
-----------C
-----------D
-----------E
-----------F
-x---------G
-xx--------H
-x---------I
-----------J
-----------K
-----------L
-----------M
--XXXXXXXXXN
-%__________
-
-
-
-___^_______
-----------0
-----------1
-----------2
-----------3
-----------4
-----------5
-----------6
-----------7
-----------8
-----------9
-----------A
-----------B
-----------C
-----------D
-----------E
-----------F
-----------G
-----------H
-----------I
-----------J
-----------K
-----------L
-----------M
-----------N
-%__________
-
-TICK 100
 
 BIND a move_left s step d move_right w rotate_right
 
@@ -270,10 +214,22 @@ CMD step
  CALL step_internal
  TRY_ALL
   CALL freeze_piece
-  CALL line_clear
-  CALL line_clear
-  CALL line_clear
-  CALL line_clear
+  ATOMIC
+   CALL line_clear
+   CALL increment_score
+  ATOMIC
+   CALL line_clear
+   CALL increment_score
+   CALL increment_score
+  ATOMIC
+   CALL line_clear
+   CALL increment_score
+   CALL increment_score
+  ATOMIC
+   CALL line_clear
+   CALL increment_score
+   CALL increment_score
+   CALL increment_score
   MATCH1
    CALL spawn_piece
    ;; CALL gameover
@@ -320,6 +276,7 @@ CMD line_clear
    %_ %p
 
    CALL line_clear_internal
+                           
 
 CMD move_left
  
@@ -683,4 +640,16 @@ CMD populate_preview
   =???? =.X..
   =???? =XXX.
  
-
+CMD increment_score
+ ZIP s 012345678 t 123456789
+  s_ t_
+ 
+  s9_ t0_
+ 
+  s99_ t00_
+ 
+  s999_ t000_
+ 
+  s9999_ t0000_
+ 
+  s99999_ t00000_

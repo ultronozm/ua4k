@@ -2,18 +2,11 @@ GOAL
 NONE
 
 CHARMAP N * S * E * W * n * s * e * w * > * < * ^ * v * z *
-;; COLOR n #007700
-;; COLOR s #007700
-;; COLOR w #007700
-;; COLOR e #007700
 COLOR x #aaaaaa
 
+HIDDEN_LINE_CHAR %
 
 WHITESPACE -_
-
-;; need some way to make * appear at some random .
-
-;; also, need some way to check that a given point has NO arrow pointing at it.
 
 xxxxxxxxxxxxxxxx
 x--------------x
@@ -25,6 +18,7 @@ x--------------x
 x--------------x
 xxxxxxxxxxxxxxxx
 ___________0000_
+%_______________
 
 
 TICK 250
@@ -38,8 +32,11 @@ CMD up
  TRY_ALL
   FOR d nsew
    MATCH1
-    v
-    d
+    ATOMIC
+     v
+     d
+
+     %? %n
     
     d n
 
@@ -47,8 +44,11 @@ CMD down
  TRY_ALL
   FOR d nsew
    MATCH1
-    d
-    ^
+    ATOMIC
+     d
+     ^
+
+     %? %s
     
     d s
 
@@ -56,7 +56,10 @@ CMD left
  TRY_ALL
   FOR d nsew
    MATCH1
-    >d
+    ATOMIC
+     >d
+     
+     %? %w
     
     d w
 
@@ -64,7 +67,10 @@ CMD right
  TRY_ALL
   FOR d nsew
    MATCH1
-    d<
+    ATOMIC
+     d<
+    
+     %? %e
     
     d e
 
@@ -81,16 +87,40 @@ CMD drag_tail
   d D
   
 CMD forward_head
- e- >e
-
- -w w<
-
- s v
- - s
-
- - n
- n ^
-
+ ATOMIC               
+  MATCH1
+   e- >e
+  
+   -w w<
+  
+   s v
+   - s
+  
+   - n
+   n ^
+  
+  TRY_ALL
+   MATCH1
+    ATOMIC
+     %n %_
+   
+     CALL up
+   
+    ATOMIC
+     %s %_
+   
+     CALL down
+   
+    ATOMIC
+     %w %_
+   
+     CALL left
+   
+    ATOMIC
+     %e %_
+   
+     CALL right
+ 
 CMD eat
  e. >e
 

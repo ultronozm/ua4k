@@ -10,6 +10,7 @@ let charMap = {};
 let colorMap = {};
 let timerId = null;
 let whitespaceChars = [];
+let hiddenLineChars = [];
 
 function onTimerTick() {
     console.log("onTimerTick");
@@ -39,6 +40,7 @@ function initGame(data) {
     goals = data.goals;
     voids = data.voids;
     whitespaceChars = data.whitespaceChars;
+    hiddenLineChars = data.hiddenLineChars;
     charMap = data.charMap;
     colorMap = data.colorMap;
     level_number = 0;
@@ -98,25 +100,30 @@ function drawBoard() {
     
     for (let row = 0; row < board.length; row++) {
         let boardStr = '';
+        let hidden = false;
         for (let col = 0; col < board[row].length; col++) {
             let baseChar = board[row][col];
             let newChar = baseChar;
-            // check if whitespaceChars contains newChar
             if (whitespaceChars.includes(newChar)) {
                 newChar = '&nbsp;'; // update here
+            }
+            else if (hiddenLineChars.includes(newChar)) {
+                hidden = true;
+                break;
             }
             else if (charMap[newChar]) {
                 newChar = charMap[newChar];
             }
-            // Check if the character has a specified color
             if (colorMap[baseChar]) {
-                // Wrap the character in a span with the color style
                 newChar = `<span style="color: ${colorMap[baseChar]}">${newChar}</span>`;
             }
 
             boardStr += newChar;
         }
-        // No longer creating separate text nodes. Instead, appending strings directly to innerHTML.
+        if (hidden) {
+            continue;
+        }
+        
         displayElem.innerHTML += boardStr;
         
         if (row !== board.length - 1) {

@@ -9,6 +9,9 @@ COLOR o #ff7700
 COLOR ! #aaaa00
 COLOR - #aaaaaa
 COLOR r #990055
+COLOR Z #ff0000
+
+HIDDEN_LINE_CHAR %
 
 BIND w north s south a west d east e mine x destroy
 BIND f build_oxygen_station o build_oxygen_station r build_refinery
@@ -22,27 +25,25 @@ o*---------o---------o-----------
 --------------------------------!
 _________________________________
 O2:..............|---------------
-=================================
 %:---------------------------->-%
 
 DESCRIPTION You have crash-landed on an alien world.  To restore power to your spaceship, you need to retrieve each of the energy cells "!".  Your oxygen supply is limited, but can be replenished at the oxygen stations "o".  Be careful out there.
 
 
---------------------------------!
+--------------AA----------------!
 ---------------------------------
-o*-------8~~-------8~~-----------
+o*-------8~~-------8~~---------AA
 ---------------------------------
 --------------------------------!
 _________________________________
 O2:..............|---------------
 =RESOURCES=======================
-8:________|~:________|-----------
+8:________|~:________|A:________|
 =CONSTRUCTION====================
 o:8~~|---------------------------
-=================================
 %:---------------------------->-%
 
-DESCRIPTION Oops, you crashed again.  This time, there's only one oxygen station -- not enough to survive the trip -- but you can build more stations using the planet's resources: wood (mined from the forests "8") and water (mined from the lakes "~").  See the "CONSTRUCTION" table below for prices.  Mine those resources using "e", build some stations using "o", and retrieve the energy cells.
+DESCRIPTION Oops, you crashed again.  This time, there's only one oxygen station -- not enough to survive the trip -- but you can build more stations using the planet's resources: wood, mined from the forests "8",  and water, mined from the lakes "~".  See the "CONSTRUCTION" table below for prices.  Mine those resources using "e", build some stations using "o", and retrieve the energy cells.  There is also ore, mined from the mountains "A", but there isn't yet anything to spend that on.
 
 
 o*----~X---------------X----X!---
@@ -55,10 +56,9 @@ o*----~X---------------X----X!---
 _________________________________
 O2:..............|---------------
 =RESOURCES=======================
-8:________|~:________|-----------
+8:________|~:________|A:________|
 =CONSTRUCTION====================
 o:8~~|---------------------------
-=================================
 %:---------------------------->-%
 
 DESCRIPTION There are some barriers "X" obstructing the path, but you can simply walk around them.  Plan your steps carefully!
@@ -75,10 +75,9 @@ O2:..............|---------------
 =CONSTRUCTION====================
 o:8~~|---------------------------
 r:88A|---------------------------
-=================================
 %:---------------------------->-%
 
-DESCRIPTION You can mine "ore" from the mountains "A", and use that to build refineries "r" (by pressing "r").  When your character "*" lies in the 5x5 block centered at some refinery "r", mining efficiency is doubled -- resources are worth twice as much.
+DESCRIPTION You can now build refineries "r" (by pressing "r").  When your character "*" lies in the 5x5 block centered at some refinery "r", mining efficiency is doubled -- any resources (8, ~, A) that you mine with "e" are worth twice as much!
 
 ----------------------~88-----X--
 -----------------------~~-----X--
@@ -94,7 +93,6 @@ o:8~~|---------------------------
 r:88A|---------------------------
 =DESTRUCTION=====================
 X:8~AAAA|------------------------
-=================================
 %:---------------------------->-%
 
 DESCRIPTION This time, barriers "X" are blocking off the energy cell.  You can destroy a barrier (using the same button "e" that you use for mining), but it costs resources -- see the "DESTRUCTION" table below.
@@ -115,7 +113,6 @@ o:8~~|---------------------------
 r:88A|---------------------------
 =DESTRUCTION=====================
 X:8~AAAA|------------------------
-=================================
 %:---------------------------->-%
 
 
@@ -140,7 +137,6 @@ o:8~~|---------------------------
 r:88A|---------------------------
 =DESTRUCTION=====================
 X:8~AAAA|------------------------
-=================================
 %:---------------------------->-%
 
 DESCRIPTION The "destroy" command, bound to "x", may be useful here -- it destroys any natural resources (without mining them) as well as any oxygen stations or refineries you have built.  (TODO: maybe it'd be interesting to be able to "reclaim" some resources by destroying your constructions?  Haven't tried.)
@@ -164,11 +160,10 @@ o:8~~|---------------------------
 r:88A|---------------------------
 =DESTRUCTION=====================
 X:8~AAAA|------------------------
-=================================
 %:---------------------------->-%
 
 
-DESCRIPTION Your character "*" is always facing in some cardinal direction, indicated near the bottom right of the display by one of the characters ^v<>.  This direction determines where you will build your structures.  It's occasionally useful to be able to change your direction without moving.  To do so, you can hold down "shift" while pressing a movement key.  For example, to build an oxygen station in the empty space above you (without having moved up on the previous turn), press "W" (i.e., shift + "w") followed by "o".
+DESCRIPTION Your character "*" is always facing in some cardinal direction, typically the direction in which you most recently moved.  This direction determines where you will build your structures.  It's occasionally useful to be able to change your direction without moving.  To do so, you can hold down "shift" while pressing a movement key.  For example, to build an oxygen station in the empty space above you (without having moved up on the previous turn), press "W" (i.e., shift + "w") followed by "o".
 
 
 -----~~---AA----888---------XXX--
@@ -187,7 +182,6 @@ o:8~~|---------------------------
 r:88A|---------------------------
 =DESTRUCTION=====================
 X:8~AAAA|------------------------
-=================================
 %:---------------------------->-%
 
 DESCRIPTION You're on your own now.  Good luck!
@@ -209,7 +203,6 @@ o:8~~|---------------------------
 r:88A|---------------------------
 =DESTRUCTION=====================
 X:8~AAAA|------------------------
-=================================
 %:---------------------------->-%
 
 
@@ -233,7 +226,6 @@ o:8~~|---------------------------
 r:88A|---------------------------
 =DESTRUCTION=====================
 X:8~AAAA|------------------------
-=================================
 %:---------------------------->-%
 
 
@@ -252,7 +244,6 @@ o:8~~|---------------------------
 r:88A|---------------------------
 =DESTRUCTION=====================
 X:8~AAAA|------------------------
-=================================
 %:---------------------------->-%
 
 DESCRIPTION This time, you start with full resources, but the energy cells are guarded by a zombie "Z", who chases when you end an action with your character "*" in the 7x7 grid centered at the zombie "Z".
@@ -273,7 +264,6 @@ o:8~~|---------------------------
 r:88A|---------------------------
 =DESTRUCTION=====================
 X:8~AAAA|------------------------
-=================================
 %:---------------------------->-%
 
 DESCRIPTION This level is not particularly inspired, and should be replaced with something better.

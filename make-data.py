@@ -19,6 +19,7 @@ voids = []
 whitespace = []
 char_map = {}
 color_map = {}
+hidden_line_chars = []
 
 temp_board = []
 temp_goal = None
@@ -180,6 +181,9 @@ for line in lines:
             temp_goal = []
         case "VOID":
             temp_void = []
+        case "HIDDEN_LINE_CHAR":
+            for char in line.strip().split()[1]:
+                hidden_line_chars.append(char)
         case "DESCRIPTION":
             title = line.strip().split("DESCRIPTION", 1)[1].strip()
             if len(levels) > 0:
@@ -371,7 +375,8 @@ process_rule_stack_to_level(0)
 result = {'levels': levels, 'rules': rules, 'binds': binds, 'goals': goals, 'voids': voids,
           'whitespaceChars': whitespace,
           'charMap': char_map,
-          'colorMap': color_map}
+          'colorMap': color_map,
+          'hiddenLineChars': hidden_line_chars}
 
 try:
     with open('gamesData.js', 'r') as json_file:
