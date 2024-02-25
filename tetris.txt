@@ -77,7 +77,7 @@ ____000000_......
 
 TICK 250
 
-DESCRIPTION TODO: add score
+DESCRIPTION TODO: add speed progression
 
 BIND a move_left s step d move_right w rotate_right
 

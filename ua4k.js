@@ -8,15 +8,19 @@ let board = null;
 let board_history = [];
 let charMap = {};
 let colorMap = {};
+let globalTickInterval = null;
 let timerId = null;
 let whitespaceChars = [];
 let hiddenLineChars = [];
 
 function onTimerTick() {
     console.log("onTimerTick");
-    if (rules_dict['_tick']) {
-        applyRule(rules_dict['_tick']);
+    if (rules_dict['_tick'] && !levelComplete()) {
+        let ruleApplied = applyRule(rules_dict['_tick']);
         drawBoard();
+        if (ruleApplied) {
+            checkEndLevel();
+        }
     }
 }
 
@@ -43,6 +47,7 @@ function initGame(data) {
     hiddenLineChars = data.hiddenLineChars;
     charMap = data.charMap;
     colorMap = data.colorMap;
+    globalTickInterval = data.globalTick;
     level_number = 0;
     board = null;
     initLevel();
@@ -123,6 +128,13 @@ function drawBoard() {
         if (hidden) {
             continue;
         }
+
+        // let textNode = document.createTextNode(boardStr);
+        // displayElem.appendChild(textNode);
+        // if (row !== board.length - 1) {
+        //     let brNode = document.createElement("br");
+        //     displayElem.appendChild(brNode);
+        // }
         
         displayElem.innerHTML += boardStr;
         
@@ -174,7 +186,7 @@ function initLevel() {
     if (rules_dict['_init']) {
         applyRule(rules_dict['_init']);
     }
-    var tickInterval = level.tickInterval;
+    var tickInterval = level.tickInterval || globalTickInterval;
     if (tickInterval && rules_dict['_tick']) {
         console.log("Starting timer");
         timerId = setInterval(onTimerTick, tickInterval);
@@ -447,6 +459,13 @@ function applyRule(rule, min_row=0, min_col=0) {
     }
 }
 
+function checkEndLevel() {
+    if (levelComplete()) {
+        let displayElem = document.getElementById('status');
+        displayElem.innerHTML = 'Level complete!  Press any key to advance to the next level.';
+    }
+}
+
 function gameAction(a) {
     console.log("gameAction: " + a);
     var board_copy = JSON.parse(JSON.stringify(board));
@@ -462,10 +481,7 @@ function gameAction(a) {
     if (ruleApplied) {
         board_history.push(board_copy);
         updateMovesDisplay();
-        if (levelComplete()) {
-            let displayElem = document.getElementById('status');
-            displayElem.innerHTML = 'Level complete!  Press any key to advance to the next level.';
-        }
+        checkEndLevel();
     }
     return ruleApplied;
 }
@@ -503,8 +519,7 @@ document.addEventListener('keypress', function(event) {
         if (charCode == 'U'.charCodeAt(0)) {
             initLevel();
             drawBoard();
-        }
-        if (charCode == 'u'.charCodeAt(0)) {
+        } else if (charCode == 'u'.charCodeAt(0)) {
             if (board_history.length > 0) {
                 board = board_history.pop();
                 updateMovesDisplay();

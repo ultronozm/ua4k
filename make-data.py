@@ -20,6 +20,7 @@ whitespace = []
 char_map = {}
 color_map = {}
 hidden_line_chars = []
+global_tick = None
 
 temp_board = []
 temp_goal = None
@@ -193,6 +194,8 @@ for line in lines:
             assert tick > 0
             if len(levels) > 0:
                 levels[-1]["tickInterval"] = tick
+            else:
+                global_tick = tick
         case "TITLE":
             title = line.strip().split("TITLE", 1)[1].strip()
             if len(levels) > 0:
@@ -376,7 +379,8 @@ result = {'levels': levels, 'rules': rules, 'binds': binds, 'goals': goals, 'voi
           'whitespaceChars': whitespace,
           'charMap': char_map,
           'colorMap': color_map,
-          'hiddenLineChars': hidden_line_chars}
+          'hiddenLineChars': hidden_line_chars,
+          'globalTick': global_tick}
 
 try:
     with open('gamesData.js', 'r') as json_file:
