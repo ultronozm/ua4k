@@ -9,7 +9,13 @@ file = open(filename, "r")
 lines = file.readlines()
 file.close()
 
-# A rule is either a simple rule (given by a triple (fromPattern, toPattern, sideEffect)) or a compound rule (given by a type and a list of rules, which may themselves be simple or compound).
+# A rule is either:
+# 
+# a simple rule, given by a triple (fromPattern, toPattern,
+# sideEffect), or
+# 
+# a compound rule, given by a type and a list of rules, which may
+# themselves be simple or compound.
 
 levels = []
 rules = {} # dict mapping names to rules
@@ -327,51 +333,6 @@ for line in lines:
             else:
                 temp_board.append(line.strip())
 
-    # old stuff:
-    
-    # if line.strip().startswith("CMD"):
-    #     # clear compound_rules_stack
-    #     if len(compound_rules_stack) > 0:
-    #         rule = compound_rules_stack.pop()
-    #         assert len(compound_rules_stack) == 0
-    #         rules[current_rule_name] = rule
-    #     split_line = line.strip().split()
-    #     current_rule_name = split_line[1]
-    #     if len(split_line) > 2:
-    #         docs[current_rule_name] = split_line[2]
-    #     compound_rules_stack.append({'type': 'firstmatch', 'rules': []})
-    #     continue
-    # if line.strip().startswith("FOR"):
-    #     split_line = line.strip().split()
-    #     wildcards_stack.append((split_line[1], split_line[2]))
-    #     continue
-    # if line.strip().startswith("END_FOR"):
-    #     wildcards_stack.pop()
-    #     continue
-    # # we're reading the line of a pattern
-    # if temp_goal is not None:
-    #     temp_goal.append(line.strip())
-    # elif temp_void is not None:
-    #     temp_void.append(line.strip())
-    # elif temp_board is not None:
-    #     temp_board.append(line.strip())
-    # else:
-    #     assert current_rule_name is not None
-    #     split_line = line.strip().split()
-    #     temp_rule_from.append(split_line[0])
-    #     temp_rule_to.append(split_line[1] if len(split_line) > 1 else split_line[0])
-    #     if len(split_line) > 2:
-    #         side_effect = split_line[2]
-
-# if len(temp_board) > 0:
-#     boards.append(temp_board)
-#     temp_board = []
-# if len(temp_rule_from) > 0:
-#     rules[current_rule_name].append([temp_rule_from, temp_rule_to])
-#     temp_rule_from = []
-#     temp_rule_to = []
-
-
 on_blank_line()
 process_rule_stack_to_level(0)
 
@@ -396,5 +357,4 @@ data[filename.split('.')[0]] = result
 with open('gamesData.js', 'w') as json_file:
     json_file.write("let gamesData = ")
     json.dump(data, json_file, indent=4)
-    # json.dump(data, json_file)
     json_file.write(";")
