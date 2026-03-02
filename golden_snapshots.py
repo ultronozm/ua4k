@@ -5,7 +5,14 @@ Usage:
   python3 golden_snapshots.py refresh [game files...]
   python3 golden_snapshots.py check [game files...]
 
-If no game files are given, defaults to: game.txt, tetris.txt, crash-landing.txt.
+If no game files are given, defaults to:
+  game.txt
+  tetris.txt
+  crash-landing.txt
+  fixture-indent.txt
+  fixture-for.txt
+  fixture-zip-let-repeat.txt
+  fixture-mandatory-side-effects.txt
 """
 
 from __future__ import annotations
@@ -22,7 +29,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 SNAPSHOT_DIR = ROOT / "snapshots"
-DEFAULT_GAMES = ("game.txt", "tetris.txt", "crash-landing.txt")
+DEFAULT_GAMES = (
+    "game.txt",
+    "tetris.txt",
+    "crash-landing.txt",
+    "fixture-indent.txt",
+    "fixture-for.txt",
+    "fixture-zip-let-repeat.txt",
+    "fixture-mandatory-side-effects.txt",
+)
 GAMES_PREFIX = "let gamesData = "
 
 

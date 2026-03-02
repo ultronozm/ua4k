@@ -1,0 +1,53 @@
+{
+  "binds": {
+    "x": "move"
+  },
+  "charMap": {},
+  "colorMap": {},
+  "globalTick": null,
+  "goals": [],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "a-"
+      ]
+    }
+  ],
+  "rules": {
+    "move": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [],
+              "type": "try_all"
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    "a",
+                    "b"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b",
+                    "c"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [],
+  "whitespaceChars": []
+}

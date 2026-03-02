@@ -1,0 +1,12 @@
+p
+
+BIND x fire
+
+CMD fire
+ p q must_apply! optional_apply
+
+CMD must_apply
+ q r
+
+CMD optional_apply
+ q q

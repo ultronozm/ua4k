@@ -1,0 +1,48 @@
+{
+  "binds": {
+    "x": "morph"
+  },
+  "charMap": {},
+  "colorMap": {},
+  "globalTick": null,
+  "goals": [],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "a"
+      ]
+    }
+  ],
+  "rules": {
+    "morph": {
+      "rules": [
+        {
+          "from": [
+            "a"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "x"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "b"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "x"
+          ],
+          "type": "simple"
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [],
+  "whitespaceChars": []
+}

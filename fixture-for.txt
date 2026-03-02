@@ -1,0 +1,7 @@
+a
+
+BIND x morph
+
+CMD morph
+ FOR w ab
+  w x
