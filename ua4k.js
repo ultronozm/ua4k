@@ -535,3 +535,36 @@ document.addEventListener('keypress', function(event) {
         // }
     }
 });
+
+function isMobile() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+function initTouchControls() {
+  const touchControls = document.getElementById('touchControls');
+  const buttons = touchControls.getElementsByClassName('controlBtn');
+
+  for (let button of buttons) {
+    button.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      const key = this.getAttribute('data-key');
+      simulateKeyPress(key);
+    });
+  }
+}
+
+function simulateKeyPress(key) {
+  const event = new KeyboardEvent('keypress', {
+    key: key,
+    charCode: key.charCodeAt(0),
+    bubbles: true
+  });
+  document.dispatchEvent(event);
+}
+
+// Call this function when the page loads
+window.addEventListener('load', function() {
+  if (isMobile()) {
+    initTouchControls();
+  }
+});

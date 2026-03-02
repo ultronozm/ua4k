@@ -19,6 +19,40 @@
       #status{
           font-size: 30px;
       }
+#touchControls {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.controlBtn {
+  font-size: 24px;
+  margin: 5px;
+  padding: 15px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 768px) {
+  #touchControls {
+    display: block;
+  }
+  
+  #display {
+    font-size: 30px;
+  }
+  
+  body {
+    padding-bottom: 100px;
+  }
+}
     </style>
   </head>
   <body>
@@ -41,5 +75,14 @@
 
     <script src="gamesData.js"></script>
     <script src="ua4k.js"></script>
+<div id="touchControls">
+  <button class="controlBtn" data-key="w">↑</button>
+  <button class="controlBtn" data-key="s">↓</button>
+  <button class="controlBtn" data-key="a">←</button>
+  <button class="controlBtn" data-key="d">→</button>
+  <button class="controlBtn" data-key="z">Z</button>
+  <button class="controlBtn" data-key="u">Undo</button>
+  <button class="controlBtn" data-key="U">Restart</button>
+</div>
   </body>
 </html>
