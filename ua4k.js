@@ -1,3 +1,4 @@
+// Runtime state
 let levels = [];
 let rules_dict = {};
 let binds = {};
@@ -13,8 +14,21 @@ let timerId = null;
 let whitespaceChars = [];
 let hiddenLineChars = [];
 
+const DEBUG_LOGS = false;
+
+function debugLog(...args) {
+    if (DEBUG_LOGS) {
+        console.log(...args);
+    }
+}
+
+function setHtml(id, value) {
+    document.getElementById(id).innerHTML = value;
+}
+
+// Initialization
 function onTimerTick() {
-    console.log("onTimerTick");
+    debugLog("onTimerTick");
     if (rules_dict['_tick'] && !levelComplete()) {
         let ruleApplied = applyRule(rules_dict['_tick']);
         drawBoard();
@@ -37,7 +51,7 @@ gamesDropdown.addEventListener('change', function() {
 });
 
 function initGame(data) {
-    console.log("initGame");
+    debugLog("initGame");
     levels = data.levels;
     rules_dict = data.rules;
     binds = data.binds;
@@ -54,16 +68,19 @@ function initGame(data) {
     drawBoard();
     updateLevelDisplay();
     updateDocsDisplay();
-    console.log("initGame done");
+    debugLog("initGame done");
 }
 
-gamesDropdown.addEventListener('change', function(){
-    data = gamesData[gamesDropdown.value];
-    initGame(data)
-});
+function handleGameSelection() {
+    const selectedGame = gamesData[gamesDropdown.value];
+    initGame(selectedGame);
+}
+
+gamesDropdown.addEventListener('change', handleGameSelection);
 
 gamesDropdown.dispatchEvent(new Event('change'));  // Load the first game when the page loads
 
+// Rendering
 function updateLevelDisplay() {
     document.getElementById('level').textContent = "Level: " + level_number;
 }
@@ -147,40 +164,16 @@ function drawBoard() {
 
 
 function initLevel() {
-    level = levels[level_number];
+    let level = levels[level_number];
     board = JSON.parse(JSON.stringify(level['board']));
     board_history = [];
     updateMovesDisplay();
-    {
-        let displayElem = document.getElementById('status');
-        displayElem.innerHTML = '';
-    }
-    {
-        let displayElem = document.getElementById('title');
-        if (level['title']) {
-            displayElem.innerHTML = level['title'];
-        } else {
-            displayElem.innerHTML = '';
-        }
-    }
-    {
-        let displayElem = document.getElementById('author');
-        if (level['author']) {
-            displayElem.innerHTML = 'by ' + level['author'];
-        } else {
-            displayElem.innerHTML = '';
-        }
-    }
-    {
-        let displayElem = document.getElementById('description');
-        if (level['description']) {
-            displayElem.innerHTML = level['description'];
-        } else {
-            displayElem.innerHTML = '';
-        }
-    }
+    setHtml('status', '');
+    setHtml('title', level['title'] ? level['title'] : '');
+    setHtml('author', level['author'] ? ('by ' + level['author']) : '');
+    setHtml('description', level['description'] ? level['description'] : '');
     if (timerId) {
-        console.log("Clearing timer");
+        debugLog("Clearing timer");
         clearInterval(timerId);
     }
     if (rules_dict['_init']) {
@@ -188,11 +181,12 @@ function initLevel() {
     }
     var tickInterval = level.tickInterval || globalTickInterval;
     if (tickInterval && rules_dict['_tick']) {
-        console.log("Starting timer");
+        debugLog("Starting timer");
         timerId = setInterval(onTimerTick, tickInterval);
     }
 }
 
+// Rule engine
 function getSubgrid(row, col, height, width) {
     let subgrid = [];
     for (let i = 0; i < height; i++) {
@@ -222,14 +216,14 @@ function patternMatchHelper(fromPattern, subgrid) {
             if (false && cell >= '0' && cell <= '9') {
                 if (digitMap[cell]) {
                     if (digitMap[cell] != subgridCell) {
-                        // console.log("Pattern match failed at " + i + ", " + j + " with " + cell + " and " + subgridCell + " due to digitMap");                        
+                        // debugLog("Pattern match failed at " + i + ", " + j + " with " + cell + " and " + subgridCell + " due to digitMap");                        
                         return false;
                     }
                 } else {
                     digitMap[cell] = subgridCell;
                 }
             } else if (cell != subgridCell) {
-                // console.log("Pattern match failed at " + i + ", " + j + " with " + cell + " and " + subgridCell + " due to cell");
+                // debugLog("Pattern match failed at " + i + ", " + j + " with " + cell + " and " + subgridCell + " due to cell");
                 return false;
             }
         }
@@ -248,14 +242,14 @@ function patternMatch(fromPattern, row, col) {
 }
 
 function applyRuleAt(rule, row, col) {
-    console.log("Applying rule " + rule + " at " + row + ", " + col);
-    console.log("Board before applying rule: " + board);
+    debugLog("Applying rule " + rule + " at " + row + ", " + col);
+    debugLog("Board before applying rule: " + board);
     let fromPattern = rule.from;
     let toPattern = rule.to;
     let sideEffects = rule.side_effects;
-    console.log("fromPattern: " + fromPattern);
-    console.log("toPattern: " + toPattern);
-    console.log("sideEffects: " + sideEffects);
+    debugLog("fromPattern: " + fromPattern);
+    debugLog("toPattern: " + toPattern);
+    debugLog("sideEffects: " + sideEffects);
     let patternHeight = toPattern.length;
     let patternWidth = toPattern[0].length;
     if (row >= 0 && col >= 0 && row + patternHeight <= board.length && col + patternWidth <= board[0].length) {
@@ -270,7 +264,7 @@ function applyRuleAt(rule, row, col) {
             }
         }
         var tempBoard = JSON.parse(JSON.stringify(board));
-        console.log("Temp board: " + tempBoard);
+        debugLog("Temp board: " + tempBoard);
         for (let i = 0; i < patternHeight; i++) {
             for (let j = 0; j < patternWidth; j++) {
                 let cell = toPattern[i][j];
@@ -282,43 +276,43 @@ function applyRuleAt(rule, row, col) {
                 let tempRow = board[row + i].split('');
                 tempRow[col + j] = cell;
                 board[row + i] = tempRow.join('');
-                console.log("Setting cell " + (row + i) + ", " + (col + j) + " to " + cell);
+                debugLog("Setting cell " + (row + i) + ", " + (col + j) + " to " + cell);
             }
         }
-        console.log("Board after applying rule: " + board);
+        debugLog("Board after applying rule: " + board);
 
         for (let sideEffect of sideEffects) {
-            console.log("Applying side effect: " + sideEffect);
+            debugLog("Applying side effect: " + sideEffect);
             if (sideEffect[sideEffect.length - 1] == '!') {
                 sideEffect = sideEffect.slice(0, -1);
                 if (!applyRule(rules_dict[sideEffect])) {
                     board = JSON.parse(JSON.stringify(tempBoard));
-                    console.log("Board after reverting: " + board);
+                    debugLog("Board after reverting: " + board);
                     return false;
                 }
             } else {
                 applyRule(rules_dict[sideEffect]);
             }
-            console.log("Board after applying side effect " + sideEffect + ": " + board);
+            debugLog("Board after applying side effect " + sideEffect + ": " + board);
         }            
 
         
         // if (sideEffect && sideEffect.length > 0) {
-        //     console.log("Applying side effect: " + sideEffect);
+        //     debugLog("Applying side effect: " + sideEffect);
         //     if (sideEffect[sideEffect.length - 1] == '!') {
         //         sideEffect = sideEffect.slice(0, -1);
         //         if (!applyRule(rules_dict[sideEffect])) {
         //             board = JSON.parse(JSON.stringify(tempBoard));
-        //             console.log("Board after reverting: " + board);
+        //             debugLog("Board after reverting: " + board);
         //             return false;
         //         }
         //     } else {
         //         applyRule(rules_dict[sideEffect]);
         //     }
-        //     console.log("Board after applying rule and side effect " + sideEffect + ": " + board);
+        //     debugLog("Board after applying rule and side effect " + sideEffect + ": " + board);
         // }
     } else {
-        console.log("This should never happen.")
+        debugLog("This should never happen.")
     }
     return true;
 }
@@ -360,7 +354,7 @@ function applyRule(rule, min_row=0, min_col=0) {
     case "simple":
         var height = board.length;
         var width = board[0].length;
-        console.log("Applying SIMPLE " + rule.from + " with min_row, min_col: " + min_row + ", " + min_col);
+        debugLog("Applying SIMPLE " + rule.from + " with min_row, min_col: " + min_row + ", " + min_col);
 
         var ruleApplied = false;
         if (rule.method == 'firstmatch') {
@@ -404,9 +398,9 @@ function applyRule(rule, min_row=0, min_col=0) {
         return ruleApplied;
     case "call":
         var name = rule.name;
-        console.log("Applying CALL " + name);
+        debugLog("Applying CALL " + name);
         var ruleApplied = applyRule(rules_dict[name]);
-        console.log("CALL " + name + " applied: " + ruleApplied);
+        debugLog("CALL " + name + " applied: " + ruleApplied);
         return ruleApplied;
     case "match1":
         var ruleApplied = false;
@@ -438,11 +432,11 @@ function applyRule(rule, min_row=0, min_col=0) {
         var min_col =0;
         for (let i = 0; i < rules.length; i++) {
             var rule = rules[i];
-            console.log("Applying atomic rule " + rule + ", step " + i + " with min_row, min_col: " + min_row + ", " + min_col);
-            console.log("condition: " + condition);
+            debugLog("Applying atomic rule " + rule + ", step " + i + " with min_row, min_col: " + min_row + ", " + min_col);
+            debugLog("condition: " + condition);
             if (!applyRule(rule, min_row, min_col)) {
                 ruleApplied = false;
-                console.log("Atomic rule fail: " + rules[i]);
+                debugLog("Atomic rule fail: " + rules[i]);
                 break;
             }
             if (condition == 'vertical') {
@@ -466,17 +460,18 @@ function checkEndLevel() {
     }
 }
 
+// Input handling
 function gameAction(a) {
-    console.log("gameAction: " + a);
+    debugLog("gameAction: " + a);
     var board_copy = JSON.parse(JSON.stringify(board));
     let cmd = binds[a];
-    console.log("cmd: " + cmd);
+    debugLog("cmd: " + cmd);
     let rule = rules_dict[cmd];
-    console.log("rule: " + rule);
-    console.log("rule.type: " + rule.type);
-    console.log("rule.rules.length: " + rule.rules.length);
+    debugLog("rule: " + rule);
+    debugLog("rule.type: " + rule.type);
+    debugLog("rule.rules.length: " + rule.rules.length);
     let ruleApplied = applyRule(rule);
-    //console.log("ruleApplied: " + ruleApplied);
+    //debugLog("ruleApplied: " + ruleApplied);
     drawBoard();
     if (ruleApplied) {
         board_history.push(board_copy);
@@ -501,7 +496,7 @@ function nextLevel() {
     }
 }
 
-document.addEventListener('keypress', function(event) {
+function handleKeyPress(event) {
     if (board && levelComplete()) {
         nextLevel();
         return;
@@ -534,8 +529,11 @@ document.addEventListener('keypress', function(event) {
         //     gameAction(action);
         // }
     }
-});
+}
 
+document.addEventListener('keypress', handleKeyPress);
+
+// Touch helpers
 function isMobile() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }

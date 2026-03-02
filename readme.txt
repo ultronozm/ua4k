@@ -25,6 +25,7 @@ Run in Browser
 1. Compile one or more games so `gamesData.js` exists.
 2. Open `ua4k.html` in a browser.
 3. Use the dropdown to select any compiled game.
+4. For engine debug logging, set `DEBUG_LOGS = true` in `ua4k.js`.
 
 DSL Sketch (current behavior)
 - Metadata/directives include: `GOAL`, `VOID`, `BIND`, `CMD`, `TITLE`, `DESCRIPTION`, `BY`, `TICK`, `WHITESPACE`, `CHARMAP`, `COLOR`, `HIDDEN_LINE_CHAR`.
