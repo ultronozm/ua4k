@@ -20,6 +20,7 @@ Notes
 - `gamesData.js` is accumulative output.
 - Each compiler run reads existing `gamesData.js`, updates one game key, and writes the full file.
 - `gamesData.js` is intentionally untracked and ignored by git.
+- Rust parser status is documented in `rust-parser-decision.md`.
 
 Run in Browser
 1. Compile one or more games so `gamesData.js` exists.
