@@ -35,6 +35,10 @@ CASES = [
         "invalid-rule-directive.txt",
         "invalid-rule-directive.txt:6: error: unknown directive in rule block: BROKEN_DIRECTIVE",
     ),
+    (
+        "invalid-call-each.txt",
+        "invalid-call-each.txt:6: error: CALL_EACH expects at least one command name",
+    ),
 ]
 
 

@@ -1,0 +1,71 @@
+{
+  "binds": {
+    "x": "step"
+  },
+  "charMap": {},
+  "colorMap": {},
+  "globalTick": null,
+  "goals": [],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "ab"
+      ]
+    }
+  ],
+  "rules": {
+    "left": {
+      "rules": [
+        {
+          "from": [
+            "a"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "a"
+          ],
+          "type": "simple"
+        }
+      ],
+      "type": "match1"
+    },
+    "right": {
+      "rules": [
+        {
+          "from": [
+            "b"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "b"
+          ],
+          "type": "simple"
+        }
+      ],
+      "type": "match1"
+    },
+    "step": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "left",
+              "type": "call"
+            },
+            {
+              "name": "right",
+              "type": "call"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [],
+  "whitespaceChars": []
+}

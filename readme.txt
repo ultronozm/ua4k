@@ -28,7 +28,7 @@ Run in Browser
 
 DSL Sketch (current behavior)
 - Metadata/directives include: `GOAL`, `VOID`, `BIND`, `CMD`, `TITLE`, `DESCRIPTION`, `BY`, `TICK`, `WHITESPACE`, `CHARMAP`, `COLOR`, `HIDDEN_LINE_CHAR`.
-- Compound rule constructs include: `ATOMIC`, `ATOMIC_VERTICAL`, `ATOMIC_HORIZONTAL`, `MATCH1`, `TRY_ALL`, `RANDOM`, `FOR`, `ZIP`, `LET_REPEAT`, `CALL`.
+- Compound rule constructs include: `ATOMIC`, `ATOMIC_VERTICAL`, `ATOMIC_HORIZONTAL`, `MATCH1`, `TRY_ALL`, `RANDOM`, `FOR`, `ZIP`, `LET_REPEAT`, `CALL`, `CALL_EACH`.
 - Rules are indentation-sensitive for nesting.
 - Blank lines are meaningful and terminate accumulated sections/rules.
 - `?` in patterns acts as wildcard/preserve cell behavior.
@@ -41,7 +41,7 @@ Golden Snapshot Checks
   - `python3 golden_snapshots.py check`
 - Default coverage:
   - `game.txt`, `tetris.txt`, `crash-landing.txt`
-  - tiny fixtures for indentation, FOR, ZIP/LET_REPEAT, and mandatory side effects
+  - tiny fixtures for indentation, FOR, ZIP/LET_REPEAT, mandatory side effects, and CALL_EACH
 
 Parser Diagnostics Checks
 - Run parser error regression checks against invalid fixtures:

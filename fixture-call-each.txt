@@ -1,0 +1,13 @@
+ab
+
+BIND x step
+
+CMD step
+ TRY_ALL
+  CALL_EACH left right
+
+CMD left
+ a a
+
+CMD right
+ b b

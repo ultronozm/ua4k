@@ -43,6 +43,7 @@ Supported directives are:
 - `ZIP`
 - `LET_REPEAT`
 - `CALL`
+- `CALL_EACH`
 
 Directive behavior:
 - `GOAL` starts accumulating goal pattern lines until the next blank line.
@@ -83,7 +84,13 @@ Unbracketed extra tokens are parsed as side effects.
 - `CALL <name>` emits `{"type":"call","name":"<name>"}`.
 - At runtime, this applies `rules_dict[name]`.
 
-## 3.4 Compound control nodes
+## 3.4 `CALL_EACH`
+
+- `CALL_EACH <name1> <name2> ...` is compile-time sugar for multiple `CALL` nodes.
+- It emits the same ordered call sequence as writing each `CALL` on separate lines.
+- At least one command name is required.
+
+## 3.5 Compound control nodes
 
 Supported:
 - `MATCH1`
@@ -100,7 +107,7 @@ All wrap a nested `rules` list. Runtime behavior:
 - `atomic`: all-or-nothing; rollback board on first child failure.
 - `atomic` with condition `vertical`/`horizontal`: same rollback behavior plus monotone cursor progression (`min_row`/`min_col`) across child applications.
 
-## 3.5 Compile-time expansion forms
+## 3.6 Compile-time expansion forms
 
 `FOR`:
 - Syntax: `FOR <wildcards> <values> [<wildcards> <values> ...]`
@@ -176,6 +183,7 @@ Covered by default snapshot set:
   - `fixture-for` (`FOR` expansion)
   - `fixture-zip-let-repeat` (`ZIP` + `LET_REPEAT`)
   - `fixture-mandatory-side-effects` (mandatory side-effect token `!`)
+  - `fixture-call-each` (`CALL_EACH` call-list sugar)
 
 Present in parser/runtime but not yet isolated by tiny fixtures:
 - Complex interactions of `ATOMIC_VERTICAL`/`ATOMIC_HORIZONTAL` under deep nesting.

@@ -13,6 +13,7 @@ If no game files are given, defaults to:
   fixture-for.txt
   fixture-zip-let-repeat.txt
   fixture-mandatory-side-effects.txt
+  fixture-call-each.txt
 """
 
 from __future__ import annotations
@@ -37,6 +38,7 @@ DEFAULT_GAMES = (
     "fixture-for.txt",
     "fixture-zip-let-repeat.txt",
     "fixture-mandatory-side-effects.txt",
+    "fixture-call-each.txt",
 )
 GAMES_PREFIX = "let gamesData = "
 

@@ -32,6 +32,7 @@ RULE_BLOCK_DIRECTIVES = {
     "TRY_ALL",
     "RANDOM",
     "CALL",
+    "CALL_EACH",
 }
 
 ALL_DIRECTIVES = TOP_LEVEL_ONLY_DIRECTIVES | RULE_BLOCK_DIRECTIVES | {"CMD"}
@@ -547,6 +548,17 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
         command_name = parts[1]
         state.call_references.append((command_name, line_no, "CALL"))
         add_rule(state, {"type": "call", "name": command_name, "line_no": line_no})
+        return True
+
+    if head == "CALL_EACH":
+        ensure_rule_context(state, "CALL_EACH", line_no)
+        if len(parts) < 2:
+            fail(line_no, "CALL_EACH expects at least one command name")
+        level = token.indent + 1
+        process_rule_stack_to_level(state, level)
+        for command_name in parts[1:]:
+            state.call_references.append((command_name, line_no, "CALL_EACH"))
+            add_rule(state, {"type": "call", "name": command_name, "line_no": line_no})
         return True
 
     return False
