@@ -17,7 +17,6 @@ BIND w north s south a west d east e mine x destroy
 BIND f build_oxygen_station o build_oxygen_station r build_refinery
 BIND W look_north S look_south A look_west D look_east
 
-
 -----------!---------------!-----
 ---------------------------------
 o*---------o---------o-----------
@@ -165,7 +164,6 @@ X:8~AAAA|------------------------
 
 DESCRIPTION Your character "*" is always facing in some cardinal direction, typically the direction in which you most recently moved.  This direction determines where you will build your structures.  It's occasionally useful to be able to change your direction without moving.  To do so, you can hold down "shift" while pressing a movement key.  For example, to build an oxygen station in the empty space above you (without having moved up on the previous turn), press "W" (i.e., shift + "w") followed by "o".
 
-
 -----~~---AA----888---------XXX--
 --88-------------8----------XXX--
 ---------------------~~-----XXX--
@@ -228,6 +226,21 @@ r:88A|---------------------------
 X:8~AAAA|------------------------
 %:---------------------------->-%
 
+o*----888------AA----
+---------------------
+A--------------------
+A-------------------X
+~~--88---~~--------X!
+_____________________
+O2:........|---------
+=RESOURCES===========
+8:____|A:____|~:____|
+=CONSTRUCTION========
+o:8~~|---------------
+r:88A|---------------
+=DESTRUCTION=========
+X:8~AAAA|------------
+%:---------------->-%
 
 
 -----X!--!!8-------!------------!
@@ -668,14 +681,14 @@ CMD register_copy_price
        s:rt
   
        %:r? %:rt
- 
+
 CMD register_clear
  ;; TODO: somehow enforce that this is long enough
  %:???????????????????????????? %:----------------------------
 
 CMD register_spend
  ATOMIC
-  LET_REPEAT 0 17 1 t ?
+  LET_REPEAT 0 14 1 t ?
    MATCH1
     %:t-
   

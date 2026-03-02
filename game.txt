@@ -19,8 +19,6 @@ COLOR k #00aa77
 COLOR l #0077aa
 
 
-WHITESPACE -
-
 -----
 >*--o
 -----
@@ -96,9 +94,10 @@ x---x--x
 *-/---b-
 ----^---
 
-----eeo
--x--eee
->---eee
+---eeeo
+-x-eeee
+>--eeee
+---eeee
 -------
 *--/-\-
 -------
