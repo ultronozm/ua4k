@@ -1,0 +1,6 @@
+a
+
+BIND x move
+
+CMD move
+ ab c

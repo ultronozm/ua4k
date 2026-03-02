@@ -41,6 +41,11 @@ Golden Snapshot Checks
   - `python3 golden_snapshots.py check`
 - Default coverage:
   - `game.txt`, `tetris.txt`, `crash-landing.txt`
+  - tiny fixtures for indentation, FOR, ZIP/LET_REPEAT, and mandatory side effects
+
+Parser Diagnostics Checks
+- Run parser error regression checks against invalid fixtures:
+  - `python3 parser_diagnostics.py`
 
 Adding a New Game
 1. Create `my-game.txt` in DSL format.

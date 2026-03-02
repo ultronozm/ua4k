@@ -1,0 +1,6 @@
+a
+
+BIND x move
+
+CMD move
+ CALL missing_command

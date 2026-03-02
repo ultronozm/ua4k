@@ -1,0 +1,7 @@
+a
+
+BIND x move
+
+CMD move
+ LET_REPEAT 0 5 0 t x
+  t t

@@ -1,0 +1,3 @@
+a
+
+BIND w north s
