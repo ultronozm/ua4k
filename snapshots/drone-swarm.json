@@ -173,13 +173,22 @@
           "rules": [
             {
               "from": [
-                "-A",
+                "-A"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1a"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
                 "-B"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "1a",
                 "2b"
               ],
               "type": "simple"
@@ -197,15 +206,11 @@
             {
               "from": [
                 "A",
-                "-",
-                "a",
-                "1"
+                "-"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "A",
-                "-",
                 "a",
                 "1"
               ],
@@ -214,15 +219,11 @@
             {
               "from": [
                 "B",
-                "-",
-                "b",
-                "2"
+                "-"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "B",
-                "-",
                 "b",
                 "2"
               ],
@@ -241,15 +242,11 @@
             {
               "from": [
                 "-",
-                "A",
-                "1",
-                "a"
+                "A"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "-",
-                "A",
                 "1",
                 "a"
               ],
@@ -258,15 +255,11 @@
             {
               "from": [
                 "-",
-                "B",
-                "2",
-                "b"
+                "B"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "-",
-                "B",
                 "2",
                 "b"
               ],
@@ -284,13 +277,22 @@
           "rules": [
             {
               "from": [
-                "A-",
+                "A-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "a1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
                 "B-"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "a1",
                 "b2"
               ],
               "type": "simple"

@@ -204,36 +204,30 @@ CMD park_unlock
 
 CMD bounce_back_north
  TRY_ALL
-  A
-  -
-  a
-  1
+  A a
+  - 1
 
-  B
-  -
-  b
-  2
+  B b
+  - 2
 
 CMD bounce_back_south
  TRY_ALL
-  -
-  A
-  1
-  a
+  - 1
+  A a
 
-  -
-  B
-  2
-  b
+  - 2
+  B b
 
 CMD bounce_back_west
  TRY_ALL
   A- a1
+
   B- b2
 
 CMD bounce_back_east
  TRY_ALL
   -A 1a
+
   -B 2b
 
 CMD move1_north
