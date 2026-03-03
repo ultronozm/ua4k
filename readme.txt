@@ -67,4 +67,5 @@ Adding a New Game
 3. Reload `ua4k.html` and select `my-game` from the dropdown.
 
 Included New Game
-- `drone-swarm.txt`: lockstep dual-drone puzzle with 7 levels, key-collection win constraints (`VOID k`), simultaneous dock requirements (lone docking bounces back one tile), key-triggered gate unlocks (`g`), lock-gated doors (`h`), soft lanes (`m`) that collapse on key pickup, and vertical `z` undocking that restores dock tiles while re-forming active drones.
+- `drone-swarm.txt`: lockstep dual-drone puzzle with 9 levels, key-collection win constraints (`VOID k`), simultaneous docking requirements (lone docking bounces back one tile), synchronized key+gate breach logic (`k` + `g`), lock-gated barriers (`h`), soft lanes (`m`) that collapse on key pickup, and vertical `z` undocking that restores dock tiles while re-forming active drones.
+- `signal-relay.txt`: single-agent relay-routing puzzle with 8 levels. Relays must be activated in order (`a -> b -> c`), doors enforce staged prerequisites (`d` after `b`, `h` after `c`), and `c` activation triggers overload that collapses soft lanes (`m -> x`).

@@ -1,0 +1,823 @@
+{
+  "binds": {
+    "a": "west",
+    "d": "east",
+    "s": "south",
+    "w": "north"
+  },
+  "charMap": {},
+  "colorMap": {
+    "-": "#aaaaaa",
+    "1": "#2e6cff",
+    "E": "#00cc88",
+    "P": "#6aa84f",
+    "Q": "#8e7cc3",
+    "R": "#e69138",
+    "a": "#6aa84f",
+    "b": "#8e7cc3",
+    "c": "#e69138",
+    "d": "#cc0000",
+    "e": "#00a2a2",
+    "h": "#a64d79",
+    "m": "#557766",
+    "p": "#777777",
+    "q": "#777777",
+    "r": "#777777",
+    "x": "#444444"
+  },
+  "globalTick": null,
+  "goals": [
+    [
+      "E"
+    ]
+  ],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "xxxxxxxxxxxxxxx",
+        "xpqrxxxxxxxxxxx",
+        "x1-a-b-c-e----x",
+        "xxxxxxxxxxxxxxx"
+      ],
+      "description": "Relay order tutorial: activate a, then b, then c. The exit only accepts signal after c is armed."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxx",
+        "xpqrxxxxxxxxxxx",
+        "x1---a---d---ex",
+        "x-xxx-xxx-xxx-x",
+        "x---b---c-----x",
+        "xxxxxxxxxxxxxxx"
+      ],
+      "description": "Branch routing: door d only opens after relay b is active, but the level still requires c before the exit accepts power."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxx",
+        "xpqrxxxxxxxxxxx",
+        "x1--a--d--h--ex",
+        "x-xx-xx-xx-xx-x",
+        "x----b----c---x",
+        "xxxxxxxxxxxxxxx"
+      ],
+      "description": "Dual gate logic: d requires b, h requires c. You can scout, but the lock order remains strict."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxx",
+        "xpqrxxxxxxxxxxx",
+        "x1---a---d---ex",
+        "x-xxx-mxx-xxx-x",
+        "x---b---c-----x",
+        "xxxxxxxxxxxxxxx"
+      ],
+      "description": "Overload warning: activating c collapses all m lanes into walls. If you rely on the soft bridge too long, the return route disappears."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxx",
+        "xpqrxxxxxxxxxxx",
+        "x1--a--x--d--ex",
+        "x-xx-x-x-xx-x-x",
+        "x--b-x---x--c-x",
+        "x-xx-xxx-x-xx-x",
+        "x----h----m---x",
+        "xxxxxxxxxxxxxxx"
+      ],
+      "description": "Labyrinth relay: longer detours force disciplined routing. h is c-locked and m becomes unsafe after overload."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxx",
+        "xpqrxxxxxxxxxxx",
+        "x1--a--x--d--ex",
+        "x-xx-x-x-xx-x-x",
+        "x--b-x-m-x--c-x",
+        "x-xx-x-xxx-xh-x",
+        "x----x-----x--x",
+        "xxxxxxxxxxxxxxx"
+      ],
+      "description": "Final circuit: tight corridors and a fragile m segment punish wasted movement after the c-triggered overload."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxxxx",
+        "xpqrxxxxxxxxxxxxx",
+        "x1--a--x---d---ex",
+        "x-xx-x-x-xx-xx-xx",
+        "x--b-x---x---c--x",
+        "x-xx-xxx-x-xx-x-x",
+        "x----m---x--h---x",
+        "x--------x------x",
+        "xxxxxxxxxxxxxxxxx"
+      ],
+      "description": "Deep relay trench: long-loop navigation with a late h-gate. The m bridge is useful early but lethal if your c timing is sloppy."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxxxxxx",
+        "xpqrxxxxxxxxxxxxxxx",
+        "x1--a--x---d---x-ex",
+        "x-xx-x-x-xx-xx-x-xx",
+        "x--b-x-m-x---x-c--x",
+        "x-xx-x-xxx-x-x-xx-x",
+        "x----x---h-x-x----x",
+        "x-xxxx---x---x----x",
+        "x------m---x------x",
+        "xxxxxxxxxxxxxxxxxxx"
+      ],
+      "description": "Master relay mesh: intertwined loops, two soft bridges, and a delayed h checkpoint. Plan a full route before committing to c overload."
+    }
+  ],
+  "rules": {
+    "east": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "move_east",
+              "type": "call"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "haveA": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "P"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "P"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "haveB": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "Q"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "Q"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "haveC": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "R"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "R"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_east": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1m"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "m1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1a"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "setA"
+              ],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1b"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveA!",
+                "setB"
+              ],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1c"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveB!",
+                "setC"
+              ],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1d"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveB!"
+              ],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1h"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveC!"
+              ],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1e"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveC!"
+              ],
+              "to": [
+                "-E"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_north": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "-",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "m",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "a",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "setA"
+              ],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "b",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveA!",
+                "setB"
+              ],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "c",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveB!",
+                "setC"
+              ],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "d",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveB!"
+              ],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "h",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveC!"
+              ],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "e",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveC!"
+              ],
+              "to": [
+                "E",
+                "-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_south": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "m"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "a"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "setA"
+              ],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "b"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveA!",
+                "setB"
+              ],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "c"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveB!",
+                "setC"
+              ],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "d"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveB!"
+              ],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "h"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveC!"
+              ],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "e"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveC!"
+              ],
+              "to": [
+                "-",
+                "E"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_west": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "-1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "m1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1m"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "a1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "setA"
+              ],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "b1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveA!",
+                "setB"
+              ],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "c1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveB!",
+                "setC"
+              ],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "d1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveB!"
+              ],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "h1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveC!"
+              ],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "e1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveC!"
+              ],
+              "to": [
+                "E-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "north": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "move_north",
+              "type": "call"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "overload": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "m"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "x"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "setA": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "p"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "P"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "setB": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "q"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "Q"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "setC": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "r"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "overload"
+              ],
+              "to": [
+                "R"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "south": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "move_south",
+              "type": "call"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "west": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "move_west",
+              "type": "call"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [],
+  "whitespaceChars": []
+}
