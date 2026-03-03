@@ -31,8 +31,13 @@ Run in Browser
 TUI Play/Test (uses existing `ua4k.js`)
 - Play a game in terminal with optional key sequence:
   - `node tui_play.js drone-swarm`
-  - `node tui_play.js drone-swarm ssdaawdddwwaawwddwwdaadddwwdwwaw`
+  - `node tui_play.js drone-swarm assddwaassddddddwwddddddwaaaassaaassawassddssaasdsdddddddddddsdddddwwdwwdwww`
 - Useful for quickly validating puzzle behavior without opening a browser.
+
+Puzzle Solver (shortest-path search)
+- Solve a specific level with BFS:
+  - `node solve_level.js drone-swarm 1`
+  - `node solve_level.js drone-swarm 2`
 
 DSL Sketch (current behavior)
 - Metadata/directives include: `GOAL`, `VOID`, `BIND`, `CMD`, `TITLE`, `DESCRIPTION`, `BY`, `TICK`, `WHITESPACE`, `CHARMAP`, `COLOR`, `HIDDEN_LINE_CHAR`.
@@ -62,4 +67,4 @@ Adding a New Game
 3. Reload `ua4k.html` and select `my-game` from the dropdown.
 
 Included New Game
-- `drone-swarm.txt`: lockstep dual-drone puzzle with 4 levels, blocker-aware movement, and optional `z` release for repositioning parked drones.
+- `drone-swarm.txt`: lockstep dual-drone puzzle with 3 levels, key-triggered gate unlocks, blocker-aware movement, and optional `z` release for repositioning parked drones.

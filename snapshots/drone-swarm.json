@@ -15,6 +15,8 @@
     "B": "#00aa66",
     "a": "#66cccc",
     "b": "#cc66cc",
+    "g": "#884422",
+    "k": "#dddd55",
     "x": "#444444"
   },
   "globalTick": null,
@@ -36,40 +38,33 @@
         "x--a-x-b--x",
         "xxxxxxxxxxx"
       ],
-      "description": "You control two drones at once. Every move command applies to both drones in lockstep. Park drone \"1\" on target \"a\" and drone \"2\" on target \"b\". Parked drones (\"A\"/\"B\") are locked in place. If a drone is blocked by a wall or the other drone, it now holds position while the other one can still move."
+      "description": "Core rule: both drones move on every command. Park drone \"1\" on \"a\" and drone \"2\" on \"b\". Parked drones (\"A\"/\"B\") lock in place. If one drone is blocked, it holds position while the other can keep moving."
     },
     {
       "board": [
-        "xxxxxxxxxxxxx",
-        "x----a---b--x",
-        "x-xxx-xxx-xxx",
-        "x-1-------2-x",
-        "xxxxxxxxxxxxx"
+        "xxxxxxxxxxxxxxxxx",
+        "x1---x---g---a--x",
+        "x-xx-xx-xxx-xx-xx",
+        "x--k----x----2--x",
+        "x-xx-xx-xxx-xx-xx",
+        "x--b---g---x----x",
+        "xxxxxxxxxxxxxxxxx"
       ],
-      "description": "Vertical approaches are required here: both drones must reach targets from below."
+      "description": "New mechanic: stepping onto key \"k\" triggers an unlock side effect that opens all gates \"g\". This map is designed so the unlock timing and approach angle both matter."
     },
     {
       "board": [
-        "xxxxxxxxxxxxx",
-        "x----a---b--x",
-        "x--x-----x--x",
-        "x--1-----2--x",
-        "x-----------x",
-        "xxxxxxxxxxxxx"
+        "xxxxxxxxxxxxxxxxxxxxx",
+        "x1----x---g---x---a-x",
+        "x-xx-xx-xx-xx-xx-x-xx",
+        "x--k----x--2--x-----x",
+        "xxx-xxxxxx-xxxxxx-xxx",
+        "x---g----x-----g--b-x",
+        "x-xxxxx-xxx-xxxxx-xxx",
+        "x-------------------x",
+        "xxxxxxxxxxxxxxxxxxxxx"
       ],
-      "description": "Timing matters more than distance. Use the shared controls to desynchronize both drones and then park them in order."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxx",
-        "x---a--x--b---x",
-        "x-xxx--x--xxx-x",
-        "x-1----2------x",
-        "x------x------x",
-        "x-------------x",
-        "xxxxxxxxxxxxxxx"
-      ],
-      "description": "Final challenge: walls force a staged route. Parking one drone at the wrong moment can trap the other."
+      "description": "Final challenge: multiple gates and long detours. Use lock, release (\"z\"), and key timing to keep both drones on viable paths."
     }
   ],
   "rules": {
@@ -114,6 +109,17 @@
               "side_effects": [],
               "to": [
                 "1x"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1g"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1g"
               ],
               "type": "simple"
             },
@@ -174,6 +180,19 @@
             },
             {
               "from": [
+                "1k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "unlock"
+              ],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
                 "1-"
               ],
               "method": "firstmatch",
@@ -213,6 +232,19 @@
               "side_effects": [],
               "to": [
                 "x",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "g",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "g",
                 "1"
               ],
               "type": "simple"
@@ -284,6 +316,21 @@
             },
             {
               "from": [
+                "k",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "unlock"
+              ],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
                 "-",
                 "1"
               ],
@@ -326,6 +373,19 @@
               "to": [
                 "1",
                 "x"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "g"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "g"
               ],
               "type": "simple"
             },
@@ -397,6 +457,21 @@
             {
               "from": [
                 "1",
+                "k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "unlock"
+              ],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
                 "-"
               ],
               "method": "firstmatch",
@@ -436,6 +511,17 @@
               "side_effects": [],
               "to": [
                 "x1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "g1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "g1"
               ],
               "type": "simple"
             },
@@ -496,6 +582,19 @@
             },
             {
               "from": [
+                "k1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "unlock"
+              ],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
                 "-1"
               ],
               "method": "firstmatch",
@@ -534,6 +633,17 @@
               "side_effects": [],
               "to": [
                 "2x"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2g"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2g"
               ],
               "type": "simple"
             },
@@ -594,6 +704,19 @@
             },
             {
               "from": [
+                "2k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "unlock"
+              ],
+              "to": [
+                "-2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
                 "2-"
               ],
               "method": "firstmatch",
@@ -633,6 +756,19 @@
               "side_effects": [],
               "to": [
                 "x",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "g",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "g",
                 "2"
               ],
               "type": "simple"
@@ -704,6 +840,21 @@
             },
             {
               "from": [
+                "k",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "unlock"
+              ],
+              "to": [
+                "2",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
                 "-",
                 "2"
               ],
@@ -746,6 +897,19 @@
               "to": [
                 "2",
                 "x"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "g"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "g"
               ],
               "type": "simple"
             },
@@ -817,6 +981,21 @@
             {
               "from": [
                 "2",
+                "k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "unlock"
+              ],
+              "to": [
+                "-",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
                 "-"
               ],
               "method": "firstmatch",
@@ -856,6 +1035,17 @@
               "side_effects": [],
               "to": [
                 "x2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "g2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "g2"
               ],
               "type": "simple"
             },
@@ -911,6 +1101,19 @@
               "side_effects": [],
               "to": [
                 "B-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "k2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "unlock"
+              ],
+              "to": [
+                "2-"
               ],
               "type": "simple"
             },
@@ -995,6 +1198,27 @@
             }
           ],
           "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "unlock": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "g"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "try_all"
         }
       ],
       "type": "match1"

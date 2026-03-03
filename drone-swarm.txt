@@ -12,6 +12,8 @@ COLOR a #66cccc
 COLOR b #cc66cc
 COLOR A #00aa66
 COLOR B #00aa66
+COLOR k #dddd55
+COLOR g #884422
 
 TITLE Drone Swarm
 
@@ -21,34 +23,29 @@ x----x----x
 x--a-x-b--x
 xxxxxxxxxxx
 
-DESCRIPTION You control two drones at once. Every move command applies to both drones in lockstep. Park drone "1" on target "a" and drone "2" on target "b". Parked drones ("A"/"B") are locked in place. If a drone is blocked by a wall or the other drone, it now holds position while the other one can still move.
+DESCRIPTION Core rule: both drones move on every command. Park drone "1" on "a" and drone "2" on "b". Parked drones ("A"/"B") lock in place. If one drone is blocked, it holds position while the other can keep moving.
 
-xxxxxxxxxxxxx
-x----a---b--x
-x-xxx-xxx-xxx
-x-1-------2-x
-xxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxx
+x1---x---g---a--x
+x-xx-xx-xxx-xx-xx
+x--k----x----2--x
+x-xx-xx-xxx-xx-xx
+x--b---g---x----x
+xxxxxxxxxxxxxxxxx
 
-DESCRIPTION Vertical approaches are required here: both drones must reach targets from below.
+DESCRIPTION New mechanic: stepping onto key "k" triggers an unlock side effect that opens all gates "g". This map is designed so the unlock timing and approach angle both matter.
 
-xxxxxxxxxxxxx
-x----a---b--x
-x--x-----x--x
-x--1-----2--x
-x-----------x
-xxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxx
+x1----x---g---x---a-x
+x-xx-xx-xx-xx-xx-x-xx
+x--k----x--2--x-----x
+xxx-xxxxxx-xxxxxx-xxx
+x---g----x-----g--b-x
+x-xxxxx-xxx-xxxxx-xxx
+x-------------------x
+xxxxxxxxxxxxxxxxxxxxx
 
-DESCRIPTION Timing matters more than distance. Use the shared controls to desynchronize both drones and then park them in order.
-
-xxxxxxxxxxxxxxx
-x---a--x--b---x
-x-xxx--x--xxx-x
-x-1----2------x
-x------x------x
-x-------------x
-xxxxxxxxxxxxxxx
-
-DESCRIPTION Final challenge: walls force a staged route. Parking one drone at the wrong moment can trap the other.
+DESCRIPTION Final challenge: multiple gates and long detours. Use lock, release ("z"), and key timing to keep both drones on viable paths.
 
 BIND w north s south a west d east z release
 
@@ -74,15 +71,22 @@ CMD release
 
   B 2
 
+CMD unlock
+ TRY_ALL
+  g -
+
 CMD move1_north
  MATCH1
   A A
 
-  FOR s x2BbA
+  FOR s xg2BbA
    s s
    1 1
 
   a A
+  1 -
+
+  k 1 unlock
   1 -
 
   - 1
@@ -92,12 +96,15 @@ CMD move1_south
  MATCH1
   A A
 
-  FOR s x2BbA
+  FOR s xg2BbA
    1 1
    s s
 
   1 -
   a A
+
+  1 -
+  k 1 unlock
 
   1 -
   - 1
@@ -106,10 +113,12 @@ CMD move1_west
  MATCH1
   A A
 
-  FOR s x2BbA
+  FOR s xg2BbA
    s1 s1
 
   a1 A-
+
+  k1 1- unlock
 
   -1 1-
 
@@ -117,10 +126,12 @@ CMD move1_east
  MATCH1
   A A
 
-  FOR s x2BbA
+  FOR s xg2BbA
    1s 1s
 
   1a -A
+
+  1k -1 unlock
 
   1- -1
 
@@ -128,11 +139,14 @@ CMD move2_north
  MATCH1
   B B
 
-  FOR s x1AaB
+  FOR s xg1AaB
    s s
    2 2
 
   b B
+  2 -
+
+  k 2 unlock
   2 -
 
   - 2
@@ -142,12 +156,15 @@ CMD move2_south
  MATCH1
   B B
 
-  FOR s x1AaB
+  FOR s xg1AaB
    2 2
    s s
 
   2 -
   b B
+
+  2 -
+  k 2 unlock
 
   2 -
   - 2
@@ -156,10 +173,12 @@ CMD move2_west
  MATCH1
   B B
 
-  FOR s x1AaB
+  FOR s xg1AaB
    s2 s2
 
   b2 B-
+
+  k2 2- unlock
 
   -2 2-
 
@@ -167,9 +186,11 @@ CMD move2_east
  MATCH1
   B B
 
-  FOR s x1AaB
+  FOR s xg1AaB
    2s 2s
 
   2b -B
+
+  2k -2 unlock
 
   2- -2
