@@ -28,7 +28,7 @@ x-xx-x-x--x-x
 x---a---b---x
 xxxxxxxxxxxxx
 
-DESCRIPTION Core rule: both drones move on every command. Entering a dock turns "1" into "A" and "2" into "B"; docked drones stay put. If only one drone is docked after a move, it auto-releases, so stable lock requires both docks together.
+DESCRIPTION Core rule: both drones move on every command. Entering a dock turns "1" into "A" and "2" into "B"; docked drones stay put until you manually undock with "z".
 
 xxxxxxxxxxxxxxxxx
 x--a------g--b--x
@@ -161,8 +161,6 @@ CMD sync_locks
  MATCH1
 
   CALL both_locked
-
-  CALL release_if_any_locked
 
   ? ?
 

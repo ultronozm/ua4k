@@ -40,7 +40,7 @@
         "x---a---b---x",
         "xxxxxxxxxxxxx"
       ],
-      "description": "Core rule: both drones move on every command. Entering a dock turns \"1\" into \"A\" and \"2\" into \"B\"; docked drones stay put. If only one drone is docked after a move, it auto-releases, so stable lock requires both docks together."
+      "description": "Core rule: both drones move on every command. Entering a dock turns \"1\" into \"A\" and \"2\" into \"B\"; docked drones stay put until you manually undock with \"z\"."
     },
     {
       "board": [
@@ -1507,10 +1507,6 @@
           "rules": [
             {
               "name": "both_locked",
-              "type": "call"
-            },
-            {
-              "name": "release_if_any_locked",
               "type": "call"
             },
             {
