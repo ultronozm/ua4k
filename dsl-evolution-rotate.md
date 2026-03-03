@@ -24,7 +24,8 @@ Compile-time block expansion inside a rule context.
 - Produces 4 rotated copies of the enclosed rule subtree.
 - Each orbit is exactly 4 characters, interpreted as positions for east/south/west/north.
 - Applies to **patterns only** (`from`/`to` rows of simple rules).
-- Does **not** rewrite command names.
+- Does **not** rewrite `CALL` targets.
+- Does **not** rewrite side-effect names.
 
 ### `ROTATE_CMDS <base_name> [<orbit1> <orbit2> ...]`
 
@@ -36,7 +37,7 @@ Top-level command generator.
 - Additionally, for command references and side-effect references:
   - names ending in `_e` are rewritten to step suffix (`_e/_s/_w/_n`)
   - names not ending in `_e` are left unchanged
-- No full-string character substitution on command names.
+- No full-string character substitution on command names or side-effect names.
 
 ## `[norotate]` annotation
 
@@ -86,6 +87,7 @@ This order is fixed and deterministic.
 - `ROTATE` can wrap/appear within: `ATOMIC`, `ATOMIC_VERTICAL`, `ATOMIC_HORIZONTAL`, `MATCH1`, `TRY_ALL`, `RANDOM`, `FOR`, `ZIP`, `LET_REPEAT`.
 - `ROTATE` is compile-time only; runtime rule types remain unchanged.
 - `CALL` references are unchanged by `ROTATE`.
+- Side-effect names are unchanged by `ROTATE`.
 - `CALL` and side-effect references are suffix-rewritten by `ROTATE_CMDS` if they end with `_e`.
 - `CALL_EACH` is out of scope for this v1 unless added explicitly as a separate feature.
 
@@ -122,6 +124,7 @@ Step behavior:
 - north: `use_key2_n!`, `use_key1_n!`
 
 `unlock` remains unchanged.
+If a side-effect is mandatory (e.g. `use_key2_e!`), the suffix is rewritten and `!` is preserved (`use_key2_s!`, etc.).
 
 ### Fixed status-row lookup
 
