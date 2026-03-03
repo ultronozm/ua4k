@@ -28,6 +28,12 @@ Run in Browser
 3. Use the dropdown to select any compiled game.
 4. For engine debug logging, set `DEBUG_LOGS = true` in `ua4k.js`.
 
+TUI Play/Test (uses existing `ua4k.js`)
+- Play a game in terminal with optional key sequence:
+  - `node tui_play.js drone-swarm`
+  - `node tui_play.js drone-swarm ssdaa`
+- Useful for quickly validating puzzle behavior without opening a browser.
+
 DSL Sketch (current behavior)
 - Metadata/directives include: `GOAL`, `VOID`, `BIND`, `CMD`, `TITLE`, `DESCRIPTION`, `BY`, `TICK`, `WHITESPACE`, `CHARMAP`, `COLOR`, `HIDDEN_LINE_CHAR`.
 - Compound rule constructs include: `ATOMIC`, `ATOMIC_VERTICAL`, `ATOMIC_HORIZONTAL`, `MATCH1`, `TRY_ALL`, `RANDOM`, `FOR`, `ZIP`, `LET_REPEAT`, `CALL`, `CALL_EACH`.

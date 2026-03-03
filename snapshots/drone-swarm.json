@@ -19,7 +19,9 @@
   "globalTick": null,
   "goals": [
     [
-      "A",
+      "A"
+    ],
+    [
       "B"
     ]
   ],
@@ -33,7 +35,7 @@
         "x--a-x-b--x",
         "xxxxxxxxxxx"
       ],
-      "description": "Basic lockstep movement."
+      "description": "You control two drones at once. Every move command applies to both drones in lockstep. Park drone \"1\" on target \"a\" and drone \"2\" on target \"b\". A parked drone (\"A\" or \"B\") is locked in place and no longer moves."
     },
     {
       "board": [
@@ -44,7 +46,7 @@
         "x-----------x",
         "xxxxxxxxxxxxx"
       ],
-      "description": "The side corridors create drift; park one drone, then steer the other."
+      "description": "Basic lockstep movement."
     },
     {
       "board": [
@@ -54,7 +56,8 @@
         "x--1--x--2--x",
         "x-----------x",
         "xxxxxxxxxxxxx"
-      ]
+      ],
+      "description": "The side corridors create drift; park one drone, then steer the other."
     }
   ],
   "rules": {
