@@ -146,38 +146,25 @@ BIND w north s south a west d east e wait
 CMD wait
  CALL minotaur_turn
  
+ROTATE_CMDS player_move
+ MATCH1
+  FOR s _o
+   ATOMIC
+    T.s _.T
+
+    CALL minotaur_turn
 
 CMD north
- FOR s _o
-  ATOMIC
-   s T
-   . .
-   T _
-  
-   CALL minotaur_turn
+ CALL player_move_n
 
 CMD south
- FOR s _o
-  ATOMIC
-   T _
-   . .
-   s T
-  
-   CALL minotaur_turn
+ CALL player_move_s
 
 CMD west
- FOR s _o
-  ATOMIC
-   s.T T._
-  
-   CALL minotaur_turn
+ CALL player_move_w
 
 CMD east
- FOR s _o
-  ATOMIC
-   T.s _.T
-  
-   CALL minotaur_turn
+ CALL player_move_e
 
 CMD minotaur_turn
  TRY_ALL

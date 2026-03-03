@@ -22,59 +22,27 @@ ______________________
 
 BIND w north s south a west d east j swap_left k swap_right
 
+ROTATE_CMDS move
+ MATCH1
+  *- -*
+
+  */- -*/
+
+  *\- -*\
+
+  *x- -*x
+
 CMD north
- 
- - *
- * -
- 
- - /
- / *
- * -
- 
- - \
- \ *
- * -
- 
- - x
- x *
- * -
- 
+ CALL move_n
+
 CMD south
- 
- * -
- - *
- 
- * -
- / *
- - /
- 
- * -
- \ *
- - \
- 
- * -
- x *
- - x
- 
+ CALL move_s
+
 CMD west
- 
- -* *-
- 
- -/* /*-
- 
- -\* \*-
- 
- -x* x*-
- 
+ CALL move_w
+
 CMD east
- 
- *- -*
- 
- */- -*/
- 
- *\- -*\
- 
- *x- -*x
+ CALL move_e
 
 FOR 12 abcdefghijklmnopqrstuvwxyz
 

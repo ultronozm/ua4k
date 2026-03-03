@@ -28,51 +28,28 @@ CMD _tick
 
 BIND w up s down a left d right e step
 
-CMD up
- TRY_ALL
-  FOR d nsew
-   MATCH1
-    ATOMIC
-     v
-     d
-
-     %? %n
-    
-    d n
-
-CMD down
- TRY_ALL
-  FOR d nsew
-   MATCH1
-    ATOMIC
-     d
-     ^
-
-     %? %s
-    
-    d s
-
-CMD left
- TRY_ALL
-  FOR d nsew
-   MATCH1
-    ATOMIC
-     >d
-     
-     %? %w
-    
-    d w
-
-CMD right
+ROTATE_CMDS turn eswn <^>v
  TRY_ALL
   FOR d nsew
    MATCH1
     ATOMIC
      d<
-    
+
      %? %e
-    
-    d e
+
+     d e
+
+CMD up
+ CALL turn_n
+
+CMD down
+ CALL turn_s
+
+CMD left
+ CALL turn_w
+
+CMD right
+ CALL turn_e
 
 CMD drag_tail
  ZIP d ^v<> D NSWE

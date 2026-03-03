@@ -51,45 +51,34 @@ p--------v------------------------------------------q#-
 
 BIND w north s south a west d east z step
 
+ROTATE_CMDS cursor_move
+ MATCH1
+  *- -*
+
+ROTATE_CMDS cursor_move_x
+ MATCH1
+  FOR x ABCDEH01LR
+   *x- -*x
+
 CMD north
+ MATCH1
+  CALL cursor_move_n
+  CALL cursor_move_x_n
 
- - *
- * -
- 
 CMD south
+ MATCH1
+  CALL cursor_move_s
+  CALL cursor_move_x_s
 
- * -
- - *
- 
 CMD west
-
- -* *-
+ MATCH1
+  CALL cursor_move_w
+  CALL cursor_move_x_w
 
 CMD east
-
- *- -*
-
-FOR x ABCDEH01LR
-
- CMD north
- 
-  - x
-  x *
-  * -
-   
- CMD south
- 
-  * -
-  x *
-  - x
-   
- CMD west
- 
-  -x* x*-
-
- CMD east
-
-  *x- -*x
+ MATCH1
+  CALL cursor_move_e
+  CALL cursor_move_x_e
 
 CMD step
 
