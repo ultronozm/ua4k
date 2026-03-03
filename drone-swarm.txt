@@ -1,3 +1,6 @@
+VOID
+k
+
 GOAL
 A
 
@@ -26,28 +29,65 @@ xxxxxxxxxxx
 DESCRIPTION Core rule: both drones move on every command. Park drone "1" on "a" and drone "2" on "b". Parked drones ("A"/"B") lock in place. If one drone is blocked, it holds position while the other can keep moving.
 
 xxxxxxxxxxxxxxxxx
+x1---x-----2----x
+x-xx-x-xxx-x-xx-x
+x---a-x---x-b---x
+x-xx-x---x-x-xx-x
+x----x---x------x
+xxxxxxxxxxxxxxxxx
+
+DESCRIPTION Desync warm-up: corridors force the drones to separate and re-align before either can park. Press "z" to release parked drones ("A" -> "1", "B" -> "2") when you need to reposition.
+
+xxxxxxxxxxxxxxxxx
 x1---x---g---a--x
 x-xx-xx-xxx-xx-xx
 x--k----x----2--x
 x-xx-xx-xxx-xx-xx
-x--b---g---x----x
+x--gbx-x---x----x
 xxxxxxxxxxxxxxxxx
 
-DESCRIPTION New mechanic: stepping onto key "k" triggers an unlock side effect that opens all gates "g". This map is designed so the unlock timing and approach angle both matter.
+DESCRIPTION New mechanic: stepping onto key "k" triggers an unlock side effect that opens all gates "g". Levels with keys do not complete until all "k" tiles are collected.
 
 xxxxxxxxxxxxxxxxxxxxx
-x1----x---g---x---a-x
+x1---x---g---x---a--x
 x-xx-xx-xx-xx-xx-x-xx
 x--k----x--2--x-----x
 xxx-xxxxxx-xxxxxx-xxx
 x---g----x-----g--b-x
 x-xxxxx-xxx-xxxxx-xxx
+x-------g-----------x
+xxxxxxxxxxxxxxxxxxxxx
+
+DESCRIPTION Chain reaction: one key opens several distant gates, and the resulting route is very different depending on where each drone stands at unlock time.
+
+xxxxxxxxxxxxxxxxxxxxx
+x---a--x--g--x--b---x
+x-xx-xx-xx-xx-xx-xx-x
+x-----g----x----g---x
+x-xxx-xx-x-xx-xxxx-xx
+x---g-xx-x-xx-g-----x
+x-xx-xx-xx-xx-xx-xx-x
+x-1---k----2----k---x
 x-------------------x
 xxxxxxxxxxxxxxxxxxxxx
 
-DESCRIPTION Final challenge: multiple gates and long detours. Use lock, release ("z"), and key timing to keep both drones on viable paths.
+DESCRIPTION Cross-lock puzzle: two keys, two gate clusters, and wide open recovery space. Fast unlocks are usually wrong; staged unlocks are safer.
 
-BIND w north s south a west d east z release
+xxxxxxxxxxxxxxxxxxxxx
+x1----x---g---x---a-x
+x-xx-xx-xx-xx-xx-x-xx
+x--k----x--2--x--k--x
+xxx-xxxxxx-xxxxxx-xxx
+x---g----x-----g--b-x
+x-xxxxx-xxx-xxxxx-xxx
+x--g---------g------x
+x-xxxxx-xxx-xxx-xxxxx
+x-------------------x
+xxxxxxxxxxxxxxxxxxxxx
+
+DESCRIPTION Final challenge: layered gate networks, repeated rerouting, and long detours. Use lock, release ("z"), and key timing to keep both drones on viable paths.
+
+BIND w north s south a west d east z release_locked
 
 CMD north
  ATOMIC
@@ -65,7 +105,7 @@ CMD east
  ATOMIC
   CALL_EACH move1_east move2_east
 
-CMD release
+CMD release_locked
  TRY_ALL
   A 1
 

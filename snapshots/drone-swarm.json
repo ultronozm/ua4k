@@ -4,7 +4,7 @@
     "d": "east",
     "s": "south",
     "w": "north",
-    "z": "release"
+    "z": "release_locked"
   },
   "charMap": {},
   "colorMap": {
@@ -43,28 +43,71 @@
     {
       "board": [
         "xxxxxxxxxxxxxxxxx",
+        "x1---x-----2----x",
+        "x-xx-x-xxx-x-xx-x",
+        "x---a-x---x-b---x",
+        "x-xx-x---x-x-xx-x",
+        "x----x---x------x",
+        "xxxxxxxxxxxxxxxxx"
+      ],
+      "description": "Desync warm-up: corridors force the drones to separate and re-align before either can park. Press \"z\" to release parked drones (\"A\" -> \"1\", \"B\" -> \"2\") when you need to reposition."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxxxx",
         "x1---x---g---a--x",
         "x-xx-xx-xxx-xx-xx",
         "x--k----x----2--x",
         "x-xx-xx-xxx-xx-xx",
-        "x--b---g---x----x",
+        "x--gbx-x---x----x",
         "xxxxxxxxxxxxxxxxx"
       ],
-      "description": "New mechanic: stepping onto key \"k\" triggers an unlock side effect that opens all gates \"g\". This map is designed so the unlock timing and approach angle both matter."
+      "description": "New mechanic: stepping onto key \"k\" triggers an unlock side effect that opens all gates \"g\". Levels with keys do not complete until all \"k\" tiles are collected."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxxxxxxxx",
+        "x1---x---g---x---a--x",
+        "x-xx-xx-xx-xx-xx-x-xx",
+        "x--k----x--2--x-----x",
+        "xxx-xxxxxx-xxxxxx-xxx",
+        "x---g----x-----g--b-x",
+        "x-xxxxx-xxx-xxxxx-xxx",
+        "x-------g-----------x",
+        "xxxxxxxxxxxxxxxxxxxxx"
+      ],
+      "description": "Chain reaction: one key opens several distant gates, and the resulting route is very different depending on where each drone stands at unlock time."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxxxxxxxx",
+        "x---a--x--g--x--b---x",
+        "x-xx-xx-xx-xx-xx-xx-x",
+        "x-----g----x----g---x",
+        "x-xxx-xx-x-xx-xxxx-xx",
+        "x---g-xx-x-xx-g-----x",
+        "x-xx-xx-xx-xx-xx-xx-x",
+        "x-1---k----2----k---x",
+        "x-------------------x",
+        "xxxxxxxxxxxxxxxxxxxxx"
+      ],
+      "description": "Cross-lock puzzle: two keys, two gate clusters, and wide open recovery space. Fast unlocks are usually wrong; staged unlocks are safer."
     },
     {
       "board": [
         "xxxxxxxxxxxxxxxxxxxxx",
         "x1----x---g---x---a-x",
         "x-xx-xx-xx-xx-xx-x-xx",
-        "x--k----x--2--x-----x",
+        "x--k----x--2--x--k--x",
         "xxx-xxxxxx-xxxxxx-xxx",
         "x---g----x-----g--b-x",
         "x-xxxxx-xxx-xxxxx-xxx",
+        "x--g---------g------x",
+        "x-xxxxx-xxx-xxx-xxxxx",
         "x-------------------x",
         "xxxxxxxxxxxxxxxxxxxxx"
       ],
-      "description": "Final challenge: multiple gates and long detours. Use lock, release (\"z\"), and key timing to keep both drones on viable paths."
+      "description": "Final challenge: layered gate networks, repeated rerouting, and long detours. Use lock, release (\"z\"), and key timing to keep both drones on viable paths."
     }
   ],
   "rules": {
@@ -1152,7 +1195,7 @@
       ],
       "type": "match1"
     },
-    "release": {
+    "release_locked": {
       "rules": [
         {
           "rules": [
@@ -1242,6 +1285,10 @@
       "type": "match1"
     }
   },
-  "voids": [],
+  "voids": [
+    [
+      "k"
+    ]
+  ],
   "whitespaceChars": []
 }
