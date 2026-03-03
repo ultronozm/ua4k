@@ -35,9 +35,11 @@
     {
       "board": [
         "xxxxxxxxxxxxx",
-        "x1---x----2-x",
+        "x1---x---2--x",
         "x-xx-x-xx-x-x",
-        "x---a---b---x",
+        "x--a-x---x-bx",
+        "x------x---xx",
+        "x-----------x",
         "xxxxxxxxxxxxx"
       ],
       "description": "Core rule: both drones move on every command. Entering a dock turns \"1\" into \"A\" and \"2\" into \"B\"; docking must be simultaneous. If only one drone docks on a move, that drone bounces back one tile."
@@ -45,7 +47,7 @@
     {
       "board": [
         "xxxxxxxxxxxxxxxxx",
-        "x--a------g--b--x",
+        "x-xa------g--b--x",
         "x-------x----x--x",
         "x---x---x---x---x",
         "x---x-----2-x---x",
