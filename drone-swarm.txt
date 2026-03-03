@@ -21,27 +21,36 @@ x----x----x
 x--a-x-b--x
 xxxxxxxxxxx
 
-DESCRIPTION You control two drones at once. Every move command applies to both drones in lockstep. Park drone "1" on target "a" and drone "2" on target "b". A parked drone ("A" or "B") is locked in place and no longer moves.
+DESCRIPTION You control two drones at once. Every move command applies to both drones in lockstep. Park drone "1" on target "a" and drone "2" on target "b". Parked drones ("A"/"B") are locked in place. If a drone is blocked by a wall or the other drone, it now holds position while the other one can still move.
 
 xxxxxxxxxxxxx
-x--1--x--2--x
-x-----x-----x
-x---a-x-b---x
+x----a---b--x
+x-xxx-xxx-xxx
+x-1-------2-x
+xxxxxxxxxxxxx
+
+DESCRIPTION Vertical approaches are required here: both drones must reach targets from below.
+
+xxxxxxxxxxxxx
+x----a---b--x
+x--x-----x--x
+x--1-----2--x
 x-----------x
 xxxxxxxxxxxxx
 
-DESCRIPTION Basic lockstep movement.
+DESCRIPTION Timing matters more than distance. Use the shared controls to desynchronize both drones and then park them in order.
 
-xxxxxxxxxxxxx
-x---a-x-b---x
-x-----x-----x
-x--1--x--2--x
-x-----------x
-xxxxxxxxxxxxx
+xxxxxxxxxxxxxxx
+x---a--x--b---x
+x-xxx--x--xxx-x
+x-1----2------x
+x------x------x
+x-------------x
+xxxxxxxxxxxxxxx
 
-DESCRIPTION The side corridors create drift; park one drone, then steer the other.
+DESCRIPTION Final challenge: walls force a staged route. Parking one drone at the wrong moment can trap the other.
 
-BIND w north s south a west d east
+BIND w north s south a west d east z release
 
 CMD north
  ATOMIC
@@ -59,74 +68,108 @@ CMD east
  ATOMIC
   CALL_EACH move1_east move2_east
 
+CMD release
+ TRY_ALL
+  A 1
+
+  B 2
+
 CMD move1_north
  MATCH1
   A A
 
-  - 1
+  FOR s x2BbA
+   s s
+   1 1
+
+  a A
   1 -
 
-  a 1
-  A -
+  - 1
+  1 -
 
 CMD move1_south
  MATCH1
   A A
 
-  1 -
-  - 1
+  FOR s x2BbA
+   1 1
+   s s
 
   1 -
   a A
+
+  1 -
+  - 1
 
 CMD move1_west
  MATCH1
   A A
 
-  -1 1-
+  FOR s x2BbA
+   s1 s1
 
   a1 A-
+
+  -1 1-
 
 CMD move1_east
  MATCH1
   A A
 
-  1- -1
+  FOR s x2BbA
+   1s 1s
 
   1a -A
+
+  1- -1
 
 CMD move2_north
  MATCH1
   B B
 
-  - 2
+  FOR s x1AaB
+   s s
+   2 2
+
+  b B
   2 -
 
-  b 2
-  B -
+  - 2
+  2 -
 
 CMD move2_south
  MATCH1
   B B
 
-  2 -
-  - 2
+  FOR s x1AaB
+   2 2
+   s s
 
   2 -
   b B
+
+  2 -
+  - 2
 
 CMD move2_west
  MATCH1
   B B
 
-  -2 2-
+  FOR s x1AaB
+   s2 s2
 
   b2 B-
+
+  -2 2-
 
 CMD move2_east
  MATCH1
   B B
 
-  2- -2
+  FOR s x1AaB
+   2s 2s
 
   2b -B
+
+  2- -2

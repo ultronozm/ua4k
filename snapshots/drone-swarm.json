@@ -3,7 +3,8 @@
     "a": "west",
     "d": "east",
     "s": "south",
-    "w": "north"
+    "w": "north",
+    "z": "release"
   },
   "charMap": {},
   "colorMap": {
@@ -35,29 +36,40 @@
         "x--a-x-b--x",
         "xxxxxxxxxxx"
       ],
-      "description": "You control two drones at once. Every move command applies to both drones in lockstep. Park drone \"1\" on target \"a\" and drone \"2\" on target \"b\". A parked drone (\"A\" or \"B\") is locked in place and no longer moves."
+      "description": "You control two drones at once. Every move command applies to both drones in lockstep. Park drone \"1\" on target \"a\" and drone \"2\" on target \"b\". Parked drones (\"A\"/\"B\") are locked in place. If a drone is blocked by a wall or the other drone, it now holds position while the other one can still move."
     },
     {
       "board": [
         "xxxxxxxxxxxxx",
-        "x--1--x--2--x",
-        "x-----x-----x",
-        "x---a-x-b---x",
-        "x-----------x",
+        "x----a---b--x",
+        "x-xxx-xxx-xxx",
+        "x-1-------2-x",
         "xxxxxxxxxxxxx"
       ],
-      "description": "Basic lockstep movement."
+      "description": "Vertical approaches are required here: both drones must reach targets from below."
     },
     {
       "board": [
         "xxxxxxxxxxxxx",
-        "x---a-x-b---x",
-        "x-----x-----x",
-        "x--1--x--2--x",
+        "x----a---b--x",
+        "x--x-----x--x",
+        "x--1-----2--x",
         "x-----------x",
         "xxxxxxxxxxxxx"
       ],
-      "description": "The side corridors create drift; park one drone, then steer the other."
+      "description": "Timing matters more than distance. Use the shared controls to desynchronize both drones and then park them in order."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxx",
+        "x---a--x--b---x",
+        "x-xxx--x--xxx-x",
+        "x-1----2------x",
+        "x------x------x",
+        "x-------------x",
+        "xxxxxxxxxxxxxxx"
+      ],
+      "description": "Final challenge: walls force a staged route. Parking one drone at the wrong moment can trap the other."
     }
   ],
   "rules": {
@@ -96,12 +108,56 @@
             },
             {
               "from": [
-                "1-"
+                "1x"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "-1"
+                "1x"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "12"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "12"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1B"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1B"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1b"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1b"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1A"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1A"
               ],
               "type": "simple"
             },
@@ -113,6 +169,17 @@
               "side_effects": [],
               "to": [
                 "-A"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-1"
               ],
               "type": "simple"
             }
@@ -139,21 +206,86 @@
             },
             {
               "from": [
-                "-",
+                "x",
                 "1"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "1",
-                "-"
+                "x",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "B",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "B",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "b",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "b",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A",
+                "1"
               ],
               "type": "simple"
             },
             {
               "from": [
                 "a",
-                "A"
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-",
+                "1"
               ],
               "method": "firstmatch",
               "side_effects": [],
@@ -187,13 +319,65 @@
             {
               "from": [
                 "1",
-                "-"
+                "x"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "-",
-                "1"
+                "1",
+                "x"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "B"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "B"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "b"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "b"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "A"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "A"
               ],
               "type": "simple"
             },
@@ -207,6 +391,19 @@
               "to": [
                 "-",
                 "A"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "1"
               ],
               "type": "simple"
             }
@@ -233,12 +430,56 @@
             },
             {
               "from": [
-                "-1"
+                "x1"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "1-"
+                "x1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "21"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "21"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "B1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "B1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "b1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "b1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A1"
               ],
               "type": "simple"
             },
@@ -250,6 +491,17 @@
               "side_effects": [],
               "to": [
                 "A-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1-"
               ],
               "type": "simple"
             }
@@ -276,12 +528,56 @@
             },
             {
               "from": [
-                "2-"
+                "2x"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "-2"
+                "2x"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "21"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "21"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2A"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2A"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2a"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2a"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2B"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2B"
               ],
               "type": "simple"
             },
@@ -293,6 +589,17 @@
               "side_effects": [],
               "to": [
                 "-B"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-2"
               ],
               "type": "simple"
             }
@@ -319,21 +626,86 @@
             },
             {
               "from": [
-                "-",
+                "x",
                 "2"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "2",
-                "-"
+                "x",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "a",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "a",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "B",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "B",
+                "2"
               ],
               "type": "simple"
             },
             {
               "from": [
                 "b",
-                "B"
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "B",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-",
+                "2"
               ],
               "method": "firstmatch",
               "side_effects": [],
@@ -367,13 +739,65 @@
             {
               "from": [
                 "2",
-                "-"
+                "x"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "-",
-                "2"
+                "2",
+                "x"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "A"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "A"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "a"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "a"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "B"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "B"
               ],
               "type": "simple"
             },
@@ -387,6 +811,19 @@
               "to": [
                 "-",
                 "B"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "2"
               ],
               "type": "simple"
             }
@@ -413,12 +850,56 @@
             },
             {
               "from": [
-                "-2"
+                "x2"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "2-"
+                "x2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "12"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "12"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "a2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "a2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "B2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "B2"
               ],
               "type": "simple"
             },
@@ -430,6 +911,17 @@
               "side_effects": [],
               "to": [
                 "B-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2-"
               ],
               "type": "simple"
             }
@@ -453,6 +945,38 @@
             }
           ],
           "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "release": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "A"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "B"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "try_all"
         }
       ],
       "type": "match1"
