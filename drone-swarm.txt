@@ -24,7 +24,7 @@ TITLE Drone Swarm
 
 xxxxxxxxxxxxx
 x1---x----2-x
-x-xx-x-x--x-x
+x-xx-x-xx-x-x
 x---a---b---x
 xxxxxxxxxxxxx
 
@@ -32,7 +32,7 @@ DESCRIPTION Core rule: both drones move on every command. Entering a dock turns 
 
 xxxxxxxxxxxxxxxxx
 x--a------g--b--x
-x-------x-------x
+x-------x----x--x
 x---x---x---x---x
 x---x-----2-x---x
 x-1-x---k---x---x
@@ -54,8 +54,8 @@ xxxxxxxxxxxxxxxxx
 DESCRIPTION New mechanic: stepping onto key "k" opens every gate "g" and hardens every soft lane "m" into wall "x". Key timing matters, and levels with keys do not complete until all "k" tiles are collected.
 
 xxxxxxxxxxxxxxxxx
-x----a-----b----x
-x----1-----2----x
+x----a---x-b----x
+x----1--2--x----x
 xxxxxxxxhxxxxxxxx
 x---------------x
 x---x-----x-k---x
@@ -84,7 +84,7 @@ x-xx-xx-xx-xx-xx-x-xx
 x--k----x--2--x-----x
 xxx-xxxxxx-xxxxxx-xxx
 x---g----x-----g--b-x
-x-xxxxx-xxx-xxxxx--xx
+x-xxxxx-xxx-xxxxx-xxx
 x--g---------g------x
 x-------------------x
 xxxxxxxxxxxxxxxxxxxxx
@@ -97,7 +97,7 @@ x-xx-xx-xx-xx-xx-x-xx
 x--k----x--2--x--k--x
 xxx-xxxxxx-xxxxxx-xxx
 x---g----x-----g--b-x
-x-xxxxx-xxx-xxxxx--xx
+x-xxxxx-xxx-xxxxx-xxx
 x--g---------g------x
 x-xxxxx-xxx-xxx-xxxxx
 x-------------------x
