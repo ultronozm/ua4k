@@ -32,98 +32,111 @@ xxxxxxxxxxxxx
 
 DESCRIPTION Core rule: both drones move on every command. Entering a dock turns "1" into "A" and "2" into "B"; docking must be simultaneous. If only one drone docks on a move, that drone bounces back one tile.
 
-xxxxxxxxxxxxxxxxx
-x-xa------g--b--x
-x-------x----x--x
-x---x---x---x---x
-x---x-----2-x---x
-x-1-x---k---x---x
-x---x-------x---x
-x------m--------x
-xxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxx
+x1---k---2g--ax
+x-xx-xxx-xx-xxx
+x----x-----x--x
+x----x-a-b-x--x
+x------------xx
+xxxxxxxxxxxxxxx
 
-DESCRIPTION Desync warm-up: corridors force the drones to separate and re-align before either can park. Press "z" to undock parked drones; each undock ejects the drone one tile vertically while restoring the dock tile.
+DESCRIPTION Breach intro: a gate only opens if, on the same input, the other drone is stepping onto a key in that direction. Keys are destructible even when "wasted".
 
-xxxxxxxxxxxxxxxxx
-x1---x---g---a--x
-x-xx-xx-xxx-x--xx
-x--k----x----2--x
-x-xx-xx-xxx-xx-xx
-x---g--x-m-x-b--x
-x---------------x
-xxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxx
+x1--k--x--2---x
+x-xx---x-xx-g-x
+x---m--x---x--x
+x-a----x---x-bx
+x---g--k------x
+xxxxxxxxxxxxxxx
 
-DESCRIPTION New mechanic: stepping onto key "k" opens every gate "g" and hardens every soft lane "m" into wall "x". Key timing matters, and levels with keys do not complete until all "k" tiles are collected.
+DESCRIPTION Key economy drill: every key disappears on contact and also collapses all "m" lanes into walls. Taking keys too early can lock both routes.
 
-xxxxxxxxxxxxxxxxx
-x----a---x-b----x
-x----1--2--x----x
-xxxxxxxxhxxxxxxxx
-x---------------x
-x---x-----x-k---x
-x---x-----x-----x
-x---------------x
-xxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxx
+x--g--1---k---x
+x-xx-xxx-xxx--x
+x-a----x----b-x
+x--k---2---g--x
+x-------------x
+xxxxxxxxxxxxxxx
 
-DESCRIPTION Lock-breaker: park both drones to open "h", then use "z" to break formation and descend. Collect the off-axis key, recover lane access, and re-lock both goals.
+DESCRIPTION Role reversal: each drone must spend a key to breach the other drone's gate. Mirror movement is punished by one-time key loss.
+
+xxxxxxxxxxxxxxx
+x--a---b------x
+x--1---2------x
+xxxxxhxxxxxhxxx
+x--k---g------x
+x-------------x
+xxxxxxxxxxxxxxx
+
+DESCRIPTION Cross-lock rehearsal: dock both drones to open the dual "h" barrier, undock with "z", then execute a synchronized breach before returning to the docks.
+
+xxxxxxxxxxxxxxx
+x1--k--x--g--ax
+x-xx---x---xx-x
+x--g--x--k--2-x
+x-xx---x---xx-x
+xb------------x
+xxxxxxxxxxxxxxx
+
+DESCRIPTION Two-stage breach: you need multiple synchronized key-gate interactions with little spare motion. One mistimed pickup hard-locks a branch.
+
+xxxxxxxxxxxxxxxxxxx
+x1--k--x--g--x---ax
+x-xx---x---x-x-xx-x
+x--g--x--k--x--2--x
+x-xx---x---x-x-xx-x
+x---h---x---h-----x
+x---a---x---b-----x
+x-------m---------x
+xxxxxxxxxxxxxxxxxxx
+
+DESCRIPTION Lock and loop: first unlock the center with simultaneous docking, then re-route through asymmetric corridors where each breach changes future options.
 
 xxxxxxxxxxxxxxxxxxxxx
-x---a--x--g--x--b---x
-x-xx-xx-xx-xx-xx-xx-x
-x-----g----x----g---x
-x-xxx-xx-x-xx-xxxx-xx
-x---g-xx-x-xx-g-----x
-x-xx-xx-xx-xx-xx-xx-x
-x-1---k----2----k---x
-x-------------------x
+x1--k--x--g--x---g-ax
+x-xx---x---x-x-xx---x
+x--g--x--k--x--2--x-x
+x-xx---x---x-x-xx-k-x
+x---h---x---h---x---x
+x---a---x---b---x---x
+x-------m---m-------x
+x-----g---------k---x
 xxxxxxxxxxxxxxxxxxxxx
 
-DESCRIPTION Cross-lock puzzle: two keys, two gate clusters, and wide recovery space. Fast unlocks are usually wrong; staged unlocks are safer.
+DESCRIPTION Triple-breach network: interleaved keys, two lock gates, and collapsible lanes force careful staging before the final simultaneous docking.
 
-xxxxxxxxxxxxxxxxxxxxx
-x1----x---g---x---a-x
-x-xx-xx-xx-xx-xx-x-xx
-x--k----x--2--x-----x
-xxx-xxxxxx-xxxxxx-xxx
-x---g----x-----g--b-x
-x-xxxxx-xxx-xxxxx-xxx
-x--g---------g------x
-x-------------------x
-xxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxx
+x1--k--x--g--x--g--x-ax
+x-xx---x---x-x---x-x--x
+x--g--x--k--x--2-x-k--x
+x-xx---x---x-x---x-x--x
+x---h---x---h---x---g-x
+x---a---x---b---x-----x
+x-------m---m---x-----x
+x---k---------g-------x
+xxxxxxxxxxxxxxxxxxxxxxx
 
-DESCRIPTION Gate relay: one key opens several distant clusters, but synchronized routing is still required to rejoin both drones on their docks.
-
-xxxxxxxxxxxxxxxxxxxxx
-x1----x---g---x---a-x
-x-xx-xx-xx-xx-xx-x-xx
-x--k----x--2--x--k--x
-xxx-xxxxxx-xxxxxx-xxx
-x---g----x-----g--b-x
-x-xxxxx-xxx-xxxxx-xxx
-x--g---------g------x
-x-xxxxx-xxx-xxx-xxxxx
-x-------------------x
-xxxxxxxxxxxxxxxxxxxxx
-
-DESCRIPTION Final challenge: layered gate networks, repeated rerouting, and long detours. Use lock, release ("z"), and key timing to keep both drones on viable paths.
+DESCRIPTION Finale gauntlet: chained synchronized breaches plus irreversible key loss. Plan the full key order before committing to either dock approach.
 
 BIND w north s south a west d east z release_locked
 
 CMD north
  ATOMIC
-  CALL_EACH move1_north move2_north sync_locks_north
+  CALL_EACH breach_north move1_north move2_north sync_locks_north
 
 CMD south
  ATOMIC
-  CALL_EACH move1_south move2_south sync_locks_south
+  CALL_EACH breach_south move1_south move2_south sync_locks_south
 
 CMD west
  ATOMIC
-  CALL_EACH move1_west move2_west sync_locks_west
+  CALL_EACH breach_west move1_west move2_west sync_locks_west
 
 CMD east
  ATOMIC
-  CALL_EACH move1_east move2_east sync_locks_east
+  CALL_EACH breach_east move1_east move2_east sync_locks_east
 
 CMD release_locked
  TRY_ALL
@@ -197,12 +210,75 @@ CMD sync_locks_east
 
 CMD unlock
  TRY_ALL
-  g -
   m x
 
 CMD park_unlock
  TRY_ALL
   h -
+
+CMD use_key1_north
+ MATCH1
+  k -
+  1 1
+
+CMD use_key1_south
+ MATCH1
+  1 1
+  k -
+
+CMD use_key1_west
+ MATCH1
+  k1 -1
+
+CMD use_key1_east
+ MATCH1
+  1k 1-
+
+CMD use_key2_north
+ MATCH1
+  k -
+  2 2
+
+CMD use_key2_south
+ MATCH1
+  2 2
+  k -
+
+CMD use_key2_west
+ MATCH1
+  k2 -2
+
+CMD use_key2_east
+ MATCH1
+  2k 2-
+
+CMD breach_north
+ TRY_ALL
+  g - use_key2_north! unlock
+  1 1
+
+  g - use_key1_north! unlock
+  2 2
+
+CMD breach_south
+ TRY_ALL
+  1 1
+  g - use_key2_south! unlock
+
+  2 2
+  g - use_key1_south! unlock
+
+CMD breach_west
+ TRY_ALL
+  g1 1- use_key2_west! unlock
+
+  g2 2- use_key1_west! unlock
+
+CMD breach_east
+ TRY_ALL
+  1g -1 use_key2_east! unlock
+
+  2g -2 use_key1_east! unlock
 
 CMD bounce_back_north
  TRY_ALL

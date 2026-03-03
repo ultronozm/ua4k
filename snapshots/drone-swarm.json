@@ -46,90 +46,107 @@
     },
     {
       "board": [
-        "xxxxxxxxxxxxxxxxx",
-        "x-xa------g--b--x",
-        "x-------x----x--x",
-        "x---x---x---x---x",
-        "x---x-----2-x---x",
-        "x-1-x---k---x---x",
-        "x---x-------x---x",
-        "x------m--------x",
-        "xxxxxxxxxxxxxxxxx"
+        "xxxxxxxxxxxxxxx",
+        "x1---k---2g--ax",
+        "x-xx-xxx-xx-xxx",
+        "x----x-----x--x",
+        "x----x-a-b-x--x",
+        "x------------xx",
+        "xxxxxxxxxxxxxxx"
       ],
-      "description": "Desync warm-up: corridors force the drones to separate and re-align before either can park. Press \"z\" to undock parked drones; each undock ejects the drone one tile vertically while restoring the dock tile."
+      "description": "Breach intro: a gate only opens if, on the same input, the other drone is stepping onto a key in that direction. Keys are destructible even when \"wasted\"."
     },
     {
       "board": [
-        "xxxxxxxxxxxxxxxxx",
-        "x1---x---g---a--x",
-        "x-xx-xx-xxx-x--xx",
-        "x--k----x----2--x",
-        "x-xx-xx-xxx-xx-xx",
-        "x---g--x-m-x-b--x",
-        "x---------------x",
-        "xxxxxxxxxxxxxxxxx"
+        "xxxxxxxxxxxxxxx",
+        "x1--k--x--2---x",
+        "x-xx---x-xx-g-x",
+        "x---m--x---x--x",
+        "x-a----x---x-bx",
+        "x---g--k------x",
+        "xxxxxxxxxxxxxxx"
       ],
-      "description": "New mechanic: stepping onto key \"k\" opens every gate \"g\" and hardens every soft lane \"m\" into wall \"x\". Key timing matters, and levels with keys do not complete until all \"k\" tiles are collected."
+      "description": "Key economy drill: every key disappears on contact and also collapses all \"m\" lanes into walls. Taking keys too early can lock both routes."
     },
     {
       "board": [
-        "xxxxxxxxxxxxxxxxx",
-        "x----a---x-b----x",
-        "x----1--2--x----x",
-        "xxxxxxxxhxxxxxxxx",
-        "x---------------x",
-        "x---x-----x-k---x",
-        "x---x-----x-----x",
-        "x---------------x",
-        "xxxxxxxxxxxxxxxxx"
+        "xxxxxxxxxxxxxxx",
+        "x--g--1---k---x",
+        "x-xx-xxx-xxx--x",
+        "x-a----x----b-x",
+        "x--k---2---g--x",
+        "x-------------x",
+        "xxxxxxxxxxxxxxx"
       ],
-      "description": "Lock-breaker: park both drones to open \"h\", then use \"z\" to break formation and descend. Collect the off-axis key, recover lane access, and re-lock both goals."
+      "description": "Role reversal: each drone must spend a key to breach the other drone's gate. Mirror movement is punished by one-time key loss."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxx",
+        "x--a---b------x",
+        "x--1---2------x",
+        "xxxxxhxxxxxhxxx",
+        "x--k---g------x",
+        "x-------------x",
+        "xxxxxxxxxxxxxxx"
+      ],
+      "description": "Cross-lock rehearsal: dock both drones to open the dual \"h\" barrier, undock with \"z\", then execute a synchronized breach before returning to the docks."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxx",
+        "x1--k--x--g--ax",
+        "x-xx---x---xx-x",
+        "x--g--x--k--2-x",
+        "x-xx---x---xx-x",
+        "xb------------x",
+        "xxxxxxxxxxxxxxx"
+      ],
+      "description": "Two-stage breach: you need multiple synchronized key-gate interactions with little spare motion. One mistimed pickup hard-locks a branch."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxxxxxx",
+        "x1--k--x--g--x---ax",
+        "x-xx---x---x-x-xx-x",
+        "x--g--x--k--x--2--x",
+        "x-xx---x---x-x-xx-x",
+        "x---h---x---h-----x",
+        "x---a---x---b-----x",
+        "x-------m---------x",
+        "xxxxxxxxxxxxxxxxxxx"
+      ],
+      "description": "Lock and loop: first unlock the center with simultaneous docking, then re-route through asymmetric corridors where each breach changes future options."
     },
     {
       "board": [
         "xxxxxxxxxxxxxxxxxxxxx",
-        "x---a--x--g--x--b---x",
-        "x-xx-xx-xx-xx-xx-xx-x",
-        "x-----g----x----g---x",
-        "x-xxx-xx-x-xx-xxxx-xx",
-        "x---g-xx-x-xx-g-----x",
-        "x-xx-xx-xx-xx-xx-xx-x",
-        "x-1---k----2----k---x",
-        "x-------------------x",
+        "x1--k--x--g--x---g-ax",
+        "x-xx---x---x-x-xx---x",
+        "x--g--x--k--x--2--x-x",
+        "x-xx---x---x-x-xx-k-x",
+        "x---h---x---h---x---x",
+        "x---a---x---b---x---x",
+        "x-------m---m-------x",
+        "x-----g---------k---x",
         "xxxxxxxxxxxxxxxxxxxxx"
       ],
-      "description": "Cross-lock puzzle: two keys, two gate clusters, and wide recovery space. Fast unlocks are usually wrong; staged unlocks are safer."
+      "description": "Triple-breach network: interleaved keys, two lock gates, and collapsible lanes force careful staging before the final simultaneous docking."
     },
     {
       "board": [
-        "xxxxxxxxxxxxxxxxxxxxx",
-        "x1----x---g---x---a-x",
-        "x-xx-xx-xx-xx-xx-x-xx",
-        "x--k----x--2--x-----x",
-        "xxx-xxxxxx-xxxxxx-xxx",
-        "x---g----x-----g--b-x",
-        "x-xxxxx-xxx-xxxxx-xxx",
-        "x--g---------g------x",
-        "x-------------------x",
-        "xxxxxxxxxxxxxxxxxxxxx"
+        "xxxxxxxxxxxxxxxxxxxxxxx",
+        "x1--k--x--g--x--g--x-ax",
+        "x-xx---x---x-x---x-x--x",
+        "x--g--x--k--x--2-x-k--x",
+        "x-xx---x---x-x---x-x--x",
+        "x---h---x---h---x---g-x",
+        "x---a---x---b---x-----x",
+        "x-------m---m---x-----x",
+        "x---k---------g-------x",
+        "xxxxxxxxxxxxxxxxxxxxxxx"
       ],
-      "description": "Gate relay: one key opens several distant clusters, but synchronized routing is still required to rejoin both drones on their docks."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxxxxxxxx",
-        "x1----x---g---x---a-x",
-        "x-xx-xx-xx-xx-xx-x-xx",
-        "x--k----x--2--x--k--x",
-        "xxx-xxxxxx-xxxxxx-xxx",
-        "x---g----x-----g--b-x",
-        "x-xxxxx-xxx-xxxxx-xxx",
-        "x--g---------g------x",
-        "x-xxxxx-xxx-xxx-xxxxx",
-        "x-------------------x",
-        "xxxxxxxxxxxxxxxxxxxxx"
-      ],
-      "description": "Final challenge: layered gate networks, repeated rerouting, and long detours. Use lock, release (\"z\"), and key timing to keep both drones on viable paths."
+      "description": "Finale gauntlet: chained synchronized breaches plus irreversible key loss. Plan the full key order before committing to either dock approach."
     }
   ],
   "rules": {
@@ -305,10 +322,174 @@
       ],
       "type": "match1"
     },
+    "breach_east": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1g"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "use_key2_east!",
+                "unlock"
+              ],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2g"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "use_key1_east!",
+                "unlock"
+              ],
+              "to": [
+                "-2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "breach_north": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "g",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "use_key2_north!",
+                "unlock"
+              ],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "g",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "use_key1_north!",
+                "unlock"
+              ],
+              "to": [
+                "-",
+                "2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "breach_south": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1",
+                "g"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "use_key2_south!",
+                "unlock"
+              ],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "g"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "use_key1_south!",
+                "unlock"
+              ],
+              "to": [
+                "2",
+                "-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "breach_west": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "g1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "use_key2_west!",
+                "unlock"
+              ],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "g2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "use_key1_west!",
+                "unlock"
+              ],
+              "to": [
+                "2-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
     "east": {
       "rules": [
         {
           "rules": [
+            {
+              "name": "breach_east",
+              "type": "call"
+            },
             {
               "name": "move1_east",
               "type": "call"
@@ -1476,6 +1657,10 @@
         {
           "rules": [
             {
+              "name": "breach_north",
+              "type": "call"
+            },
+            {
               "name": "move1_north",
               "type": "call"
             },
@@ -1622,6 +1807,10 @@
         {
           "rules": [
             {
+              "name": "breach_south",
+              "type": "call"
+            },
+            {
               "name": "move1_south",
               "type": "call"
             },
@@ -1761,13 +1950,11 @@
           "rules": [
             {
               "from": [
-                "g",
                 "m"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "-",
                 "x"
               ],
               "type": "simple"
@@ -1778,10 +1965,190 @@
       ],
       "type": "match1"
     },
+    "use_key1_east": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "use_key1_north": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "k",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "use_key1_south": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1",
+                "k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "use_key1_west": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "k1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "use_key2_east": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "2k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "use_key2_north": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "k",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "use_key2_south": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "2",
+                "k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "use_key2_west": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "k2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
     "west": {
       "rules": [
         {
           "rules": [
+            {
+              "name": "breach_west",
+              "type": "call"
+            },
             {
               "name": "move1_west",
               "type": "call"
