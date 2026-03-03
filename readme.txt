@@ -67,4 +67,4 @@ Adding a New Game
 3. Reload `ua4k.html` and select `my-game` from the dropdown.
 
 Included New Game
-- `drone-swarm.txt`: lockstep dual-drone puzzle with 7 levels, key-collection win constraints (`VOID k`), key-triggered gate unlocks, lock-gated doors (`h`), blocker-aware movement, and `z` release that restores dock tiles while re-forming active drones.
+- `drone-swarm.txt`: lockstep dual-drone puzzle with 7 levels, key-collection win constraints (`VOID k`), key-triggered gate unlocks (`g`), lock-gated doors (`h`), soft lanes (`m`) that collapse on key pickup, and vertical `z` undocking that restores dock tiles while re-forming active drones.

@@ -18,6 +18,7 @@
     "g": "#884422",
     "h": "#446688",
     "k": "#dddd55",
+    "m": "#557766",
     "x": "#444444"
   },
   "globalTick": null,
@@ -35,11 +36,11 @@
       "board": [
         "xxxxxxxxxxxxx",
         "x1---x----2-x",
-        "x-xx-x-xx-x-x",
+        "x-xx-x-x--x-x",
         "x---a---b---x",
         "xxxxxxxxxxxxx"
       ],
-      "description": "Core rule: both drones move on every command. Park drone \"1\" on \"a\" and drone \"2\" on \"b\". If only one drone is parked, it does not stay parked for long; stable lock requires both drones parked together."
+      "description": "Core rule: both drones move on every command. Entering a dock turns \"1\" into \"A\" and \"2\" into \"B\"; docked drones stay put. If only one drone is docked after a move, it auto-releases, so stable lock requires both docks together."
     },
     {
       "board": [
@@ -50,23 +51,23 @@
         "x---x-----2-x---x",
         "x-1-x---k---x---x",
         "x---x-------x---x",
-        "x---------------x",
+        "x------m--------x",
         "xxxxxxxxxxxxxxxxx"
       ],
-      "description": "Desync warm-up: corridors force the drones to separate and re-align before either can park. Press \"z\" to release parked drones (\"A\" -> \"1\", \"B\" -> \"2\") when you need to reposition."
+      "description": "Desync warm-up: corridors force the drones to separate and re-align before either can park. Press \"z\" to undock parked drones; each undock ejects the drone one tile vertically while restoring the dock tile."
     },
     {
       "board": [
         "xxxxxxxxxxxxxxxxx",
         "x1---x---g---a--x",
-        "x-xx-xx-xxx-xx-xx",
+        "x-xx-xx-xxx-x--xx",
         "x--k----x----2--x",
         "x-xx-xx-xxx-xx-xx",
-        "x---g--x---x-b--x",
+        "x---g--x-m-x-b--x",
         "x---------------x",
         "xxxxxxxxxxxxxxxxx"
       ],
-      "description": "New mechanic: stepping onto key \"k\" triggers an unlock side effect that opens all gates \"g\". Levels with keys do not complete until all \"k\" tiles are collected."
+      "description": "New mechanic: stepping onto key \"k\" opens every gate \"g\" and hardens every soft lane \"m\" into wall \"x\". Key timing matters, and levels with keys do not complete until all \"k\" tiles are collected."
     },
     {
       "board": [
@@ -80,7 +81,7 @@
         "x---------------x",
         "xxxxxxxxxxxxxxxxx"
       ],
-      "description": "Lock-breaker: park both drones to open \"h\", then use \"z\" to break formation and descend. Collect the off-axis key, return to the top lane, and re-lock both goals."
+      "description": "Lock-breaker: park both drones to open \"h\", then use \"z\" to break formation and descend. Collect the off-axis key, recover lane access, and re-lock both goals."
     },
     {
       "board": [
@@ -95,21 +96,22 @@
         "x-------------------x",
         "xxxxxxxxxxxxxxxxxxxxx"
       ],
-      "description": "Cross-lock puzzle: two keys, two gate clusters, and wide open recovery space. Fast unlocks are usually wrong; staged unlocks are safer."
+      "description": "Cross-lock puzzle: two keys, two gate clusters, and wide recovery space. Fast unlocks are usually wrong; staged unlocks are safer."
     },
     {
       "board": [
         "xxxxxxxxxxxxxxxxxxxxx",
-        "x1---x---g---x---a--x",
+        "x1----x---g---x---a-x",
         "x-xx-xx-xx-xx-xx-x-xx",
         "x--k----x--2--x-----x",
         "xxx-xxxxxx-xxxxxx-xxx",
         "x---g----x-----g--b-x",
-        "x-xxxxx-xxx-xxxxx-xxx",
-        "x-------g-----------x",
+        "x-xxxxx-xxx-xxxxx--xx",
+        "x--g---------g------x",
+        "x-------------------x",
         "xxxxxxxxxxxxxxxxxxxxx"
       ],
-      "description": "Chain reaction: one key opens several distant gates, and the resulting route is very different depending on where each drone stands at unlock time."
+      "description": "Gate relay: one key opens several distant clusters, but synchronized routing is still required to rejoin both drones on their docks."
     },
     {
       "board": [
@@ -119,7 +121,7 @@
         "x--k----x--2--x--k--x",
         "xxx-xxxxxx-xxxxxx-xxx",
         "x---g----x-----g--b-x",
-        "x-xxxxx-xxx-xxxxx-xxx",
+        "x-xxxxx-xxx-xxxxx--xx",
         "x--g---------g------x",
         "x-xxxxx-xxx-xxx-xxxxx",
         "x-------------------x",
@@ -1447,28 +1449,6 @@
             },
             {
               "from": [
-                "A-"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "a1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "-A"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1a"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
                 "B",
                 "-"
               ],
@@ -1490,28 +1470,6 @@
               "to": [
                 "2",
                 "b"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "B-"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "b2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "-B"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2b"
               ],
               "type": "simple"
             }
@@ -1578,12 +1536,14 @@
           "rules": [
             {
               "from": [
-                "g"
+                "g",
+                "m"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "-"
+                "-",
+                "x"
               ],
               "type": "simple"
             }

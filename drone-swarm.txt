@@ -18,16 +18,17 @@ COLOR B #00aa66
 COLOR k #dddd55
 COLOR g #884422
 COLOR h #446688
+COLOR m #557766
 
 TITLE Drone Swarm
 
 xxxxxxxxxxxxx
 x1---x----2-x
-x-xx-x-xx-x-x
+x-xx-x-x--x-x
 x---a---b---x
 xxxxxxxxxxxxx
 
-DESCRIPTION Core rule: both drones move on every command. Park drone "1" on "a" and drone "2" on "b". If only one drone is parked, it does not stay parked for long; stable lock requires both drones parked together.
+DESCRIPTION Core rule: both drones move on every command. Entering a dock turns "1" into "A" and "2" into "B"; docked drones stay put. If only one drone is docked after a move, it auto-releases, so stable lock requires both docks together.
 
 xxxxxxxxxxxxxxxxx
 x--a------g--b--x
@@ -36,21 +37,21 @@ x---x---x---x---x
 x---x-----2-x---x
 x-1-x---k---x---x
 x---x-------x---x
-x---------------x
+x------m--------x
 xxxxxxxxxxxxxxxxx
 
-DESCRIPTION Desync warm-up: corridors force the drones to separate and re-align before either can park. Press "z" to release parked drones ("A" -> "1", "B" -> "2") when you need to reposition.
+DESCRIPTION Desync warm-up: corridors force the drones to separate and re-align before either can park. Press "z" to undock parked drones; each undock ejects the drone one tile vertically while restoring the dock tile.
 
 xxxxxxxxxxxxxxxxx
 x1---x---g---a--x
-x-xx-xx-xxx-xx-xx
+x-xx-xx-xxx-x--xx
 x--k----x----2--x
 x-xx-xx-xxx-xx-xx
-x---g--x---x-b--x
+x---g--x-m-x-b--x
 x---------------x
 xxxxxxxxxxxxxxxxx
 
-DESCRIPTION New mechanic: stepping onto key "k" triggers an unlock side effect that opens all gates "g". Levels with keys do not complete until all "k" tiles are collected.
+DESCRIPTION New mechanic: stepping onto key "k" opens every gate "g" and hardens every soft lane "m" into wall "x". Key timing matters, and levels with keys do not complete until all "k" tiles are collected.
 
 xxxxxxxxxxxxxxxxx
 x----a-----b----x
@@ -62,7 +63,7 @@ x---x-----x-----x
 x---------------x
 xxxxxxxxxxxxxxxxx
 
-DESCRIPTION Lock-breaker: park both drones to open "h", then use "z" to break formation and descend. Collect the off-axis key, return to the top lane, and re-lock both goals.
+DESCRIPTION Lock-breaker: park both drones to open "h", then use "z" to break formation and descend. Collect the off-axis key, recover lane access, and re-lock both goals.
 
 xxxxxxxxxxxxxxxxxxxxx
 x---a--x--g--x--b---x
@@ -75,19 +76,20 @@ x-1---k----2----k---x
 x-------------------x
 xxxxxxxxxxxxxxxxxxxxx
 
-DESCRIPTION Cross-lock puzzle: two keys, two gate clusters, and wide open recovery space. Fast unlocks are usually wrong; staged unlocks are safer.
+DESCRIPTION Cross-lock puzzle: two keys, two gate clusters, and wide recovery space. Fast unlocks are usually wrong; staged unlocks are safer.
 
 xxxxxxxxxxxxxxxxxxxxx
-x1---x---g---x---a--x
+x1----x---g---x---a-x
 x-xx-xx-xx-xx-xx-x-xx
 x--k----x--2--x-----x
 xxx-xxxxxx-xxxxxx-xxx
 x---g----x-----g--b-x
-x-xxxxx-xxx-xxxxx-xxx
-x-------g-----------x
+x-xxxxx-xxx-xxxxx--xx
+x--g---------g------x
+x-------------------x
 xxxxxxxxxxxxxxxxxxxxx
 
-DESCRIPTION Chain reaction: one key opens several distant gates, and the resulting route is very different depending on where each drone stands at unlock time.
+DESCRIPTION Gate relay: one key opens several distant clusters, but synchronized routing is still required to rejoin both drones on their docks.
 
 xxxxxxxxxxxxxxxxxxxxx
 x1----x---g---x---a-x
@@ -95,7 +97,7 @@ x-xx-xx-xx-xx-xx-x-xx
 x--k----x--2--x--k--x
 xxx-xxxxxx-xxxxxx-xxx
 x---g----x-----g--b-x
-x-xxxxx-xxx-xxxxx-xxx
+x-xxxxx-xxx-xxxxx--xx
 x--g---------g------x
 x-xxxxx-xxx-xxx-xxxxx
 x-------------------x
@@ -129,19 +131,11 @@ CMD release_locked
   - 1
   A a
 
-  A- a1
-
-  -A 1a
-
   B b
   - 2
 
   - 2
   B b
-
-  B- b2
-
-  -B 2b
 
 CMD both_locked
  ATOMIC
@@ -175,6 +169,7 @@ CMD sync_locks
 CMD unlock
  TRY_ALL
   g -
+  m x
 
 CMD park_unlock
  TRY_ALL
