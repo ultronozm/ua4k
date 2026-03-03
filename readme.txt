@@ -68,4 +68,4 @@ Adding a New Game
 
 Included New Game
 - `drone-swarm.txt`: lockstep dual-drone puzzle with 9 levels, key-collection win constraints (`VOID k`), simultaneous docking requirements (lone docking bounces back one tile), synchronized key+gate breach logic (`k` + `g`), lock-gated barriers (`h`), soft lanes (`m`) that collapse on key pickup, and vertical `z` undocking that restores dock tiles while re-forming active drones.
-- `signal-relay.txt`: single-agent relay-routing puzzle with 8 levels. Relays must be activated in order (`a -> b -> c`), doors enforce staged prerequisites (`d` after `b`, `h` after `c`), and `c` activation triggers overload that collapses soft lanes (`m -> x`).
+- `signal-relay.txt`: single-agent relay-routing puzzle with 10 levels. Relay order is staged as `a -> b -> f -> c`; `u` checkpoints are only passable before `c`; `d` requires `b`; `h` requires `c`; and `c` activation overloads the map (`m -> x`), creating explicit pre/post-c routing phases.

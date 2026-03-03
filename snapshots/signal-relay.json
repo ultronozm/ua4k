@@ -10,6 +10,7 @@
     "-": "#aaaaaa",
     "1": "#2e6cff",
     "E": "#00cc88",
+    "N": "#c27ba0",
     "P": "#6aa84f",
     "Q": "#8e7cc3",
     "R": "#e69138",
@@ -18,11 +19,14 @@
     "c": "#e69138",
     "d": "#cc0000",
     "e": "#00a2a2",
+    "f": "#c27ba0",
     "h": "#a64d79",
     "m": "#557766",
+    "n": "#777777",
     "p": "#777777",
     "q": "#777777",
     "r": "#777777",
+    "u": "#3d85c6",
     "x": "#444444"
   },
   "globalTick": null,
@@ -36,78 +40,86 @@
     {
       "board": [
         "xxxxxxxxxxxxxxx",
-        "xpqrxxxxxxxxxxx",
-        "x1-a-b-c-e----x",
+        "xpqrnxxxxxxxxxx",
+        "x1--a--x---d-ex",
+        "x-xx-x-xx-xx-xx",
+        "x--b-x-fc-x--hx",
+        "x----u----m---x",
         "xxxxxxxxxxxxxxx"
       ],
-      "description": "Relay order tutorial: activate a, then b, then c. The exit only accepts signal after c is armed."
+      "description": "Phase primer: real order is a -> b -> f -> c. Gate u only works before c, while h only works after c."
     },
     {
       "board": [
         "xxxxxxxxxxxxxxx",
-        "xpqrxxxxxxxxxxx",
-        "x1---a---d---ex",
-        "x-xxx-xxx-xxx-x",
-        "x---b---c-----x",
+        "xpqrnxxxxxxxxxx",
+        "x1-a---x-d---ex",
+        "x-xxx-xx-xxx-xx",
+        "x---b-fu--c--hx",
+        "x--m------x---x",
         "xxxxxxxxxxxxxxx"
       ],
-      "description": "Branch routing: door d only opens after relay b is active, but the level still requires c before the exit accepts power."
+      "description": "Relay fork: b unlocks f, f unlocks c, c unlocks h. The u checkpoint then shuts off after overload, so detour order matters."
     },
     {
       "board": [
         "xxxxxxxxxxxxxxx",
-        "xpqrxxxxxxxxxxx",
-        "x1--a--d--h--ex",
-        "x-xx-xx-xx-xx-x",
-        "x----b----c---x",
-        "xxxxxxxxxxxxxxx"
-      ],
-      "description": "Dual gate logic: d requires b, h requires c. You can scout, but the lock order remains strict."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxx",
-        "xpqrxxxxxxxxxxx",
-        "x1---a---d---ex",
-        "x-xxx-mxx-xxx-x",
-        "x---b---c-----x",
-        "xxxxxxxxxxxxxxx"
-      ],
-      "description": "Overload warning: activating c collapses all m lanes into walls. If you rely on the soft bridge too long, the return route disappears."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxx",
-        "xpqrxxxxxxxxxxx",
+        "xpqrnxxxxxxxxxx",
         "x1--a--x--d--ex",
-        "x-xx-x-x-xx-x-x",
-        "x--b-x---x--c-x",
-        "x-xx-xxx-x-xx-x",
-        "x----h----m---x",
+        "x-xx-x-xx-x-xxx",
+        "x--b-uf-c-x--hx",
+        "x--x---m---x--x",
+        "x------x------x",
         "xxxxxxxxxxxxxxx"
       ],
-      "description": "Labyrinth relay: longer detours force disciplined routing. h is c-locked and m becomes unsafe after overload."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxx",
-        "xpqrxxxxxxxxxxx",
-        "x1--a--x--d--ex",
-        "x-xx-x-x-xx-x-x",
-        "x--b-x-m-x--c-x",
-        "x-xx-x-xxx-xh-x",
-        "x----x-----x--x",
-        "xxxxxxxxxxxxxxx"
-      ],
-      "description": "Final circuit: tight corridors and a fragile m segment punish wasted movement after the c-triggered overload."
+      "description": "Choke timing: u is a one-phase choke, m collapses when c is touched, and c itself now requires the f relay."
     },
     {
       "board": [
         "xxxxxxxxxxxxxxxxx",
-        "xpqrxxxxxxxxxxxxx",
+        "xpqrnxxxxxxxxxxxx",
+        "x1--a--x---d---ex",
+        "x-xx-x-xx-xx-xx-x",
+        "x--b-x--u--x--h-x",
+        "x-xx-x-xfc-x-xx-x",
+        "x----m-----x----x",
+        "xxxxxxxxxxxxxxxxx"
+      ],
+      "description": "Cross-phase loop: you need early access through u and late access through h while preserving a viable post-overload route."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxx",
+        "xpqrnxxxxxxxxxx",
+        "x1--a--x--d--ex",
+        "x-xx-x-x-xx-x-x",
+        "x--b-x--fx--c-x",
+        "x-xx-xxx-x-xx-x",
+        "x----h----m---x",
+        "xxxxxxxxxxxxxxx"
+      ],
+      "description": "Labyrinth relay: h is c-locked, c is f-locked, and m becomes unsafe after overload."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxx",
+        "xpqrnxxxxxxxxxx",
+        "x1--a--x--d--ex",
+        "x-xx-x-x-xx-x-x",
+        "x--b-x-m-x-fc-x",
+        "x-xx-x-xxx-xh-x",
+        "x----x-----x--x",
+        "xxxxxxxxxxxxxxx"
+      ],
+      "description": "Final circuit: tight corridors and a fragile m segment punish wasted movement once c overloads the map."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxxxx",
+        "xpqrnxxxxxxxxxxxx",
         "x1--a--x---d---ex",
         "x-xx-x-x-xx-xx-xx",
-        "x--b-x---x---c--x",
+        "x--b-x---x-f-c--x",
         "x-xx-xxx-x-xx-x-x",
         "x----m---x--h---x",
         "x--------x------x",
@@ -118,10 +130,10 @@
     {
       "board": [
         "xxxxxxxxxxxxxxxxxxx",
-        "xpqrxxxxxxxxxxxxxxx",
+        "xpqrnxxxxxxxxxxxxxx",
         "x1--a--x---d---x-ex",
         "x-xx-x-x-xx-xx-x-xx",
-        "x--b-x-m-x---x-c--x",
+        "x--b-x-m-x---xfc--x",
         "x-xx-x-xxx-x-x-xx-x",
         "x----x---h-x-x----x",
         "x-xxxx---x---x----x",
@@ -129,6 +141,41 @@
         "xxxxxxxxxxxxxxxxxxx"
       ],
       "description": "Master relay mesh: intertwined loops, two soft bridges, and a delayed h checkpoint. Plan a full route before committing to c overload."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxxxxxxxx",
+        "xpqrnxxxxxxxxxxxxxxxx",
+        "x1--a--x---d---x----x",
+        "x-xx-x-x-xx-xx-x-xx-x",
+        "x--b-x-m-x---x-fc-x-x",
+        "x-xx-x-xxx-x-x-xx-x-x",
+        "x----x---h-x-x--u-x-x",
+        "x-xxxx---x---x-xx-x-x",
+        "x---u--m---x------x-x",
+        "x-------------------x",
+        "xe----------x-------x",
+        "xxxxxxxxxxxxxxxxxxxxx"
+      ],
+      "description": "Expert loopworks: two pre-overload u checkpoints and collapsing m links create phase traps. After c, you must route back left through h to reach e."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxxxxxxxxxx",
+        "xpqrnxxxxxxxxxxxxxxxxxx",
+        "x1--a--x---d---x------x",
+        "x-xx-x-x-xx-xx-x-xx-x-x",
+        "x--b-x-m-x---x-fc-x-x-x",
+        "x-xx-x-xxx-x-x-xx-x-x-x",
+        "x----x---h-x-x--u-x-x-x",
+        "x-xxxx---x---x-xx-x-x-x",
+        "x---u--m---x---m--x---x",
+        "x-xxxxxxx-xxx-xxxxxxx-x",
+        "x---------------------x",
+        "xe--------------------x",
+        "xxxxxxxxxxxxxxxxxxxxxxx"
+      ],
+      "description": "Grandmaster circuit: extended mesh with dual collapse lanes and delayed h access. Finish requires a full return to the far-left exit after c."
     }
   ],
   "rules": {
@@ -209,6 +256,27 @@
       ],
       "type": "match1"
     },
+    "haveF": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "N"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "N"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
     "move_east": {
       "rules": [
         {
@@ -264,11 +332,25 @@
             },
             {
               "from": [
-                "1c"
+                "1f"
               ],
               "method": "firstmatch",
               "side_effects": [
                 "haveB!",
+                "setF"
+              ],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1c"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveF!",
                 "setC"
               ],
               "to": [
@@ -283,6 +365,19 @@
               "method": "firstmatch",
               "side_effects": [
                 "haveB!"
+              ],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1u"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "preC!"
               ],
               "to": [
                 "-1"
@@ -384,12 +479,28 @@
             },
             {
               "from": [
-                "c",
+                "f",
                 "1"
               ],
               "method": "firstmatch",
               "side_effects": [
                 "haveB!",
+                "setF"
+              ],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "c",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveF!",
                 "setC"
               ],
               "to": [
@@ -406,6 +517,21 @@
               "method": "firstmatch",
               "side_effects": [
                 "haveB!"
+              ],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "u",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "preC!"
               ],
               "to": [
                 "1",
@@ -513,11 +639,27 @@
             {
               "from": [
                 "1",
-                "c"
+                "f"
               ],
               "method": "firstmatch",
               "side_effects": [
                 "haveB!",
+                "setF"
+              ],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "c"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveF!",
                 "setC"
               ],
               "to": [
@@ -534,6 +676,21 @@
               "method": "firstmatch",
               "side_effects": [
                 "haveB!"
+              ],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "u"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "preC!"
               ],
               "to": [
                 "-",
@@ -632,11 +789,25 @@
             },
             {
               "from": [
-                "c1"
+                "f1"
               ],
               "method": "firstmatch",
               "side_effects": [
                 "haveB!",
+                "setF"
+              ],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "c1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "haveF!",
                 "setC"
               ],
               "to": [
@@ -651,6 +822,19 @@
               "method": "firstmatch",
               "side_effects": [
                 "haveB!"
+              ],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "u1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "preC!"
               ],
               "to": [
                 "1-"
@@ -724,6 +908,27 @@
       ],
       "type": "match1"
     },
+    "preC": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "r"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "r"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
     "setA": {
       "rules": [
         {
@@ -780,6 +985,27 @@
               ],
               "to": [
                 "R"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "setF": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "n"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "N"
               ],
               "type": "simple"
             }
