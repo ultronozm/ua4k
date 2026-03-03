@@ -25,6 +25,7 @@ RULE_BLOCK_DIRECTIVES = {
     "FOR",
     "ZIP",
     "LET_REPEAT",
+    "ROTATE",
     "ATOMIC",
     "ATOMIC_VERTICAL",
     "ATOMIC_HORIZONTAL",
@@ -35,7 +36,15 @@ RULE_BLOCK_DIRECTIVES = {
     "CALL_EACH",
 }
 
-ALL_DIRECTIVES = TOP_LEVEL_ONLY_DIRECTIVES | RULE_BLOCK_DIRECTIVES | {"CMD"}
+TOP_LEVEL_BLOCK_DIRECTIVES = {"ROTATE_CMDS"}
+
+ALL_DIRECTIVES = TOP_LEVEL_ONLY_DIRECTIVES | RULE_BLOCK_DIRECTIVES | TOP_LEVEL_BLOCK_DIRECTIVES | {
+    "CMD"
+}
+
+METHOD_ANNOTATIONS = {"firstmatch", "lastmatch", "random"}
+FLAG_ANNOTATIONS = {"norotate"}
+DIRECTION_SUFFIXES = ("_e", "_s", "_w", "_n")
 
 
 class DSLParseError(Exception):
@@ -62,6 +71,7 @@ class RuleBuffer:
     line_nos: list[int] = field(default_factory=list)
     side_effects: list[str] = field(default_factory=list)
     method: str = "firstmatch"
+    flags: set[str] = field(default_factory=set)
 
 
 @dataclass
@@ -176,7 +186,7 @@ def deep_subs(rule: dict, assn: dict[str, str]) -> None:
         return
     if rule_type == "call":
         return
-    if rule_type in ["atomic", "match1", "try_all", "random", "cmd"]:
+    if rule_type in ["atomic", "match1", "try_all", "random", "cmd", "rotate", "rotate_cmds"]:
         for child in rule["rules"]:
             deep_subs(child, assn)
         return
@@ -186,7 +196,7 @@ def deep_subs(rule: dict, assn: dict[str, str]) -> None:
 def strip_rule_metadata(rule: dict) -> dict:
     cleaned = {}
     for key, value in rule.items():
-        if key == "line_no":
+        if key in {"line_no", "flags"}:
             continue
         if key == "rules":
             cleaned[key] = [strip_rule_metadata(child) for child in value]
@@ -195,13 +205,141 @@ def strip_rule_metadata(rule: dict) -> dict:
     return cleaned
 
 
+def add_reference(state: ParseState, command_name: str, line_no: int, source: str) -> None:
+    if source == "CALL":
+        state.call_references.append((command_name, line_no, source))
+        return
+    state.side_effect_references.append((command_name, line_no, source))
+
+
+def collect_references_from_rule(state: ParseState, rule: dict) -> None:
+    rule_type = rule["type"]
+    line_no = rule.get("line_no", 0)
+
+    if rule_type == "call":
+        add_reference(state, rule["name"], line_no, "CALL")
+        return
+    if rule_type == "simple":
+        for token in rule["side_effects"]:
+            command_name = token[:-1] if token.endswith("!") else token
+            if command_name == "":
+                fail(line_no, "empty side-effect command")
+            add_reference(state, command_name, line_no, "side effect")
+        return
+    if rule_type in {"atomic", "match1", "try_all", "random", "cmd", "for", "zip", "let_repeat"}:
+        for child in rule["rules"]:
+            collect_references_from_rule(state, child)
+        return
+    fail(line_no, f"unknown rule type during reference collection: {rule_type!r}")
+
+
 def add_rule(state: ParseState, rule: dict) -> None:
+    collect_references_from_rule(state, rule)
     cleaned = strip_rule_metadata(rule)
     if state.rules_stack:
         state.rules_stack[-1]["rules"].append(cleaned)
         return
     name = cleaned["name"]
     state.rules[name]["rules"].extend(cleaned["rules"])
+
+
+def add_rule_to_command(state: ParseState, command_name: str, rule: dict) -> None:
+    collect_references_from_rule(state, rule)
+    cleaned = strip_rule_metadata(rule)
+    state.rules[command_name]["rules"].append(cleaned)
+
+
+def ensure_orbits(orbits: list[str], line_no: int, directive: str) -> None:
+    for orbit in orbits:
+        if len(orbit) != 4:
+            fail(line_no, f"{directive} orbit {orbit!r} must have length 4")
+
+
+def rotate_grid(grid_rows: list[str], step: int) -> list[str]:
+    step %= 4
+    if step == 0:
+        return list(grid_rows)
+
+    grid = [list(row) for row in grid_rows]
+    row_count = len(grid)
+    col_count = len(grid[0])
+
+    if step == 1:
+        rotated = []
+        for col in range(col_count):
+            row = [grid[r][col] for r in range(row_count)]
+            row.reverse()
+            rotated.append("".join(row))
+        return rotated
+
+    if step == 2:
+        return ["".join(reversed(row)) for row in reversed(grid)]
+
+    rotated = []
+    for col in range(col_count):
+        row = [grid[r][col] for r in range(row_count)]
+        rotated.append("".join(row))
+    rotated.reverse()
+    return rotated
+
+
+def apply_orbits_to_pattern_rows(rows: list[str], orbits: list[str], step: int) -> list[str]:
+    if not orbits:
+        return list(rows)
+
+    mapping: dict[str, str] = {}
+    for orbit in orbits:
+        for idx, char in enumerate(orbit):
+            mapping[char] = orbit[(idx + step) % 4]
+
+    transformed = []
+    for row in rows:
+        transformed.append("".join(mapping.get(char, char) for char in row))
+    return transformed
+
+
+def rewrite_directional_suffix(name: str, step: int) -> str:
+    if not name.endswith("_e"):
+        return name
+    return name[:-2] + DIRECTION_SUFFIXES[step]
+
+
+def rewrite_side_effect_token(token: str, step: int) -> str:
+    mandatory = token.endswith("!")
+    command_name = token[:-1] if mandatory else token
+    rewritten = rewrite_directional_suffix(command_name, step)
+    return rewritten + ("!" if mandatory else "")
+
+
+def expand_rotate_subtree(rule: dict, step: int, orbits: list[str], rewrite_suffixes: bool) -> None:
+    rule_type = rule["type"]
+    if rule_type == "simple":
+        flags = set(rule.get("flags", []))
+        from_rows = list(rule["from"])
+        to_rows = list(rule["to"])
+
+        if "norotate" not in flags:
+            from_rows = rotate_grid(from_rows, step)
+            to_rows = rotate_grid(to_rows, step)
+
+        rule["from"] = apply_orbits_to_pattern_rows(from_rows, orbits, step)
+        rule["to"] = apply_orbits_to_pattern_rows(to_rows, orbits, step)
+
+        if rewrite_suffixes:
+            rule["side_effects"] = [rewrite_side_effect_token(token, step) for token in rule["side_effects"]]
+        return
+
+    if rule_type == "call":
+        if rewrite_suffixes:
+            rule["name"] = rewrite_directional_suffix(rule["name"], step)
+        return
+
+    if rule_type in {"atomic", "match1", "try_all", "random", "cmd"}:
+        for child in rule["rules"]:
+            expand_rotate_subtree(child, step, orbits, rewrite_suffixes)
+        return
+
+    fail(rule.get("line_no", 0), f"unknown rule type during ROTATE expansion: {rule_type!r}")
 
 
 def validate_simple_rule_buffer(buffer: RuleBuffer) -> None:
@@ -239,6 +377,7 @@ def flush_simple_rule(state: ParseState) -> None:
         return
 
     validate_simple_rule_buffer(state.rule_buffer)
+    first_line = state.rule_buffer.line_nos[0]
     add_rule(
         state,
         {
@@ -247,6 +386,8 @@ def flush_simple_rule(state: ParseState) -> None:
             "to": state.rule_buffer.to_rows,
             "side_effects": state.rule_buffer.side_effects,
             "method": state.rule_buffer.method,
+            "flags": sorted(state.rule_buffer.flags),
+            "line_no": first_line,
         },
     )
     state.rule_buffer = RuleBuffer()
@@ -317,12 +458,48 @@ def process_rule_stack_to_level(state: ParseState, level: int) -> None:
                     add_rule(state, modified)
             continue
 
+        if rule_type == "rotate":
+            for step in range(4):
+                for child in rule["rules"]:
+                    modified = copy.deepcopy(child)
+                    expand_rotate_subtree(modified, step, rule["orbits"], rewrite_suffixes=False)
+                    add_rule(state, modified)
+            continue
+
+        if rule_type == "rotate_cmds":
+            base_name = rule["base_name"]
+            for suffix in DIRECTION_SUFFIXES:
+                generated_name = f"{base_name}{suffix}"
+                if generated_name not in state.rules:
+                    state.rules[generated_name] = {"type": "match1", "rules": []}
+            for step in range(4):
+                generated_name = f"{base_name}{DIRECTION_SUFFIXES[step]}"
+                for child in rule["rules"]:
+                    modified = copy.deepcopy(child)
+                    expand_rotate_subtree(modified, step, rule["orbits"], rewrite_suffixes=True)
+                    add_rule_to_command(state, generated_name, modified)
+            continue
+
         fail(rule.get("line_no", 0), f"unknown rule type: {rule_type!r}")
 
 
 def ensure_rule_context(state: ParseState, head: str, line_no: int) -> None:
     if not state.rules_stack:
         fail(line_no, f"{head} must appear inside CMD or a rule block")
+
+
+def in_rotate_context(state: ParseState) -> bool:
+    return any(rule["type"] in {"rotate", "rotate_cmds"} for rule in state.rules_stack)
+
+
+def parse_annotation_token(state: ParseState, annotation: str, line_no: int) -> tuple[str, str]:
+    if annotation in METHOD_ANNOTATIONS:
+        return ("method", annotation)
+    if annotation in FLAG_ANNOTATIONS:
+        if annotation == "norotate" and not in_rotate_context(state):
+            fail(line_no, "[norotate] is only valid inside ROTATE or ROTATE_CMDS")
+        return ("flag", annotation)
+    fail(line_no, f"unknown annotation token: [{annotation}]")
 
 
 def parse_directive(state: ParseState, token: LineToken) -> bool:
@@ -334,7 +511,12 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
     line = token.stripped
     head = parts[0]
 
+    if head in TOP_LEVEL_ONLY_DIRECTIVES or head in TOP_LEVEL_BLOCK_DIRECTIVES:
+        process_rule_stack_to_level(state, token.indent + 1)
+
     if head in TOP_LEVEL_ONLY_DIRECTIVES and state.rules_stack:
+        fail(line_no, f"{head} is not allowed inside a rule block")
+    if head in TOP_LEVEL_BLOCK_DIRECTIVES and state.rules_stack:
         fail(line_no, f"{head} is not allowed inside a rule block")
 
     if head == "GOAL":
@@ -417,6 +599,26 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
             state.rules[name] = {"type": "match1", "rules": []}
         return True
 
+    if head == "ROTATE_CMDS":
+        if len(parts) < 2:
+            fail(line_no, "ROTATE_CMDS expects a base command name")
+        level = token.indent + 1
+        process_rule_stack_to_level(state, level)
+        base_name = parts[1]
+        orbits = parts[2:]
+        ensure_orbits(orbits, line_no, "ROTATE_CMDS")
+        state.rules_stack.append(
+            {
+                "type": "rotate_cmds",
+                "base_name": base_name,
+                "orbits": orbits,
+                "rules": [],
+                "line_no": line_no,
+            }
+        )
+        state.indent_stack.append(level)
+        return True
+
     if head == "FOR":
         ensure_rule_context(state, "FOR", line_no)
         expect_pairs(parts, 1, line_no, "FOR")
@@ -429,6 +631,16 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
         state.rules_stack.append(
             {"type": "for", "wildcards_dict": wildcards_dict, "rules": [], "line_no": line_no}
         )
+        state.indent_stack.append(level)
+        return True
+
+    if head == "ROTATE":
+        ensure_rule_context(state, "ROTATE", line_no)
+        level = token.indent + 1
+        process_rule_stack_to_level(state, level)
+        orbits = parts[1:]
+        ensure_orbits(orbits, line_no, "ROTATE")
+        state.rules_stack.append({"type": "rotate", "orbits": orbits, "rules": [], "line_no": line_no})
         state.indent_stack.append(level)
         return True
 
@@ -546,7 +758,6 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
         level = token.indent + 1
         process_rule_stack_to_level(state, level)
         command_name = parts[1]
-        state.call_references.append((command_name, line_no, "CALL"))
         add_rule(state, {"type": "call", "name": command_name, "line_no": line_no})
         return True
 
@@ -557,7 +768,6 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
         level = token.indent + 1
         process_rule_stack_to_level(state, level)
         for command_name in parts[1:]:
-            state.call_references.append((command_name, line_no, "CALL_EACH"))
             add_rule(state, {"type": "call", "name": command_name, "line_no": line_no})
         return True
 
@@ -584,13 +794,14 @@ def parse_rule_pattern_line(state: ParseState, token: LineToken) -> None:
 
     for token_part in parts[2:]:
         if token_part[0] == "[" and token_part[-1] == "]":
-            state.rule_buffer.method = token_part[1:-1]
+            annotation = token_part[1:-1]
+            kind, value = parse_annotation_token(state, annotation, line_no)
+            if kind == "method":
+                state.rule_buffer.method = value
+            else:
+                state.rule_buffer.flags.add(value)
             continue
         state.rule_buffer.side_effects.append(token_part)
-        command_name = token_part[:-1] if token_part.endswith("!") else token_part
-        if command_name == "":
-            fail(line_no, "empty side-effect command")
-        state.side_effect_references.append((command_name, line_no, "side effect"))
 
 
 def parse_plain_line(state: ParseState, token: LineToken) -> None:

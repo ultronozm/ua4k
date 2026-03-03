@@ -1,0 +1,10 @@
+GOAL
+A
+
+--
+
+BIND x move
+
+CMD move
+ MATCH1
+  a b [norotate]

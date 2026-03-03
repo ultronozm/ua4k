@@ -39,6 +39,10 @@ CASES = [
         "invalid-call-each.txt",
         "invalid-call-each.txt:6: error: CALL_EACH expects at least one command name",
     ),
+    (
+        "invalid-norotate.txt",
+        "invalid-norotate.txt:10: error: [norotate] is only valid inside ROTATE or ROTATE_CMDS",
+    ),
 ]
 
 

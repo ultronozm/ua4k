@@ -1,0 +1,45 @@
+GOAL
+E
+
+xxxxxx
+x1--ex
+xxxxxx
+
+BIND d move_e s move_s a move_w w move_n
+
+ROTATE_CMDS ping
+ MATCH1
+  1 1
+
+ROTATE_CMDS helper >v<^
+ MATCH1
+  FOR a 12
+   a> >a
+
+CMD lock
+ MATCH1
+  l l
+
+CMD demo_rotate
+ MATCH1
+  ROTATE
+   1- -1
+
+ROTATE_CMDS move >v<^
+ MATCH1
+  ATOMIC
+   1> -1 ping_e! lock
+
+   CALL helper_e
+
+   ROTATE >v<^
+    FOR s ab
+     s> >s
+
+    ZIP t 12 u ab
+     tu ut
+
+    LET_REPEAT 1 3 1 r -
+     r> >r
+
+    >? ?< [norotate] [lastmatch]

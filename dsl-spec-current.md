@@ -15,7 +15,7 @@ It is descriptive, not aspirational. If behavior is surprising, this doc still r
   - Flush current `GOAL` block.
   - Flush current `VOID` block.
   - Flush an accumulated simple rule (`from`/`to` pattern pair list).
-- Indentation controls scope for compound rule constructs (`CMD`, `ATOMIC`, `MATCH1`, `TRY_ALL`, `RANDOM`, `FOR`, `ZIP`, `LET_REPEAT`, `CALL`).
+- Indentation controls scope for compound rule constructs (`CMD`, `ROTATE_CMDS`, `ATOMIC`, `MATCH1`, `TRY_ALL`, `RANDOM`, `FOR`, `ZIP`, `LET_REPEAT`, `ROTATE`, `CALL`).
   - The parser maintains an indentation/rule stack and closes entries when indentation decreases (or equals) to the current level.
 
 ## 2. Top-Level Directives
@@ -25,6 +25,7 @@ Supported directives are:
 - `VOID`
 - `BIND`
 - `CMD`
+- `ROTATE_CMDS`
 - `TITLE`
 - `DESCRIPTION`
 - `BY`
@@ -42,6 +43,7 @@ Supported directives are:
 - `FOR`
 - `ZIP`
 - `LET_REPEAT`
+- `ROTATE`
 - `CALL`
 - `CALL_EACH`
 
@@ -50,6 +52,9 @@ Directive behavior:
 - `VOID` starts accumulating forbidden pattern lines until the next blank line.
 - `BIND` is parsed as key-command pairs.
 - `CMD <name>` creates/extends command rule set `<name>` (stored as a `match1` list at runtime).
+- `ROTATE_CMDS <base> [orbit ...]` creates/extends generated command families:
+  - `<base>_e`, `<base>_s`, `<base>_w`, `<base>_n`
+  - enclosed rules are expanded once per direction (east/south/west/north).
 - `TITLE`, `DESCRIPTION`, `BY`, `TICK` attach to the most recent level when one exists.
   - `TICK` before any level sets global tick interval.
 - `WHITESPACE` appends characters rendered as non-breaking spaces in the browser.
@@ -76,6 +81,7 @@ Any extra token in brackets is parsed as a method annotation:
 - `[firstmatch]` (default)
 - `[lastmatch]`
 - `[random]`
+- `[norotate]` (compile-time flag; valid only inside `ROTATE`/`ROTATE_CMDS`)
 
 Unbracketed extra tokens are parsed as side effects.
 
@@ -99,6 +105,7 @@ Supported:
 - `ATOMIC`
 - `ATOMIC_VERTICAL`
 - `ATOMIC_HORIZONTAL`
+- `ROTATE`
 
 All wrap a nested `rules` list. Runtime behavior:
 - `match1`: try children in order, stop on first success.
@@ -123,6 +130,31 @@ All wrap a nested `rules` list. Runtime behavior:
 - Syntax: `LET_REPEAT <initial> <final> <step> <wildcard> <seed> [<wildcard> <seed> ...]`
 - For each integer `i` in `range(initial, final, step)`, each wildcard is replaced with `seed * i`.
 - Expanded nested rules are deep-copied per iteration.
+
+`ROTATE`:
+- Syntax: `ROTATE [orbit1 orbit2 ...]` inside a rule block.
+- Emits four rotated copies of enclosed subtree children in fixed order: east, south, west, north.
+- Orbit tokens must each be length 4 (east/south/west/north char mapping).
+- Applies to simple-rule patterns (`from`/`to`) only.
+- `CALL` targets and side-effect names are not rewritten by `ROTATE`.
+
+`ROTATE_CMDS`:
+- Syntax: `ROTATE_CMDS <base_name> [orbit1 orbit2 ...]` at top-level.
+- Creates command families `<base_name>_e`, `<base_name>_s`, `<base_name>_w`, `<base_name>_n`.
+- Pattern rotation/orbit substitution is the same as `ROTATE`.
+- Additionally rewrites command references and side-effect names that end with `_e` to the step suffix (`_e/_s/_w/_n`).
+- Names that do not end with `_e` are left unchanged.
+
+Rotation geometry (`M x N` patterns):
+- Step 0/east: identity.
+- Step 1/south: transpose + reverse each row.
+- Step 2/west: reverse row order + reverse each row.
+- Step 3/north: transpose + reverse row order.
+
+`[norotate]` behavior:
+- Skips geometric rotation for that simple rule.
+- Orbit substitution still applies.
+- Using `[norotate]` outside `ROTATE`/`ROTATE_CMDS` is a parse error.
 
 ## 4. Side Effects and Mandatory Side Effects
 
@@ -184,6 +216,7 @@ Covered by default snapshot set:
   - `fixture-zip-let-repeat` (`ZIP` + `LET_REPEAT`)
   - `fixture-mandatory-side-effects` (mandatory side-effect token `!`)
   - `fixture-call-each` (`CALL_EACH` call-list sugar)
+  - `fixture-rotate` (`ROTATE`, `ROTATE_CMDS`, suffix rewrite, `[norotate]`)
 
 Present in parser/runtime but not yet isolated by tiny fixtures:
 - Complex interactions of `ATOMIC_VERTICAL`/`ATOMIC_HORIZONTAL` under deep nesting.

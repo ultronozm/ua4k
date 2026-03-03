@@ -1,0 +1,1825 @@
+{
+  "binds": {
+    "a": "move_w",
+    "d": "move_e",
+    "s": "move_s",
+    "w": "move_n"
+  },
+  "charMap": {},
+  "colorMap": {},
+  "globalTick": null,
+  "goals": [
+    [
+      "E"
+    ]
+  ],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "xxxxxx",
+        "x1--ex",
+        "xxxxxx"
+      ]
+    }
+  ],
+  "rules": {
+    "demo_rotate": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "helper_e": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1>"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                ">1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2>"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                ">2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "helper_n": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "^",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "^"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "^",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "^"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "helper_s": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1",
+                "v"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "v",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "v"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "v",
+                "2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "helper_w": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "<1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1<"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "<2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2<"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "lock": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "l"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "l"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_e": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "1>"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [
+                    "ping_e!",
+                    "lock"
+                  ],
+                  "to": [
+                    "-1"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "name": "helper_e",
+                  "type": "call"
+                },
+                {
+                  "from": [
+                    "a>"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">a"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "b>"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">b"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "1a"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "a1"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "2b"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b2"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "->"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-->"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">--"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    ">?"
+                  ],
+                  "method": "lastmatch",
+                  "side_effects": [],
+                  "to": [
+                    "?<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "a",
+                    "v"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "a"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "b",
+                    "v"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "b"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "1",
+                    "a"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "a",
+                    "1"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "2",
+                    "b"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b",
+                    "2"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-",
+                    "v"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-",
+                    "-",
+                    "v"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "-",
+                    "-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "v",
+                    "?"
+                  ],
+                  "method": "lastmatch",
+                  "side_effects": [],
+                  "to": [
+                    "?",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "<a"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "a<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "<b"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "a1"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "1a"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "b2"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "2b"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "<-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "<--"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "--<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "?<"
+                  ],
+                  "method": "lastmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">?"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "^",
+                    "a"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "a",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "^",
+                    "b"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "a",
+                    "1"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "1",
+                    "a"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "b",
+                    "2"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "2",
+                    "b"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "^",
+                    "-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "^",
+                    "-",
+                    "-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-",
+                    "-",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "?",
+                    "^"
+                  ],
+                  "method": "lastmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "?"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_n": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "^",
+                    "1"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [
+                    "ping_n!",
+                    "lock"
+                  ],
+                  "to": [
+                    "1",
+                    "-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "name": "helper_n",
+                  "type": "call"
+                },
+                {
+                  "from": [
+                    "^",
+                    "a"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "a",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "^",
+                    "b"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "a",
+                    "1"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "1",
+                    "a"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "b",
+                    "2"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "2",
+                    "b"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "^",
+                    "-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "^",
+                    "-",
+                    "-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-",
+                    "-",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "?",
+                    "^"
+                  ],
+                  "method": "lastmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "?"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "a>"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">a"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "b>"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">b"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "1a"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "a1"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "2b"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b2"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "->"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-->"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">--"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    ">?"
+                  ],
+                  "method": "lastmatch",
+                  "side_effects": [],
+                  "to": [
+                    "?<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "a",
+                    "v"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "a"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "b",
+                    "v"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "b"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "1",
+                    "a"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "a",
+                    "1"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "2",
+                    "b"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b",
+                    "2"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-",
+                    "v"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-",
+                    "-",
+                    "v"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "-",
+                    "-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "v",
+                    "?"
+                  ],
+                  "method": "lastmatch",
+                  "side_effects": [],
+                  "to": [
+                    "?",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "<a"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "a<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "<b"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "a1"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "1a"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "b2"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "2b"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "<-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "<--"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "--<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "?<"
+                  ],
+                  "method": "lastmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">?"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_s": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "1",
+                    "v"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [
+                    "ping_s!",
+                    "lock"
+                  ],
+                  "to": [
+                    "-",
+                    "1"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "name": "helper_s",
+                  "type": "call"
+                },
+                {
+                  "from": [
+                    "a",
+                    "v"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "a"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "b",
+                    "v"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "b"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "1",
+                    "a"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "a",
+                    "1"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "2",
+                    "b"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b",
+                    "2"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-",
+                    "v"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-",
+                    "-",
+                    "v"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "-",
+                    "-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "v",
+                    "?"
+                  ],
+                  "method": "lastmatch",
+                  "side_effects": [],
+                  "to": [
+                    "?",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "<a"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "a<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "<b"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "a1"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "1a"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "b2"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "2b"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "<-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "<--"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "--<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "?<"
+                  ],
+                  "method": "lastmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">?"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "^",
+                    "a"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "a",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "^",
+                    "b"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "a",
+                    "1"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "1",
+                    "a"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "b",
+                    "2"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "2",
+                    "b"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "^",
+                    "-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "^",
+                    "-",
+                    "-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-",
+                    "-",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "?",
+                    "^"
+                  ],
+                  "method": "lastmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "?"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "a>"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">a"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "b>"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">b"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "1a"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "a1"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "2b"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b2"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "->"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-->"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">--"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    ">?"
+                  ],
+                  "method": "lastmatch",
+                  "side_effects": [],
+                  "to": [
+                    "?<"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_w": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "<1"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [
+                    "ping_w!",
+                    "lock"
+                  ],
+                  "to": [
+                    "1-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "name": "helper_w",
+                  "type": "call"
+                },
+                {
+                  "from": [
+                    "<a"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "a<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "<b"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "a1"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "1a"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "b2"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "2b"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "<-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "<--"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "--<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "?<"
+                  ],
+                  "method": "lastmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">?"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "^",
+                    "a"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "a",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "^",
+                    "b"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "a",
+                    "1"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "1",
+                    "a"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "b",
+                    "2"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "2",
+                    "b"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "^",
+                    "-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "^",
+                    "-",
+                    "-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-",
+                    "-",
+                    "^"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "?",
+                    "^"
+                  ],
+                  "method": "lastmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "?"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "a>"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">a"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "b>"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">b"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "1a"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "a1"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "2b"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b2"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "->"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-->"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">--"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    ">?"
+                  ],
+                  "method": "lastmatch",
+                  "side_effects": [],
+                  "to": [
+                    "?<"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "a",
+                    "v"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "a"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "b",
+                    "v"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "b"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "1",
+                    "a"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "a",
+                    "1"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "2",
+                    "b"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b",
+                    "2"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-",
+                    "v"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-",
+                    "-",
+                    "v"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v",
+                    "-",
+                    "-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "v",
+                    "?"
+                  ],
+                  "method": "lastmatch",
+                  "side_effects": [],
+                  "to": [
+                    "?",
+                    "^"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "ping_e": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "ping_n": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "ping_s": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "ping_w": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [],
+  "whitespaceChars": []
+}
