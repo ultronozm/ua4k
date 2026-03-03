@@ -16,6 +16,7 @@
     "a": "#66cccc",
     "b": "#cc66cc",
     "g": "#884422",
+    "h": "#446688",
     "k": "#dddd55",
     "x": "#444444"
   },
@@ -32,22 +33,24 @@
   "levels": [
     {
       "board": [
-        "xxxxxxxxxxx",
-        "x-1--x--2-x",
-        "x----x----x",
-        "x--a-x-b--x",
-        "xxxxxxxxxxx"
+        "xxxxxxxxxxxxx",
+        "x1---x----2-x",
+        "x-xx-x-xx-x-x",
+        "x---a---b---x",
+        "xxxxxxxxxxxxx"
       ],
-      "description": "Core rule: both drones move on every command. Park drone \"1\" on \"a\" and drone \"2\" on \"b\". Parked drones (\"A\"/\"B\") lock in place. If one drone is blocked, it holds position while the other can keep moving."
+      "description": "Core rule: both drones move on every command. Park drone \"1\" on \"a\" and drone \"2\" on \"b\". If only one drone is parked, it does not stay parked for long; stable lock requires both drones parked together."
     },
     {
       "board": [
         "xxxxxxxxxxxxxxxxx",
-        "x1---x-----2----x",
-        "x-xx-x-xxx-x-xx-x",
-        "x---a-x---x-b---x",
-        "x-xx-x---x-x-xx-x",
-        "x----x---x------x",
+        "x--a------g--b--x",
+        "x-------x-------x",
+        "x---x---x---x---x",
+        "x---x-----2-x---x",
+        "x-1-x---k---x---x",
+        "x---x-------x---x",
+        "x---------------x",
         "xxxxxxxxxxxxxxxxx"
       ],
       "description": "Desync warm-up: corridors force the drones to separate and re-align before either can park. Press \"z\" to release parked drones (\"A\" -> \"1\", \"B\" -> \"2\") when you need to reposition."
@@ -59,24 +62,25 @@
         "x-xx-xx-xxx-xx-xx",
         "x--k----x----2--x",
         "x-xx-xx-xxx-xx-xx",
-        "x--gbx-x---x----x",
+        "x---g--x---x-b--x",
+        "x---------------x",
         "xxxxxxxxxxxxxxxxx"
       ],
       "description": "New mechanic: stepping onto key \"k\" triggers an unlock side effect that opens all gates \"g\". Levels with keys do not complete until all \"k\" tiles are collected."
     },
     {
       "board": [
-        "xxxxxxxxxxxxxxxxxxxxx",
-        "x1---x---g---x---a--x",
-        "x-xx-xx-xx-xx-xx-x-xx",
-        "x--k----x--2--x-----x",
-        "xxx-xxxxxx-xxxxxx-xxx",
-        "x---g----x-----g--b-x",
-        "x-xxxxx-xxx-xxxxx-xxx",
-        "x-------g-----------x",
-        "xxxxxxxxxxxxxxxxxxxxx"
+        "xxxxxxxxxxxxxxxxx",
+        "x----a-----b----x",
+        "x----1-----2----x",
+        "xxxxxxxxhxxxxxxxx",
+        "x---------------x",
+        "x---x-----x-k---x",
+        "x---x-----x-----x",
+        "x---------------x",
+        "xxxxxxxxxxxxxxxxx"
       ],
-      "description": "Chain reaction: one key opens several distant gates, and the resulting route is very different depending on where each drone stands at unlock time."
+      "description": "Lock-breaker: park both drones to open \"h\", then use \"z\" to break formation and descend. Collect the off-axis key, return to the top lane, and re-lock both goals."
     },
     {
       "board": [
@@ -96,6 +100,20 @@
     {
       "board": [
         "xxxxxxxxxxxxxxxxxxxxx",
+        "x1---x---g---x---a--x",
+        "x-xx-xx-xx-xx-xx-x-xx",
+        "x--k----x--2--x-----x",
+        "xxx-xxxxxx-xxxxxx-xxx",
+        "x---g----x-----g--b-x",
+        "x-xxxxx-xxx-xxxxx-xxx",
+        "x-------g-----------x",
+        "xxxxxxxxxxxxxxxxxxxxx"
+      ],
+      "description": "Chain reaction: one key opens several distant gates, and the resulting route is very different depending on where each drone stands at unlock time."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxxxxxxxx",
         "x1----x---g---x---a-x",
         "x-xx-xx-xx-xx-xx-x-xx",
         "x--k----x--2--x--k--x",
@@ -111,6 +129,42 @@
     }
   ],
   "rules": {
+    "both_locked": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "A"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "B"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "B"
+              ],
+              "type": "simple"
+            },
+            {
+              "name": "park_unlock",
+              "type": "call"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
     "east": {
       "rules": [
         {
@@ -121,6 +175,10 @@
             },
             {
               "name": "move2_east",
+              "type": "call"
+            },
+            {
+              "name": "sync_locks",
               "type": "call"
             }
           ],
@@ -163,6 +221,17 @@
               "side_effects": [],
               "to": [
                 "1g"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1h"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1h"
               ],
               "type": "simple"
             },
@@ -288,6 +357,19 @@
               "side_effects": [],
               "to": [
                 "g",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "h",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "h",
                 "1"
               ],
               "type": "simple"
@@ -435,6 +517,19 @@
             {
               "from": [
                 "1",
+                "h"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "h"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
                 "2"
               ],
               "method": "firstmatch",
@@ -570,6 +665,17 @@
             },
             {
               "from": [
+                "h1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "h1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
                 "21"
               ],
               "method": "firstmatch",
@@ -687,6 +793,17 @@
               "side_effects": [],
               "to": [
                 "2g"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2h"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2h"
               ],
               "type": "simple"
             },
@@ -812,6 +929,19 @@
               "side_effects": [],
               "to": [
                 "g",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "h",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "h",
                 "2"
               ],
               "type": "simple"
@@ -959,6 +1089,19 @@
             {
               "from": [
                 "2",
+                "h"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "h"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
                 "1"
               ],
               "method": "firstmatch",
@@ -1094,6 +1237,17 @@
             },
             {
               "from": [
+                "h2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "h2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
                 "12"
               ],
               "method": "firstmatch",
@@ -1188,6 +1342,72 @@
             {
               "name": "move2_north",
               "type": "call"
+            },
+            {
+              "name": "sync_locks",
+              "type": "call"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "park_unlock": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "h"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "release_if_any_locked": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "A"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "A"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "B"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "B"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "match1"
+            },
+            {
+              "name": "release_locked",
+              "type": "call"
             }
           ],
           "type": "atomic"
@@ -1201,23 +1421,97 @@
           "rules": [
             {
               "from": [
-                "A"
+                "A",
+                "-"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
+                "a",
                 "1"
               ],
               "type": "simple"
             },
             {
               "from": [
+                "-",
+                "A"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "a"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "a1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-A"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1a"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "B",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "b",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-",
                 "B"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "2"
+                "2",
+                "b"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "B-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "b2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-B"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2b"
               ],
               "type": "simple"
             }
@@ -1238,9 +1532,42 @@
             {
               "name": "move2_south",
               "type": "call"
+            },
+            {
+              "name": "sync_locks",
+              "type": "call"
             }
           ],
           "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "sync_locks": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "both_locked",
+              "type": "call"
+            },
+            {
+              "name": "release_if_any_locked",
+              "type": "call"
+            },
+            {
+              "from": [
+                "?"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "?"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
         }
       ],
       "type": "match1"
@@ -1276,6 +1603,10 @@
             },
             {
               "name": "move2_west",
+              "type": "call"
+            },
+            {
+              "name": "sync_locks",
               "type": "call"
             }
           ],

@@ -29,9 +29,9 @@ Run in Browser
 4. For engine debug logging, set `DEBUG_LOGS = true` in `ua4k.js`.
 
 TUI Play/Test (uses existing `ua4k.js`)
-- Play a game in terminal with optional key sequence:
+- Play a game in terminal with optional key sequence and level index:
   - `node tui_play.js drone-swarm`
-  - `node tui_play.js drone-swarm assddwdsddsswaassddddddwwddddddwaaaassaaasswassdsddddsdwwdddssssdssddddddwawwwawwdwdddddddddwwawwdwwaaaaaawwwassddsasaassssddddwddddddddwddwwddwwwwdwww`
+  - `node tui_play.js drone-swarm wzaaassddddsawaaawwdddw 3`
 - Useful for quickly validating puzzle behavior without opening a browser.
 
 Puzzle Solver (shortest-path search)
@@ -67,4 +67,4 @@ Adding a New Game
 3. Reload `ua4k.html` and select `my-game` from the dropdown.
 
 Included New Game
-- `drone-swarm.txt`: lockstep dual-drone puzzle with 6 levels, key-collection win constraints (`VOID k`), key-triggered gate unlocks, blocker-aware movement, and `z` release for repositioning parked drones.
+- `drone-swarm.txt`: lockstep dual-drone puzzle with 7 levels, key-collection win constraints (`VOID k`), key-triggered gate unlocks, lock-gated doors (`h`), blocker-aware movement, and `z` release that restores dock tiles while re-forming active drones.

@@ -184,12 +184,15 @@ function solveLevel(ctx, actions, maxDepth, maxStates) {
     return { sequence: '', explored: 0 };
   }
 
-  const queue = [{ board: startBoard, sequence: '' }];
-  const visited = new Set([boardKey(startBoard)]);
+  const startKey = boardKey(startBoard);
+  const queue = [{ board: startBoard, sequence: '', key: startKey }];
+  let queueHead = 0;
+  const visited = new Set([startKey]);
   let explored = 0;
 
-  while (queue.length > 0) {
-    const current = queue.shift();
+  while (queueHead < queue.length) {
+    const current = queue[queueHead];
+    queueHead += 1;
     explored += 1;
     if (explored > maxStates) {
       return { sequence: null, explored, reason: 'state_limit' };
@@ -202,7 +205,7 @@ function solveLevel(ctx, actions, maxDepth, maxStates) {
     for (const key of actions) {
       const { nextBoard, complete } = runAction(ctx, current.board, key);
       const keyStr = boardKey(nextBoard);
-      if (keyStr === boardKey(current.board)) {
+      if (keyStr === current.key) {
         continue;
       }
       if (visited.has(keyStr)) {
@@ -215,7 +218,7 @@ function solveLevel(ctx, actions, maxDepth, maxStates) {
       }
 
       visited.add(keyStr);
-      queue.push({ board: nextBoard, sequence: nextSequence });
+      queue.push({ board: nextBoard, sequence: nextSequence, key: keyStr });
     }
   }
 

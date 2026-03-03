@@ -267,8 +267,9 @@ function main() {
   const root = process.cwd();
   const gameName = process.argv[2];
   const keySequence = process.argv[3] || '';
+  const levelArg = process.argv[4];
   if (!gameName) {
-    console.error('usage: node tui_play.js <game-name> [keys]');
+    console.error('usage: node tui_play.js <game-name> [keys] [level-index]');
     process.exit(2);
   }
 
@@ -279,8 +280,15 @@ function main() {
     throw new Error(`Game ${gameName} not found in gamesData.js (available: ${names})`);
   }
 
-  const { document } = createRuntime(root, gamesData);
+  const { context, document } = createRuntime(root, gamesData);
   selectGame(document, gameName);
+  if (levelArg !== undefined) {
+    const levelIndex = Number(levelArg);
+    if (!Number.isInteger(levelIndex) || levelIndex < 0) {
+      throw new Error(`Invalid level-index: ${levelArg}`);
+    }
+    vm.runInContext(`level_number = ${levelIndex}; initLevel(); drawBoard();`, context);
+  }
 
   if (keySequence) {
     applySequence(document, keySequence);
