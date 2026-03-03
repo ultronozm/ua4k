@@ -1,0 +1,130 @@
+GOAL
+A
+B
+
+COLOR x #444444
+COLOR - #aaaaaa
+COLOR 1 #3366ff
+COLOR 2 #ff7733
+COLOR a #66cccc
+COLOR b #cc66cc
+COLOR A #00aa66
+COLOR B #00aa66
+
+TITLE Drone Swarm
+
+DESCRIPTION You control two drones at once. Every move command applies to both drones in lockstep. Park drone "1" on target "a" and drone "2" on target "b". A parked drone ("A" or "B") is locked in place and no longer moves.
+
+xxxxxxxxxxx
+x-1--x--2-x
+x----x----x
+x--a-x-b--x
+xxxxxxxxxxx
+
+DESCRIPTION Basic lockstep movement.
+
+xxxxxxxxxxxxx
+x--1--x--2--x
+x-----x-----x
+x---a-x-b---x
+x-----------x
+xxxxxxxxxxxxx
+
+DESCRIPTION The side corridors create drift; park one drone, then steer the other.
+
+xxxxxxxxxxxxx
+x---a-x-b---x
+x-----x-----x
+x--1--x--2--x
+x-----------x
+xxxxxxxxxxxxx
+
+BIND w north s south a west d east
+
+CMD north
+ ATOMIC
+  CALL_EACH move1_north move2_north
+
+CMD south
+ ATOMIC
+  CALL_EACH move1_south move2_south
+
+CMD west
+ ATOMIC
+  CALL_EACH move1_west move2_west
+
+CMD east
+ ATOMIC
+  CALL_EACH move1_east move2_east
+
+CMD move1_north
+ MATCH1
+  A A
+
+  - 1
+  1 -
+
+  a 1
+  A -
+
+CMD move1_south
+ MATCH1
+  A A
+
+  1 -
+  - 1
+
+  1 -
+  a A
+
+CMD move1_west
+ MATCH1
+  A A
+
+  -1 1-
+
+  a1 A-
+
+CMD move1_east
+ MATCH1
+  A A
+
+  1- -1
+
+  1a -A
+
+CMD move2_north
+ MATCH1
+  B B
+
+  - 2
+  2 -
+
+  b 2
+  B -
+
+CMD move2_south
+ MATCH1
+  B B
+
+  2 -
+  - 2
+
+  2 -
+  b B
+
+CMD move2_west
+ MATCH1
+  B B
+
+  -2 2-
+
+  b2 B-
+
+CMD move2_east
+ MATCH1
+  B B
+
+  2- -2
+
+  2b -B

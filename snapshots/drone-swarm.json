@@ -1,0 +1,496 @@
+{
+  "binds": {
+    "a": "west",
+    "d": "east",
+    "s": "south",
+    "w": "north"
+  },
+  "charMap": {},
+  "colorMap": {
+    "-": "#aaaaaa",
+    "1": "#3366ff",
+    "2": "#ff7733",
+    "A": "#00aa66",
+    "B": "#00aa66",
+    "a": "#66cccc",
+    "b": "#cc66cc",
+    "x": "#444444"
+  },
+  "globalTick": null,
+  "goals": [
+    [
+      "A",
+      "B"
+    ]
+  ],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "xxxxxxxxxxx",
+        "x-1--x--2-x",
+        "x----x----x",
+        "x--a-x-b--x",
+        "xxxxxxxxxxx"
+      ],
+      "description": "Basic lockstep movement."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "x--1--x--2--x",
+        "x-----x-----x",
+        "x---a-x-b---x",
+        "x-----------x",
+        "xxxxxxxxxxxxx"
+      ],
+      "description": "The side corridors create drift; park one drone, then steer the other."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "x---a-x-b---x",
+        "x-----x-----x",
+        "x--1--x--2--x",
+        "x-----------x",
+        "xxxxxxxxxxxxx"
+      ]
+    }
+  ],
+  "rules": {
+    "east": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "move1_east",
+              "type": "call"
+            },
+            {
+              "name": "move2_east",
+              "type": "call"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "move1_east": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "A"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1a"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-A"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move1_north": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "A"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "a",
+                "A"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move1_south": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "A"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "a"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "A"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move1_west": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "A"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "a1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move2_east": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "B"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "B"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2b"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-B"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move2_north": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "B"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "B"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "b",
+                "B"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move2_south": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "B"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "B"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "b"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "B"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move2_west": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "B"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "B"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "b2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "B-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "north": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "move1_north",
+              "type": "call"
+            },
+            {
+              "name": "move2_north",
+              "type": "call"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "south": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "move1_south",
+              "type": "call"
+            },
+            {
+              "name": "move2_south",
+              "type": "call"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "west": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "move1_west",
+              "type": "call"
+            },
+            {
+              "name": "move2_west",
+              "type": "call"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [],
+  "whitespaceChars": []
+}

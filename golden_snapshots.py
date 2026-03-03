@@ -9,6 +9,7 @@ If no game files are given, defaults to:
   game.txt
   tetris.txt
   crash-landing.txt
+  drone-swarm.txt
   fixture-indent.txt
   fixture-for.txt
   fixture-zip-let-repeat.txt
@@ -34,6 +35,7 @@ DEFAULT_GAMES = (
     "game.txt",
     "tetris.txt",
     "crash-landing.txt",
+    "drone-swarm.txt",
     "fixture-indent.txt",
     "fixture-for.txt",
     "fixture-zip-let-repeat.txt",

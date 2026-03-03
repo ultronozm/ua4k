@@ -54,3 +54,6 @@ Adding a New Game
 2. Compile it:
   - `python3 make-data.py my-game.txt`
 3. Reload `ua4k.html` and select `my-game` from the dropdown.
+
+Included New Game
+- `drone-swarm.txt`: lockstep dual-drone puzzle where both drones move on each input and must be parked onto separate targets.
