@@ -28,7 +28,7 @@ x-xx-x-x--x-x
 x---a---b---x
 xxxxxxxxxxxxx
 
-DESCRIPTION Core rule: both drones move on every command. Entering a dock turns "1" into "A" and "2" into "B"; docked drones stay put until you manually undock with "z".
+DESCRIPTION Core rule: both drones move on every command. Entering a dock turns "1" into "A" and "2" into "B"; docking must be simultaneous. If only one drone docks on a move, that drone bounces back one tile.
 
 xxxxxxxxxxxxxxxxx
 x--a------g--b--x
@@ -109,19 +109,19 @@ BIND w north s south a west d east z release_locked
 
 CMD north
  ATOMIC
-  CALL_EACH move1_north move2_north sync_locks
+  CALL_EACH move1_north move2_north sync_locks_north
 
 CMD south
  ATOMIC
-  CALL_EACH move1_south move2_south sync_locks
+  CALL_EACH move1_south move2_south sync_locks_south
 
 CMD west
  ATOMIC
-  CALL_EACH move1_west move2_west sync_locks
+  CALL_EACH move1_west move2_west sync_locks_west
 
 CMD east
  ATOMIC
-  CALL_EACH move1_east move2_east sync_locks
+  CALL_EACH move1_east move2_east sync_locks_east
 
 CMD release_locked
  TRY_ALL
@@ -157,10 +157,39 @@ CMD release_if_any_locked
 
   CALL release_locked
 
-CMD sync_locks
+CMD sync_locks_north
  MATCH1
 
   CALL both_locked
+
+  CALL bounce_back_north
+
+  ? ?
+
+CMD sync_locks_south
+ MATCH1
+
+  CALL both_locked
+
+  CALL bounce_back_south
+
+  ? ?
+
+CMD sync_locks_west
+ MATCH1
+
+  CALL both_locked
+
+  CALL bounce_back_west
+
+  ? ?
+
+CMD sync_locks_east
+ MATCH1
+
+  CALL both_locked
+
+  CALL bounce_back_east
 
   ? ?
 
@@ -172,6 +201,40 @@ CMD unlock
 CMD park_unlock
  TRY_ALL
   h -
+
+CMD bounce_back_north
+ TRY_ALL
+  A
+  -
+  a
+  1
+
+  B
+  -
+  b
+  2
+
+CMD bounce_back_south
+ TRY_ALL
+  -
+  A
+  1
+  a
+
+  -
+  B
+  2
+  b
+
+CMD bounce_back_west
+ TRY_ALL
+  A- a1
+  B- b2
+
+CMD bounce_back_east
+ TRY_ALL
+  -A 1a
+  -B 2b
 
 CMD move1_north
  MATCH1

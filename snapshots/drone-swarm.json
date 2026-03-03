@@ -40,7 +40,7 @@
         "x---a---b---x",
         "xxxxxxxxxxxxx"
       ],
-      "description": "Core rule: both drones move on every command. Entering a dock turns \"1\" into \"A\" and \"2\" into \"B\"; docked drones stay put until you manually undock with \"z\"."
+      "description": "Core rule: both drones move on every command. Entering a dock turns \"1\" into \"A\" and \"2\" into \"B\"; docking must be simultaneous. If only one drone docks on a move, that drone bounces back one tile."
     },
     {
       "board": [
@@ -167,6 +167,140 @@
       ],
       "type": "match1"
     },
+    "bounce_back_east": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "-A",
+                "-B"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1a",
+                "2b"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "bounce_back_north": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "A",
+                "-",
+                "a",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A",
+                "-",
+                "a",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "B",
+                "-",
+                "b",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "B",
+                "-",
+                "b",
+                "2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "bounce_back_south": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "-",
+                "A",
+                "1",
+                "a"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "A",
+                "1",
+                "a"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-",
+                "B",
+                "2",
+                "b"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "B",
+                "2",
+                "b"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "bounce_back_west": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "A-",
+                "B-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "a1",
+                "b2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
     "east": {
       "rules": [
         {
@@ -180,7 +314,7 @@
               "type": "call"
             },
             {
-              "name": "sync_locks",
+              "name": "sync_locks_east",
               "type": "call"
             }
           ],
@@ -1346,7 +1480,7 @@
               "type": "call"
             },
             {
-              "name": "sync_locks",
+              "name": "sync_locks_north",
               "type": "call"
             }
           ],
@@ -1492,7 +1626,7 @@
               "type": "call"
             },
             {
-              "name": "sync_locks",
+              "name": "sync_locks_south",
               "type": "call"
             }
           ],
@@ -1501,12 +1635,103 @@
       ],
       "type": "match1"
     },
-    "sync_locks": {
+    "sync_locks_east": {
       "rules": [
         {
           "rules": [
             {
               "name": "both_locked",
+              "type": "call"
+            },
+            {
+              "name": "bounce_back_east",
+              "type": "call"
+            },
+            {
+              "from": [
+                "?"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "?"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "sync_locks_north": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "both_locked",
+              "type": "call"
+            },
+            {
+              "name": "bounce_back_north",
+              "type": "call"
+            },
+            {
+              "from": [
+                "?"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "?"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "sync_locks_south": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "both_locked",
+              "type": "call"
+            },
+            {
+              "name": "bounce_back_south",
+              "type": "call"
+            },
+            {
+              "from": [
+                "?"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "?"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "sync_locks_west": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "both_locked",
+              "type": "call"
+            },
+            {
+              "name": "bounce_back_west",
               "type": "call"
             },
             {
@@ -1562,7 +1787,7 @@
               "type": "call"
             },
             {
-              "name": "sync_locks",
+              "name": "sync_locks_west",
               "type": "call"
             }
           ],
