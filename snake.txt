@@ -66,48 +66,19 @@ CMD drag_tail
 CMD forward_head
  ATOMIC               
   MATCH1
-   e- >e
-  
-   -w w<
-  
-   s v
-   - s
-  
-   - n
-   n ^
+   ROTATE eswn >v<^
+    e- >e
   
   TRY_ALL
-   MATCH1
-    ATOMIC
-     %n %_
-   
-     CALL up
-   
-    ATOMIC
-     %s %_
-   
-     CALL down
-   
-    ATOMIC
-     %w %_
-   
-     CALL left
-   
+   ROTATE eswn
     ATOMIC
      %e %_
    
-     CALL right
+     CALL turn_e
  
 CMD eat
- e. >e
-
- .w w<
-
- s v
- . s
-
- . n
- n ^
+ ROTATE eswn >v<^
+  e. >e
 
 CMD die
  FOR d nsew

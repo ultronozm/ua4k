@@ -5094,25 +5094,23 @@
                   "rules": [
                     {
                       "from": [
-                        "^?%"
+                        ">?%"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "^?%"
+                        ">?%"
                       ],
                       "type": "simple"
                     },
                     {
                       "from": [
-                        "~",
-                        "*"
+                        "*~"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "-",
-                        "*"
+                        "*-"
                       ],
                       "type": "simple"
                     }
@@ -5179,23 +5177,25 @@
                   "rules": [
                     {
                       "from": [
-                        ">?%"
+                        "^?%"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        ">?%"
+                        "^?%"
                       ],
                       "type": "simple"
                     },
                     {
                       "from": [
-                        "*~"
+                        "~",
+                        "*"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "*-"
+                        "-",
+                        "*"
                       ],
                       "type": "simple"
                     }
@@ -5225,25 +5225,23 @@
                   "rules": [
                     {
                       "from": [
-                        "^?%"
+                        ">?%"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "^?%"
+                        ">?%"
                       ],
                       "type": "simple"
                     },
                     {
                       "from": [
-                        "A",
-                        "*"
+                        "*A"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "-",
-                        "*"
+                        "*-"
                       ],
                       "type": "simple"
                     }
@@ -5310,23 +5308,25 @@
                   "rules": [
                     {
                       "from": [
-                        ">?%"
+                        "^?%"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        ">?%"
+                        "^?%"
                       ],
                       "type": "simple"
                     },
                     {
                       "from": [
-                        "*A"
+                        "A",
+                        "*"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "*-"
+                        "-",
+                        "*"
                       ],
                       "type": "simple"
                     }
@@ -5356,25 +5356,23 @@
                   "rules": [
                     {
                       "from": [
-                        "^?%"
+                        ">?%"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "^?%"
+                        ">?%"
                       ],
                       "type": "simple"
                     },
                     {
                       "from": [
-                        "8",
-                        "*"
+                        "*8"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "-",
-                        "*"
+                        "*-"
                       ],
                       "type": "simple"
                     }
@@ -5441,23 +5439,25 @@
                   "rules": [
                     {
                       "from": [
-                        ">?%"
+                        "^?%"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        ">?%"
+                        "^?%"
                       ],
                       "type": "simple"
                     },
                     {
                       "from": [
-                        "*8"
+                        "8",
+                        "*"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "*-"
+                        "-",
+                        "*"
                       ],
                       "type": "simple"
                     }
@@ -5487,25 +5487,23 @@
                   "rules": [
                     {
                       "from": [
-                        "^?%"
+                        ">?%"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "^?%"
+                        ">?%"
                       ],
                       "type": "simple"
                     },
                     {
                       "from": [
-                        "o",
-                        "*"
+                        "*o"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "-",
-                        "*"
+                        "*-"
                       ],
                       "type": "simple"
                     }
@@ -5572,23 +5570,25 @@
                   "rules": [
                     {
                       "from": [
-                        ">?%"
+                        "^?%"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        ">?%"
+                        "^?%"
                       ],
                       "type": "simple"
                     },
                     {
                       "from": [
-                        "*o"
+                        "o",
+                        "*"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "*-"
+                        "-",
+                        "*"
                       ],
                       "type": "simple"
                     }
@@ -5618,25 +5618,23 @@
                   "rules": [
                     {
                       "from": [
-                        "^?%"
+                        ">?%"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "^?%"
+                        ">?%"
                       ],
                       "type": "simple"
                     },
                     {
                       "from": [
-                        "r",
-                        "*"
+                        "*r"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "-",
-                        "*"
+                        "*-"
                       ],
                       "type": "simple"
                     }
@@ -5703,23 +5701,25 @@
                   "rules": [
                     {
                       "from": [
-                        ">?%"
+                        "^?%"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        ">?%"
+                        "^?%"
                       ],
                       "type": "simple"
                     },
                     {
                       "from": [
-                        "*r"
+                        "r",
+                        "*"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "*-"
+                        "-",
+                        "*"
                       ],
                       "type": "simple"
                     }
@@ -5763,124 +5763,8 @@
     "east": {
       "rules": [
         {
-          "rules": [
-            {
-              "name": "maybe_breath",
-              "type": "call"
-            },
-            {
-              "name": "look_east",
-              "type": "call"
-            },
-            {
-              "rules": [
-                {
-                  "rules": [
-                    {
-                      "from": [
-                        "*-"
-                      ],
-                      "method": "firstmatch",
-                      "side_effects": [],
-                      "to": [
-                        "-*"
-                      ],
-                      "type": "simple"
-                    },
-                    {
-                      "from": [
-                        "*!"
-                      ],
-                      "method": "firstmatch",
-                      "side_effects": [],
-                      "to": [
-                        "-*"
-                      ],
-                      "type": "simple"
-                    },
-                    {
-                      "rules": [
-                        {
-                          "from": [
-                            "*p"
-                          ],
-                          "method": "firstmatch",
-                          "side_effects": [],
-                          "to": [
-                            "-p"
-                          ],
-                          "type": "simple"
-                        },
-                        {
-                          "from": [
-                            "q-"
-                          ],
-                          "method": "firstmatch",
-                          "side_effects": [],
-                          "to": [
-                            "q*"
-                          ],
-                          "type": "simple"
-                        }
-                      ],
-                      "type": "atomic"
-                    },
-                    {
-                      "rules": [
-                        {
-                          "from": [
-                            "*q"
-                          ],
-                          "method": "firstmatch",
-                          "side_effects": [],
-                          "to": [
-                            "-q"
-                          ],
-                          "type": "simple"
-                        },
-                        {
-                          "from": [
-                            "p-"
-                          ],
-                          "method": "firstmatch",
-                          "side_effects": [],
-                          "to": [
-                            "p*"
-                          ],
-                          "type": "simple"
-                        }
-                      ],
-                      "type": "atomic"
-                    }
-                  ],
-                  "type": "match1"
-                },
-                {
-                  "rules": [
-                    {
-                      "name": "maybe_breath",
-                      "type": "call"
-                    },
-                    {
-                      "name": "consume_oxygen",
-                      "type": "call"
-                    },
-                    {
-                      "name": "zombie_march",
-                      "type": "call"
-                    },
-                    {
-                      "name": "maybe_breath",
-                      "type": "call"
-                    }
-                  ],
-                  "type": "try_all"
-                }
-              ],
-              "type": "atomic"
-            }
-          ],
-          "type": "try_all"
+          "name": "walk_e",
+          "type": "call"
         }
       ],
       "type": "match1"
@@ -7273,6 +7157,15 @@
       ],
       "type": "match1"
     },
+    "look_e": {
+      "rules": [
+        {
+          "name": "look_east",
+          "type": "call"
+        }
+      ],
+      "type": "match1"
+    },
     "look_east": {
       "rules": [
         {
@@ -7285,6 +7178,15 @@
             ">?%"
           ],
           "type": "simple"
+        }
+      ],
+      "type": "match1"
+    },
+    "look_n": {
+      "rules": [
+        {
+          "name": "look_north",
+          "type": "call"
         }
       ],
       "type": "match1"
@@ -7305,6 +7207,15 @@
       ],
       "type": "match1"
     },
+    "look_s": {
+      "rules": [
+        {
+          "name": "look_south",
+          "type": "call"
+        }
+      ],
+      "type": "match1"
+    },
     "look_south": {
       "rules": [
         {
@@ -7317,6 +7228,15 @@
             "v?%"
           ],
           "type": "simple"
+        }
+      ],
+      "type": "match1"
+    },
+    "look_w": {
+      "rules": [
+        {
+          "name": "look_west",
+          "type": "call"
         }
       ],
       "type": "match1"
@@ -7414,25 +7334,23 @@
                   "rules": [
                     {
                       "from": [
-                        "^?%"
+                        ">?%"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "^?%"
+                        ">?%"
                       ],
                       "type": "simple"
                     },
                     {
                       "from": [
-                        "~",
-                        "*"
+                        "*~"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "-",
-                        "*"
+                        "*-"
                       ],
                       "type": "simple"
                     }
@@ -7499,23 +7417,25 @@
                   "rules": [
                     {
                       "from": [
-                        ">?%"
+                        "^?%"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        ">?%"
+                        "^?%"
                       ],
                       "type": "simple"
                     },
                     {
                       "from": [
-                        "*~"
+                        "~",
+                        "*"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "*-"
+                        "-",
+                        "*"
                       ],
                       "type": "simple"
                     }
@@ -7584,25 +7504,23 @@
                   "rules": [
                     {
                       "from": [
-                        "^?%"
+                        ">?%"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "^?%"
+                        ">?%"
                       ],
                       "type": "simple"
                     },
                     {
                       "from": [
-                        "A",
-                        "*"
+                        "*A"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "-",
-                        "*"
+                        "*-"
                       ],
                       "type": "simple"
                     }
@@ -7669,23 +7587,25 @@
                   "rules": [
                     {
                       "from": [
-                        ">?%"
+                        "^?%"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        ">?%"
+                        "^?%"
                       ],
                       "type": "simple"
                     },
                     {
                       "from": [
-                        "*A"
+                        "A",
+                        "*"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "*-"
+                        "-",
+                        "*"
                       ],
                       "type": "simple"
                     }
@@ -7754,25 +7674,23 @@
                   "rules": [
                     {
                       "from": [
-                        "^?%"
+                        ">?%"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "^?%"
+                        ">?%"
                       ],
                       "type": "simple"
                     },
                     {
                       "from": [
-                        "8",
-                        "*"
+                        "*8"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "-",
-                        "*"
+                        "*-"
                       ],
                       "type": "simple"
                     }
@@ -7839,23 +7757,25 @@
                   "rules": [
                     {
                       "from": [
-                        ">?%"
+                        "^?%"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        ">?%"
+                        "^?%"
                       ],
                       "type": "simple"
                     },
                     {
                       "from": [
-                        "*8"
+                        "8",
+                        "*"
                       ],
                       "method": "firstmatch",
                       "side_effects": [],
                       "to": [
-                        "*-"
+                        "-",
+                        "*"
                       ],
                       "type": "simple"
                     }
@@ -8401,136 +8321,8 @@
     "north": {
       "rules": [
         {
-          "rules": [
-            {
-              "name": "maybe_breath",
-              "type": "call"
-            },
-            {
-              "name": "look_north",
-              "type": "call"
-            },
-            {
-              "rules": [
-                {
-                  "rules": [
-                    {
-                      "from": [
-                        "-",
-                        "*"
-                      ],
-                      "method": "firstmatch",
-                      "side_effects": [],
-                      "to": [
-                        "*",
-                        "-"
-                      ],
-                      "type": "simple"
-                    },
-                    {
-                      "from": [
-                        "!",
-                        "*"
-                      ],
-                      "method": "firstmatch",
-                      "side_effects": [],
-                      "to": [
-                        "*",
-                        "-"
-                      ],
-                      "type": "simple"
-                    },
-                    {
-                      "rules": [
-                        {
-                          "from": [
-                            "p",
-                            "*"
-                          ],
-                          "method": "firstmatch",
-                          "side_effects": [],
-                          "to": [
-                            "p",
-                            "-"
-                          ],
-                          "type": "simple"
-                        },
-                        {
-                          "from": [
-                            "-",
-                            "q"
-                          ],
-                          "method": "firstmatch",
-                          "side_effects": [],
-                          "to": [
-                            "*",
-                            "q"
-                          ],
-                          "type": "simple"
-                        }
-                      ],
-                      "type": "atomic"
-                    },
-                    {
-                      "rules": [
-                        {
-                          "from": [
-                            "q",
-                            "*"
-                          ],
-                          "method": "firstmatch",
-                          "side_effects": [],
-                          "to": [
-                            "q",
-                            "-"
-                          ],
-                          "type": "simple"
-                        },
-                        {
-                          "from": [
-                            "-",
-                            "p"
-                          ],
-                          "method": "firstmatch",
-                          "side_effects": [],
-                          "to": [
-                            "*",
-                            "p"
-                          ],
-                          "type": "simple"
-                        }
-                      ],
-                      "type": "atomic"
-                    }
-                  ],
-                  "type": "match1"
-                },
-                {
-                  "rules": [
-                    {
-                      "name": "maybe_breath",
-                      "type": "call"
-                    },
-                    {
-                      "name": "consume_oxygen",
-                      "type": "call"
-                    },
-                    {
-                      "name": "zombie_march",
-                      "type": "call"
-                    },
-                    {
-                      "name": "maybe_breath",
-                      "type": "call"
-                    }
-                  ],
-                  "type": "try_all"
-                }
-              ],
-              "type": "atomic"
-            }
-          ],
-          "type": "try_all"
+          "name": "walk_n",
+          "type": "call"
         }
       ],
       "type": "match1"
@@ -23811,13 +23603,284 @@
     "south": {
       "rules": [
         {
+          "name": "walk_s",
+          "type": "call"
+        }
+      ],
+      "type": "match1"
+    },
+    "walk_e": {
+      "rules": [
+        {
           "rules": [
             {
               "name": "maybe_breath",
               "type": "call"
             },
             {
-              "name": "look_south",
+              "name": "look_e",
+              "type": "call"
+            },
+            {
+              "rules": [
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "*-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-*"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "*!"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-*"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "*p"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-p"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "q-"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "q*"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "*q"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-q"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "p-"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "p*"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    }
+                  ],
+                  "type": "match1"
+                },
+                {
+                  "rules": [
+                    {
+                      "name": "maybe_breath",
+                      "type": "call"
+                    },
+                    {
+                      "name": "consume_oxygen",
+                      "type": "call"
+                    },
+                    {
+                      "name": "zombie_march",
+                      "type": "call"
+                    },
+                    {
+                      "name": "maybe_breath",
+                      "type": "call"
+                    }
+                  ],
+                  "type": "try_all"
+                }
+              ],
+              "type": "atomic"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "walk_n": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "maybe_breath",
+              "type": "call"
+            },
+            {
+              "name": "look_n",
+              "type": "call"
+            },
+            {
+              "rules": [
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "-",
+                        "*"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "*",
+                        "-"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "!",
+                        "*"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "*",
+                        "-"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "p",
+                            "*"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "p",
+                            "-"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "-",
+                            "q"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "*",
+                            "q"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "q",
+                            "*"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "q",
+                            "-"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "-",
+                            "p"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "*",
+                            "p"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    }
+                  ],
+                  "type": "match1"
+                },
+                {
+                  "rules": [
+                    {
+                      "name": "maybe_breath",
+                      "type": "call"
+                    },
+                    {
+                      "name": "consume_oxygen",
+                      "type": "call"
+                    },
+                    {
+                      "name": "zombie_march",
+                      "type": "call"
+                    },
+                    {
+                      "name": "maybe_breath",
+                      "type": "call"
+                    }
+                  ],
+                  "type": "try_all"
+                }
+              ],
+              "type": "atomic"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "walk_s": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "maybe_breath",
+              "type": "call"
+            },
+            {
+              "name": "look_s",
               "type": "call"
             },
             {
@@ -23945,7 +24008,7 @@
       ],
       "type": "match1"
     },
-    "west": {
+    "walk_w": {
       "rules": [
         {
           "rules": [
@@ -23954,7 +24017,7 @@
               "type": "call"
             },
             {
-              "name": "look_west",
+              "name": "look_w",
               "type": "call"
             },
             {
@@ -24066,6 +24129,15 @@
             }
           ],
           "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "west": {
+      "rules": [
+        {
+          "name": "walk_w",
+          "type": "call"
         }
       ],
       "type": "match1"

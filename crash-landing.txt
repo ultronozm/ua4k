@@ -294,6 +294,18 @@ CMD look_west
 CMD look_east
  ??% >?%
 
+CMD look_n
+ CALL look_north
+
+CMD look_s
+ CALL look_south
+
+CMD look_w
+ CALL look_west
+
+CMD look_e
+ CALL look_east
+
 CMD maybe_breath
  ATOMIC
   MATCH1
@@ -309,79 +321,10 @@ CMD maybe_breath
 
   CALL refill_oxygen
 
-CMD north
+ROTATE_CMDS walk >v<^
  TRY_ALL
   CALL maybe_breath
-  CALL look_north
-  ATOMIC
-   MATCH1
-    FOR s -!
-     s *
-     * -
- 
-    ZIP s pq t qp
-     ATOMIC
-      s s
-      * -
-     
-      - *
-      t t
- 
-   TRY_ALL
-    CALL maybe_breath
-    CALL consume_oxygen
-    CALL zombie_march
-    CALL maybe_breath
- 
-CMD south
- TRY_ALL
-  CALL maybe_breath
-  CALL look_south
-  ATOMIC
-   MATCH1
-    FOR s -!
-     * -
-     s *
- 
-    ZIP s pq t qp
-     ATOMIC
-      * -
-      s s
-     
-      t t
-      - *
-   
-   TRY_ALL
-    CALL maybe_breath
-    CALL consume_oxygen
-    CALL zombie_march
-    CALL maybe_breath
- 
-CMD west
- TRY_ALL
-  CALL maybe_breath
-  CALL look_west
-  ATOMIC
-   MATCH1
-    FOR s -!
-     s* *-
- 
-    ZIP s pq t qp
-     ATOMIC
-      s* s-
-     
-      -t *t
- 
-   TRY_ALL
-    CALL maybe_breath
-    CALL consume_oxygen
-    CALL zombie_march
-    CALL maybe_breath
- 
-CMD east
- TRY_ALL
-  CALL maybe_breath
-  CALL look_east
+  CALL look_e
   ATOMIC
    MATCH1
     FOR s -!
@@ -398,32 +341,28 @@ CMD east
     CALL consume_oxygen
     CALL zombie_march
     CALL maybe_breath
+
+CMD north
+ CALL walk_n
+
+CMD south
+ CALL walk_s
+
+CMD west
+ CALL walk_w
+
+CMD east
+ CALL walk_e
  
 CMD destroy
  FOR s ~A8or
   ATOMIC
    MATCH1
-    ATOMIC
-     ^?%
-     
-     s -
-     * *
+    ROTATE >v<^
+     ATOMIC
+      >?% >?% [norotate]
 
-    ATOMIC
-     v?%
-     
-     * *
-     s -
- 
-    ATOMIC
-     <?%
-     
-     s* -*
- 
-    ATOMIC
-     >?%
-     
-     *s *-
+      *s *-
    
    TRY_ALL
     CALL zombie_march
@@ -433,27 +372,11 @@ CMD mine
  FOR s ~A8
   ATOMIC
    MATCH1
-    ATOMIC
-     ^?%
-     
-     s -
-     * *
+    ROTATE >v<^
+     ATOMIC
+      >?% >?% [norotate]
 
-    ATOMIC
-     v?%
-     
-     * *
-     s -
- 
-    ATOMIC
-     <?%
-     
-     s* -*
- 
-    ATOMIC
-     >?%
-     
-     *s *-
+      *s *-
  
    -% s%
 
