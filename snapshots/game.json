@@ -2925,234 +2925,6 @@
         },
         {
           "from": [
-            "-<"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "<-"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "e<"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "<-"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "o<"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "<-"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "?v",
-            "-/"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "?-",
-            "</"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "?v",
-            "e/"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "?-",
-            "</"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "?v",
-            "o/"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "?-",
-            "</"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "v?",
-            "\\-"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-?",
-            "\\>"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "v?",
-            "\\e"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-?",
-            "\\>"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "v?",
-            "\\o"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-?",
-            "\\>"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "v",
-            "-"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-",
-            "v"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "v",
-            "e"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-",
-            "v"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "v",
-            "o"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-",
-            "v"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "-",
-            "^"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "^",
-            "-"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "e",
-            "^"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "^",
-            "-"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "o",
-            "^"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "^",
-            "-"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "-\\",
-            "?^"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "<\\",
-            "?-"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "e\\",
-            "?^"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "<\\",
-            "?-"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "o\\",
-            "?^"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "<\\",
-            "?-"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
             ">\\",
             "?-"
           ],
@@ -3187,123 +2959,6 @@
           "to": [
             "-\\",
             "?v"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "/<",
-            "-?"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "/-",
-            "v?"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "/<",
-            "e?"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "/-",
-            "v?"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "/<",
-            "o?"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "/-",
-            "v?"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "-?",
-            "\\<"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "^?",
-            "\\-"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "e?",
-            "\\<"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "^?",
-            "\\-"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "o?",
-            "\\<"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "^?",
-            "\\-"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "/-",
-            "^?"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "/>",
-            "-?"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "/e",
-            "^?"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "/>",
-            "-?"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "/o",
-            "^?"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "/>",
-            "-?"
           ],
           "type": "simple"
         },
@@ -3426,6 +3081,312 @@
         },
         {
           "from": [
+            "v",
+            "-"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-",
+            "v"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "v",
+            "e"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-",
+            "v"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "v",
+            "o"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-",
+            "v"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "?v",
+            "-/"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "?-",
+            "</"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "?v",
+            "e/"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "?-",
+            "</"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "?v",
+            "o/"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "?-",
+            "</"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "v?",
+            "\\-"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-?",
+            "\\>"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "v?",
+            "\\e"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-?",
+            "\\>"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "v?",
+            "\\o"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-?",
+            "\\>"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "-v",
+            "\\/"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "^-",
+            "\\/"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "ev",
+            "\\/"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "^-",
+            "\\/"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "ov",
+            "\\/"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "^-",
+            "\\/"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "v-",
+            "\\/"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-^",
+            "\\/"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "ve",
+            "\\/"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-^",
+            "\\/"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "vo",
+            "\\/"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-^",
+            "\\/"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "-<"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "<-"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "e<"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "<-"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "o<"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "<-"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "-?",
+            "\\<"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "^?",
+            "\\-"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "e?",
+            "\\<"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "^?",
+            "\\-"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "o?",
+            "\\<"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "^?",
+            "\\-"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "/<",
+            "-?"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "/-",
+            "v?"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "/<",
+            "e?"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "/-",
+            "v?"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "/<",
+            "o?"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "/-",
+            "v?"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
             "/-",
             "\\<"
           ],
@@ -3504,79 +3465,118 @@
         },
         {
           "from": [
-            "v-",
-            "\\/"
+            "-",
+            "^"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "-^",
-            "\\/"
+            "^",
+            "-"
           ],
           "type": "simple"
         },
         {
           "from": [
-            "ve",
-            "\\/"
+            "e",
+            "^"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "-^",
-            "\\/"
+            "^",
+            "-"
           ],
           "type": "simple"
         },
         {
           "from": [
-            "vo",
-            "\\/"
+            "o",
+            "^"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "-^",
-            "\\/"
+            "^",
+            "-"
           ],
           "type": "simple"
         },
         {
           "from": [
-            "-v",
-            "\\/"
+            "/-",
+            "^?"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "^-",
-            "\\/"
+            "/>",
+            "-?"
           ],
           "type": "simple"
         },
         {
           "from": [
-            "ev",
-            "\\/"
+            "/e",
+            "^?"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "^-",
-            "\\/"
+            "/>",
+            "-?"
           ],
           "type": "simple"
         },
         {
           "from": [
-            "ov",
-            "\\/"
+            "/o",
+            "^?"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "^-",
-            "\\/"
+            "/>",
+            "-?"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "-\\",
+            "?^"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "<\\",
+            "?-"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "e\\",
+            "?^"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "<\\",
+            "?-"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "o\\",
+            "?^"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "<\\",
+            "?-"
           ],
           "type": "simple"
         },
@@ -3660,14 +3660,14 @@
         },
         {
           "from": [
-            "/\\",
-            "^/"
+            ">\\",
+            "\\/"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "/\\",
-            "</"
+            "^\\",
+            "\\/"
           ],
           "type": "simple"
         },
@@ -3686,6 +3686,32 @@
         },
         {
           "from": [
+            "/v",
+            "\\/"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "/>",
+            "\\/"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "v\\",
+            "\\/"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "<\\",
+            "\\/"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
             "/\\",
             "\\<"
           ],
@@ -3694,19 +3720,6 @@
           "to": [
             "/\\",
             "\\v"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "/\\",
-            "\\^"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "/\\",
-            "\\>"
           ],
           "type": "simple"
         },
@@ -3725,40 +3738,27 @@
         },
         {
           "from": [
-            "/v",
-            "\\/"
+            "/\\",
+            "^/"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "/>",
-            "\\/"
+            "/\\",
+            "</"
           ],
           "type": "simple"
         },
         {
           "from": [
-            ">\\",
-            "\\/"
+            "/\\",
+            "\\^"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "^\\",
-            "\\/"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "v\\",
-            "\\/"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "<\\",
-            "\\/"
+            "/\\",
+            "\\>"
           ],
           "type": "simple"
         },
