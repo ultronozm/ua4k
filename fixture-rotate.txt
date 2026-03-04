@@ -36,6 +36,11 @@ CMD demo_rotate_suffix
 
    CALL suffix_target_e
 
+CMD demo_rotate_pair_orbit
+ MATCH1
+  ROTATE >v<^ /\
+   >/ -\
+
 ROTATE_CMDS move >v<^
  MATCH1
   ATOMIC

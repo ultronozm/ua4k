@@ -10,7 +10,7 @@ Most games duplicate directional logic four times (E/S/W/N). That duplication is
 
 1. Base orientation is **east** (0°).
 2. Expansion order is always: **east, south, west, north**.
-3. Character substitution is done only through **explicitly provided 4-char orbits**.
+3. Character substitution is done only through **explicitly provided 4-char or 2-char orbits**.
 4. There is **no implicit `eswn` substitution** in patterns or names.
 5. Command-name rewriting is **suffix-only** (`_e` -> `_s/_w/_n`), not full-string character substitution.
 6. `[norotate]` is a compile-time flag on simple rules and can coexist with `[firstmatch]`/`[lastmatch]`/`[random]`.
@@ -22,7 +22,9 @@ Most games duplicate directional logic four times (E/S/W/N). That duplication is
 Compile-time block expansion inside a rule context.
 
 - Produces 4 rotated copies of the enclosed rule subtree.
-- Each orbit is exactly 4 characters, interpreted as positions for east/south/west/north.
+- Each orbit is either:
+  - exactly 4 characters (east/south/west/north positions), or
+  - exactly 2 characters (alternating pair per quarter turn, e.g. `'/\\'`).
 - Applies to simple-rule patterns (`from`/`to` rows).
 - Rewrites command references and side-effect names ending in `_e` to step suffixes (`_e/_s/_w/_n`), preserving mandatory `!`.
 - Names not ending in `_e` are unchanged.
@@ -142,7 +144,7 @@ ROTATE >v<^
 ## Compiler implementation notes (`make-data.py`)
 
 1. Add new block nodes: `rotate`, `rotate_cmds`.
-2. Parse orbit args; validate length 4 for each orbit.
+2. Parse orbit args; validate length 2 or 4 for each orbit.
 3. Parse annotation flags separately from method (`simple_rule.flags`, `simple_rule.method`).
 4. Expansion in `process_rule_stack_to_level`:
    - `rotate`: emit four expanded child copies into parent node.
@@ -156,7 +158,7 @@ ROTATE >v<^
 
 ## Validation rules
 
-- Every orbit must be length 4.
+- Every orbit must be length 2 or 4.
 - `ROTATE_CMDS` requires exactly one base name before orbit list.
 - `ROTATE` must be inside a rule block context.
 - `[norotate]` outside rotation context is an error.

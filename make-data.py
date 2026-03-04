@@ -314,8 +314,8 @@ def add_rule_to_command(state: ParseState, command_name: str, rule: dict) -> Non
 
 def ensure_orbits(orbits: list[str], line_no: int, directive: str) -> None:
     for orbit in orbits:
-        if len(orbit) != 4:
-            fail(line_no, f"{directive} orbit {orbit!r} must have length 4")
+        if len(orbit) not in {2, 4}:
+            fail(line_no, f"{directive} orbit {orbit!r} must have length 2 or 4")
 
 
 def rotate_grid(grid_rows: list[str], step: int) -> list[str]:
@@ -352,8 +352,9 @@ def apply_orbits_to_pattern_rows(rows: list[str], orbits: list[str], step: int) 
 
     mapping: dict[str, str] = {}
     for orbit in orbits:
+        orbit_len = len(orbit)
         for idx, char in enumerate(orbit):
-            mapping[char] = orbit[(idx + step) % 4]
+            mapping[char] = orbit[(idx + step) % orbit_len]
 
     transformed = []
     for row in rows:

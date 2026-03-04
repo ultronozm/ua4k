@@ -43,6 +43,10 @@ CASES = [
         "invalid-norotate.txt",
         "invalid-norotate.txt:10: error: [norotate] is only valid inside ROTATE or ROTATE_CMDS",
     ),
+    (
+        "invalid-orbit.txt",
+        "invalid-orbit.txt:7: error: ROTATE orbit 'abc' must have length 2 or 4",
+    ),
 ]
 
 

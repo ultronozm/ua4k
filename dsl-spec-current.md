@@ -136,7 +136,9 @@ All wrap a nested `rules` list. Runtime behavior:
 `ROTATE`:
 - Syntax: `ROTATE [orbit1 orbit2 ...]` inside a rule block.
 - Emits four rotated copies of enclosed subtree children in fixed order: east, south, west, north.
-- Orbit tokens must each be length 4 (east/south/west/north char mapping).
+- Orbit tokens must each be length 4 or 2:
+  - length 4: east/south/west/north character cycle.
+  - length 2: alternating pair (toggles each quarter turn), e.g. `'/\\'`.
 - Applies to simple-rule patterns (`from`/`to`) only.
 - Rewrites command references and side-effect names ending in `_e` to directional step suffixes (`_e/_s/_w/_n`).
 - Names not ending in `_e` are unchanged.

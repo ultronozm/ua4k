@@ -1,0 +1,8 @@
+a
+
+BIND x move
+
+CMD move
+ MATCH1
+  ROTATE abc
+   a a

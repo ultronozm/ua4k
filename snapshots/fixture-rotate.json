@@ -82,6 +82,64 @@
       ],
       "type": "match1"
     },
+    "demo_rotate_pair_orbit": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                ">/"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-\\"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "v",
+                "\\"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "/"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "/<"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "\\-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "\\",
+                "^"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "/",
+                "-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
     "demo_rotate_suffix": {
       "rules": [
         {
