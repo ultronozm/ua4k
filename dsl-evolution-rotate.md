@@ -23,9 +23,9 @@ Compile-time block expansion inside a rule context.
 
 - Produces 4 rotated copies of the enclosed rule subtree.
 - Each orbit is exactly 4 characters, interpreted as positions for east/south/west/north.
-- Applies to **patterns only** (`from`/`to` rows of simple rules).
-- Does **not** rewrite `CALL` targets.
-- Does **not** rewrite side-effect names.
+- Applies to simple-rule patterns (`from`/`to` rows).
+- Rewrites command references and side-effect names ending in `_e` to step suffixes (`_e/_s/_w/_n`), preserving mandatory `!`.
+- Names not ending in `_e` are unchanged.
 
 ### `ROTATE_CMDS <base_name> [<orbit1> <orbit2> ...]`
 
@@ -69,7 +69,7 @@ For each expansion step `i`:
 2. For each simple rule:
    - if not `[norotate]`, rotate `from` and `to` geometry by `i * 90° CW`
    - apply orbit substitutions to pattern cells for step `i`
-3. For `ROTATE_CMDS` only, rewrite command/side-effect references by directional suffix:
+3. Rewrite command/side-effect references by directional suffix:
    - `_e -> _e/_s/_w/_n` for step `i`
 
 This order is fixed and deterministic.
@@ -86,9 +86,7 @@ This order is fixed and deterministic.
 
 - `ROTATE` can wrap/appear within: `ATOMIC`, `ATOMIC_VERTICAL`, `ATOMIC_HORIZONTAL`, `MATCH1`, `TRY_ALL`, `RANDOM`, `FOR`, `ZIP`, `LET_REPEAT`.
 - `ROTATE` is compile-time only; runtime rule types remain unchanged.
-- `CALL` references are unchanged by `ROTATE`.
-- Side-effect names are unchanged by `ROTATE`.
-- `CALL` and side-effect references are suffix-rewritten by `ROTATE_CMDS` if they end with `_e`.
+- `CALL` and side-effect references are suffix-rewritten by both `ROTATE` and `ROTATE_CMDS` when they end with `_e`.
 - `CALL_EACH` is out of scope for this v1 unless added explicitly as a separate feature.
 
 ## Examples

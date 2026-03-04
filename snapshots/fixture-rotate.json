@@ -82,6 +82,96 @@
       ],
       "type": "match1"
     },
+    "demo_rotate_suffix": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1>"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "ping_e!",
+                "helper_e!",
+                "suffix_target_e"
+              ],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "name": "suffix_target_e",
+              "type": "call"
+            },
+            {
+              "from": [
+                "1",
+                "v"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "ping_s!",
+                "helper_s!",
+                "suffix_target_s"
+              ],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "name": "suffix_target_s",
+              "type": "call"
+            },
+            {
+              "from": [
+                "<1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "ping_w!",
+                "helper_w!",
+                "suffix_target_w"
+              ],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "name": "suffix_target_w",
+              "type": "call"
+            },
+            {
+              "from": [
+                "^",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "ping_n!",
+                "helper_n!",
+                "suffix_target_n"
+              ],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "name": "suffix_target_n",
+              "type": "call"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
     "helper_e": {
       "rules": [
         {
@@ -422,14 +512,12 @@
                 },
                 {
                   "from": [
-                    "v",
-                    "?"
+                    "v?"
                   ],
                   "method": "lastmatch",
                   "side_effects": [],
                   "to": [
-                    "?",
-                    "^"
+                    "?^"
                   ],
                   "type": "simple"
                 },
@@ -501,12 +589,12 @@
                 },
                 {
                   "from": [
-                    "?<"
+                    "<?"
                   ],
                   "method": "lastmatch",
                   "side_effects": [],
                   "to": [
-                    ">?"
+                    "?>"
                   ],
                   "type": "simple"
                 },
@@ -592,14 +680,12 @@
                 },
                 {
                   "from": [
-                    "?",
-                    "^"
+                    "^?"
                   ],
                   "method": "lastmatch",
                   "side_effects": [],
                   "to": [
-                    "v",
-                    "?"
+                    "?v"
                   ],
                   "type": "simple"
                 }
@@ -720,14 +806,12 @@
                 },
                 {
                   "from": [
-                    "?",
-                    "^"
+                    "^?"
                   ],
                   "method": "lastmatch",
                   "side_effects": [],
                   "to": [
-                    "v",
-                    "?"
+                    "?v"
                   ],
                   "type": "simple"
                 },
@@ -890,14 +974,12 @@
                 },
                 {
                   "from": [
-                    "v",
-                    "?"
+                    "v?"
                   ],
                   "method": "lastmatch",
                   "side_effects": [],
                   "to": [
-                    "?",
-                    "^"
+                    "?^"
                   ],
                   "type": "simple"
                 },
@@ -969,12 +1051,12 @@
                 },
                 {
                   "from": [
-                    "?<"
+                    "<?"
                   ],
                   "method": "lastmatch",
                   "side_effects": [],
                   "to": [
-                    ">?"
+                    "?>"
                   ],
                   "type": "simple"
                 }
@@ -1095,14 +1177,12 @@
                 },
                 {
                   "from": [
-                    "v",
-                    "?"
+                    "v?"
                   ],
                   "method": "lastmatch",
                   "side_effects": [],
                   "to": [
-                    "?",
-                    "^"
+                    "?^"
                   ],
                   "type": "simple"
                 },
@@ -1174,12 +1254,12 @@
                 },
                 {
                   "from": [
-                    "?<"
+                    "<?"
                   ],
                   "method": "lastmatch",
                   "side_effects": [],
                   "to": [
-                    ">?"
+                    "?>"
                   ],
                   "type": "simple"
                 },
@@ -1265,14 +1345,12 @@
                 },
                 {
                   "from": [
-                    "?",
-                    "^"
+                    "^?"
                   ],
                   "method": "lastmatch",
                   "side_effects": [],
                   "to": [
-                    "v",
-                    "?"
+                    "?v"
                   ],
                   "type": "simple"
                 },
@@ -1454,12 +1532,12 @@
                 },
                 {
                   "from": [
-                    "?<"
+                    "<?"
                   ],
                   "method": "lastmatch",
                   "side_effects": [],
                   "to": [
-                    ">?"
+                    "?>"
                   ],
                   "type": "simple"
                 },
@@ -1545,14 +1623,12 @@
                 },
                 {
                   "from": [
-                    "?",
-                    "^"
+                    "^?"
                   ],
                   "method": "lastmatch",
                   "side_effects": [],
                   "to": [
-                    "v",
-                    "?"
+                    "?v"
                   ],
                   "type": "simple"
                 },
@@ -1715,14 +1791,12 @@
                 },
                 {
                   "from": [
-                    "v",
-                    "?"
+                    "v?"
                   ],
                   "method": "lastmatch",
                   "side_effects": [],
                   "to": [
-                    "?",
-                    "^"
+                    "?^"
                   ],
                   "type": "simple"
                 }
@@ -1799,6 +1873,90 @@
       "type": "match1"
     },
     "ping_w": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "suffix_target_e": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "suffix_target_n": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "suffix_target_s": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "suffix_target_w": {
       "rules": [
         {
           "rules": [

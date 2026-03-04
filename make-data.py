@@ -234,11 +234,11 @@ def collect_references_from_rule(state: ParseState, rule: dict) -> None:
 
 
 def add_rule(state: ParseState, rule: dict) -> None:
+    if state.rules_stack:
+        state.rules_stack[-1]["rules"].append(copy.deepcopy(rule))
+        return
     collect_references_from_rule(state, rule)
     cleaned = strip_rule_metadata(rule)
-    if state.rules_stack:
-        state.rules_stack[-1]["rules"].append(cleaned)
-        return
     name = cleaned["name"]
     state.rules[name]["rules"].extend(cleaned["rules"])
 
@@ -462,7 +462,7 @@ def process_rule_stack_to_level(state: ParseState, level: int) -> None:
             for step in range(4):
                 for child in rule["rules"]:
                     modified = copy.deepcopy(child)
-                    expand_rotate_subtree(modified, step, rule["orbits"], rewrite_suffixes=False)
+                    expand_rotate_subtree(modified, step, rule["orbits"], rewrite_suffixes=True)
                     add_rule(state, modified)
             continue
 

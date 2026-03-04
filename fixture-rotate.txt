@@ -16,6 +16,10 @@ ROTATE_CMDS helper >v<^
   FOR a 12
    a> >a
 
+ROTATE_CMDS suffix_target
+ MATCH1
+  1 1
+
 CMD lock
  MATCH1
   l l
@@ -24,6 +28,13 @@ CMD demo_rotate
  MATCH1
   ROTATE
    1- -1
+
+CMD demo_rotate_suffix
+ MATCH1
+  ROTATE eswn >v<^
+   1> -1 ping_e! helper_e! suffix_target_e
+
+   CALL suffix_target_e
 
 ROTATE_CMDS move >v<^
  MATCH1

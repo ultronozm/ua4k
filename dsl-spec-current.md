@@ -136,13 +136,14 @@ All wrap a nested `rules` list. Runtime behavior:
 - Emits four rotated copies of enclosed subtree children in fixed order: east, south, west, north.
 - Orbit tokens must each be length 4 (east/south/west/north char mapping).
 - Applies to simple-rule patterns (`from`/`to`) only.
-- `CALL` targets and side-effect names are not rewritten by `ROTATE`.
+- Rewrites command references and side-effect names ending in `_e` to directional step suffixes (`_e/_s/_w/_n`).
+- Names not ending in `_e` are unchanged.
 
 `ROTATE_CMDS`:
 - Syntax: `ROTATE_CMDS <base_name> [orbit1 orbit2 ...]` at top-level.
 - Creates command families `<base_name>_e`, `<base_name>_s`, `<base_name>_w`, `<base_name>_n`.
 - Pattern rotation/orbit substitution is the same as `ROTATE`.
-- Additionally rewrites command references and side-effect names that end with `_e` to the step suffix (`_e/_s/_w/_n`).
+- Rewrites command references and side-effect names that end with `_e` to the step suffix (`_e/_s/_w/_n`).
 - Names that do not end with `_e` are left unchanged.
 
 Rotation geometry (`M x N` patterns):
