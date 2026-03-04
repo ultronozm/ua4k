@@ -78,7 +78,7 @@ class RuleBuffer:
 class ParseState:
     levels: list[dict] = field(default_factory=list)
     rules: dict[str, dict] = field(default_factory=dict)
-    binds: dict[str, str] = field(default_factory=dict)
+    binds: dict[str, str | dict[str, str]] = field(default_factory=dict)
     goals: list[list[str]] = field(default_factory=list)
     voids: list[list[str]] = field(default_factory=list)
     whitespace: list[str] = field(default_factory=list)
@@ -120,6 +120,69 @@ def expect_pairs(parts: list[str], start_index: int, line_no: int, directive: st
         fail(line_no, f"{directive} expects at least one key/value pair")
     if (len(parts) - start_index) % 2 != 0:
         fail(line_no, f"{directive} expects key/value pairs")
+
+
+def parse_bind_tokens(body: str, line_no: int) -> list[tuple[str, bool]]:
+    tokens: list[tuple[str, bool]] = []
+    i = 0
+    while i < len(body):
+        while i < len(body) and body[i].isspace():
+            i += 1
+        if i >= len(body):
+            break
+
+        if body[i] in {"'", '"'}:
+            quote = body[i]
+            i += 1
+            chars: list[str] = []
+            while i < len(body):
+                char = body[i]
+                if char == "\\" and i + 1 < len(body):
+                    chars.append(body[i + 1])
+                    i += 2
+                    continue
+                if char == quote:
+                    i += 1
+                    break
+                chars.append(char)
+                i += 1
+            else:
+                fail(line_no, "unterminated quoted string in BIND")
+
+            if i < len(body) and not body[i].isspace():
+                fail(line_no, "expected whitespace after quoted BIND description")
+            tokens.append(("".join(chars), True))
+            continue
+
+        start = i
+        while i < len(body) and not body[i].isspace():
+            i += 1
+        tokens.append((body[start:i], False))
+    return tokens
+
+
+def parse_bind_entries(body: str, line_no: int) -> list[tuple[str, str, str | None]]:
+    tokens = parse_bind_tokens(body, line_no)
+    if not tokens:
+        fail(line_no, "BIND expects at least one key/command pair")
+
+    entries: list[tuple[str, str, str | None]] = []
+    i = 0
+    while i < len(tokens):
+        if i + 1 >= len(tokens):
+            fail(line_no, "BIND expects key/command pairs")
+
+        key = tokens[i][0]
+        command = tokens[i + 1][0]
+        i += 2
+
+        description: str | None = None
+        if i < len(tokens) and tokens[i][1]:
+            description = tokens[i][0]
+            i += 1
+
+        entries.append((key, command, description))
+    return entries
 
 
 def looks_like_unknown_rule_directive(head: str) -> bool:
@@ -583,9 +646,12 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
         return True
 
     if head == "BIND":
-        expect_pairs(parts, 1, line_no, "BIND")
-        for i in range(1, len(parts), 2):
-            state.binds[parts[i]] = parts[i + 1]
+        bind_body = line.split("BIND", 1)[1].strip()
+        for key, command, description in parse_bind_entries(bind_body, line_no):
+            if description is None:
+                state.binds[key] = command
+            else:
+                state.binds[key] = {"command": command, "description": description}
         return True
 
     if head == "CMD":

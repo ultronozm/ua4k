@@ -46,6 +46,7 @@ DSL Sketch (current behavior)
 - Blank lines are meaningful and terminate accumulated sections/rules.
 - `?` in patterns acts as wildcard/preserve cell behavior.
 - Side effects can be attached to rules; `name!` means mandatory side effect with rollback if it fails.
+- `BIND` supports optional quoted labels: `BIND w walk_n "move north"`.
 
 Golden Snapshot Checks
 - Refresh baselines:

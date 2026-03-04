@@ -26,6 +26,32 @@ function setHtml(id, value) {
     document.getElementById(id).innerHTML = value;
 }
 
+function bindCommand(entry) {
+    if (typeof entry === 'string') {
+        return entry;
+    }
+    if (entry && typeof entry === 'object' && typeof entry.command === 'string') {
+        return entry.command;
+    }
+    return null;
+}
+
+function bindDescription(entry) {
+    if (typeof entry === 'string') {
+        return entry;
+    }
+    if (!entry || typeof entry !== 'object') {
+        return '';
+    }
+    if (typeof entry.description === 'string' && entry.description.length > 0) {
+        return entry.description;
+    }
+    if (typeof entry.command === 'string') {
+        return entry.command;
+    }
+    return '';
+}
+
 // Initialization
 function onTimerTick() {
     debugLog("onTimerTick");
@@ -93,7 +119,7 @@ function updateDocsDisplay() {
     let docsElem = document.getElementById('docs');
     docsElem.innerHTML = '';
     for (let key in binds) {
-        let textNode = document.createTextNode(key + " : " + binds[key]);
+        let textNode = document.createTextNode(key + " : " + bindDescription(binds[key]));
         docsElem.appendChild(textNode);
         let brNode = document.createElement("br");
         docsElem.appendChild(brNode);
@@ -464,9 +490,15 @@ function checkEndLevel() {
 function gameAction(a) {
     debugLog("gameAction: " + a);
     var board_copy = JSON.parse(JSON.stringify(board));
-    let cmd = binds[a];
+    let cmd = bindCommand(binds[a]);
+    if (!cmd) {
+        return false;
+    }
     debugLog("cmd: " + cmd);
     let rule = rules_dict[cmd];
+    if (!rule) {
+        return false;
+    }
     debugLog("rule: " + rule);
     debugLog("rule.type: " + rule.type);
     debugLog("rule.rules.length: " + rule.rules.length);

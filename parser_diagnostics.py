@@ -17,7 +17,7 @@ INVALID_DIR = ROOT / "invalid-fixtures"
 CASES = [
     (
         "invalid-bind.txt",
-        "invalid-bind.txt:3: error: BIND expects key/value pairs",
+        "invalid-bind.txt:3: error: BIND expects key/command pairs",
     ),
     (
         "invalid-rule-dimensions.txt",

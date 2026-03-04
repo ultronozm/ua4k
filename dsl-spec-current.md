@@ -50,7 +50,9 @@ Supported directives are:
 Directive behavior:
 - `GOAL` starts accumulating goal pattern lines until the next blank line.
 - `VOID` starts accumulating forbidden pattern lines until the next blank line.
-- `BIND` is parsed as key-command pairs.
+- `BIND` is parsed as repeated `key command ["description"]` entries.
+  - Description is optional and must be quoted when present.
+  - Runtime input dispatch uses `command`; UI docs show `description` when provided.
 - `CMD <name>` creates/extends command rule set `<name>` (stored as a `match1` list at runtime).
 - `ROTATE_CMDS <base> [orbit ...]` creates/extends generated command families:
   - `<base>_e`, `<base>_s`, `<base>_w`, `<base>_n`
