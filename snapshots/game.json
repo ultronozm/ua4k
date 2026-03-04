@@ -3768,778 +3768,6 @@
               "rules": [
                 {
                   "from": [
-                    "p<"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "p-"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "?v",
-                    "p/"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "?-",
-                    "p/"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "p\\",
-                    "?^"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "p\\",
-                    "?-"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    ">\\",
-                    "p/"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "-\\",
-                    "p/"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "p\\",
-                    ">/"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "p\\",
-                    "-/"
-                  ],
-                  "type": "simple"
-                }
-              ],
-              "type": "match1"
-            },
-            {
-              "rules": [
-                {
-                  "from": [
-                    "-q"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "<q"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "eq"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "<q"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "oq"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "<q"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "/q",
-                    "-?"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "/q",
-                    "v?"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "/q",
-                    "e?"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "/q",
-                    "v?"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "/q",
-                    "o?"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "/q",
-                    "v?"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "-?",
-                    "\\q"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "^?",
-                    "\\q"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "e?",
-                    "\\q"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "^?",
-                    "\\q"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "o?",
-                    "\\q"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "^?",
-                    "\\q"
-                  ],
-                  "type": "simple"
-                }
-              ],
-              "type": "match1"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "rules": [
-                {
-                  "from": [
-                    "q<"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "q-"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "q\\",
-                    "?^"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "q\\",
-                    "?-"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "?v",
-                    "q/"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "?-",
-                    "q/"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    ">\\",
-                    "q/"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "-\\",
-                    "q/"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "q\\",
-                    ">/"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "q\\",
-                    "-/"
-                  ],
-                  "type": "simple"
-                }
-              ],
-              "type": "match1"
-            },
-            {
-              "rules": [
-                {
-                  "from": [
-                    "-p"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "<p"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "ep"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "<p"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "op"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "<p"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "/p",
-                    "-?"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "/p",
-                    "v?"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "/p",
-                    "e?"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "/p",
-                    "v?"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "/p",
-                    "o?"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "/p",
-                    "v?"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "-?",
-                    "\\p"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "^?",
-                    "\\p"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "e?",
-                    "\\p"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "^?",
-                    "\\p"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "o?",
-                    "\\p"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "^?",
-                    "\\p"
-                  ],
-                  "type": "simple"
-                }
-              ],
-              "type": "match1"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "rules": [
-                {
-                  "from": [
-                    "v",
-                    "q"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "-",
-                    "q"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    ">\\",
-                    "?q"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "-\\",
-                    "?q"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "/<",
-                    "q?"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "/-",
-                    "q?"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "/\\",
-                    "q^"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "/\\",
-                    "q-"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "/\\",
-                    "^q"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "/\\",
-                    "-q"
-                  ],
-                  "type": "simple"
-                }
-              ],
-              "type": "match1"
-            },
-            {
-              "rules": [
-                {
-                  "from": [
-                    "p",
-                    "-"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "p",
-                    "v"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "p",
-                    "e"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "p",
-                    "v"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "p",
-                    "o"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "p",
-                    "v"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "p?",
-                    "\\-"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "p?",
-                    "\\>"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "p?",
-                    "\\e"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "p?",
-                    "\\>"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "p?",
-                    "\\o"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "p?",
-                    "\\>"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "?p",
-                    "-/"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "?p",
-                    "</"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "?p",
-                    "e/"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "?p",
-                    "</"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "?p",
-                    "o/"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "?p",
-                    "</"
-                  ],
-                  "type": "simple"
-                }
-              ],
-              "type": "match1"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "rules": [
-                {
-                  "from": [
-                    "v",
-                    "p"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "-",
-                    "p"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "/<",
-                    "p?"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "/-",
-                    "p?"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    ">\\",
-                    "?p"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "-\\",
-                    "?p"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "/\\",
-                    "p^"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "/\\",
-                    "p-"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "/\\",
-                    "^p"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "/\\",
-                    "-p"
-                  ],
-                  "type": "simple"
-                }
-              ],
-              "type": "match1"
-            },
-            {
-              "rules": [
-                {
-                  "from": [
-                    "q",
-                    "-"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "q",
-                    "v"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "q",
-                    "e"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "q",
-                    "v"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "q",
-                    "o"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "q",
-                    "v"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "q?",
-                    "\\-"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "q?",
-                    "\\>"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "q?",
-                    "\\e"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "q?",
-                    "\\>"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "q?",
-                    "\\o"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "q?",
-                    "\\>"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "?q",
-                    "-/"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "?q",
-                    "</"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "?q",
-                    "e/"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "?q",
-                    "</"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "?q",
-                    "o/"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "?q",
-                    "</"
-                  ],
-                  "type": "simple"
-                }
-              ],
-              "type": "match1"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "rules": [
-                {
-                  "from": [
                     ">p"
                   ],
                   "method": "firstmatch",
@@ -4729,66 +3957,66 @@
               "rules": [
                 {
                   "from": [
-                    "p",
-                    "^"
+                    "v",
+                    "p"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "p",
-                    "-"
+                    "-",
+                    "p"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
-                    "?p",
-                    ">/"
+                    ">\\",
+                    "?p"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "?p",
-                    "-/"
+                    "-\\",
+                    "?p"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
-                    "p?",
-                    "\\<"
+                    "/<",
+                    "p?"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "p?",
-                    "\\-"
+                    "/-",
+                    "p?"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
-                    "pv",
-                    "\\/"
+                    "/\\",
+                    "p^"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "p-",
-                    "\\/"
+                    "/\\",
+                    "p-"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
-                    "vp",
-                    "\\/"
+                    "/\\",
+                    "^p"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "-p",
-                    "\\/"
+                    "/\\",
+                    "-p"
                   ],
                   "type": "simple"
                 }
@@ -4799,118 +4027,118 @@
               "rules": [
                 {
                   "from": [
-                    "-",
-                    "q"
+                    "q",
+                    "-"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "^",
-                    "q"
+                    "q",
+                    "v"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
-                    "e",
-                    "q"
+                    "q",
+                    "e"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "^",
-                    "q"
+                    "q",
+                    "v"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
-                    "o",
-                    "q"
+                    "q",
+                    "o"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "^",
-                    "q"
+                    "q",
+                    "v"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
-                    "/-",
-                    "q?"
+                    "?q",
+                    "-/"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "/>",
-                    "q?"
+                    "?q",
+                    "</"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
-                    "/e",
-                    "q?"
+                    "?q",
+                    "e/"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "/>",
-                    "q?"
+                    "?q",
+                    "</"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
-                    "/o",
-                    "q?"
+                    "?q",
+                    "o/"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "/>",
-                    "q?"
+                    "?q",
+                    "</"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
-                    "-\\",
-                    "?q"
+                    "q?",
+                    "\\-"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "<\\",
-                    "?q"
+                    "q?",
+                    "\\>"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
-                    "e\\",
-                    "?q"
+                    "q?",
+                    "\\e"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "<\\",
-                    "?q"
+                    "q?",
+                    "\\>"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
-                    "o\\",
-                    "?q"
+                    "q?",
+                    "\\o"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "<\\",
-                    "?q"
+                    "q?",
+                    "\\>"
                   ],
                   "type": "simple"
                 }
@@ -4926,65 +4154,254 @@
               "rules": [
                 {
                   "from": [
-                    "q",
-                    "^"
+                    "p<"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "q",
-                    "-"
+                    "p-"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
-                    "?q",
+                    "?v",
+                    "p/"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "?-",
+                    "p/"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "p\\",
+                    "?^"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "p\\",
+                    "?-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "p\\",
                     ">/"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "?q",
+                    "p\\",
                     "-/"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
-                    "q?",
+                    ">\\",
+                    "p/"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-\\",
+                    "p/"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "match1"
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    "-q"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "<q"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "eq"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "<q"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "oq"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "<q"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-?",
+                    "\\q"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "^?",
+                    "\\q"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "e?",
+                    "\\q"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "^?",
+                    "\\q"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "o?",
+                    "\\q"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "^?",
+                    "\\q"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "/q",
+                    "-?"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "/q",
+                    "v?"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "/q",
+                    "e?"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "/q",
+                    "v?"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "/q",
+                    "o?"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "/q",
+                    "v?"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "match1"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "p",
+                    "^"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "p",
+                    "-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "p?",
                     "\\<"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "q?",
+                    "p?",
                     "\\-"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
-                    "qv",
+                    "?p",
+                    ">/"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "?p",
+                    "-/"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "vp",
                     "\\/"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "q-",
+                    "-p",
                     "\\/"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
-                    "vq",
+                    "pv",
                     "\\/"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "-q",
+                    "p-",
                     "\\/"
                   ],
                   "type": "simple"
@@ -4997,117 +4414,117 @@
                 {
                   "from": [
                     "-",
-                    "p"
+                    "q"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
                     "^",
-                    "p"
+                    "q"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
                     "e",
-                    "p"
+                    "q"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
                     "^",
-                    "p"
+                    "q"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
                     "o",
-                    "p"
+                    "q"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
                     "^",
-                    "p"
+                    "q"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
                     "/-",
-                    "p?"
+                    "q?"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
                     "/>",
-                    "p?"
+                    "q?"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
                     "/e",
-                    "p?"
+                    "q?"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
                     "/>",
-                    "p?"
+                    "q?"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
                     "/o",
-                    "p?"
+                    "q?"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
                     "/>",
-                    "p?"
+                    "q?"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
                     "-\\",
-                    "?p"
+                    "?q"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
                     "<\\",
-                    "?p"
+                    "?q"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
                     "e\\",
-                    "?p"
+                    "?q"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
                     "<\\",
-                    "?p"
+                    "?q"
                   ],
                   "type": "simple"
                 },
                 {
                   "from": [
                     "o\\",
-                    "?p"
+                    "?q"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
                     "<\\",
-                    "?p"
+                    "?q"
                   ],
                   "type": "simple"
                 }
@@ -5297,6 +4714,589 @@
                   "to": [
                     "?^",
                     "p/"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "match1"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "v",
+                    "q"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-",
+                    "q"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    ">\\",
+                    "?q"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-\\",
+                    "?q"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "/<",
+                    "q?"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "/-",
+                    "q?"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "/\\",
+                    "q^"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "/\\",
+                    "q-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "/\\",
+                    "^q"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "/\\",
+                    "-q"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "match1"
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    "p",
+                    "-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "p",
+                    "v"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "p",
+                    "e"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "p",
+                    "v"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "p",
+                    "o"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "p",
+                    "v"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "?p",
+                    "-/"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "?p",
+                    "</"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "?p",
+                    "e/"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "?p",
+                    "</"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "?p",
+                    "o/"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "?p",
+                    "</"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "p?",
+                    "\\-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "p?",
+                    "\\>"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "p?",
+                    "\\e"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "p?",
+                    "\\>"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "p?",
+                    "\\o"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "p?",
+                    "\\>"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "match1"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "q<"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "q-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "?v",
+                    "q/"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "?-",
+                    "q/"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "q\\",
+                    "?^"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "q\\",
+                    "?-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "q\\",
+                    ">/"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "q\\",
+                    "-/"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    ">\\",
+                    "q/"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-\\",
+                    "q/"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "match1"
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    "-p"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "<p"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "ep"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "<p"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "op"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "<p"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-?",
+                    "\\p"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "^?",
+                    "\\p"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "e?",
+                    "\\p"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "^?",
+                    "\\p"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "o?",
+                    "\\p"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "^?",
+                    "\\p"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "/p",
+                    "-?"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "/p",
+                    "v?"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "/p",
+                    "e?"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "/p",
+                    "v?"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "/p",
+                    "o?"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "/p",
+                    "v?"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "match1"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "q",
+                    "^"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "q",
+                    "-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "q?",
+                    "\\<"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "q?",
+                    "\\-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "?q",
+                    ">/"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "?q",
+                    "-/"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "vq",
+                    "\\/"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-q",
+                    "\\/"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "qv",
+                    "\\/"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "q-",
+                    "\\/"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "match1"
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    "-",
+                    "p"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "^",
+                    "p"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "e",
+                    "p"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "^",
+                    "p"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "o",
+                    "p"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "^",
+                    "p"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "/-",
+                    "p?"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "/>",
+                    "p?"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "/e",
+                    "p?"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "/>",
+                    "p?"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "/o",
+                    "p?"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "/>",
+                    "p?"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-\\",
+                    "?p"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "<\\",
+                    "?p"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "e\\",
+                    "?p"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "<\\",
+                    "?p"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "o\\",
+                    "?p"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "<\\",
+                    "?p"
                   ],
                   "type": "simple"
                 }

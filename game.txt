@@ -350,253 +350,37 @@ CMD piupiu
   /\ /\
   >/ v/
 
- ATOMIC
- 
-  MATCH1
- 
-   p< p-
+ ZIP a pq b qp
+  ROTATE >v<^ /\
+   ATOMIC
    
-   ?v ?-
-   p/ p/
-   
-   p\ p\
-   ?^ ?-
-   
-   >\ -\
-   p/ p/
-   
-   p\ p\
-   >/ -/
-   
-  MATCH1
- 
-   FOR s -eo
- 
-    sq <q
+    MATCH1
+     
+     >a -a
+     
+     /a /a
+     ^? -?
+     
+     v? -?
+     \a \a
+     
+     /< /-
+     \a \a
+     
+     /a /a
+     \< \-
+     
+    MATCH1
     
-    /q /q
-    s? v?
-    
-    s? ^?
-    \q \q
- 
- ATOMIC
-   
-  MATCH1
- 
-   q< q-
-   
-   q\ q\
-   ?^ ?-
-   
-   ?v ?-
-   q/ q/
-   
-   >\ -\
-   q/ q/
-   
-   q\ q\
-   >/ -/
-   
-  MATCH1
- 
-   FOR s -eo
-   
-    sp <p
-    
-    /p /p
-    s? v?
-    
-    s? ^?
-    \p \p
- 
- ATOMIC
- 
-  MATCH1
- 
-   v -
-   q q
-   
-   >\ -\
-   ?q ?q
-   
-   /< /-
-   q? q?
-   
-   /\ /\
-   q^ q-
-   
-   /\ /\
-   ^q -q
-   
-  MATCH1
- 
-   FOR s -eo
-   
-    p p
-    s v
-    
-    p? p?
-    \s \>
-    
-    ?p ?p
-    s/ </
-  
- ATOMIC
-  
-  MATCH1
-   
-   v -
-   p p
-   
-   /< /-
-   p? p?
-   
-   >\ -\
-   ?p ?p
-   
-   /\ /\
-   p^ p-
-   
-   /\ /\
-   ^p -p
-   
-  MATCH1
-   
-   FOR s -eo
-   
-    q q
-    s v
-    
-    q? q?
-    \s \>
-    
-    ?q ?q
-    s/ </
-    
- ATOMIC
- 
-  MATCH1
-   
-   >p -p
-   
-   /p /p
-   ^? -?
-   
-   v? -?
-   \p \p
-   
-   /< /-
-   \p \p
-   
-   /p /p
-   \< \-
-   
-  MATCH1
-   
-   FOR s -eo
-    
-    qs q>
-    
-    q\ q\
-    ?s ?v
-    
-    ?s ?^
-    q/ q/
- 
- ATOMIC
- 
-  MATCH1
-   
-   p p
-   ^ -
-   
-   ?p ?p
-   >/ -/
-   
-   p? p?
-   \< \-
-   
-   pv p-
-   \/ \/
-   
-   vp -p
-   \/ \/
-   
-  MATCH1
-   
-   FOR s -eo
-   
-    s ^
-    q q
-    
-    /s />
-    q? q?
-    
-    s\ <\
-    ?q ?q
-  
- ATOMIC
- 
-  MATCH1
-   
-   q q
-   ^ -
-   
-   ?q ?q
-   >/ -/
-   
-   q? q?
-   \< \-
-   
-   qv q-
-   \/ \/
-   
-   vq -q
-   \/ \/
-   
-  MATCH1
-   
-   FOR s -eo
-   
-    s ^
-    p p
-    
-    /s />
-    p? p?
-    
-    s\ <\
-    ?p ?p
- 
- ATOMIC
- 
-  MATCH1
-   
-   >q -q
-   
-   /q /q
-   ^? -?
-   
-   v? -?
-   \q \q
-   
-   /< /-
-   \q \q
-   
-   /q /q
-   \< \-
-   
-  MATCH1
- 
-   FOR s -eo
-   
-    ps p>
- 
-    p\ p\
-    ?s ?v
-    
-    ?s ?^
-    p/ p/
+     FOR s -eo
+      
+      bs b>
+      
+      b\ b\
+      ?s ?v
+      
+      ?s ?^
+      b/ b/
  
 CMD hurt
 
