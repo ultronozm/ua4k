@@ -228,424 +228,103 @@ _______
 HP:...-
 
 
-BIND w north s south a west d east z piupiu
+BIND w move_n s move_s a move_w d move_e z piupiu
 
-CMD north
+ROTATE_CMDS move
 
- - *
- * t
- t -
- 
- - *
- * -
- 
- FOR s xb/\
-  
-  - s
-  s *
-  * -
- 
- x -
- b *
- * -
- 
- e * hurt
- * -
- 
- h * heal
- * -
- 
- k * get_key
- * -
- 
- l * use_key!
- * -
- 
- d * detonate
- * -
- 
- FOR s pq
- 
-  - s
-  s x
-  x *
-  * -
-  
- ATOMIC
- 
-  p p
-  * -
- 
-  MATCH1
- 
-   - *
-   q q
-   
-   e * hurt
-   q q
-   
-   h * heal
-   q q
-   
-   k * get_key
-   q q
-   
-   l * use_key!
-   q q
-   
-   d * detonate
-   q q
-   
- ATOMIC
- 
-  q q
-  * -
- 
-  MATCH1
- 
-   - *
-   p p
-   
-   e * hurt
-   p p
-   
-   h * heal
-   p p
-   
-   k * get_key
-   p p
-   
-   l * use_key!
-   p p
-   
-   d * detonate
-   p p
- 
- ATOMIC
- 
-  p p
-  b *
-  * -
-    
-  MATCH1
- 
-   - b
-   q q
-   
-   x -
-   q q
-     
- ATOMIC
- 
-  q q
-  b *
-  * -
-  
-  MATCH1
- 
-   - b
-   p p
-   
-   x -
-   p p
-     
-CMD south
+  t*- -t*
 
- t -
- * t
- - *
- 
- * -
- - *
- 
- FOR s xb/\
- 
-  * -
-  s *
-  - s
-  
- * -
- b *
- x -
- 
- * - hurt
- e *
- 
- * - heal
- h *
- 
- * - get_key
- k *
- 
- * - use_key!
- l *
- 
- * - detonate
- d *
- 
- FOR s pq
- 
-  * -
-  x *
-  s x
-  - s
- 
- ATOMIC
- 
-  * -
-  p p
-  
-  MATCH1
-  
-   q q
-   - *
-   
-   q q hurt
-   e *
-   
-   q q heal
-   h *
-   
-   q q get_key
-   k *
-   
-   q q use_key!
-   l *
-   
-   q q detonate
-   d *
-  
- ATOMIC
- 
-  * -
-  q q
-  
-  MATCH1
-  
-   p p
-   - *
-   
-   p p hurt
-   e *
-   
-   p p heal
-   h *
-   
-   p p get_key
-   k *
-   
-   p p use_key!
-   l *
-   
-   p p detonate
-   d *
-   
- ATOMIC
- 
-  * -
-  b *
-  p p
-  
-  MATCH1
- 
-   q q
-   - b
-   
-   q q
-   x -
- 
- ATOMIC
- 
-  * -
-  b *
-  q q
-  
-  MATCH1
- 
-   p p
-   - b
-   
-   p p
-   x -
- 
-CMD west
+  *- -*
 
- -*t *t-
- 
- -* *-
- 
- FOR s xb/\
- 
-  -s* s*-
- 
- xb* -*-
- 
- e* *- hurt
- 
- h* *- heal
- 
- k* *- get_key
- 
- l* *- use_key!
- 
- d* *- detonate
- 
- FOR s pq
- 
-  -sx* sx*-
- 
- ATOMIC
- 
-  p* p-
- 
-  MATCH1
- 
-   -q *q
-   
-   eq *q hurt
-   
-   hq *q heal
-   
-   kq *q get_key
-   
-   lq *q use_key!
-   
-   dq *q detonate
- 
- ATOMIC
- 
-  pb* p*-
- 
-  MATCH1
- 
-   -q bq
-   
-   xq -q
- 
- 
- ATOMIC
- 
-  q* q-
- 
-  MATCH1
- 
-   -p *p
-   
-   ep *p hurt
-   
-   hp *p heal
-   
-   kp *p get_key
-   
-   lp *p use_key!
-   
-   dp *p detonate
-   
- 
- ATOMIC
- 
-  qb* q*-
- 
-  MATCH1
- 
-   -p bp
-   
-   xp -p
- 
-CMD east
+  FOR s xb/\
 
- t*- -t*
- 
- *- -*
- 
- FOR s xb/\
- 
-  *s- -*s
- 
- *bx -*-
- 
- *e -* hurt
- 
- *h -* heal
- 
- *k -* get_key
- 
- *l -* use_key!
- 
- *d -* detonate
- 
- FOR s pq
- 
-  *xs- -*xs
- 
- ATOMIC
- 
-  *p -p
- 
-  MATCH1
- 
-   q- q*
-   
-   q- qe hurt
-   
-   q- qh heal
-   
-   q- qk get_key
-   
-   q- ql use_key!
-   
-   q- qd detonate
- 
- ATOMIC
- 
-  *q -q
- 
-  MATCH1
- 
-   p- p*
-   
-   p- pe hurt
-   
-   p- ph heal
-   
-   p- pk get_key
-   
-   p- pl use_key!
-   
-   p- pd detonate
-   
-   p- p*
-   
-   p- pe hurt
-   
-   p- ph heal
-   
-   p- pk get_key
-   
-   p- pl use_key!
-   
-   p- pd detonate
- 
- ATOMIC
- 
-  *bp -*p
- 
-  MATCH1
- 
-   q- qb
-   
-   qx q-
-   
- ATOMIC
- 
-  *bq -*q
- 
-  MATCH1
- 
-   p- pb
-   
-   px p-
-   
+   *s- -*s
+
+  *bx -*-
+
+  *e -* hurt
+
+  *h -* heal
+
+  *k -* get_key
+
+  *l -* use_key!
+
+  *d -* detonate
+
+  FOR s pq
+
+   *xs- -*xs
+
+  ATOMIC
+
+   *p -p
+
+   MATCH1
+
+    q- q*
+
+    q- qe hurt
+
+    q- qh heal
+
+    q- qk get_key
+
+    q- ql use_key!
+
+    q- qd detonate
+
+  ATOMIC
+
+   *q -q
+
+   MATCH1
+
+    p- p*
+
+    p- pe hurt
+
+    p- ph heal
+
+    p- pk get_key
+
+    p- pl use_key!
+
+    p- pd detonate
+
+    p- p*
+
+    p- pe hurt
+
+    p- ph heal
+
+    p- pk get_key
+
+    p- pl use_key!
+
+    p- pd detonate
+
+  ATOMIC
+
+   *bp -*p
+
+   MATCH1
+
+    q- qb
+
+    qx q-
+
+  ATOMIC
+
+   *bq -*q
+
+   MATCH1
+
+    p- pb
+
+    px p-
+
+
 CMD piupiu
 
  FOR s -eo
