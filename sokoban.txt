@@ -21,7 +21,7 @@ o##x-#
 x-Xxxo
 ---o--
 
-BIND w north s south a west d east
+BIND w move_n "north" s move_s "south" a move_w "west" d move_e "east"
 
 ROTATE_CMDS move
  MATCH1
@@ -40,16 +40,3 @@ ROTATE_CMDS move
   !x- o*x
 
   !xo o*X
-
-CMD north
- CALL move_n
-
-CMD south
- CALL move_s
-
-CMD west
- CALL move_w
-
-CMD east
- CALL move_e
- 

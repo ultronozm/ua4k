@@ -141,7 +141,7 @@ _#_._#_._#_._._._
 _#_._._._._#_._._
 
 
-BIND w north s south a west d east e wait
+BIND w player_move_n "north" s player_move_s "south" a player_move_w "west" d player_move_e "east" e wait "wait"
 
 CMD wait
  CALL minotaur_turn
@@ -153,18 +153,6 @@ ROTATE_CMDS player_move
     T.s _.T
 
     CALL minotaur_turn
-
-CMD north
- CALL player_move_n
-
-CMD south
- CALL player_move_s
-
-CMD west
- CALL player_move_w
-
-CMD east
- CALL player_move_e
 
 CMD minotaur_turn
  TRY_ALL
