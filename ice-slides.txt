@@ -1,0 +1,109 @@
+GOAL
+E
+
+VOID
+X
+
+COLOR x #2f3b52
+COLOR - #b7d7ff
+COLOR 1 #3c78d8
+COLOR 2 #6fa8dc
+COLOR k #ffd966
+COLOR g #8e7cc3
+COLOR * #a4c2f4
+COLOR w #3d85c6
+COLOR e #00a2a2
+COLOR E #00cc88
+COLOR X #cc0000
+
+TITLE Ice Slides
+
+xxxxxxxxxxxx
+x1--------ex
+xxxxxxxxxxxx
+
+DESCRIPTION Warm-up glide: you keep sliding until a wall stops you.
+
+xxxxxxxxxxxx
+x1----x----x
+x-xx-xxx-xex
+x----------x
+xxxxxxxxxxxx
+
+DESCRIPTION Cornering 101: use walls to break momentum and line up the exit.
+
+xxxxxxxxxxxxxx
+x1---k---g--ex
+xxxxxxxxxxxxxx
+
+DESCRIPTION Carry key (2) through gate g; the gate consumes the key and returns you to 1.
+
+xxxxxxxxxxxxxx
+x1---*----x-ex
+x-xxx-xxxxxx-x
+x------------x
+xxxxxxxxxxxxxx
+
+DESCRIPTION Fragile ice (*) melts behind you into water (w). Stepping into water loses.
+
+xxxxxxxxxxxxxxx
+x1-----x----e-x
+x-xxx--x-xxxx-x
+x-k----g------x
+x-xxxxxxx-xx--x
+x-------------x
+xxxxxxxxxxxxxxx
+
+DESCRIPTION Mixed route: take the key, breach the gate, and avoid painting yourself into water traps.
+
+xxxxxxxxxxxxxxxxx
+x1----x------e--x
+x-xx--x-xxxxxx-xx
+x-k---g---*-----x
+x-xxxxxxx-xx-xx-x
+x---------------x
+xxxxxxxxxxxxxxxxx
+
+DESCRIPTION Endgame route: breach the gate first, then use fragile ice as a one-way commitment into the exit lane.
+
+xxxxxxxxxxxxxxxxx
+x1----x---------x
+x-xx--x-xxxxxx-xx
+x-k---g---*---e-x
+x-xxxxxxx-xx-xx-x
+x---------------x
+xxxxxxxxxxxxxxxxx
+
+DESCRIPTION Expert route: fragile ice is your one-way pivot; if you commit too early, the exit lane is gone.
+
+BIND w move_n "slide north" s move_s "slide south" a move_w "slide west" d move_e "slide east" z wait "wait"
+
+CMD wait
+ MATCH1
+  1 1
+
+  2 2
+
+ROTATE_CMDS move
+ MATCH1
+  1- -1 move_e
+
+  2- -2 move_e
+
+  1k -2 move_e
+
+  2k -2 move_e
+
+  2g -1 move_e
+
+  1* w1 move_e
+
+  2* w2 move_e
+
+  1w -X
+
+  2w -X
+
+  1e -E
+
+  2e -E

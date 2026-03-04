@@ -1,0 +1,783 @@
+{
+  "binds": {
+    "a": {
+      "command": "move_w",
+      "description": "slide west"
+    },
+    "d": {
+      "command": "move_e",
+      "description": "slide east"
+    },
+    "s": {
+      "command": "move_s",
+      "description": "slide south"
+    },
+    "w": {
+      "command": "move_n",
+      "description": "slide north"
+    },
+    "z": {
+      "command": "wait",
+      "description": "wait"
+    }
+  },
+  "charMap": {},
+  "colorMap": {
+    "*": "#a4c2f4",
+    "-": "#b7d7ff",
+    "1": "#3c78d8",
+    "2": "#6fa8dc",
+    "E": "#00cc88",
+    "X": "#cc0000",
+    "e": "#00a2a2",
+    "g": "#8e7cc3",
+    "k": "#ffd966",
+    "w": "#3d85c6",
+    "x": "#2f3b52"
+  },
+  "globalTick": null,
+  "goals": [
+    [
+      "E"
+    ]
+  ],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "xxxxxxxxxxxx",
+        "x1--------ex",
+        "xxxxxxxxxxxx"
+      ],
+      "description": "Warm-up glide: you keep sliding until a wall stops you."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxx",
+        "x1----x----x",
+        "x-xx-xxx-xex",
+        "x----------x",
+        "xxxxxxxxxxxx"
+      ],
+      "description": "Cornering 101: use walls to break momentum and line up the exit."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxx",
+        "x1---k---g--ex",
+        "xxxxxxxxxxxxxx"
+      ],
+      "description": "Carry key (2) through gate g; the gate consumes the key and returns you to 1."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxx",
+        "x1---*----x-ex",
+        "x-xxx-xxxxxx-x",
+        "x------------x",
+        "xxxxxxxxxxxxxx"
+      ],
+      "description": "Fragile ice (*) melts behind you into water (w). Stepping into water loses."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxx",
+        "x1-----x----e-x",
+        "x-xxx--x-xxxx-x",
+        "x-k----g------x",
+        "x-xxxxxxx-xx--x",
+        "x-------------x",
+        "xxxxxxxxxxxxxxx"
+      ],
+      "description": "Mixed route: take the key, breach the gate, and avoid painting yourself into water traps."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxxxx",
+        "x1----x------e--x",
+        "x-xx--x-xxxxxx-xx",
+        "x-k---g---*-----x",
+        "x-xxxxxxx-xx-xx-x",
+        "x---------------x",
+        "xxxxxxxxxxxxxxxxx"
+      ],
+      "description": "Endgame route: breach the gate first, then use fragile ice as a one-way commitment into the exit lane."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxxxx",
+        "x1----x---------x",
+        "x-xx--x-xxxxxx-xx",
+        "x-k---g---*---e-x",
+        "x-xxxxxxx-xx-xx-x",
+        "x---------------x",
+        "xxxxxxxxxxxxxxxxx"
+      ],
+      "description": "Expert route: fragile ice is your one-way pivot; if you commit too early, the exit lane is gone."
+    }
+  ],
+  "rules": {
+    "move_e": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_e"
+              ],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_e"
+              ],
+              "to": [
+                "-2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_e"
+              ],
+              "to": [
+                "-2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_e"
+              ],
+              "to": [
+                "-2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2g"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_e"
+              ],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1*"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_e"
+              ],
+              "to": [
+                "w1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2*"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_e"
+              ],
+              "to": [
+                "w2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1w"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-X"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2w"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-X"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1e"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-E"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2e"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-E"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_n": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "-",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_n"
+              ],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_n"
+              ],
+              "to": [
+                "2",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "k",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_n"
+              ],
+              "to": [
+                "2",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "k",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_n"
+              ],
+              "to": [
+                "2",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "g",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_n"
+              ],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "*",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_n"
+              ],
+              "to": [
+                "1",
+                "w"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "*",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_n"
+              ],
+              "to": [
+                "2",
+                "w"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "w",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "X",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "w",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "X",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "e",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "E",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "e",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "E",
+                "-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_s": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_s"
+              ],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_s"
+              ],
+              "to": [
+                "-",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_s"
+              ],
+              "to": [
+                "-",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_s"
+              ],
+              "to": [
+                "-",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "g"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_s"
+              ],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "*"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_s"
+              ],
+              "to": [
+                "w",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "*"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_s"
+              ],
+              "to": [
+                "w",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "w"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "X"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "w"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "X"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "e"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "E"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "e"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "E"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_w": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "-1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_w"
+              ],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_w"
+              ],
+              "to": [
+                "2-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "k1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_w"
+              ],
+              "to": [
+                "2-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "k2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_w"
+              ],
+              "to": [
+                "2-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "g2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_w"
+              ],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "*1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_w"
+              ],
+              "to": [
+                "1w"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "*2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [
+                "move_w"
+              ],
+              "to": [
+                "2w"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "w1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "X-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "w2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "X-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "e1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "E-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "e2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "E-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "wait": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [
+    [
+      "X"
+    ]
+  ],
+  "whitespaceChars": []
+}

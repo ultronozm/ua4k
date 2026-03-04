@@ -34,6 +34,7 @@ ROOT = Path(__file__).resolve().parent
 SNAPSHOT_DIR = ROOT / "snapshots"
 DEFAULT_GAMES = (
     "game.txt",
+    "ice-slides.txt",
     "tetris.txt",
     "crash-landing.txt",
     "drone-swarm.txt",
