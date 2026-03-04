@@ -37,7 +37,7 @@ ROTATE_CMDS turn eswn <^>v
 
      %? %e
 
-     d e
+    d e
 
 CMD up
  CALL turn_n
