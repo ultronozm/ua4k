@@ -15,7 +15,7 @@ GOAL
 _______________
 %--------------
 
-BIND w north s south a west d east z act
+BIND w move_n "north" s move_s "south" a move_w "west" d move_e "east" z act
 
 CMD act
 
@@ -68,20 +68,5 @@ CMD act
    - 3
    s s
 
-CMD north
- 
- - *
- * -
- 
-CMD south
- 
- * -
- - *
- 
-CMD west
- 
- -* *-
- 
-CMD east
- 
+ROTATE_CMDS move
  *- -*

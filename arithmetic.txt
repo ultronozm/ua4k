@@ -13,26 +13,10 @@ _________
 _________
 -------%-
 
-BIND w north s south a west d east z increment$ x increment# c compute_sum
+BIND w move_n "north" s move_s "south" a move_w "west" d move_e "east" z increment$ x increment# c compute_sum
 
-FOR s -o
-
- CMD north
-
-  s *
-  * -
-
- CMD south
-
-  * -
-  s *
-
- CMD west
-
-  s* *-
-
- CMD east
-
+ROTATE_CMDS move
+ FOR s -o
   *s -*
 
 CMD increment

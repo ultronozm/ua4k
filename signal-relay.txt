@@ -145,23 +145,7 @@ xxxxxxxxxxxxxxxxxxxxxxx
 
 DESCRIPTION Grandmaster circuit: extended mesh with dual collapse lanes and delayed h access. Finish requires a full return to the far-left exit after c.
 
-BIND w north s south a west d east
-
-CMD north
- MATCH1
-  CALL move_north
-
-CMD south
- MATCH1
-  CALL move_south
-
-CMD west
- MATCH1
-  CALL move_west
-
-CMD east
- MATCH1
-  CALL move_east
+BIND w move_north "north" s move_south "south" a move_west "west" d move_east "east"
 
 CMD haveA
  MATCH1
