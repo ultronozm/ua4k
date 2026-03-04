@@ -26,7 +26,7 @@ TICK 250
 CMD _tick
  CALL step
 
-BIND w up s down a left d right e step
+BIND w turn_n "up" s turn_s "down" a turn_w "left" d turn_e "right" e step "step"
 
 ROTATE_CMDS turn eswn <^>v
  TRY_ALL
@@ -39,29 +39,10 @@ ROTATE_CMDS turn eswn <^>v
 
     d e
 
-CMD up
- CALL turn_n
-
-CMD down
- CALL turn_s
-
-CMD left
- CALL turn_w
-
-CMD right
- CALL turn_e
-
 CMD drag_tail
  ZIP d ^v<> D NSWE
-  Ed -D
-
-  dW D-
-
-  d D
-  N -
-  
-  S -
-  d D
+  ROTATE ESWN
+   Ed -D
   
 CMD forward_head
  ATOMIC               

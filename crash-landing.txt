@@ -13,9 +13,9 @@ COLOR Z #ff0000
 
 HIDDEN_LINE_CHAR %
 
-BIND w north s south a west d east e mine x destroy
-BIND f build_oxygen_station o build_oxygen_station r build_refinery
-BIND W look_north S look_south A look_west D look_east
+BIND w walk_n "move north" s walk_s "move south" a walk_w "move west" d walk_e "move east" e mine "mine / interact" x destroy "destroy"
+BIND f build_oxygen_station "build oxygen station" o build_oxygen_station "build oxygen station" r build_refinery "build refinery"
+BIND W look_n "face north" S look_s "face south" A look_w "face west" D look_e "face east"
 
 -----------!---------------!-----
 ---------------------------------
@@ -282,42 +282,14 @@ X:8~AAAA|------------------------
 DESCRIPTION This level is not particularly inspired, and should be replaced with something better.
 
 
-CMD look_north
- ??% ^?%
-
-CMD look_south
- ??% v?%
-
-CMD look_west
- ??% <?%
-
-CMD look_east
+ROTATE_CMDS look >v<^
  ??% >?%
-
-CMD look_n
- CALL look_north
-
-CMD look_s
- CALL look_south
-
-CMD look_w
- CALL look_west
-
-CMD look_e
- CALL look_east
 
 CMD maybe_breath
  ATOMIC
   MATCH1
-   *o
-
-   o*
-
-   *
-   o
-
-   o
-   *
+   ROTATE
+    *o
 
   CALL refill_oxygen
 
@@ -342,18 +314,6 @@ ROTATE_CMDS walk >v<^
     CALL zombie_march
     CALL maybe_breath
 
-CMD north
- CALL walk_n
-
-CMD south
- CALL walk_s
-
-CMD west
- CALL walk_w
-
-CMD east
- CALL walk_e
- 
 CMD destroy
  FOR s ~A8or
   ATOMIC
@@ -397,27 +357,11 @@ CMD mine
   CALL register_copy_price
   CALL register_spend
   MATCH1
-   ATOMIC
-    ^?%
-    
-    X -
-    * *
+   ROTATE >v<^
+    ATOMIC
+     >?% >?% [norotate]
 
-   ATOMIC
-    v?%
-    
-    * *
-    X -
-
-   ATOMIC
-    <?%
-    
-    X* -*
-
-   ATOMIC
-    >?%
-    
-    *X *-
+     *X *-
   
   TRY_ALL
    CALL zombie_march
@@ -473,27 +417,11 @@ CMD build_thing
    s% -%
 
    MATCH1
-    ATOMIC
-     ^?%
-     
-     - s
-     * *
-
-    ATOMIC
-     v?%
-     
-     * *
-     - s
- 
-    ATOMIC
-     <?%
-     
-     -* s*
- 
-    ATOMIC
-     >?%
-     
-     *- *s
+    ROTATE >v<^
+     ATOMIC
+      >?% >?% [norotate]
+      
+      *- *s
 
 CMD consume_oxygen
  FOR d -|
