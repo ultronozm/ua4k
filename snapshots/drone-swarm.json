@@ -1,9 +1,21 @@
 {
   "binds": {
-    "a": "west",
-    "d": "east",
-    "s": "south",
-    "w": "north",
+    "a": {
+      "command": "swarm_step_w",
+      "description": "west"
+    },
+    "d": {
+      "command": "swarm_step_e",
+      "description": "east"
+    },
+    "s": {
+      "command": "swarm_step_s",
+      "description": "south"
+    },
+    "w": {
+      "command": "swarm_step_n",
+      "description": "north"
+    },
     "z": "release_locked"
   },
   "charMap": {},
@@ -186,7 +198,7 @@
       ],
       "type": "match1"
     },
-    "bounce_back_east": {
+    "bounce_back_e": {
       "rules": [
         {
           "rules": [
@@ -218,7 +230,7 @@
       ],
       "type": "match1"
     },
-    "bounce_back_north": {
+    "bounce_back_n": {
       "rules": [
         {
           "rules": [
@@ -254,7 +266,7 @@
       ],
       "type": "match1"
     },
-    "bounce_back_south": {
+    "bounce_back_s": {
       "rules": [
         {
           "rules": [
@@ -290,7 +302,7 @@
       ],
       "type": "match1"
     },
-    "bounce_back_west": {
+    "bounce_back_w": {
       "rules": [
         {
           "rules": [
@@ -322,7 +334,7 @@
       ],
       "type": "match1"
     },
-    "breach_east": {
+    "breach_e": {
       "rules": [
         {
           "rules": [
@@ -332,7 +344,7 @@
               ],
               "method": "firstmatch",
               "side_effects": [
-                "use_key2_east!",
+                "use_key2_e!",
                 "unlock"
               ],
               "to": [
@@ -346,7 +358,7 @@
               ],
               "method": "firstmatch",
               "side_effects": [
-                "use_key1_east!",
+                "use_key1_e!",
                 "unlock"
               ],
               "to": [
@@ -360,7 +372,7 @@
       ],
       "type": "match1"
     },
-    "breach_north": {
+    "breach_n": {
       "rules": [
         {
           "rules": [
@@ -371,7 +383,7 @@
               ],
               "method": "firstmatch",
               "side_effects": [
-                "use_key2_north!",
+                "use_key2_n!",
                 "unlock"
               ],
               "to": [
@@ -387,7 +399,7 @@
               ],
               "method": "firstmatch",
               "side_effects": [
-                "use_key1_north!",
+                "use_key1_n!",
                 "unlock"
               ],
               "to": [
@@ -402,7 +414,7 @@
       ],
       "type": "match1"
     },
-    "breach_south": {
+    "breach_s": {
       "rules": [
         {
           "rules": [
@@ -413,7 +425,7 @@
               ],
               "method": "firstmatch",
               "side_effects": [
-                "use_key2_south!",
+                "use_key2_s!",
                 "unlock"
               ],
               "to": [
@@ -429,7 +441,7 @@
               ],
               "method": "firstmatch",
               "side_effects": [
-                "use_key1_south!",
+                "use_key1_s!",
                 "unlock"
               ],
               "to": [
@@ -444,7 +456,7 @@
       ],
       "type": "match1"
     },
-    "breach_west": {
+    "breach_w": {
       "rules": [
         {
           "rules": [
@@ -454,7 +466,7 @@
               ],
               "method": "firstmatch",
               "side_effects": [
-                "use_key2_west!",
+                "use_key2_w!",
                 "unlock"
               ],
               "to": [
@@ -468,7 +480,7 @@
               ],
               "method": "firstmatch",
               "side_effects": [
-                "use_key1_west!",
+                "use_key1_w!",
                 "unlock"
               ],
               "to": [
@@ -482,33 +494,7 @@
       ],
       "type": "match1"
     },
-    "east": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "name": "breach_east",
-              "type": "call"
-            },
-            {
-              "name": "move1_east",
-              "type": "call"
-            },
-            {
-              "name": "move2_east",
-              "type": "call"
-            },
-            {
-              "name": "sync_locks_east",
-              "type": "call"
-            }
-          ],
-          "type": "atomic"
-        }
-      ],
-      "type": "match1"
-    },
-    "move1_east": {
+    "move1_e": {
       "rules": [
         {
           "rules": [
@@ -641,7 +627,7 @@
       ],
       "type": "match1"
     },
-    "move1_north": {
+    "move1_n": {
       "rules": [
         {
           "rules": [
@@ -794,7 +780,7 @@
       ],
       "type": "match1"
     },
-    "move1_south": {
+    "move1_s": {
       "rules": [
         {
           "rules": [
@@ -947,7 +933,7 @@
       ],
       "type": "match1"
     },
-    "move1_west": {
+    "move1_w": {
       "rules": [
         {
           "rules": [
@@ -1080,7 +1066,7 @@
       ],
       "type": "match1"
     },
-    "move2_east": {
+    "move2_e": {
       "rules": [
         {
           "rules": [
@@ -1213,7 +1199,7 @@
       ],
       "type": "match1"
     },
-    "move2_north": {
+    "move2_n": {
       "rules": [
         {
           "rules": [
@@ -1366,7 +1352,7 @@
       ],
       "type": "match1"
     },
-    "move2_south": {
+    "move2_s": {
       "rules": [
         {
           "rules": [
@@ -1519,7 +1505,7 @@
       ],
       "type": "match1"
     },
-    "move2_west": {
+    "move2_w": {
       "rules": [
         {
           "rules": [
@@ -1648,32 +1634,6 @@
             }
           ],
           "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "north": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "name": "breach_north",
-              "type": "call"
-            },
-            {
-              "name": "move1_north",
-              "type": "call"
-            },
-            {
-              "name": "move2_north",
-              "type": "call"
-            },
-            {
-              "name": "sync_locks_north",
-              "type": "call"
-            }
-          ],
-          "type": "atomic"
         }
       ],
       "type": "match1"
@@ -1802,24 +1762,24 @@
       ],
       "type": "match1"
     },
-    "south": {
+    "swarm_step_e": {
       "rules": [
         {
           "rules": [
             {
-              "name": "breach_south",
+              "name": "breach_e",
               "type": "call"
             },
             {
-              "name": "move1_south",
+              "name": "move1_e",
               "type": "call"
             },
             {
-              "name": "move2_south",
+              "name": "move2_e",
               "type": "call"
             },
             {
-              "name": "sync_locks_south",
+              "name": "sync_locks_e",
               "type": "call"
             }
           ],
@@ -1828,7 +1788,85 @@
       ],
       "type": "match1"
     },
-    "sync_locks_east": {
+    "swarm_step_n": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "breach_n",
+              "type": "call"
+            },
+            {
+              "name": "move1_n",
+              "type": "call"
+            },
+            {
+              "name": "move2_n",
+              "type": "call"
+            },
+            {
+              "name": "sync_locks_n",
+              "type": "call"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "swarm_step_s": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "breach_s",
+              "type": "call"
+            },
+            {
+              "name": "move1_s",
+              "type": "call"
+            },
+            {
+              "name": "move2_s",
+              "type": "call"
+            },
+            {
+              "name": "sync_locks_s",
+              "type": "call"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "swarm_step_w": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "breach_w",
+              "type": "call"
+            },
+            {
+              "name": "move1_w",
+              "type": "call"
+            },
+            {
+              "name": "move2_w",
+              "type": "call"
+            },
+            {
+              "name": "sync_locks_w",
+              "type": "call"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "sync_locks_e": {
       "rules": [
         {
           "rules": [
@@ -1837,7 +1875,7 @@
               "type": "call"
             },
             {
-              "name": "bounce_back_east",
+              "name": "bounce_back_e",
               "type": "call"
             },
             {
@@ -1857,7 +1895,7 @@
       ],
       "type": "match1"
     },
-    "sync_locks_north": {
+    "sync_locks_n": {
       "rules": [
         {
           "rules": [
@@ -1866,7 +1904,7 @@
               "type": "call"
             },
             {
-              "name": "bounce_back_north",
+              "name": "bounce_back_n",
               "type": "call"
             },
             {
@@ -1886,7 +1924,7 @@
       ],
       "type": "match1"
     },
-    "sync_locks_south": {
+    "sync_locks_s": {
       "rules": [
         {
           "rules": [
@@ -1895,7 +1933,7 @@
               "type": "call"
             },
             {
-              "name": "bounce_back_south",
+              "name": "bounce_back_s",
               "type": "call"
             },
             {
@@ -1915,7 +1953,7 @@
       ],
       "type": "match1"
     },
-    "sync_locks_west": {
+    "sync_locks_w": {
       "rules": [
         {
           "rules": [
@@ -1924,7 +1962,7 @@
               "type": "call"
             },
             {
-              "name": "bounce_back_west",
+              "name": "bounce_back_w",
               "type": "call"
             },
             {
@@ -1965,7 +2003,7 @@
       ],
       "type": "match1"
     },
-    "use_key1_east": {
+    "use_key1_e": {
       "rules": [
         {
           "rules": [
@@ -1986,7 +2024,7 @@
       ],
       "type": "match1"
     },
-    "use_key1_north": {
+    "use_key1_n": {
       "rules": [
         {
           "rules": [
@@ -2009,7 +2047,7 @@
       ],
       "type": "match1"
     },
-    "use_key1_south": {
+    "use_key1_s": {
       "rules": [
         {
           "rules": [
@@ -2032,7 +2070,7 @@
       ],
       "type": "match1"
     },
-    "use_key1_west": {
+    "use_key1_w": {
       "rules": [
         {
           "rules": [
@@ -2053,7 +2091,7 @@
       ],
       "type": "match1"
     },
-    "use_key2_east": {
+    "use_key2_e": {
       "rules": [
         {
           "rules": [
@@ -2074,7 +2112,7 @@
       ],
       "type": "match1"
     },
-    "use_key2_north": {
+    "use_key2_n": {
       "rules": [
         {
           "rules": [
@@ -2097,7 +2135,7 @@
       ],
       "type": "match1"
     },
-    "use_key2_south": {
+    "use_key2_s": {
       "rules": [
         {
           "rules": [
@@ -2120,7 +2158,7 @@
       ],
       "type": "match1"
     },
-    "use_key2_west": {
+    "use_key2_w": {
       "rules": [
         {
           "rules": [
@@ -2137,32 +2175,6 @@
             }
           ],
           "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "west": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "name": "breach_west",
-              "type": "call"
-            },
-            {
-              "name": "move1_west",
-              "type": "call"
-            },
-            {
-              "name": "move2_west",
-              "type": "call"
-            },
-            {
-              "name": "sync_locks_west",
-              "type": "call"
-            }
-          ],
-          "type": "atomic"
         }
       ],
       "type": "match1"

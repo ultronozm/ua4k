@@ -120,23 +120,11 @@ xxxxxxxxxxxxxxxxxxxxxxx
 
 DESCRIPTION Finale gauntlet: chained synchronized breaches plus irreversible key loss. Plan the full key order before committing to either dock approach.
 
-BIND w north s south a west d east z release_locked
+BIND w swarm_step_n "north" s swarm_step_s "south" a swarm_step_w "west" d swarm_step_e "east" z release_locked
 
-CMD north
+ROTATE_CMDS swarm_step
  ATOMIC
-  CALL_EACH breach_north move1_north move2_north sync_locks_north
-
-CMD south
- ATOMIC
-  CALL_EACH breach_south move1_south move2_south sync_locks_south
-
-CMD west
- ATOMIC
-  CALL_EACH breach_west move1_west move2_west sync_locks_west
-
-CMD east
- ATOMIC
-  CALL_EACH breach_east move1_east move2_east sync_locks_east
+  CALL_EACH breach_e move1_e move2_e sync_locks_e
 
 CMD release_locked
  TRY_ALL
@@ -172,40 +160,10 @@ CMD release_if_any_locked
 
   CALL release_locked
 
-CMD sync_locks_north
+ROTATE_CMDS sync_locks
  MATCH1
-
   CALL both_locked
-
-  CALL bounce_back_north
-
-  ? ?
-
-CMD sync_locks_south
- MATCH1
-
-  CALL both_locked
-
-  CALL bounce_back_south
-
-  ? ?
-
-CMD sync_locks_west
- MATCH1
-
-  CALL both_locked
-
-  CALL bounce_back_west
-
-  ? ?
-
-CMD sync_locks_east
- MATCH1
-
-  CALL both_locked
-
-  CALL bounce_back_east
-
+  CALL bounce_back_e
   ? ?
 
 CMD unlock
@@ -216,146 +174,49 @@ CMD park_unlock
  TRY_ALL
   h -
 
-CMD use_key1_north
- MATCH1
-  k -
-  1 1
-
-CMD use_key1_south
- MATCH1
-  1 1
-  k -
-
-CMD use_key1_west
- MATCH1
-  k1 -1
-
-CMD use_key1_east
+ROTATE_CMDS use_key1
  MATCH1
   1k 1-
 
-CMD use_key2_north
- MATCH1
-  k -
-  2 2
-
-CMD use_key2_south
- MATCH1
-  2 2
-  k -
-
-CMD use_key2_west
- MATCH1
-  k2 -2
-
-CMD use_key2_east
+ROTATE_CMDS use_key2
  MATCH1
   2k 2-
 
-CMD breach_north
+CMD breach_n
  TRY_ALL
-  g - use_key2_north! unlock
+  g - use_key2_n! unlock
   1 1
 
-  g - use_key1_north! unlock
+  g - use_key1_n! unlock
   2 2
 
-CMD breach_south
+CMD breach_s
  TRY_ALL
   1 1
-  g - use_key2_south! unlock
+  g - use_key2_s! unlock
 
   2 2
-  g - use_key1_south! unlock
+  g - use_key1_s! unlock
 
-CMD breach_west
+CMD breach_w
  TRY_ALL
-  g1 1- use_key2_west! unlock
+  g1 1- use_key2_w! unlock
 
-  g2 2- use_key1_west! unlock
+  g2 2- use_key1_w! unlock
 
-CMD breach_east
+CMD breach_e
  TRY_ALL
-  1g -1 use_key2_east! unlock
+  1g -1 use_key2_e! unlock
 
-  2g -2 use_key1_east! unlock
+  2g -2 use_key1_e! unlock
 
-CMD bounce_back_north
- TRY_ALL
-  A a
-  - 1
-
-  B b
-  - 2
-
-CMD bounce_back_south
- TRY_ALL
-  - 1
-  A a
-
-  - 2
-  B b
-
-CMD bounce_back_west
- TRY_ALL
-  A- a1
-
-  B- b2
-
-CMD bounce_back_east
+ROTATE_CMDS bounce_back
  TRY_ALL
   -A 1a
 
   -B 2b
 
-CMD move1_north
- MATCH1
-  A A
-
-  FOR s xgh2BbA
-   s s
-   1 1
-
-  a A
-  1 -
-
-  k 1 unlock
-  1 -
-
-  - 1
-  1 -
-
-CMD move1_south
- MATCH1
-  A A
-
-  FOR s xgh2BbA
-   1 1
-   s s
-
-  1 -
-  a A
-
-  1 -
-  k 1 unlock
-
-  1 -
-  - 1
-
-CMD move1_west
- MATCH1
-  A A
-
-  FOR s xgh2BbA
-   s1 s1
-
-  a1 A-
-
-  k1 1- unlock
-
-  -1 1-
-
-CMD move1_east
+ROTATE_CMDS move1
  MATCH1
   A A
 
@@ -368,54 +229,7 @@ CMD move1_east
 
   1- -1
 
-CMD move2_north
- MATCH1
-  B B
-
-  FOR s xgh1AaB
-   s s
-   2 2
-
-  b B
-  2 -
-
-  k 2 unlock
-  2 -
-
-  - 2
-  2 -
-
-CMD move2_south
- MATCH1
-  B B
-
-  FOR s xgh1AaB
-   2 2
-   s s
-
-  2 -
-  b B
-
-  2 -
-  k 2 unlock
-
-  2 -
-  - 2
-
-CMD move2_west
- MATCH1
-  B B
-
-  FOR s xgh1AaB
-   s2 s2
-
-  b2 B-
-
-  k2 2- unlock
-
-  -2 2-
-
-CMD move2_east
+ROTATE_CMDS move2
  MATCH1
   B B
 
