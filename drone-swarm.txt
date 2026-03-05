@@ -1,6 +1,3 @@
-VOID
-k
-
 GOAL
 A
 
@@ -17,8 +14,7 @@ COLOR A #00aa66
 COLOR B #00aa66
 COLOR k #dddd55
 COLOR g #884422
-COLOR h #446688
-COLOR m #557766
+COLOR # #cc3333
 
 TITLE Drone Swarm
 
@@ -30,214 +26,64 @@ x------x---xx
 x-----------x
 xxxxxxxxxxxxx
 
-DESCRIPTION Core rule: both drones move on every command. Entering a dock turns "1" into "A" and "2" into "B"; docking must be simultaneous. If only one drone docks on a move, that drone bounces back one tile.
+DESCRIPTION Both drones move on every input. Docks block entry unless both drones dock on the same move.
 
-xxxxxxxxxxxxxxx
-x1---k---2g--ax
-x-xx-xxx-xx-xxx
-x----x-----x--x
-x----x-a-b-x--x
-x------------xx
-xxxxxxxxxxxxxxx
+xxxxxxxxxxxxx
+x1-----x---2x
+x-xx---x-xx-x
+x--a---#--b-x
+x------#----x
+x-----------x
+xxxxxxxxxxxxx
 
-DESCRIPTION Breach intro: a gate only opens if, on the same input, the other drone is stepping onto a key in that direction. Keys are destructible even when "wasted".
+DESCRIPTION Lava blocks movement. Use it to stall one drone while the other repositions.
 
-xxxxxxxxxxxxxxx
-x1--k--x--2---x
-x-xx---x-xx-g-x
-x---m--x---x--x
-x-a----x---x-bx
-x---g--k------x
-xxxxxxxxxxxxxxx
+xxxxxxxxxxxxx
+x1-k-g---2--x
+x-xx-x-xx-x-x
+x--a-x---x-bx
+x------x---xx
+x-----------x
+xxxxxxxxxxxxx
 
-DESCRIPTION Key economy drill: every key disappears on contact and also collapses all "m" lanes into walls. Taking keys too early can lock both routes.
+DESCRIPTION Keys and gates: stepping onto a key while the other drone steps through a gate (same direction) opens the gate. Keys vanish on contact either way.
 
-xxxxxxxxxxxxxxx
-x--g--1---k---x
-x-xx-xxx-xxx--x
-x-a----x----b-x
-x--k---2---g--x
-x-------------x
-xxxxxxxxxxxxxxx
-
-DESCRIPTION Role reversal: each drone must spend a key to breach the other drone's gate. Mirror movement is punished by one-time key loss.
-
-xxxxxxxxxxxxxxx
-x--a---b------x
-x--1---2------x
-xxxxxhxxxxxhxxx
-x--k---g------x
-x-------------x
-xxxxxxxxxxxxxxx
-
-DESCRIPTION Cross-lock rehearsal: dock both drones to open the dual "h" barrier, undock with "z", then execute a synchronized breach before returning to the docks.
-
-xxxxxxxxxxxxxxx
-x1--k--x--g--ax
-x-xx---x---xx-x
-x--g--x--k--2-x
-x-xx---x---xx-x
-xb------------x
-xxxxxxxxxxxxxxx
-
-DESCRIPTION Two-stage breach: you need multiple synchronized key-gate interactions with little spare motion. One mistimed pickup hard-locks a branch.
-
-xxxxxxxxxxxxxxxxxxx
-x1--k--x--g--x---ax
-x-xx---x---x-x-xx-x
-x--g--x--k--x--2--x
-x-xx---x---x-x-xx-x
-x---h---x---h-----x
-x---a---x---b-----x
-x-------m---------x
-xxxxxxxxxxxxxxxxxxx
-
-DESCRIPTION Lock and loop: first unlock the center with simultaneous docking, then re-route through asymmetric corridors where each breach changes future options.
-
-xxxxxxxxxxxxxxxxxxxxx
-x1--k--x--g--x---g-ax
-x-xx---x---x-x-xx---x
-x--g--x--k--x--2--x-x
-x-xx---x---x-x-xx-k-x
-x---h---x---h---x---x
-x---a---x---b---x---x
-x-------m---m-------x
-x-----g---------k---x
-xxxxxxxxxxxxxxxxxxxxx
-
-DESCRIPTION Triple-breach network: interleaved keys, two lock gates, and collapsible lanes force careful staging before the final simultaneous docking.
-
-xxxxxxxxxxxxxxxxxxxxxxx
-x1--k--x--g--x--g--x-ax
-x-xx---x---x-x---x-x--x
-x--g--x--k--x--2-x-k--x
-x-xx---x---x-x---x-x--x
-x---h---x---h---x---g-x
-x---a---x---b---x-----x
-x-------m---m---x-----x
-x---k---------g-------x
-xxxxxxxxxxxxxxxxxxxxxxx
-
-DESCRIPTION Finale gauntlet: chained synchronized breaches plus irreversible key loss. Plan the full key order before committing to either dock approach.
-
-BIND w swarm_step_n "north" s swarm_step_s "south" a swarm_step_w "west" d swarm_step_e "east" z release_locked
+BIND w swarm_step_n "north" s swarm_step_s "south" a swarm_step_w "west" d swarm_step_e "east"
 
 ROTATE_CMDS swarm_step
+ ;; normal movement
  ATOMIC
-  CALL_EACH breach_e move1_e move2_e sync_locks_e
-
-CMD release_locked
- TRY_ALL
-  A a
-  - 1
-
-  - 1
-  A a
-
-  B b
-  - 2
-
-  - 2
-  B b
-
-CMD both_locked
- ATOMIC
-
-  A A
-
-  B B
-
-  CALL park_unlock
-
-CMD release_if_any_locked
- ATOMIC
-
-  MATCH1
-
-   A A
-
-   B B
-
-  CALL release_locked
-
-ROTATE_CMDS sync_locks
- MATCH1
-  CALL both_locked
-  CALL bounce_back_e
-  ? ?
-
-CMD unlock
- TRY_ALL
-  m x
-
-CMD park_unlock
- TRY_ALL
-  h -
-
-ROTATE_CMDS use_key1
- MATCH1
-  1k 1-
-
-ROTATE_CMDS use_key2
- MATCH1
-  2k 2-
-
-CMD breach_n
- TRY_ALL
-  g - use_key2_n! unlock
-  1 1
-
-  g - use_key1_n! unlock
-  2 2
-
-CMD breach_s
- TRY_ALL
-  1 1
-  g - use_key2_s! unlock
-
-  2 2
-  g - use_key1_s! unlock
-
-CMD breach_w
- TRY_ALL
-  g1 1- use_key2_w! unlock
-
-  g2 2- use_key1_w! unlock
-
-CMD breach_e
- TRY_ALL
-  1g -1 use_key2_e! unlock
-
-  2g -2 use_key1_e! unlock
-
-ROTATE_CMDS bounce_back
- TRY_ALL
-  -A 1a
-
-  -B 2b
-
-ROTATE_CMDS move1
- MATCH1
-  A A
-
-  FOR s xgh2BbA
-   1s 1s
-
-  1a -A
-
-  1k -1 unlock
-
   1- -1
 
-ROTATE_CMDS move2
- MATCH1
-  B B
+  2- -2
 
-  FOR s xgh1AaB
-   2s 2s
+ ;; winning the game
+ ATOMIC
+  1a -A
 
   2b -B
 
-  2k -2 unlock
+ ZIP p 12 q 21
+  ;; using keys to open gates
+  ATOMIC
+   pk -p
 
-  2- -2
+   qg -g
+
+  ;; key pickup without unlock
+  ATOMIC
+   pk -p
+
+   q- -q
+
+  ;; bumping into walls, possibly picking up keys
+  FOR s -k
+   ATOMIC
+    ps -p
+ 
+    qx qx
+
+ ;; moving while side-by-side
+ 12- -12
+
+ 21- -21
