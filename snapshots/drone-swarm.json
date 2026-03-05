@@ -15,11 +15,11 @@
     "w": {
       "command": "swarm_step_n",
       "description": "north"
-    },
-    "z": "release_locked"
+    }
   },
   "charMap": {},
   "colorMap": {
+    "#": "#cc3333",
     "-": "#aaaaaa",
     "1": "#3366ff",
     "2": "#ff7733",
@@ -28,9 +28,7 @@
     "a": "#66cccc",
     "b": "#cc66cc",
     "g": "#884422",
-    "h": "#446688",
     "k": "#dddd55",
-    "m": "#557766",
     "x": "#444444"
   },
   "globalTick": null,
@@ -54,1736 +52,327 @@
         "x-----------x",
         "xxxxxxxxxxxxx"
       ],
-      "description": "Core rule: both drones move on every command. Entering a dock turns \"1\" into \"A\" and \"2\" into \"B\"; docking must be simultaneous. If only one drone docks on a move, that drone bounces back one tile."
+      "description": "Both drones move on every input. Docks block entry unless both drones dock on the same move."
     },
     {
       "board": [
-        "xxxxxxxxxxxxxxx",
-        "x1---k---2g--ax",
-        "x-xx-xxx-xx-xxx",
-        "x----x-----x--x",
-        "x----x-a-b-x--x",
-        "x------------xx",
-        "xxxxxxxxxxxxxxx"
+        "xxxxxxxxxxxxx",
+        "x1-----x---2x",
+        "x-xx---x-xx-x",
+        "x--a---#--b-x",
+        "x------#----x",
+        "x-----------x",
+        "xxxxxxxxxxxxx"
       ],
-      "description": "Breach intro: a gate only opens if, on the same input, the other drone is stepping onto a key in that direction. Keys are destructible even when \"wasted\"."
+      "description": "Lava blocks movement. Use it to stall one drone while the other repositions."
     },
     {
       "board": [
-        "xxxxxxxxxxxxxxx",
-        "x1--k--x--2---x",
-        "x-xx---x-xx-g-x",
-        "x---m--x---x--x",
-        "x-a----x---x-bx",
-        "x---g--k------x",
-        "xxxxxxxxxxxxxxx"
+        "xxxxxxxxxxxxx",
+        "x1-k-g---2--x",
+        "x-xx-x-xx-x-x",
+        "x--a-x---x-bx",
+        "x------x---xx",
+        "x-----------x",
+        "xxxxxxxxxxxxx"
       ],
-      "description": "Key economy drill: every key disappears on contact and also collapses all \"m\" lanes into walls. Taking keys too early can lock both routes."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxx",
-        "x--g--1---k---x",
-        "x-xx-xxx-xxx--x",
-        "x-a----x----b-x",
-        "x--k---2---g--x",
-        "x-------------x",
-        "xxxxxxxxxxxxxxx"
-      ],
-      "description": "Role reversal: each drone must spend a key to breach the other drone's gate. Mirror movement is punished by one-time key loss."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxx",
-        "x--a---b------x",
-        "x--1---2------x",
-        "xxxxxhxxxxxhxxx",
-        "x--k---g------x",
-        "x-------------x",
-        "xxxxxxxxxxxxxxx"
-      ],
-      "description": "Cross-lock rehearsal: dock both drones to open the dual \"h\" barrier, undock with \"z\", then execute a synchronized breach before returning to the docks."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxx",
-        "x1--k--x--g--ax",
-        "x-xx---x---xx-x",
-        "x--g--x--k--2-x",
-        "x-xx---x---xx-x",
-        "xb------------x",
-        "xxxxxxxxxxxxxxx"
-      ],
-      "description": "Two-stage breach: you need multiple synchronized key-gate interactions with little spare motion. One mistimed pickup hard-locks a branch."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxxxxxx",
-        "x1--k--x--g--x---ax",
-        "x-xx---x---x-x-xx-x",
-        "x--g--x--k--x--2--x",
-        "x-xx---x---x-x-xx-x",
-        "x---h---x---h-----x",
-        "x---a---x---b-----x",
-        "x-------m---------x",
-        "xxxxxxxxxxxxxxxxxxx"
-      ],
-      "description": "Lock and loop: first unlock the center with simultaneous docking, then re-route through asymmetric corridors where each breach changes future options."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxxxxxxxx",
-        "x1--k--x--g--x---g-ax",
-        "x-xx---x---x-x-xx---x",
-        "x--g--x--k--x--2--x-x",
-        "x-xx---x---x-x-xx-k-x",
-        "x---h---x---h---x---x",
-        "x---a---x---b---x---x",
-        "x-------m---m-------x",
-        "x-----g---------k---x",
-        "xxxxxxxxxxxxxxxxxxxxx"
-      ],
-      "description": "Triple-breach network: interleaved keys, two lock gates, and collapsible lanes force careful staging before the final simultaneous docking."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxxxxxxxxxx",
-        "x1--k--x--g--x--g--x-ax",
-        "x-xx---x---x-x---x-x--x",
-        "x--g--x--k--x--2-x-k--x",
-        "x-xx---x---x-x---x-x--x",
-        "x---h---x---h---x---g-x",
-        "x---a---x---b---x-----x",
-        "x-------m---m---x-----x",
-        "x---k---------g-------x",
-        "xxxxxxxxxxxxxxxxxxxxxxx"
-      ],
-      "description": "Finale gauntlet: chained synchronized breaches plus irreversible key loss. Plan the full key order before committing to either dock approach."
+      "description": "Keys and gates: stepping onto a key while the other drone steps through a gate (same direction) opens the gate. Keys vanish on contact either way."
     }
   ],
   "rules": {
-    "both_locked": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "A"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "A"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "B"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "B"
-              ],
-              "type": "simple"
-            },
-            {
-              "name": "park_unlock",
-              "type": "call"
-            }
-          ],
-          "type": "atomic"
-        }
-      ],
-      "type": "match1"
-    },
-    "bounce_back_e": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "-A"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1a"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "-B"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2b"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "try_all"
-        }
-      ],
-      "type": "match1"
-    },
-    "bounce_back_n": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "A",
-                "-"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "a",
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "B",
-                "-"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "b",
-                "2"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "try_all"
-        }
-      ],
-      "type": "match1"
-    },
-    "bounce_back_s": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "-",
-                "A"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1",
-                "a"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "-",
-                "B"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2",
-                "b"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "try_all"
-        }
-      ],
-      "type": "match1"
-    },
-    "bounce_back_w": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "A-"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "a1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "B-"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "b2"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "try_all"
-        }
-      ],
-      "type": "match1"
-    },
-    "breach_e": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "1g"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "use_key2_e!",
-                "unlock"
-              ],
-              "to": [
-                "-1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2g"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "use_key1_e!",
-                "unlock"
-              ],
-              "to": [
-                "-2"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "try_all"
-        }
-      ],
-      "type": "match1"
-    },
-    "breach_n": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "g",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "use_key2_n!",
-                "unlock"
-              ],
-              "to": [
-                "-",
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "g",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "use_key1_n!",
-                "unlock"
-              ],
-              "to": [
-                "-",
-                "2"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "try_all"
-        }
-      ],
-      "type": "match1"
-    },
-    "breach_s": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "1",
-                "g"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "use_key2_s!",
-                "unlock"
-              ],
-              "to": [
-                "1",
-                "-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2",
-                "g"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "use_key1_s!",
-                "unlock"
-              ],
-              "to": [
-                "2",
-                "-"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "try_all"
-        }
-      ],
-      "type": "match1"
-    },
-    "breach_w": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "g1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "use_key2_w!",
-                "unlock"
-              ],
-              "to": [
-                "1-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "g2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "use_key1_w!",
-                "unlock"
-              ],
-              "to": [
-                "2-"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "try_all"
-        }
-      ],
-      "type": "match1"
-    },
-    "move1_e": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "A"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "A"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1x"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1x"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1g"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1g"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1h"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1h"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "12"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "12"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1B"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1B"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1b"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1b"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1A"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1A"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1a"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-A"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1k"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "unlock"
-              ],
-              "to": [
-                "-1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1-"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-1"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "move1_n": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "A"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "A"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "x",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "x",
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "g",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "g",
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "h",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "h",
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2",
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "B",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "B",
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "b",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "b",
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "A",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "A",
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "a",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "A",
-                "-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "k",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "unlock"
-              ],
-              "to": [
-                "1",
-                "-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "-",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1",
-                "-"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "move1_s": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "A"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "A"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1",
-                "x"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1",
-                "x"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1",
-                "g"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1",
-                "g"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1",
-                "h"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1",
-                "h"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1",
-                "2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1",
-                "B"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1",
-                "B"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1",
-                "b"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1",
-                "b"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1",
-                "A"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1",
-                "A"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1",
-                "a"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-",
-                "A"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1",
-                "k"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "unlock"
-              ],
-              "to": [
-                "-",
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1",
-                "-"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-",
-                "1"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "move1_w": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "A"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "A"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "x1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "x1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "g1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "g1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "h1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "h1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "21"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "21"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "B1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "B1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "b1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "b1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "A1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "A1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "a1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "A-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "k1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "unlock"
-              ],
-              "to": [
-                "1-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "-1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1-"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "move2_e": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "B"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "B"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2x"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2x"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2g"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2g"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2h"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2h"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "21"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "21"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2A"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2A"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2a"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2a"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2B"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2B"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2b"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-B"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2k"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "unlock"
-              ],
-              "to": [
-                "-2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2-"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-2"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "move2_n": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "B"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "B"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "x",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "x",
-                "2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "g",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "g",
-                "2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "h",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "h",
-                "2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1",
-                "2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "A",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "A",
-                "2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "a",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "a",
-                "2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "B",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "B",
-                "2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "b",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "B",
-                "-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "k",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "unlock"
-              ],
-              "to": [
-                "2",
-                "-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "-",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2",
-                "-"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "move2_s": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "B"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "B"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2",
-                "x"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2",
-                "x"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2",
-                "g"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2",
-                "g"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2",
-                "h"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2",
-                "h"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2",
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2",
-                "A"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2",
-                "A"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2",
-                "a"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2",
-                "a"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2",
-                "B"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2",
-                "B"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2",
-                "b"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-",
-                "B"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2",
-                "k"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "unlock"
-              ],
-              "to": [
-                "-",
-                "2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2",
-                "-"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-",
-                "2"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "move2_w": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "B"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "B"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "x2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "x2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "g2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "g2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "h2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "h2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "12"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "12"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "A2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "A2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "a2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "a2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "B2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "B2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "b2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "B-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "k2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "unlock"
-              ],
-              "to": [
-                "2-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "-2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2-"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "park_unlock": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "h"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "try_all"
-        }
-      ],
-      "type": "match1"
-    },
-    "release_if_any_locked": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "rules": [
-                {
-                  "from": [
-                    "A"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "A"
-                  ],
-                  "type": "simple"
-                },
-                {
-                  "from": [
-                    "B"
-                  ],
-                  "method": "firstmatch",
-                  "side_effects": [],
-                  "to": [
-                    "B"
-                  ],
-                  "type": "simple"
-                }
-              ],
-              "type": "match1"
-            },
-            {
-              "name": "release_locked",
-              "type": "call"
-            }
-          ],
-          "type": "atomic"
-        }
-      ],
-      "type": "match1"
-    },
-    "release_locked": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "A",
-                "-"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "a",
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "-",
-                "A"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1",
-                "a"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "B",
-                "-"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "b",
-                "2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "-",
-                "B"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2",
-                "b"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "try_all"
-        }
-      ],
-      "type": "match1"
-    },
     "swarm_step_e": {
       "rules": [
         {
           "rules": [
             {
-              "name": "breach_e",
-              "type": "call"
+              "from": [
+                "1-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
             },
             {
-              "name": "move1_e",
-              "type": "call"
-            },
-            {
-              "name": "move2_e",
-              "type": "call"
-            },
-            {
-              "name": "sync_locks_e",
-              "type": "call"
+              "from": [
+                "2-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-2"
+              ],
+              "type": "simple"
             }
           ],
           "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "1a"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-A"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2b"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-B"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "1k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2g"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "1k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "1-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2x"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2x"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "1k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2x"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2x"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "2k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1g"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "2k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "2-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1x"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1x"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "2k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1x"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1x"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "from": [
+            "12-"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-12"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "21-"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-21"
+          ],
+          "type": "simple"
         }
       ],
       "type": "match1"
@@ -1793,23 +382,342 @@
         {
           "rules": [
             {
-              "name": "breach_n",
-              "type": "call"
+              "from": [
+                "-",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
             },
             {
-              "name": "move1_n",
-              "type": "call"
-            },
-            {
-              "name": "move2_n",
-              "type": "call"
-            },
-            {
-              "name": "sync_locks_n",
-              "type": "call"
+              "from": [
+                "-",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "-"
+              ],
+              "type": "simple"
             }
           ],
           "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "a",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "b",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "B",
+                "-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "k",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "g",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "k",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "-",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "x",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "x",
+                "2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "k",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "x",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "x",
+                "2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "k",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "g",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "k",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "-",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "x",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "x",
+                "1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "k",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "x",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "x",
+                "1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "from": [
+            "-",
+            "2",
+            "1"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "2",
+            "1",
+            "-"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "-",
+            "1",
+            "2"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "1",
+            "2",
+            "-"
+          ],
+          "type": "simple"
         }
       ],
       "type": "match1"
@@ -1819,23 +727,342 @@
         {
           "rules": [
             {
-              "name": "breach_s",
-              "type": "call"
+              "from": [
+                "1",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
             },
             {
-              "name": "move1_s",
-              "type": "call"
-            },
-            {
-              "name": "move2_s",
-              "type": "call"
-            },
-            {
-              "name": "sync_locks_s",
-              "type": "call"
+              "from": [
+                "2",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "2"
+              ],
+              "type": "simple"
             }
           ],
           "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "1",
+                "a"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "A"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "b"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "B"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "1",
+                "k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "g"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "1",
+                "k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "1",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "x"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "x"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "1",
+                "k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "x"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "x"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "2",
+                "k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "g"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "2",
+                "k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "2",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "x"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "x"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "2",
+                "k"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "x"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "x"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "from": [
+            "1",
+            "2",
+            "-"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-",
+            "1",
+            "2"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "2",
+            "1",
+            "-"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-",
+            "2",
+            "1"
+          ],
+          "type": "simple"
         }
       ],
       "type": "match1"
@@ -1845,171 +1072,8 @@
         {
           "rules": [
             {
-              "name": "breach_w",
-              "type": "call"
-            },
-            {
-              "name": "move1_w",
-              "type": "call"
-            },
-            {
-              "name": "move2_w",
-              "type": "call"
-            },
-            {
-              "name": "sync_locks_w",
-              "type": "call"
-            }
-          ],
-          "type": "atomic"
-        }
-      ],
-      "type": "match1"
-    },
-    "sync_locks_e": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "name": "both_locked",
-              "type": "call"
-            },
-            {
-              "name": "bounce_back_e",
-              "type": "call"
-            },
-            {
               "from": [
-                "?"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "?"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "sync_locks_n": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "name": "both_locked",
-              "type": "call"
-            },
-            {
-              "name": "bounce_back_n",
-              "type": "call"
-            },
-            {
-              "from": [
-                "?"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "?"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "sync_locks_s": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "name": "both_locked",
-              "type": "call"
-            },
-            {
-              "name": "bounce_back_s",
-              "type": "call"
-            },
-            {
-              "from": [
-                "?"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "?"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "sync_locks_w": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "name": "both_locked",
-              "type": "call"
-            },
-            {
-              "name": "bounce_back_w",
-              "type": "call"
-            },
-            {
-              "from": [
-                "?"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "?"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "unlock": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "m"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "x"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "try_all"
-        }
-      ],
-      "type": "match1"
-    },
-    "use_key1_e": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "1k"
+                "-1"
               ],
               "method": "firstmatch",
               "side_effects": [],
@@ -2017,87 +1081,10 @@
                 "1-"
               ],
               "type": "simple"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "use_key1_n": {
-      "rules": [
-        {
-          "rules": [
+            },
             {
               "from": [
-                "k",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-",
-                "1"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "use_key1_s": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "1",
-                "k"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1",
-                "-"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "use_key1_w": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "k1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-1"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "use_key2_e": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "2k"
+                "-2"
               ],
               "method": "firstmatch",
               "side_effects": [],
@@ -2107,59 +1094,143 @@
               "type": "simple"
             }
           ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "use_key2_n": {
-      "rules": [
+          "type": "atomic"
+        },
         {
           "rules": [
             {
               "from": [
-                "k",
-                "2"
+                "a1"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "-",
-                "2"
+                "A-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "b2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "B-"
               ],
               "type": "simple"
             }
           ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "use_key2_s": {
-      "rules": [
+          "type": "atomic"
+        },
         {
           "rules": [
             {
               "from": [
-                "2",
-                "k"
+                "k1"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "2",
-                "-"
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "g2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2-"
               ],
               "type": "simple"
             }
           ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "use_key2_w": {
-      "rules": [
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "k1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "-1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "x2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "x2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "k1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "x2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "x2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
         {
           "rules": [
             {
@@ -2169,21 +1240,131 @@
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "-2"
+                "2-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "g1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1-"
               ],
               "type": "simple"
             }
           ],
-          "type": "match1"
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "k2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "-2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "x1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "x1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "k2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "x1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "x1"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "from": [
+            "-21"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "21-"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "-12"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "12-"
+          ],
+          "type": "simple"
         }
       ],
       "type": "match1"
     }
   },
-  "voids": [
-    [
-      "k"
-    ]
-  ],
+  "voids": [],
   "whitespaceChars": []
 }

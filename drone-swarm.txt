@@ -68,7 +68,7 @@ ROTATE_CMDS swarm_step
   ATOMIC
    pk -p
 
-   qg -g
+   qg -q
 
   ;; key pickup without unlock
   ATOMIC
