@@ -59,14 +59,14 @@ xxxxxxxxxxxxx
 DESCRIPTION Lava blocks movement. Use it to stall one drone while the other repositions.
 
 xxxxxxxxxxxxx
-x1-k-g---2--x
+x1-#-#---2--x
 x-xx-x-xx-x-x
 x--a-x---x-bx
 x------x---xx
 x-----------x
 xxxxxxxxxxxxx
 
-DESCRIPTION Keys and gates: stepping onto a key while the other drone steps through a gate (same direction) opens the gate. Keys vanish on contact either way.
+DESCRIPTION Hard walls (#) are not bump-stallable. You must route around x-spines instead of timing one-drone stalls on #.
 
 xxxxx
 x-1bx
@@ -85,20 +85,28 @@ xxxxx
 DESCRIPTION Micro 2 (5x5): tiny maze timing with no spare cells.
 
 xxxxxx
-x-1bgx
-xx2-kx
-x---ax
+x#x#2x
+x----x
+xabx1x
 xxxxxx
 
-DESCRIPTION Micro 3 (5x6): compact key/gate interaction in a single pocket.
+DESCRIPTION Micro 3 (5x6): # blocks direct timing tricks; re-space the drones in the open strip first.
 
 xxxxxx
-xk2-xx
-xa-xxx
-xbg-1x
+xb---x
+x-a1xx
+x##2-x
 xxxxxx
 
-DESCRIPTION Micro 4 (5x6): dense blockers force repeated lockstep re-alignment.
+DESCRIPTION Micro 4 (5x6): dense hard walls force repeated lockstep realignment.
+
+xxxxxx
+x-12bx
+xx-a-x
+x--##x
+xxxxxx
+
+DESCRIPTION Micro 5 (5x6): tiny board, long route. Solve the spacing before committing to docks.
 
 BIND w swarm_step_n "north" s swarm_step_s "south" a swarm_step_w "west" d swarm_step_e "east"
 

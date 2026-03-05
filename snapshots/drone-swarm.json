@@ -93,14 +93,14 @@
     {
       "board": [
         "xxxxxxxxxxxxx",
-        "x1-k-g---2--x",
+        "x1-#-#---2--x",
         "x-xx-x-xx-x-x",
         "x--a-x---x-bx",
         "x------x---xx",
         "x-----------x",
         "xxxxxxxxxxxxx"
       ],
-      "description": "Keys and gates: stepping onto a key while the other drone steps through a gate (same direction) opens the gate. Keys vanish on contact either way."
+      "description": "Hard walls (#) are not bump-stallable. You must route around x-spines instead of timing one-drone stalls on #."
     },
     {
       "board": [
@@ -125,22 +125,32 @@
     {
       "board": [
         "xxxxxx",
-        "x-1bgx",
-        "xx2-kx",
-        "x---ax",
+        "x#x#2x",
+        "x----x",
+        "xabx1x",
         "xxxxxx"
       ],
-      "description": "Micro 3 (5x6): compact key/gate interaction in a single pocket."
+      "description": "Micro 3 (5x6): # blocks direct timing tricks; re-space the drones in the open strip first."
     },
     {
       "board": [
         "xxxxxx",
-        "xk2-xx",
-        "xa-xxx",
-        "xbg-1x",
+        "xb---x",
+        "x-a1xx",
+        "x##2-x",
         "xxxxxx"
       ],
-      "description": "Micro 4 (5x6): dense blockers force repeated lockstep re-alignment."
+      "description": "Micro 4 (5x6): dense hard walls force repeated lockstep realignment."
+    },
+    {
+      "board": [
+        "xxxxxx",
+        "x-12bx",
+        "xx-a-x",
+        "x--##x",
+        "xxxxxx"
+      ],
+      "description": "Micro 5 (5x6): tiny board, long route. Solve the spacing before committing to docks."
     }
   ],
   "rules": {
