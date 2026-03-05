@@ -186,10 +186,12 @@ function renderState(document) {
 function createRuntime(root, gamesData) {
   const document = new FakeDocument();
   const window = new FakeEventTarget();
+  window.location = { hash: '', search: '' };
   const context = {
     console,
     Math,
     JSON,
+    URLSearchParams,
     setInterval,
     clearInterval,
     setTimeout,

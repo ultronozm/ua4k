@@ -44,39 +44,16 @@
   "levels": [
     {
       "board": [
-        "xxxxxxxxxxxxxxx",
+        "xxxxxxxxxxxxxx",
         "x1--------2--x",
         "x---x--------x",
         "x---x--------x",
         "x---x-a--b---x",
         "x------------x",
         "x------------x",
-        "xxxxxxxxxxxxxxx"
+        "xxxxxxxxxxxxxx"
       ],
-      "description": "Tutorial 1 (roomy, no keys): both drones move each turn. Use the left wall spine to stall one drone while steering the other."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxx",
-        "x1--k---2g-b--x",
-        "x--x----xxxxxxx",
-        "x--a----------x",
-        "x-------------x",
-        "xxxxxxxxxxxxxxx"
-      ],
-      "description": "Tutorial 2 (roomy, with keys): the gate only opens if one drone steps on k while the other steps onto g in the same direction."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxx",
-        "x1---x---2--x",
-        "x-xx-x-xx-x-x",
-        "x--a-x---x-bx",
-        "x------x---xx",
-        "x-----------x",
-        "xxxxxxxxxxxxx"
-      ],
-      "description": "Both drones move on every input. Docks block entry unless both drones dock on the same move."
+      "description": "To win, move '1' onto 'a' and '2' onto 'b' at the same time."
     },
     {
       "board": [
@@ -88,7 +65,74 @@
         "x-----------x",
         "xxxxxxxxxxxxx"
       ],
-      "description": "Lava blocks movement. Use it to stall one drone while the other repositions."
+      "description": "Drones cannot move towards the force fields '#'."
+    },
+    {
+      "board": [
+        "xxxxx",
+        "x-1bx",
+        "xx-ax",
+        "x2--x",
+        "xxxxx"
+      ]
+    },
+    {
+      "board": [
+        "xxxxx",
+        "xab2x",
+        "x---x",
+        "x-x1x",
+        "xxxxx"
+      ]
+    },
+    {
+      "board": [
+        "xxxxxx",
+        "x#x#2x",
+        "x----x",
+        "xabx1x",
+        "xxxxxx"
+      ]
+    },
+    {
+      "board": [
+        "xxxxxx",
+        "xb---x",
+        "x-a1xx",
+        "x##2-x",
+        "xxxxxx"
+      ]
+    },
+    {
+      "board": [
+        "xxxxxx",
+        "x-12bx",
+        "xx-a-x",
+        "x--##x",
+        "xxxxxx"
+      ]
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxx",
+        "x1--k---2g-b--x",
+        "x--x----xxxxxxx",
+        "x--a----------x",
+        "x-------------x",
+        "xxxxxxxxxxxxxxx"
+      ],
+      "description": "The gate 'g' opens if a drone steps into it while another drone steps into a key 'k'."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "x1---x---2--x",
+        "x-xx-x-xx-x-x",
+        "x--a-x---x-bx",
+        "x------x---xx",
+        "x-----------x",
+        "xxxxxxxxxxxxx"
+      ]
     },
     {
       "board": [
@@ -100,57 +144,66 @@
         "x-----------x",
         "xxxxxxxxxxxxx"
       ],
-      "description": "Hard walls (#) are not bump-stallable. You must route around x-spines instead of timing one-drone stalls on #."
-    },
-    {
-      "board": [
-        "xxxxx",
-        "x-1bx",
-        "xx-ax",
-        "x2--x",
-        "xxxxx"
-      ],
-      "description": "Micro 1 (5x5): minimal footprint, surprisingly long route."
-    },
-    {
-      "board": [
-        "xxxxx",
-        "xab2x",
-        "x---x",
-        "x-x1x",
-        "xxxxx"
-      ],
-      "description": "Micro 2 (5x5): tiny maze timing with no spare cells."
+      "description": "Hard-wall remix: the same layout family as the earlier wall tutorial, but now the force fields remove the easy stall lines."
     },
     {
       "board": [
         "xxxxxx",
-        "x#x#2x",
-        "x----x",
-        "xabx1x",
+        "x#2--x",
+        "x--x-x",
+        "x-b--x",
+        "x-ax1x",
         "xxxxxx"
       ],
-      "description": "Micro 3 (5x6): # blocks direct timing tricks; re-space the drones in the open strip first."
+      "description": "Challenge Pack 1 (6x6): a tiny board with just enough walling to force repeated re-spacing."
     },
     {
       "board": [
-        "xxxxxx",
-        "xb---x",
-        "x-a1xx",
-        "x##2-x",
-        "xxxxxx"
+        "xxxxxxx",
+        "x--#-xx",
+        "x-##-#x",
+        "x-ab#-x",
+        "x#----x",
+        "x-2-x1x",
+        "xxxxxxx"
       ],
-      "description": "Micro 4 (5x6): dense hard walls force repeated lockstep realignment."
+      "description": "Challenge Pack 2 (7x7): the central cluster of force fields cuts off the obvious sync lines."
     },
     {
       "board": [
-        "xxxxxx",
-        "x-12bx",
-        "xx-a-x",
-        "x--##x",
-        "xxxxxx"
+        "xxxxxxx",
+        "xx2x--x",
+        "x#---xx",
+        "x----#x",
+        "x#a-1-x",
+        "x---b-x",
+        "xxxxxxx"
       ],
-      "description": "Micro 5 (5x6): tiny board, long route. Solve the spacing before committing to docks."
+      "description": "Challenge Pack 3 (7x7): the side pockets look roomy, but the docking order is still tight."
+    },
+    {
+      "board": [
+        "xxxxxxx",
+        "x2#--xx",
+        "x1---#x",
+        "x---x#x",
+        "xa----x",
+        "x-b--#x",
+        "xxxxxxx"
+      ],
+      "description": "Challenge Pack 4 (7x7): sparse geometry, but the wrong bump timing strands a drone on the wrong side."
+    },
+    {
+      "board": [
+        "xxxxxxx",
+        "x1-b--x",
+        "x---x-x",
+        "xxk---x",
+        "x---a2x",
+        "x-g-x#x",
+        "xxxxxxx"
+      ],
+      "description": "Challenge Pack 5 (7x7, keys): the gate has to be opened on tempo; otherwise the board de-syncs before docking."
     }
   ],
   "rules": {

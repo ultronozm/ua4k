@@ -94,6 +94,57 @@ x------x---xx
 x-----------x
 xxxxxxxxxxxxx
 
+DESCRIPTION Hard-wall remix: the same layout family as the earlier wall tutorial, but now the force fields remove the easy stall lines.
+
+xxxxxx
+x#2--x
+x--x-x
+x-b--x
+x-ax1x
+xxxxxx
+
+DESCRIPTION Challenge Pack 1 (6x6): a tiny board with just enough walling to force repeated re-spacing.
+
+xxxxxxx
+x--#-xx
+x-##-#x
+x-ab#-x
+x#----x
+x-2-x1x
+xxxxxxx
+
+DESCRIPTION Challenge Pack 2 (7x7): the central cluster of force fields cuts off the obvious sync lines.
+
+xxxxxxx
+xx2x--x
+x#---xx
+x----#x
+x#a-1-x
+x---b-x
+xxxxxxx
+
+DESCRIPTION Challenge Pack 3 (7x7): the side pockets look roomy, but the docking order is still tight.
+
+xxxxxxx
+x2#--xx
+x1---#x
+x---x#x
+xa----x
+x-b--#x
+xxxxxxx
+
+DESCRIPTION Challenge Pack 4 (7x7): sparse geometry, but the wrong bump timing strands a drone on the wrong side.
+
+xxxxxxx
+x1-b--x
+x---x-x
+xxk---x
+x---a2x
+x-g-x#x
+xxxxxxx
+
+DESCRIPTION Challenge Pack 5 (7x7, keys): the gate has to be opened on tempo; otherwise the board de-syncs before docking.
+
 
 BIND w swarm_step_n "north" s swarm_step_s "south" a swarm_step_w "west" d swarm_step_e "east"
 
