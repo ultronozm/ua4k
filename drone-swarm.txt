@@ -48,6 +48,38 @@ xxxxxxxxxxxxx
 
 DESCRIPTION Keys and gates: stepping onto a key while the other drone steps through a gate (same direction) opens the gate. Keys vanish on contact either way.
 
+xxxxx
+x-1bx
+xx-ax
+x2--x
+xxxxx
+
+DESCRIPTION Micro 1 (5x5): minimal footprint, surprisingly long route.
+
+xxxxx
+xab2x
+x---x
+x-x1x
+xxxxx
+
+DESCRIPTION Micro 2 (5x5): tiny maze timing with no spare cells.
+
+xxxxxx
+x-1bgx
+xx2-kx
+x---ax
+xxxxxx
+
+DESCRIPTION Micro 3 (5x6): compact key/gate interaction in a single pocket.
+
+xxxxxx
+xk2-xx
+xa-xxx
+xbg-1x
+xxxxxx
+
+DESCRIPTION Micro 4 (5x6): dense blockers force repeated lockstep re-alignment.
+
 BIND w swarm_step_n "north" s swarm_step_s "south" a swarm_step_w "west" d swarm_step_e "east"
 
 ROTATE_CMDS swarm_step

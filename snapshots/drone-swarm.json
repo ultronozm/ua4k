@@ -77,6 +77,46 @@
         "xxxxxxxxxxxxx"
       ],
       "description": "Keys and gates: stepping onto a key while the other drone steps through a gate (same direction) opens the gate. Keys vanish on contact either way."
+    },
+    {
+      "board": [
+        "xxxxx",
+        "x-1bx",
+        "xx-ax",
+        "x2--x",
+        "xxxxx"
+      ],
+      "description": "Micro 1 (5x5): minimal footprint, surprisingly long route."
+    },
+    {
+      "board": [
+        "xxxxx",
+        "xab2x",
+        "x---x",
+        "x-x1x",
+        "xxxxx"
+      ],
+      "description": "Micro 2 (5x5): tiny maze timing with no spare cells."
+    },
+    {
+      "board": [
+        "xxxxxx",
+        "x-1bgx",
+        "xx2-kx",
+        "x---ax",
+        "xxxxxx"
+      ],
+      "description": "Micro 3 (5x6): compact key/gate interaction in a single pocket."
+    },
+    {
+      "board": [
+        "xxxxxx",
+        "xk2-xx",
+        "xa-xxx",
+        "xbg-1x",
+        "xxxxxx"
+      ],
+      "description": "Micro 4 (5x6): dense blockers force repeated lockstep re-alignment."
     }
   ],
   "rules": {
