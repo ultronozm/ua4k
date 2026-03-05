@@ -145,6 +145,26 @@ xxxxxxx
 
 DESCRIPTION Challenge Pack 5 (7x7, keys): the gate has to be opened on tempo; otherwise the board de-syncs before docking.
 
+xxxxxxx
+x12x--x
+x-xb--x
+x----#x
+xxa-#-x
+xx---#x
+xxxxxxx
+
+DESCRIPTION Gauntlet 1 (7x7): same small footprint, but now the drones start entangled and the reset loops are long.
+
+xxxxxxx
+x-2#--x
+x-xb--x
+x----#x
+xxa-#1x
+xx----x
+xxxxxxx
+
+DESCRIPTION Gauntlet 2 (7x7): a compact endurance puzzle. Almost every mistake sends you through another long synchronization cycle.
+
 
 BIND w swarm_step_n "north" s swarm_step_s "south" a swarm_step_w "west" d swarm_step_e "east"
 
