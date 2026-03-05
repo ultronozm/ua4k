@@ -16,6 +16,37 @@ let hiddenLineChars = [];
 
 const DEBUG_LOGS = false;
 
+function getStartupSelection() {
+    const injectedSelection = window.UA4K_STARTUP_SELECTION;
+    if (injectedSelection && typeof injectedSelection === 'object') {
+        const requestedGame =
+            typeof injectedSelection.game === 'string' ? injectedSelection.game : null;
+        const injectedLevel = injectedSelection.level;
+        let requestedLevel = null;
+
+        if (Number.isInteger(injectedLevel) && injectedLevel >= 0) {
+            requestedLevel = injectedLevel;
+        }
+
+        return { requestedGame, requestedLevel };
+    }
+
+    const rawParams = window.location.hash ? window.location.hash.slice(1) : window.location.search;
+    const params = new URLSearchParams(rawParams);
+    const requestedGame = params.get('game');
+    const requestedLevel = params.get('level');
+    let level = null;
+
+    if (requestedLevel !== null && requestedLevel !== '') {
+        const parsedLevel = Number.parseInt(requestedLevel, 10);
+        if (Number.isInteger(parsedLevel) && parsedLevel >= 0) {
+            level = parsedLevel;
+        }
+    }
+
+    return { requestedGame, requestedLevel: level };
+}
+
 function debugLog(...args) {
     if (DEBUG_LOGS) {
         console.log(...args);
@@ -97,6 +128,17 @@ function initGame(data) {
     debugLog("initGame done");
 }
 
+function setLevel(level) {
+    if (!Number.isInteger(level) || level < 0 || level >= levels.length) {
+        return false;
+    }
+    level_number = level;
+    initLevel();
+    drawBoard();
+    updateLevelDisplay();
+    return true;
+}
+
 function handleGameSelection() {
     const selectedGame = gamesData[gamesDropdown.value];
     initGame(selectedGame);
@@ -104,7 +146,14 @@ function handleGameSelection() {
 
 gamesDropdown.addEventListener('change', handleGameSelection);
 
-gamesDropdown.dispatchEvent(new Event('change'));  // Load the first game when the page loads
+const startupSelection = getStartupSelection();
+if (startupSelection.requestedGame && gamesData[startupSelection.requestedGame]) {
+    gamesDropdown.value = startupSelection.requestedGame;
+}
+gamesDropdown.dispatchEvent(new Event('change'));
+if (startupSelection.requestedLevel !== null) {
+    setLevel(startupSelection.requestedLevel);
+}
 
 // Rendering
 function updateLevelDisplay() {
@@ -536,11 +585,8 @@ function handleKeyPress(event) {
     var charCode = event.charCode;
     if (charCode == 'l'.charCodeAt(0)) {
         var newLevel = prompt("Enter level number");
-        if (newLevel != null && newLevel >= 0 && newLevel < levels.length) {
-            level_number = newLevel;
-            initLevel();
-            drawBoard();
-            updateLevelDisplay();
+        if (newLevel != null) {
+            setLevel(Number.parseInt(newLevel, 10));
         }
     } else if (board) {
         if (charCode == 'U'.charCodeAt(0)) {

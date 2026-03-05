@@ -28,6 +28,17 @@ Run in Browser
 3. Use the dropdown to select any compiled game.
 4. For engine debug logging, set `DEBUG_LOGS = true` in `ua4k.js`.
 
+Direct Browser Launch For Testing
+- Compile and open a specific game in one step:
+  - `./play-level.sh drone-swarm`
+- Compile and open a specific game + level:
+  - `./play-level.sh drone-swarm 3`
+- You can also pass the source file name directly:
+  - `./play-level.sh drone-swarm.txt 3`
+- `play-level.sh` writes a temporary `.ua4k-launch.html` wrapper that injects the startup game/level before loading the normal browser UI.
+- The browser runtime accepts injected startup selection and also still accepts `#game=<name>&level=<n>` or `?game=<name>&level=<n>` for direct loading.
+- Level numbers are currently zero-based, matching the in-game `l` prompt.
+
 TUI Play/Test (uses existing `ua4k.js`)
 - Play a game in terminal with optional key sequence and level index:
   - `node tui_play.js drone-swarm`
