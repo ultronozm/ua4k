@@ -44,6 +44,30 @@
   "levels": [
     {
       "board": [
+        "xxxxxxxxxxxxxxx",
+        "x1--------2--x",
+        "x---x--------x",
+        "x---x--------x",
+        "x---x-a--b---x",
+        "x------------x",
+        "x------------x",
+        "xxxxxxxxxxxxxxx"
+      ],
+      "description": "Tutorial 1 (roomy, no keys): both drones move each turn. Use the left wall spine to stall one drone while steering the other."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxx",
+        "x1--k---2g-b--x",
+        "x--x----xxxxxxx",
+        "x--a----------x",
+        "x-------------x",
+        "xxxxxxxxxxxxxxx"
+      ],
+      "description": "Tutorial 2 (roomy, with keys): the gate only opens if one drone steps on k while the other steps onto g in the same direction."
+    },
+    {
+      "board": [
         "xxxxxxxxxxxxx",
         "x1---x---2--x",
         "x-xx-x-xx-x-x",
