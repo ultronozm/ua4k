@@ -69,15 +69,6 @@ xx-a-x
 x--##x
 xxxxxx
 
-xxxxxxxxxxxxxxx
-x1--k---2g-b--x
-x--x----xxxxxxx
-x--a----------x
-x-------------x
-xxxxxxxxxxxxxxx
-
-DESCRIPTION The gate 'g' opens if a drone steps into it while another drone steps into a key 'k'.
-
 xxxxxxxxxxxxx
 x1---x---2--x
 x-xx-x-xx-x-x
@@ -85,16 +76,6 @@ x--a-x---x-bx
 x------x---xx
 x-----------x
 xxxxxxxxxxxxx
-
-xxxxxxxxxxxxx
-x1-#-#---2--x
-x-xx-x-xx-x-x
-x--a-x---x-bx
-x------x---xx
-x-----------x
-xxxxxxxxxxxxx
-
-DESCRIPTION Hard-wall remix: the same layout family as the earlier wall tutorial, but now the force fields remove the easy stall lines.
 
 xxxxxx
 x#2--x
