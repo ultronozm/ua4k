@@ -127,6 +127,46 @@ xxxxxxx
 DESCRIPTION Challenge Pack 5 (7x7, keys): the gate has to be opened on tempo; otherwise the board de-syncs before docking.
 
 xxxxxxx
+x-2#--x
+x-xb-#x
+x----#x
+xxa--1x
+xxx---x
+xxxxxxx
+
+DESCRIPTION Midboss 1 (7x7): a tighter version of the wall gauntlets. The final sync still takes work, but the reset loops are shorter.
+
+xxxxxxx
+x-2#-xx
+x-xb-#x
+x----#x
+xxa--1x
+xx----x
+xxxxxxx
+
+DESCRIPTION Midboss 2 (7x7): one extra blocker is enough to turn the pocket transfer into a longer route.
+
+xxxxxxx
+x-2#--x
+x-xb-#x
+x----#x
+xxa--1x
+xx---#x
+xxxxxxx
+
+DESCRIPTION Midboss 3 (7x7): close to a gauntlet, but still readable. You have to preserve the good spacing through several sweeps.
+
+xxxxxxx
+x-2#--x
+x-xb-#x
+x----#x
+xxa--1x
+xx--#-x
+xxxxxxx
+
+DESCRIPTION Midboss 4 (7x7): the extra wall deepens the cycle one more notch before the true gauntlets begin.
+
+xxxxxxx
 x12x--x
 x-xb--x
 x----#x
@@ -145,6 +185,16 @@ xx----x
 xxxxxxx
 
 DESCRIPTION Gauntlet 2 (7x7): a compact endurance puzzle. Almost every mistake sends you through another long synchronization cycle.
+
+xxxxxxx
+x--#-2x
+x-xb--x
+x----#x
+x#a-#1x
+xx----x
+xxxxxxx
+
+DESCRIPTION Gauntlet 3 (7x7): the current top-end compact board. The cycle is long enough that recovering from a bad sweep is painful.
 
 
 BIND w swarm_step_n "north" s swarm_step_s "south" a swarm_step_w "west" d swarm_step_e "east"
