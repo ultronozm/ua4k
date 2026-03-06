@@ -18,63 +18,61 @@ COLOR X #cc0000
 
 TITLE Ice Slides
 
-xxxxxxxxxxxx
-x1--------ex
-xxxxxxxxxxxx
+xxxxxxxx
+x-x--1xx
+x-xx---x
+x------x
+xe--x--x
+xxxxxxxx
 
-DESCRIPTION Warm-up glide: you keep sliding until a wall stops you.
+DESCRIPTION Warm-up glide: walls are your brakes. You only stop when something solid catches you.
 
-xxxxxxxxxxxx
-x1----x----x
-x-xx-xxx-xex
-x----------x
-xxxxxxxxxxxx
+xxxxxxxx
+xx-----x
+x---xexx
+x------x
+x1x-x--x
+xxxxxxxx
 
-DESCRIPTION Cornering 101: use walls to break momentum and line up the exit.
+DESCRIPTION Cornering: the route is short, but the stopping pattern is not obvious.
 
-xxxxxxxxxxxxxx
-x1---k---g--ex
-xxxxxxxxxxxxxx
+xxxxxxxxxx
+x-x--x---x
+x---x----x
+x-e-g----x
+x----kx-1x
+xxxxxxxxxx
 
-DESCRIPTION Carry key (2) through gate g; the gate consumes the key and returns you to 1.
+DESCRIPTION Key route: touching k upgrades you to 2, and only 2 can pass through g.
 
-xxxxxxxxxxxxxx
-x1---*----x-ex
-x-xxx-xxxxxx-x
-x------------x
-xxxxxxxxxxxxxx
+xxxxxxxxxx
+x---x--g-x
+x-----k--x
+x--ex---xx
+x---x1---x
+xxxxxxxxxx
 
-DESCRIPTION Fragile ice (*) melts behind you into water (w). Stepping into water loses.
+DESCRIPTION Gate timing: you need the key, but the real puzzle is choosing the right stopping walls after the gate.
 
-xxxxxxxxxxxxxxx
-x1-----x----e-x
-x-xxx--x-xxxx-x
-x-k----g------x
-x-xxxxxxx-xx--x
-x-------------x
-xxxxxxxxxxxxxxx
+xxxxxxxxxx
+x-k------x
+x-------xx
+xxx*-eg--x
+x1-------x
+x----x---x
+xxxxxxxxxx
 
-DESCRIPTION Mixed route: take the key, breach the gate, and avoid painting yourself into water traps.
+DESCRIPTION Fragile ice: the * tile is a one-shot pivot. Melt it at the wrong time and the whole right side becomes poisonous.
 
-xxxxxxxxxxxxxxxxx
-x1----x------e--x
-x-xx--x-xxxxxx-xx
-x-k---g---*-----x
-x-xxxxxxx-xx-xx-x
-x---------------x
-xxxxxxxxxxxxxxxxx
+xxxxxxxxxx
+x---kx*1xx
+x-e----x-x
+x--------x
+x--------x
+x--x---g-x
+xxxxxxxxxx
 
-DESCRIPTION Endgame route: breach the gate first, then use fragile ice as a one-way commitment into the exit lane.
-
-xxxxxxxxxxxxxxxxx
-x1----x---------x
-x-xx--x-xxxxxx-xx
-x-k---g---*---e-x
-x-xxxxxxx-xx-xx-x
-x---------------x
-xxxxxxxxxxxxxxxxx
-
-DESCRIPTION Expert route: fragile ice is your one-way pivot; if you commit too early, the exit lane is gone.
+DESCRIPTION Mixed route: key, gate, and fragile ice all matter. The board is roomy enough to tempt bad commitments.
 
 BIND w move_n "slide north" s move_s "slide south" a move_w "slide west" d move_e "slide east" z wait "wait"
 

@@ -1,9 +1,21 @@
 {
   "binds": {
-    "a": "west",
-    "d": "east",
-    "s": "south",
-    "w": "north"
+    "a": {
+      "command": "move_west",
+      "description": "west"
+    },
+    "d": {
+      "command": "move_east",
+      "description": "east"
+    },
+    "s": {
+      "command": "move_south",
+      "description": "south"
+    },
+    "w": {
+      "command": "move_north",
+      "description": "north"
+    }
   },
   "charMap": {},
   "colorMap": {
@@ -17,7 +29,6 @@
     "a": "#6aa84f",
     "b": "#8e7cc3",
     "c": "#e69138",
-    "d": "#cc0000",
     "e": "#00a2a2",
     "f": "#c27ba0",
     "h": "#a64d79",
@@ -26,7 +37,6 @@
     "p": "#777777",
     "q": "#777777",
     "r": "#777777",
-    "u": "#3d85c6",
     "x": "#444444"
   },
   "globalTick": null,
@@ -39,99 +49,58 @@
   "levels": [
     {
       "board": [
-        "xxxxxxxxxxxxxxx",
-        "xpqrnxxxxxxxxxx",
-        "x1--a--x---d-ex",
-        "x-xx-x-xx-xx-xx",
-        "x--b-x-fc-x--hx",
-        "x----u----m---x",
-        "xxxxxxxxxxxxxxx"
+        "xxxxxxxxxxxxx",
+        "xpqrnxxxxxxxx",
+        "x1-a---f-c-ex",
+        "x-xxx-x-xxx-x",
+        "x---b-m---h-x",
+        "xxxxxxxxxxxxx"
       ],
-      "description": "Phase primer: real order is a -> b -> f -> c. Gate u only works before c, while h only works after c."
+      "description": "Primer: the relay order is a -> b -> f -> c. After c, every m bridge collapses into x."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "xpqrnxxxxxxxx",
+        "x1-a---x---ex",
+        "x-xxx-xx-xx-x",
+        "x---b-fc-h--x",
+        "x--m--------x",
+        "xxxxxxxxxxxxx"
+      ],
+      "description": "First loop: use m before overload, then finish through the late h gate after c."
     },
     {
       "board": [
         "xxxxxxxxxxxxxxx",
         "xpqrnxxxxxxxxxx",
-        "x1-a---x-d---ex",
-        "x-xxx-xx-xxx-xx",
-        "x---b-fu--c--hx",
-        "x--m------x---x",
+        "x1--a--x----ex",
+        "x-xx-x-xx-xx-x",
+        "x--b-x-fc-xh-x",
+        "x----m-----x-x",
         "xxxxxxxxxxxxxxx"
       ],
-      "description": "Relay fork: b unlocks f, f unlocks c, c unlocks h. The u checkpoint then shuts off after overload, so detour order matters."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxx",
-        "xpqrnxxxxxxxxxx",
-        "x1--a--x--d--ex",
-        "x-xx-x-xx-x-xxx",
-        "x--b-uf-c-x--hx",
-        "x--x---m---x--x",
-        "x------x------x",
-        "xxxxxxxxxxxxxxx"
-      ],
-      "description": "Choke timing: u is a one-phase choke, m collapses when c is touched, and c itself now requires the f relay."
+      "description": "Cross-phase route: c sits deep in the map, and touching it changes the only easy bridge."
     },
     {
       "board": [
         "xxxxxxxxxxxxxxxxx",
         "xpqrnxxxxxxxxxxxx",
-        "x1--a--x---d---ex",
-        "x-xx-x-xx-xx-xx-x",
-        "x--b-x--u--x--h-x",
-        "x-xx-x-xfc-x-xx-x",
-        "x----m-----x----x",
-        "xxxxxxxxxxxxxxxxx"
-      ],
-      "description": "Cross-phase loop: you need early access through u and late access through h while preserving a viable post-overload route."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxx",
-        "xpqrnxxxxxxxxxx",
-        "x1--a--x--d--ex",
-        "x-xx-x-x-xx-x-x",
-        "x--b-x--fx--c-x",
-        "x-xx-xxx-x-xx-x",
-        "x----h----m---x",
-        "xxxxxxxxxxxxxxx"
-      ],
-      "description": "Labyrinth relay: h is c-locked, c is f-locked, and m becomes unsafe after overload."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxx",
-        "xpqrnxxxxxxxxxx",
-        "x1--a--x--d--ex",
-        "x-xx-x-x-xx-x-x",
+        "x1--a--x------ex",
+        "x-xx-x-x-xx-xx-x",
         "x--b-x-m-x-fc-x",
         "x-xx-x-xxx-xh-x",
         "x----x-----x--x",
-        "xxxxxxxxxxxxxxx"
-      ],
-      "description": "Final circuit: tight corridors and a fragile m segment punish wasted movement once c overloads the map."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxxxx",
-        "xpqrnxxxxxxxxxxxx",
-        "x1--a--x---d---ex",
-        "x-xx-x-x-xx-xx-xx",
-        "x--b-x---x-f-c--x",
-        "x-xx-xxx-x-xx-x-x",
-        "x----m---x--h---x",
-        "x--------x------x",
+        "x-------------x",
         "xxxxxxxxxxxxxxxxx"
       ],
-      "description": "Deep relay trench: long-loop navigation with a late h-gate. The m bridge is useful early but lethal if your c timing is sloppy."
+      "description": "Long loop: route for both phases before you commit to c."
     },
     {
       "board": [
         "xxxxxxxxxxxxxxxxxxx",
         "xpqrnxxxxxxxxxxxxxx",
-        "x1--a--x---d---x-ex",
+        "x1--a--x-------x-ex",
         "x-xx-x-x-xx-xx-x-xx",
         "x--b-x-m-x---xfc--x",
         "x-xx-x-xxx-x-x-xx-x",
@@ -140,59 +109,10 @@
         "x------m---x------x",
         "xxxxxxxxxxxxxxxxxxx"
       ],
-      "description": "Master relay mesh: intertwined loops, two soft bridges, and a delayed h checkpoint. Plan a full route before committing to c overload."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxxxxxxxx",
-        "xpqrnxxxxxxxxxxxxxxxx",
-        "x1--a--x---d---x----x",
-        "x-xx-x-x-xx-xx-x-xx-x",
-        "x--b-x-m-x---x-fc-x-x",
-        "x-xx-x-xxx-x-x-xx-x-x",
-        "x----x---h-x-x--u-x-x",
-        "x-xxxx---x---x-xx-x-x",
-        "x---u--m---x------x-x",
-        "x-------------------x",
-        "xe----------x-------x",
-        "xxxxxxxxxxxxxxxxxxxxx"
-      ],
-      "description": "Expert loopworks: two pre-overload u checkpoints and collapsing m links create phase traps. After c, you must route back left through h to reach e."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxxxxxxxxxx",
-        "xpqrnxxxxxxxxxxxxxxxxxx",
-        "x1--a--x---d---x------x",
-        "x-xx-x-x-xx-xx-x-xx-x-x",
-        "x--b-x-m-x---x-fc-x-x-x",
-        "x-xx-x-xxx-x-x-xx-x-x-x",
-        "x----x---h-x-x--u-x-x-x",
-        "x-xxxx---x---x-xx-x-x-x",
-        "x---u--m---x---m--x---x",
-        "x-xxxxxxx-xxx-xxxxxxx-x",
-        "x---------------------x",
-        "xe--------------------x",
-        "xxxxxxxxxxxxxxxxxxxxxxx"
-      ],
-      "description": "Grandmaster circuit: extended mesh with dual collapse lanes and delayed h access. Finish requires a full return to the far-left exit after c."
+      "description": "Mesh finale: two soft bridges help in different phases, but only one full route survives overload."
     }
   ],
   "rules": {
-    "east": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "name": "move_east",
-              "type": "call"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
     "haveA": {
       "rules": [
         {
@@ -360,32 +280,6 @@
             },
             {
               "from": [
-                "1d"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "haveB!"
-              ],
-              "to": [
-                "-1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1u"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "preC!"
-              ],
-              "to": [
-                "-1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
                 "1h"
               ],
               "method": "firstmatch",
@@ -502,36 +396,6 @@
               "side_effects": [
                 "haveF!",
                 "setC"
-              ],
-              "to": [
-                "1",
-                "-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "d",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "haveB!"
-              ],
-              "to": [
-                "1",
-                "-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "u",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "preC!"
               ],
               "to": [
                 "1",
@@ -671,36 +535,6 @@
             {
               "from": [
                 "1",
-                "d"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "haveB!"
-              ],
-              "to": [
-                "-",
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1",
-                "u"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "preC!"
-              ],
-              "to": [
-                "-",
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1",
                 "h"
               ],
               "method": "firstmatch",
@@ -817,32 +651,6 @@
             },
             {
               "from": [
-                "d1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "haveB!"
-              ],
-              "to": [
-                "1-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "u1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [
-                "preC!"
-              ],
-              "to": [
-                "1-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
                 "h1"
               ],
               "method": "firstmatch",
@@ -873,20 +681,6 @@
       ],
       "type": "match1"
     },
-    "north": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "name": "move_north",
-              "type": "call"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
     "overload": {
       "rules": [
         {
@@ -904,27 +698,6 @@
             }
           ],
           "type": "try_all"
-        }
-      ],
-      "type": "match1"
-    },
-    "preC": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "r"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "r"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "match1"
         }
       ],
       "type": "match1"
@@ -1011,34 +784,6 @@
             }
           ],
           "type": "try_all"
-        }
-      ],
-      "type": "match1"
-    },
-    "south": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "name": "move_south",
-              "type": "call"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "west": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "name": "move_west",
-              "type": "call"
-            }
-          ],
-          "type": "match1"
         }
       ],
       "type": "match1"

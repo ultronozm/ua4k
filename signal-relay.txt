@@ -8,9 +8,7 @@ COLOR a #6aa84f
 COLOR b #8e7cc3
 COLOR f #c27ba0
 COLOR c #e69138
-COLOR d #cc0000
 COLOR h #a64d79
-COLOR u #3d85c6
 COLOR e #00a2a2
 COLOR E #00cc88
 COLOR p #777777
@@ -25,85 +23,50 @@ COLOR m #557766
 
 TITLE Signal Relay
 
+xxxxxxxxxxxxx
+xpqrnxxxxxxxx
+x1-a---f-c-ex
+x-xxx-x-xxx-x
+x---b-m---h-x
+xxxxxxxxxxxxx
+
+DESCRIPTION Primer: the relay order is a -> b -> f -> c. After c, every m bridge collapses into x.
+
+xxxxxxxxxxxxx
+xpqrnxxxxxxxx
+x1-a---x---ex
+x-xxx-xx-xx-x
+x---b-fc-h--x
+x--m--------x
+xxxxxxxxxxxxx
+
+DESCRIPTION First loop: use m before overload, then finish through the late h gate after c.
+
 xxxxxxxxxxxxxxx
 xpqrnxxxxxxxxxx
-x1--a--x---d-ex
-x-xx-x-xx-xx-xx
-x--b-x-fc-x--hx
-x----u----m---x
+x1--a--x----ex
+x-xx-x-xx-xx-x
+x--b-x-fc-xh-x
+x----m-----x-x
 xxxxxxxxxxxxxxx
 
-DESCRIPTION Phase primer: real order is a -> b -> f -> c. Gate u only works before c, while h only works after c.
-
-xxxxxxxxxxxxxxx
-xpqrnxxxxxxxxxx
-x1-a---x-d---ex
-x-xxx-xx-xxx-xx
-x---b-fu--c--hx
-x--m------x---x
-xxxxxxxxxxxxxxx
-
-DESCRIPTION Relay fork: b unlocks f, f unlocks c, c unlocks h. The u checkpoint then shuts off after overload, so detour order matters.
-
-xxxxxxxxxxxxxxx
-xpqrnxxxxxxxxxx
-x1--a--x--d--ex
-x-xx-x-xx-x-xxx
-x--b-uf-c-x--hx
-x--x---m---x--x
-x------x------x
-xxxxxxxxxxxxxxx
-
-DESCRIPTION Choke timing: u is a one-phase choke, m collapses when c is touched, and c itself now requires the f relay.
+DESCRIPTION Cross-phase route: c sits deep in the map, and touching it changes the only easy bridge.
 
 xxxxxxxxxxxxxxxxx
 xpqrnxxxxxxxxxxxx
-x1--a--x---d---ex
-x-xx-x-xx-xx-xx-x
-x--b-x--u--x--h-x
-x-xx-x-xfc-x-xx-x
-x----m-----x----x
-xxxxxxxxxxxxxxxxx
-
-DESCRIPTION Cross-phase loop: you need early access through u and late access through h while preserving a viable post-overload route.
-
-xxxxxxxxxxxxxxx
-xpqrnxxxxxxxxxx
-x1--a--x--d--ex
-x-xx-x-x-xx-x-x
-x--b-x--fx--c-x
-x-xx-xxx-x-xx-x
-x----h----m---x
-xxxxxxxxxxxxxxx
-
-DESCRIPTION Labyrinth relay: h is c-locked, c is f-locked, and m becomes unsafe after overload.
-
-xxxxxxxxxxxxxxx
-xpqrnxxxxxxxxxx
-x1--a--x--d--ex
-x-xx-x-x-xx-x-x
+x1--a--x------ex
+x-xx-x-x-xx-xx-x
 x--b-x-m-x-fc-x
 x-xx-x-xxx-xh-x
 x----x-----x--x
-xxxxxxxxxxxxxxx
-
-DESCRIPTION Final circuit: tight corridors and a fragile m segment punish wasted movement once c overloads the map.
-
-xxxxxxxxxxxxxxxxx
-xpqrnxxxxxxxxxxxx
-x1--a--x---d---ex
-x-xx-x-x-xx-xx-xx
-x--b-x---x-f-c--x
-x-xx-xxx-x-xx-x-x
-x----m---x--h---x
-x--------x------x
+x-------------x
 xxxxxxxxxxxxxxxxx
 
-DESCRIPTION Deep relay trench: long-loop navigation with a late h-gate. The m bridge is useful early but lethal if your c timing is sloppy.
+DESCRIPTION Long loop: route for both phases before you commit to c.
 
 xxxxxxxxxxxxxxxxxxx
 xpqrnxxxxxxxxxxxxxx
-x1--a--x---d---x-ex
+x1--a--x-------x-ex
 x-xx-x-x-xx-xx-x-xx
 x--b-x-m-x---xfc--x
 x-xx-x-xxx-x-x-xx-x
@@ -112,38 +75,7 @@ x-xxxx---x---x----x
 x------m---x------x
 xxxxxxxxxxxxxxxxxxx
 
-DESCRIPTION Master relay mesh: intertwined loops, two soft bridges, and a delayed h checkpoint. Plan a full route before committing to c overload.
-
-xxxxxxxxxxxxxxxxxxxxx
-xpqrnxxxxxxxxxxxxxxxx
-x1--a--x---d---x----x
-x-xx-x-x-xx-xx-x-xx-x
-x--b-x-m-x---x-fc-x-x
-x-xx-x-xxx-x-x-xx-x-x
-x----x---h-x-x--u-x-x
-x-xxxx---x---x-xx-x-x
-x---u--m---x------x-x
-x-------------------x
-xe----------x-------x
-xxxxxxxxxxxxxxxxxxxxx
-
-DESCRIPTION Expert loopworks: two pre-overload u checkpoints and collapsing m links create phase traps. After c, you must route back left through h to reach e.
-
-xxxxxxxxxxxxxxxxxxxxxxx
-xpqrnxxxxxxxxxxxxxxxxxx
-x1--a--x---d---x------x
-x-xx-x-x-xx-xx-x-xx-x-x
-x--b-x-m-x---x-fc-x-x-x
-x-xx-x-xxx-x-x-xx-x-x-x
-x----x---h-x-x--u-x-x-x
-x-xxxx---x---x-xx-x-x-x
-x---u--m---x---m--x---x
-x-xxxxxxx-xxx-xxxxxxx-x
-x---------------------x
-xe--------------------x
-xxxxxxxxxxxxxxxxxxxxxxx
-
-DESCRIPTION Grandmaster circuit: extended mesh with dual collapse lanes and delayed h access. Finish requires a full return to the far-left exit after c.
+DESCRIPTION Mesh finale: two soft bridges help in different phases, but only one full route survives overload.
 
 BIND w move_north "north" s move_south "south" a move_west "west" d move_east "east"
 
@@ -162,10 +94,6 @@ CMD haveC
 CMD haveF
  MATCH1
   N N
-
-CMD preC
- MATCH1
-  r r
 
 CMD setA
  TRY_ALL
@@ -205,12 +133,6 @@ CMD move_north
   c 1 haveF! setC
   1 -
 
-  d 1 haveB!
-  1 -
-
-  u 1 preC!
-  1 -
-
   h 1 haveC!
   1 -
 
@@ -236,12 +158,6 @@ CMD move_south
   c 1 haveF! setC
 
   1 -
-  d 1 haveB!
-
-  1 -
-  u 1 preC!
-
-  1 -
   h 1 haveC!
 
   1 -
@@ -260,10 +176,6 @@ CMD move_west
 
   c1 1- haveF! setC
 
-  d1 1- haveB!
-
-  u1 1- preC!
-
   h1 1- haveC!
 
   e1 E- haveC!
@@ -280,10 +192,6 @@ CMD move_east
   1f -1 haveB! setF
 
   1c -1 haveF! setC
-
-  1d -1 haveB!
-
-  1u -1 preC!
 
   1h -1 haveC!
 
