@@ -110,6 +110,31 @@
         "xxxxxxxxxx"
       ],
       "description": "Mixed route: the exit is visible early, but the real problem is sequencing the key, gate, and one-shot ice pivot."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxx",
+        "x--x------x",
+        "x------1--x",
+        "x---xx----x",
+        "xx----g-e-x",
+        "x----x-k-*x",
+        "xxxxxxxxxxx"
+      ],
+      "description": "Hard route: the fragile tile only helps if you arrive with the right momentum after the gate."
+    },
+    {
+      "board": [
+        "xxxxxxxxxxx",
+        "x---x---1xx",
+        "x-----x-*-x",
+        "x--------gx",
+        "x---x-----x",
+        "xk--e-----x",
+        "x------x--x",
+        "xxxxxxxxxxx"
+      ],
+      "description": "Finale: a larger mixed board where the key, gate, and fragile ice all interact through stopping geometry rather than raw maze length."
     }
   ],
   "rules": {

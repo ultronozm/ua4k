@@ -74,6 +74,27 @@ xxxxxxxxxx
 
 DESCRIPTION Mixed route: the exit is visible early, but the real problem is sequencing the key, gate, and one-shot ice pivot.
 
+xxxxxxxxxxx
+x--x------x
+x------1--x
+x---xx----x
+xx----g-e-x
+x----x-k-*x
+xxxxxxxxxxx
+
+DESCRIPTION Hard route: the fragile tile only helps if you arrive with the right momentum after the gate.
+
+xxxxxxxxxxx
+x---x---1xx
+x-----x-*-x
+x--------gx
+x---x-----x
+xk--e-----x
+x------x--x
+xxxxxxxxxxx
+
+DESCRIPTION Finale: a larger mixed board where the key, gate, and fragile ice all interact through stopping geometry rather than raw maze length.
+
 BIND w move_n "slide north" s move_s "slide south" a move_w "slide west" d move_e "slide east" z wait "wait"
 
 CMD wait
