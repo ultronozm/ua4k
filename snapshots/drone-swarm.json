@@ -265,6 +265,32 @@
         "xxxxxxx"
       ],
       "description": "Gauntlet 3 (7x7): the current top-end compact board. The cycle is long enough that recovering from a bad sweep is painful."
+    },
+    {
+      "board": [
+        "xxxxxxxx",
+        "x-x#---x",
+        "x--b---x",
+        "x12#-a#x",
+        "xx----xx",
+        "x-#--x-x",
+        "x-----xx",
+        "xxxxxxxx"
+      ],
+      "description": "8x8 Entry 1: the larger frame gives you room to lose sync in several different ways."
+    },
+    {
+      "board": [
+        "xxxxxxxx",
+        "x--x---x",
+        "x-#x2--x",
+        "xx-----x",
+        "xxb-#a-x",
+        "x#--1#-x",
+        "x---x--x",
+        "xxxxxxxx"
+      ],
+      "description": "8x8 Entry 2: still compact, but the extra lane space starts to create longer rerouting cycles."
     }
   ],
   "rules": {
