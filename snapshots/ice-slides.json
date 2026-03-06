@@ -102,14 +102,14 @@
     {
       "board": [
         "xxxxxxxxxx",
-        "x---kx*1xx",
-        "x-e----x-x",
-        "x--------x",
-        "x--------x",
-        "x--x---g-x",
+        "x--k-x---x",
+        "x1-------x",
+        "xx--x----x",
+        "x---e*---x",
+        "x---g--x-x",
         "xxxxxxxxxx"
       ],
-      "description": "Mixed route: key, gate, and fragile ice all matter. The board is roomy enough to tempt bad commitments."
+      "description": "Mixed route: the exit is visible early, but the real problem is sequencing the key, gate, and one-shot ice pivot."
     }
   ],
   "rules": {

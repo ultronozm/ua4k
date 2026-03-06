@@ -65,14 +65,14 @@ xxxxxxxxxx
 DESCRIPTION Fragile ice: the * tile is a one-shot pivot. Melt it at the wrong time and the whole right side becomes poisonous.
 
 xxxxxxxxxx
-x---kx*1xx
-x-e----x-x
-x--------x
-x--------x
-x--x---g-x
+x--k-x---x
+x1-------x
+xx--x----x
+x---e*---x
+x---g--x-x
 xxxxxxxxxx
 
-DESCRIPTION Mixed route: key, gate, and fragile ice all matter. The board is roomy enough to tempt bad commitments.
+DESCRIPTION Mixed route: the exit is visible early, but the real problem is sequencing the key, gate, and one-shot ice pivot.
 
 BIND w move_n "slide north" s move_s "slide south" a move_w "slide west" d move_e "slide east" z wait "wait"
 
