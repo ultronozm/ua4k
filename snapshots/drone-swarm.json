@@ -53,7 +53,8 @@
         "x------------x",
         "xxxxxxxxxxxxxx"
       ],
-      "description": "To win, move '1' onto 'a' and '2' onto 'b' at the same time."
+      "description": "To win, move '1' onto 'a' and '2' onto 'b' at the same time.",
+      "minMoves": 12
     },
     {
       "board": [
@@ -65,7 +66,8 @@
         "x-----------x",
         "xxxxxxxxxxxxx"
       ],
-      "description": "Drones cannot move towards the force fields '#'."
+      "description": "Drones cannot move towards the force fields '#'.",
+      "minMoves": 6
     },
     {
       "board": [
@@ -74,7 +76,8 @@
         "xx-ax",
         "x2--x",
         "xxxxx"
-      ]
+      ],
+      "minMoves": 15
     },
     {
       "board": [
@@ -83,7 +86,8 @@
         "x---x",
         "x-x1x",
         "xxxxx"
-      ]
+      ],
+      "minMoves": 18
     },
     {
       "board": [
@@ -92,7 +96,8 @@
         "x----x",
         "xabx1x",
         "xxxxxx"
-      ]
+      ],
+      "minMoves": 14
     },
     {
       "board": [
@@ -101,7 +106,8 @@
         "x-a1xx",
         "x##2-x",
         "xxxxxx"
-      ]
+      ],
+      "minMoves": 16
     },
     {
       "board": [
@@ -110,7 +116,8 @@
         "xx-a-x",
         "x--##x",
         "xxxxxx"
-      ]
+      ],
+      "minMoves": 22
     },
     {
       "board": [
@@ -121,7 +128,8 @@
         "x------x---xx",
         "x-----------x",
         "xxxxxxxxxxxxx"
-      ]
+      ],
+      "minMoves": 17
     },
     {
       "board": [
@@ -132,7 +140,8 @@
         "x-ax1x",
         "xxxxxx"
       ],
-      "description": "Challenge Pack 1 (6x6): a tiny board with just enough walling to force repeated re-spacing."
+      "description": "Challenge Pack 1 (6x6): a tiny board with just enough walling to force repeated re-spacing.",
+      "minMoves": 18
     },
     {
       "board": [
@@ -144,7 +153,8 @@
         "x-2-x1x",
         "xxxxxxx"
       ],
-      "description": "Challenge Pack 2 (7x7): the central cluster of force fields cuts off the obvious sync lines."
+      "description": "Challenge Pack 2 (7x7): the central cluster of force fields cuts off the obvious sync lines.",
+      "minMoves": 17
     },
     {
       "board": [
@@ -156,7 +166,8 @@
         "x---b-x",
         "xxxxxxx"
       ],
-      "description": "Challenge Pack 3 (7x7): the side pockets look roomy, but the docking order is still tight."
+      "description": "Challenge Pack 3 (7x7): the side pockets look roomy, but the docking order is still tight.",
+      "minMoves": 16
     },
     {
       "board": [
@@ -168,7 +179,8 @@
         "x-b--#x",
         "xxxxxxx"
       ],
-      "description": "Challenge Pack 4 (7x7): sparse geometry, but the wrong bump timing strands a drone on the wrong side."
+      "description": "Challenge Pack 4 (7x7): sparse geometry, but the wrong bump timing strands a drone on the wrong side.",
+      "minMoves": 15
     },
     {
       "board": [
@@ -180,7 +192,8 @@
         "x-g-x#x",
         "xxxxxxx"
       ],
-      "description": "Challenge Pack 5 (7x7, keys): the gate has to be opened on tempo; otherwise the board de-syncs before docking."
+      "description": "Challenge Pack 5 (7x7, keys): the gate has to be opened on tempo; otherwise the board de-syncs before docking.",
+      "minMoves": 15
     },
     {
       "board": [
@@ -192,7 +205,8 @@
         "xxx---x",
         "xxxxxxx"
       ],
-      "description": "Midboss 1 (7x7): a tighter version of the wall gauntlets. The final sync still takes work, but the reset loops are shorter."
+      "description": "Midboss 1 (7x7): a tighter version of the wall gauntlets. The final sync still takes work, but the reset loops are shorter.",
+      "minMoves": 27
     },
     {
       "board": [
@@ -204,7 +218,8 @@
         "xx----x",
         "xxxxxxx"
       ],
-      "description": "Midboss 2 (7x7): one extra blocker is enough to turn the pocket transfer into a longer route."
+      "description": "Midboss 2 (7x7): one extra blocker is enough to turn the pocket transfer into a longer route.",
+      "minMoves": 29
     },
     {
       "board": [
@@ -216,7 +231,8 @@
         "xx---#x",
         "xxxxxxx"
       ],
-      "description": "Midboss 3 (7x7): close to a gauntlet, but still readable. You have to preserve the good spacing through several sweeps."
+      "description": "Midboss 3 (7x7): close to a gauntlet, but still readable. You have to preserve the good spacing through several sweeps.",
+      "minMoves": 33
     },
     {
       "board": [
@@ -228,7 +244,8 @@
         "xx--#-x",
         "xxxxxxx"
       ],
-      "description": "Midboss 4 (7x7): the extra wall deepens the cycle one more notch before the true gauntlets begin."
+      "description": "Midboss 4 (7x7): the extra wall deepens the cycle one more notch before the true gauntlets begin.",
+      "minMoves": 34
     },
     {
       "board": [
@@ -240,7 +257,8 @@
         "xx---#x",
         "xxxxxxx"
       ],
-      "description": "Gauntlet 1 (7x7): same small footprint, but now the drones start entangled and the reset loops are long."
+      "description": "Gauntlet 1 (7x7): same small footprint, but now the drones start entangled and the reset loops are long.",
+      "minMoves": 42
     },
     {
       "board": [
@@ -252,7 +270,8 @@
         "xx----x",
         "xxxxxxx"
       ],
-      "description": "Gauntlet 2 (7x7): a compact endurance puzzle. Almost every mistake sends you through another long synchronization cycle."
+      "description": "Gauntlet 2 (7x7): a compact endurance puzzle. Almost every mistake sends you through another long synchronization cycle.",
+      "minMoves": 47
     },
     {
       "board": [
@@ -264,7 +283,8 @@
         "xx----x",
         "xxxxxxx"
       ],
-      "description": "Gauntlet 3 (7x7): the current top-end compact board. The cycle is long enough that recovering from a bad sweep is painful."
+      "description": "Gauntlet 3 (7x7): the current top-end compact board. The cycle is long enough that recovering from a bad sweep is painful.",
+      "minMoves": 49
     },
     {
       "board": [
@@ -277,7 +297,8 @@
         "x-----xx",
         "xxxxxxxx"
       ],
-      "description": "8x8 Entry 1: the larger frame gives you room to lose sync in several different ways."
+      "description": "8x8 Entry 1: the larger frame gives you room to lose sync in several different ways.",
+      "minMoves": 29
     },
     {
       "board": [
@@ -290,7 +311,8 @@
         "x---x--x",
         "xxxxxxxx"
       ],
-      "description": "8x8 Entry 2: still compact, but the extra lane space starts to create longer rerouting cycles."
+      "description": "8x8 Entry 2: still compact, but the extra lane space starts to create longer rerouting cycles.",
+      "minMoves": 33
     },
     {
       "board": [
@@ -302,7 +324,8 @@
         "xx------x",
         "xxxxxxxxx"
       ],
-      "description": "Rectangle 1 (7x9): a stretched compact board. The longer horizontal runway changes the reset timing."
+      "description": "Rectangle 1 (7x9): a stretched compact board. The longer horizontal runway changes the reset timing.",
+      "minMoves": 13
     },
     {
       "board": [
@@ -314,7 +337,8 @@
         "xx----#---------xx",
         "xxxxxxxxxxxxxxxxxx"
       ],
-      "description": "Rectangle 2 (7x18): a longer corridor experiment. This one actually uses the extended frame instead of just appending slack."
+      "description": "Rectangle 2 (7x18): a longer corridor experiment. This one actually uses the extended frame instead of just appending slack.",
+      "minMoves": 20
     }
   ],
   "rules": {

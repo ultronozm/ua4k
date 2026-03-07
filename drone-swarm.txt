@@ -29,6 +29,8 @@ xxxxxxxxxxxxxx
 
 DESCRIPTION To win, move '1' onto 'a' and '2' onto 'b' at the same time.
 
+MINMOVES 12
+
 xxxxxxxxxxxxx
 x1-----x---2x
 x-xx---x-xx-x
@@ -39,11 +41,15 @@ xxxxxxxxxxxxx
 
 DESCRIPTION Drones cannot move towards the force fields '#'.
 
+MINMOVES 6
+
 xxxxx
 x-1bx
 xx-ax
 x2--x
 xxxxx
+
+MINMOVES 15
 
 xxxxx
 xab2x
@@ -51,11 +57,15 @@ x---x
 x-x1x
 xxxxx
 
+MINMOVES 18
+
 xxxxxx
 x#x#2x
 x----x
 xabx1x
 xxxxxx
+
+MINMOVES 14
 
 xxxxxx
 xb---x
@@ -63,11 +73,15 @@ x-a1xx
 x##2-x
 xxxxxx
 
+MINMOVES 16
+
 xxxxxx
 x-12bx
 xx-a-x
 x--##x
 xxxxxx
+
+MINMOVES 22
 
 xxxxxxxxxxxxx
 x1---x---2--x
@@ -77,6 +91,8 @@ x------x---xx
 x-----------x
 xxxxxxxxxxxxx
 
+MINMOVES 17
+
 xxxxxx
 x#2--x
 x--x-x
@@ -85,6 +101,8 @@ x-ax1x
 xxxxxx
 
 DESCRIPTION Challenge Pack 1 (6x6): a tiny board with just enough walling to force repeated re-spacing.
+
+MINMOVES 18
 
 xxxxxxx
 x--#-xx
@@ -96,6 +114,8 @@ xxxxxxx
 
 DESCRIPTION Challenge Pack 2 (7x7): the central cluster of force fields cuts off the obvious sync lines.
 
+MINMOVES 17
+
 xxxxxxx
 xx2x--x
 x#---xx
@@ -105,6 +125,8 @@ x---b-x
 xxxxxxx
 
 DESCRIPTION Challenge Pack 3 (7x7): the side pockets look roomy, but the docking order is still tight.
+
+MINMOVES 16
 
 xxxxxxx
 x2#--xx
@@ -116,6 +138,8 @@ xxxxxxx
 
 DESCRIPTION Challenge Pack 4 (7x7): sparse geometry, but the wrong bump timing strands a drone on the wrong side.
 
+MINMOVES 15
+
 xxxxxxx
 x1-b--x
 x---x-x
@@ -125,6 +149,8 @@ x-g-x#x
 xxxxxxx
 
 DESCRIPTION Challenge Pack 5 (7x7, keys): the gate has to be opened on tempo; otherwise the board de-syncs before docking.
+
+MINMOVES 15
 
 xxxxxxx
 x-2#--x
@@ -136,6 +162,8 @@ xxxxxxx
 
 DESCRIPTION Midboss 1 (7x7): a tighter version of the wall gauntlets. The final sync still takes work, but the reset loops are shorter.
 
+MINMOVES 27
+
 xxxxxxx
 x-2#-xx
 x-xb-#x
@@ -145,6 +173,8 @@ xx----x
 xxxxxxx
 
 DESCRIPTION Midboss 2 (7x7): one extra blocker is enough to turn the pocket transfer into a longer route.
+
+MINMOVES 29
 
 xxxxxxx
 x-2#--x
@@ -156,6 +186,8 @@ xxxxxxx
 
 DESCRIPTION Midboss 3 (7x7): close to a gauntlet, but still readable. You have to preserve the good spacing through several sweeps.
 
+MINMOVES 33
+
 xxxxxxx
 x-2#--x
 x-xb-#x
@@ -165,6 +197,8 @@ xx--#-x
 xxxxxxx
 
 DESCRIPTION Midboss 4 (7x7): the extra wall deepens the cycle one more notch before the true gauntlets begin.
+
+MINMOVES 34
 
 xxxxxxx
 x12x--x
@@ -176,6 +210,8 @@ xxxxxxx
 
 DESCRIPTION Gauntlet 1 (7x7): same small footprint, but now the drones start entangled and the reset loops are long.
 
+MINMOVES 42
+
 xxxxxxx
 x-2#--x
 x-xb--x
@@ -186,6 +222,8 @@ xxxxxxx
 
 DESCRIPTION Gauntlet 2 (7x7): a compact endurance puzzle. Almost every mistake sends you through another long synchronization cycle.
 
+MINMOVES 47
+
 xxxxxxx
 x--#-2x
 x-xb--x
@@ -195,6 +233,8 @@ xx----x
 xxxxxxx
 
 DESCRIPTION Gauntlet 3 (7x7): the current top-end compact board. The cycle is long enough that recovering from a bad sweep is painful.
+
+MINMOVES 49
 
 xxxxxxxx
 x-x#---x
@@ -207,6 +247,8 @@ xxxxxxxx
 
 DESCRIPTION 8x8 Entry 1: the larger frame gives you room to lose sync in several different ways.
 
+MINMOVES 29
+
 xxxxxxxx
 x--x---x
 x-#x2--x
@@ -218,6 +260,8 @@ xxxxxxxx
 
 DESCRIPTION 8x8 Entry 2: still compact, but the extra lane space starts to create longer rerouting cycles.
 
+MINMOVES 33
+
 xxxxxxxxx
 x--#-2--x
 x-xb--x-x
@@ -228,6 +272,8 @@ xxxxxxxxx
 
 DESCRIPTION Rectangle 1 (7x9): a stretched compact board. The longer horizontal runway changes the reset timing.
 
+MINMOVES 13
+
 xxxxxxxxxxxxxxxxxx
 x---#-----2------x
 xxxb--x----#-----x
@@ -237,6 +283,8 @@ xx----#---------xx
 xxxxxxxxxxxxxxxxxx
 
 DESCRIPTION Rectangle 2 (7x18): a longer corridor experiment. This one actually uses the extended frame instead of just appending slack.
+
+MINMOVES 20
 
 
 BIND w swarm_step_n "north" s swarm_step_s "south" a swarm_step_w "west" d swarm_step_e "east"

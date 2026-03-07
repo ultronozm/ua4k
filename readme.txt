@@ -51,7 +51,7 @@ Puzzle Solver (shortest-path search)
   - `node solve_level.js drone-swarm 5`
 
 DSL Sketch (current behavior)
-- Metadata/directives include: `GOAL`, `VOID`, `BIND`, `CMD`, `TITLE`, `DESCRIPTION`, `BY`, `TICK`, `WHITESPACE`, `CHARMAP`, `COLOR`, `HIDDEN_LINE_CHAR`.
+- Metadata/directives include: `GOAL`, `VOID`, `BIND`, `CMD`, `TITLE`, `DESCRIPTION`, `MINMOVES`, `BY`, `TICK`, `WHITESPACE`, `CHARMAP`, `COLOR`, `HIDDEN_LINE_CHAR`.
 - Compound rule constructs include: `ATOMIC`, `ATOMIC_VERTICAL`, `ATOMIC_HORIZONTAL`, `MATCH1`, `TRY_ALL`, `RANDOM`, `FOR`, `ZIP`, `LET_REPEAT`, `CALL`, `CALL_EACH`.
 - Rules are indentation-sensitive for nesting.
 - Blank lines are meaningful and terminate accumulated sections/rules.

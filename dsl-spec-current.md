@@ -28,6 +28,7 @@ Supported directives are:
 - `ROTATE_CMDS`
 - `TITLE`
 - `DESCRIPTION`
+- `MINMOVES`
 - `BY`
 - `TICK`
 - `WHITESPACE`
@@ -57,8 +58,9 @@ Directive behavior:
 - `ROTATE_CMDS <base> [orbit ...]` creates/extends generated command families:
   - `<base>_e`, `<base>_s`, `<base>_w`, `<base>_n`
   - enclosed rules are expanded once per direction (east/south/west/north).
-- `TITLE`, `DESCRIPTION`, `BY`, `TICK` attach to the most recent level when one exists.
+- `TITLE`, `DESCRIPTION`, `MINMOVES`, `BY`, `TICK` attach to the most recent level when one exists.
   - `TICK` before any level sets global tick interval.
+  - `MINMOVES <n>` stores a solver-backed minimum-move count for the level and is displayed in the UI.
 - `WHITESPACE` appends characters rendered as non-breaking spaces in the browser.
 - `CHARMAP` maps display characters.
 - `COLOR` maps display colors by source character.
@@ -206,7 +208,7 @@ Compiler emits one entry per game into `gamesData.js`:
 ## 7. Known Quirks Preserved
 
 - Blank lines are overloaded as flush boundaries for multiple parser states.
-- `TITLE`/`DESCRIPTION`/`BY`/`TICK` attach only when a level already exists (except global `TICK` before levels).
+- `TITLE`/`DESCRIPTION`/`MINMOVES`/`BY`/`TICK` attach only when a level already exists (except global `TICK` before levels).
 - `CMD <name>` merges rules across repeated declarations of the same command.
 - `gamesData.js` read failures print `data read failed` and start from `{}`.
 - The parser is indentation-sensitive, with stack unwinding on equal-or-lower indentation.

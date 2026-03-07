@@ -12,6 +12,7 @@ TOP_LEVEL_ONLY_DIRECTIVES = {
     "VOID",
     "HIDDEN_LINE_CHAR",
     "DESCRIPTION",
+    "MINMOVES",
     "TICK",
     "TITLE",
     "WHITESPACE",
@@ -603,6 +604,15 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
         description = line.split("DESCRIPTION", 1)[1].strip()
         if state.levels:
             state.levels[-1]["description"] = description
+        return True
+
+    if head == "MINMOVES":
+        expect_exact_arity(parts, 2, line_no, "MINMOVES")
+        min_moves = parse_int(parts[1], line_no, "MINMOVES")
+        if min_moves < 0:
+            fail(line_no, "MINMOVES must be a non-negative integer")
+        if state.levels:
+            state.levels[-1]["minMoves"] = min_moves
         return True
 
     if head == "TICK":

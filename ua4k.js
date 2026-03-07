@@ -57,6 +57,17 @@ function setHtml(id, value) {
     document.getElementById(id).innerHTML = value;
 }
 
+function levelDescriptionHtml(level) {
+    let parts = [];
+    if (typeof level['description'] === 'string' && level['description'].length > 0) {
+        parts.push(level['description']);
+    }
+    if (Number.isInteger(level['minMoves'])) {
+        parts.push(`Min moves: ${level['minMoves']}`);
+    }
+    return parts.join('<br>');
+}
+
 function bindCommand(entry) {
     if (typeof entry === 'string') {
         return entry;
@@ -246,7 +257,7 @@ function initLevel() {
     setHtml('status', '');
     setHtml('title', level['title'] ? level['title'] : '');
     setHtml('author', level['author'] ? ('by ' + level['author']) : '');
-    setHtml('description', level['description'] ? level['description'] : '');
+    setHtml('description', levelDescriptionHtml(level));
     if (timerId) {
         debugLog("Clearing timer");
         clearInterval(timerId);
