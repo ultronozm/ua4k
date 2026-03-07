@@ -460,6 +460,7 @@ MINMOVES 49
 BIND w swarm_step_n "north" s swarm_step_s "south" a swarm_step_w "west" d swarm_step_e "east"
 
 ROTATE_CMDS swarm_step
+
  ;; normal movement
  ATOMIC
   1- -1
@@ -472,20 +473,13 @@ ROTATE_CMDS swarm_step
 
   2b -B
 
- ;; bumping into ordinary walls
- FOR s -
+ ZIP p 12 q 21
+
+  ;; bumping into walls
   ATOMIC
-   1s -1
+   p- -p
 
-   2x 2x
+   qx qx
 
- FOR s -
-  ATOMIC
-   2s -2
-
-   1x 1x
-
- ;; moving while side-by-side
- 12- -12
-
- 21- -21
+  ;; moving while side-by-side
+  pq- -pq
