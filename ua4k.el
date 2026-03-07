@@ -21,6 +21,12 @@
 (require 'json)
 (require 'subr-x)
 
+(cl-defstruct ua4k-pattern
+  rows
+  height
+  width
+  cells)
+
 (defgroup ua4k nil
   "Play UA4K games in Emacs."
   :group 'games)
@@ -54,6 +60,12 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
 (defvar-local ua4k--game-file nil)
 (defvar-local ua4k--last-row -1)
 (defvar-local ua4k--last-col -1)
+(defvar-local ua4k--header-start nil)
+(defvar-local ua4k--header-end nil)
+(defvar-local ua4k--board-start nil)
+(defvar-local ua4k--board-end nil)
+(defvar-local ua4k--status-start nil)
+(defvar-local ua4k--status-end nil)
 
 (defun ua4k--repo-root ()
   "Return the repository root for the current `ua4k.el' file."
@@ -78,6 +90,13 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
         (and (stringp key) (alist-get (intern key) object nil nil #'eq))
         (and (symbolp key) (alist-get (symbol-name key) object nil nil #'equal)))))
 
+(defun ua4k--obj-cell (object key)
+  "Return the cons cell for KEY in OBJECT, accepting string or symbol keys."
+  (when object
+    (or (assoc key object)
+        (and (stringp key) (assq (intern key) object))
+        (and (symbolp key) (assoc (symbol-name key) object)))))
+
 (defun ua4k--game-file-prompt-default ()
   "Return a sensible default game file for interactive commands."
   (or (and (boundp 'ua4k--game-file) ua4k--game-file)
@@ -94,6 +113,50 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
 (defun ua4k--string-list->board (rows)
   "Convert ROWS (a list of strings) into a mutable board."
   (vconcat (mapcar (lambda (row) (string-to-vector row)) rows)))
+
+(defun ua4k--normalize-pattern (rows)
+  "Convert ROWS into a compiled `ua4k-pattern'."
+  (if (ua4k-pattern-p rows)
+      rows
+    (let* ((rows-vec (if (vectorp rows) rows (vconcat rows)))
+           (height (length rows-vec))
+           (width (if (> height 0) (length (aref rows-vec 0)) 0))
+           (cells nil))
+      (dotimes (i height)
+        (let ((row (aref rows-vec i)))
+          (dotimes (j width)
+            (let ((cell (aref row j)))
+              (unless (eq cell ?\?)
+                (push (vector i j cell) cells))))))
+      (make-ua4k-pattern
+       :rows rows-vec
+       :height height
+       :width width
+       :cells (vconcat (nreverse cells))))))
+
+(defun ua4k--normalize-rule (rule)
+  "Normalize RULE patterns for faster runtime access."
+  (when rule
+    (let ((from-cell (ua4k--obj-cell rule "from"))
+          (to-cell (ua4k--obj-cell rule "to"))
+          (rules-cell (ua4k--obj-cell rule "rules")))
+      (when from-cell
+        (setcdr from-cell (ua4k--normalize-pattern (cdr from-cell))))
+      (when to-cell
+        (setcdr to-cell (ua4k--normalize-pattern (cdr to-cell))))
+      (when rules-cell
+        (setcdr rules-cell (mapcar #'ua4k--normalize-rule (cdr rules-cell)))))
+    rule))
+
+(defun ua4k--normalize-compiled-data (data)
+  "Normalize compiled DATA into faster runtime structures."
+  (dolist (pair (ua4k--obj-get data "rules"))
+    (setcdr pair (ua4k--normalize-rule (cdr pair))))
+  (setcdr (ua4k--obj-cell data "goals")
+          (mapcar #'ua4k--normalize-pattern (ua4k--obj-get data "goals")))
+  (setcdr (ua4k--obj-cell data "voids")
+          (mapcar #'ua4k--normalize-pattern (ua4k--obj-get data "voids")))
+  data)
 
 (defun ua4k--board-copy (board)
   "Deep copy BOARD."
@@ -117,13 +180,19 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
   (mapcar #'concat (append ua4k--board nil)))
 
 (defun ua4k--pattern-height (pattern)
-  (length pattern))
+  (if (ua4k-pattern-p pattern)
+      (ua4k-pattern-height pattern)
+    (length pattern)))
 
 (defun ua4k--pattern-width (pattern)
-  (if pattern (length (car pattern)) 0))
+  (if (ua4k-pattern-p pattern)
+      (ua4k-pattern-width pattern)
+    (if pattern (length (car pattern)) 0)))
 
 (defun ua4k--pattern-char (pattern row col)
-  (aref (nth row pattern) col))
+  (if (ua4k-pattern-p pattern)
+      (aref (aref (ua4k-pattern-rows pattern) row) col)
+    (aref (nth row pattern) col)))
 
 (defun ua4k--pattern-match (pattern row col)
   "Return non-nil if PATTERN matches the current board at ROW/COL."
@@ -135,21 +204,38 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
                (cl-loop for i from 0 below height
                         always (<= (+ col width)
                                    (ua4k--board-row-width (+ row i)))))
-      (cl-loop for i from 0 below height
-               always
-               (cl-loop for j from 0 below width
-                        always
-                        (let ((cell (ua4k--pattern-char pattern i j))
-                              (board-cell (aref (aref ua4k--board (+ row i)) (+ col j))))
-                          (or (eq cell ?\?)
-                              (eq cell board-cell))))))))
+      (let ((cells (if (ua4k-pattern-p pattern)
+                       (ua4k-pattern-cells pattern)
+                     nil)))
+        (if cells
+            (catch 'ua4k-mismatch
+              (dotimes (idx (length cells) t)
+                (let* ((cell (aref cells idx))
+                       (i (aref cell 0))
+                       (j (aref cell 1))
+                       (value (aref cell 2)))
+                  (unless (eq value (aref (aref ua4k--board (+ row i)) (+ col j)))
+                    (throw 'ua4k-mismatch nil)))))
+          (cl-loop for i from 0 below height
+                   always
+                   (cl-loop for j from 0 below width
+                            always
+                            (let ((cell (ua4k--pattern-char pattern i j))
+                                  (board-cell (aref (aref ua4k--board (+ row i)) (+ col j))))
+                              (or (eq cell ?\?)
+                                  (eq cell board-cell))))))))))
 
 (defun ua4k--pattern-occurs (pattern)
   "Return non-nil if PATTERN occurs anywhere on the current board."
-  (cl-loop for row from 0 below (ua4k--board-height)
+  (let ((pattern-height (ua4k--pattern-height pattern))
+        (pattern-width (ua4k--pattern-width pattern))
+        (board-height (ua4k--board-height)))
+    (cl-loop for row from 0 to (- board-height pattern-height)
            thereis
-           (cl-loop for col from 0 below (ua4k--board-width)
-                    thereis (ua4k--pattern-match pattern row col))))
+           (let ((max-col (- (ua4k--board-row-width row) pattern-width)))
+             (and (>= max-col 0)
+                  (cl-loop for col from 0 to max-col
+                           thereis (ua4k--pattern-match pattern row col)))))))
 
 (defun ua4k--level-complete-p ()
   "Return non-nil if goals are satisfied and voids are absent."
@@ -168,19 +254,31 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
   (let* ((from-pattern (ua4k--rule-field rule "from"))
          (to-pattern (ua4k--rule-field rule "to"))
          (side-effects (ua4k--rule-field rule "side_effects"))
-         (height (ua4k--pattern-height to-pattern))
-         (width (ua4k--pattern-width to-pattern))
-         (snapshot (ua4k--board-copy ua4k--board)))
-    (dotimes (i height)
-      (dotimes (j width)
-        (let ((cell (ua4k--pattern-char to-pattern i j)))
-          (unless (eq cell ?\?)
-            (aset (aref ua4k--board (+ row i)) (+ col j) cell)))))
+         (needs-rollback (cl-some (lambda (side-effect)
+                                    (string-suffix-p "!" side-effect))
+                                  side-effects))
+         (snapshot (and needs-rollback (ua4k--board-copy ua4k--board))))
+    (if (ua4k-pattern-p to-pattern)
+        (let ((cells (ua4k-pattern-cells to-pattern)))
+          (dotimes (idx (length cells))
+            (let* ((cell (aref cells idx))
+                   (i (aref cell 0))
+                   (j (aref cell 1))
+                   (value (aref cell 2)))
+              (aset (aref ua4k--board (+ row i)) (+ col j) value))))
+      (let ((height (ua4k--pattern-height to-pattern))
+            (width (ua4k--pattern-width to-pattern)))
+        (dotimes (i height)
+          (dotimes (j width)
+            (let ((cell (ua4k--pattern-char to-pattern i j)))
+              (unless (eq cell ?\?)
+                (aset (aref ua4k--board (+ row i)) (+ col j) cell)))))))
     (dolist (side-effect side-effects)
       (if (string-suffix-p "!" side-effect)
           (let ((name (substring side-effect 0 -1)))
             (unless (ua4k--apply-rule (ua4k--obj-get ua4k--rules name))
-              (setq ua4k--board snapshot)
+              (when snapshot
+                (setq ua4k--board snapshot))
               (cl-return-from ua4k--apply-rule-at nil)))
         (ua4k--apply-rule (ua4k--obj-get ua4k--rules side-effect))))
     t))
@@ -190,16 +288,18 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
   (let* ((min-row (or min-row 0))
          (min-col (or min-col 0))
          (height (ua4k--board-height))
-         (width (ua4k--board-width))
          (method (ua4k--rule-field rule "method"))
-         (from-pattern (ua4k--rule-field rule "from")))
+         (from-pattern (ua4k--rule-field rule "from"))
+         (pattern-width (ua4k--pattern-width from-pattern)))
     (cond
      ((string= method "random")
       (let (matches)
         (cl-loop for row from min-row below height do
-                 (cl-loop for col from min-col below width do
-                          (when (ua4k--pattern-match from-pattern row col)
-                            (push (cons row col) matches))))
+                 (let ((max-col (- (ua4k--board-row-width row) pattern-width)))
+                   (when (>= max-col min-col)
+                     (cl-loop for col from min-col to max-col do
+                              (when (ua4k--pattern-match from-pattern row col)
+                                (push (cons row col) matches))))))
         (when matches
           (let* ((match (nth (random (length matches)) matches))
                  (row (car match))
@@ -210,20 +310,24 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
      ((string= method "lastmatch")
       (catch 'ua4k-found
         (cl-loop for row downfrom (1- height) to min-row do
-                 (cl-loop for col downfrom (1- width) to min-col do
-                          (when (ua4k--pattern-match from-pattern row col)
-                            (setq ua4k--last-row row
-                                  ua4k--last-col col)
-                            (throw 'ua4k-found (ua4k--apply-rule-at rule row col)))))
+                 (let ((max-col (- (ua4k--board-row-width row) pattern-width)))
+                   (when (>= max-col min-col)
+                     (cl-loop for col downfrom max-col to min-col do
+                              (when (ua4k--pattern-match from-pattern row col)
+                                (setq ua4k--last-row row
+                                      ua4k--last-col col)
+                                (throw 'ua4k-found (ua4k--apply-rule-at rule row col)))))))
         nil))
      (t
       (catch 'ua4k-found
         (cl-loop for row from min-row below height do
-                 (cl-loop for col from min-col below width do
-                          (when (ua4k--pattern-match from-pattern row col)
-                            (setq ua4k--last-row row
-                                  ua4k--last-col col)
-                            (throw 'ua4k-found (ua4k--apply-rule-at rule row col)))))
+                 (let ((max-col (- (ua4k--board-row-width row) pattern-width)))
+                   (when (>= max-col min-col)
+                     (cl-loop for col from min-col to max-col do
+                              (when (ua4k--pattern-match from-pattern row col)
+                                (setq ua4k--last-row row
+                                      ua4k--last-col col)
+                                (throw 'ua4k-found (ua4k--apply-rule-at rule row col)))))))
         nil)))))
 
 (defun ua4k--apply-atomic-rule (rule)
@@ -293,23 +397,34 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
         " "
       text)))
 
-(defun ua4k--insert-board-row (row)
-  "Insert ROW with Emacs faces derived from the game's color map."
-  (let ((hidden nil))
-    (dotimes (idx (length row))
-      (let* ((cell (aref row idx))
-             (cell-text (char-to-string cell)))
-        (when (member cell-text ua4k--hidden-line-chars)
-          (setq hidden t))
-        (unless hidden
-          (let ((display (ua4k--display-text cell))
-                (color (ua4k--obj-get ua4k--color-map cell-text)))
-            (insert
-             (if color
-                 (propertize display 'face `(:foreground ,color))
-               display))))))
-    (unless hidden
-      (insert "\n"))))
+(defun ua4k--board-string ()
+  "Return the rendered board as a string with text properties."
+  (let ((board ua4k--board)
+        (char-map ua4k--char-map)
+        (color-map ua4k--color-map)
+        (whitespace-chars ua4k--whitespace-chars)
+        (hidden-line-chars ua4k--hidden-line-chars))
+    (with-temp-buffer
+      (dotimes (row-idx (length board))
+        (let ((row (aref board row-idx))
+              (hidden nil))
+          (dotimes (idx (length row))
+            (let* ((cell (aref row idx))
+                   (cell-text (char-to-string cell)))
+              (when (member cell-text hidden-line-chars)
+                (setq hidden t))
+              (unless hidden
+                (let* ((display (or (ua4k--obj-get char-map cell-text) cell-text))
+                       (display (if (member cell-text whitespace-chars) " " display))
+                       (color (ua4k--obj-get color-map cell-text)))
+                  (insert
+                   (if color
+                       (propertize display 'face `(:foreground ,color))
+                     display))))))
+          (unless hidden
+            (insert "\n"))))
+      (insert "\n")
+      (buffer-string))))
 
 (defun ua4k--level-label ()
   "Return the level label shown in the header."
@@ -317,25 +432,59 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
       "Snippet"
     (format "Level %d/%d" ua4k--level-number (1- (length ua4k--levels)))))
 
-(defun ua4k--render ()
-  "Render the current level into the current buffer."
+(defun ua4k--header-string ()
+  "Return the dynamic header string."
+  (format "%s  %s  Moves: %d\n"
+          (file-name-base (or ua4k--game-file "ua4k"))
+          (ua4k--level-label)
+          (length ua4k--board-history)))
+
+(defun ua4k--status-string ()
+  "Return the dynamic completion-status string."
+  (if (ua4k--level-complete-p)
+      "Level complete. Press any movement key to advance.\n\n"
+    "\n"))
+
+(defun ua4k--make-region-markers ()
+  "Return a start/end marker pair for inserted text at point."
+  (let ((start (copy-marker (point) nil)))
+    (insert "")
+    (let ((end (copy-marker (point) t)))
+      (cons start end))))
+
+(defun ua4k--insert-region-and-markers (string)
+  "Insert STRING and return a start/end marker pair for it."
+  (let ((start (copy-marker (point) nil)))
+    (insert string)
+    (cons start (copy-marker (point) nil))))
+
+(defun ua4k--replace-region-between-markers (start end string)
+  "Replace text between START and END markers with STRING."
+  (save-excursion
+    (goto-char start)
+    (delete-region start end)
+    (insert string)
+    (set-marker end (point))))
+
+(defun ua4k--render-full ()
+  "Render the entire buffer, rebuilding static and dynamic sections."
   (let* ((inhibit-read-only t)
          (level (ua4k--current-level))
          (title (ua4k--rule-field level "title"))
          (description (ua4k--rule-field level "description"))
-         (min-moves (ua4k--rule-field level "minMoves"))
-         (game-name (file-name-base (or ua4k--game-file "ua4k"))))
+         (min-moves (ua4k--rule-field level "minMoves")))
     (erase-buffer)
-    (insert (format "%s  %s  Moves: %d\n"
-                    game-name
-                    (ua4k--level-label)
-                    (length ua4k--board-history)))
+    (pcase-let ((`(,header-start . ,header-end)
+                 (ua4k--insert-region-and-markers (ua4k--header-string))))
+      (setq ua4k--header-start header-start
+            ua4k--header-end header-end))
     (when (and title (not (string-empty-p title)))
       (insert (format "%s\n" title)))
     (insert "\n")
-    (dotimes (idx (length ua4k--board))
-      (ua4k--insert-board-row (aref ua4k--board idx)))
-    (insert "\n")
+    (pcase-let ((`(,board-start . ,board-end)
+                 (ua4k--insert-region-and-markers (ua4k--board-string))))
+      (setq ua4k--board-start board-start
+            ua4k--board-end board-end))
     (when (and description (not (string-empty-p description)))
       (insert description "\n"))
     (when (integerp min-moves)
@@ -343,8 +492,10 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
     (when (or (and description (not (string-empty-p description)))
               (integerp min-moves))
       (insert "\n"))
-    (when (ua4k--level-complete-p)
-      (insert "Level complete. Press any movement key to advance.\n\n"))
+    (pcase-let ((`(,status-start . ,status-end)
+                 (ua4k--insert-region-and-markers (ua4k--status-string))))
+      (setq ua4k--status-start status-start
+            ua4k--status-end status-end))
     (insert "Bindings:\n")
     (mapc (lambda (pair)
             (insert (format "  %s  %s\n"
@@ -354,13 +505,37 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
     (insert "\nExtra:\n  u  undo\n  U  restart level\n  L  jump to level\n  q  quit\n")
     (goto-char (point-min))))
 
+(defun ua4k--render ()
+  "Render the current level into the current buffer."
+  (let ((inhibit-read-only t))
+    (if (and (markerp ua4k--header-start)
+             (markerp ua4k--header-end)
+             (markerp ua4k--board-start)
+             (markerp ua4k--board-end)
+             (markerp ua4k--status-start)
+             (markerp ua4k--status-end))
+        (progn
+          (ua4k--replace-region-between-markers
+           ua4k--header-start ua4k--header-end (ua4k--header-string))
+          (ua4k--replace-region-between-markers
+           ua4k--board-start ua4k--board-end (ua4k--board-string))
+          (ua4k--replace-region-between-markers
+           ua4k--status-start ua4k--status-end (ua4k--status-string)))
+      (ua4k--render-full))))
+
 (defun ua4k--init-level ()
   "Load the current level into the runtime."
   (let ((level (ua4k--current-level)))
     (setq ua4k--board (ua4k--string-list->board (ua4k--rule-field level "board")))
     (setq ua4k--board-history nil)
     (setq ua4k--last-row -1
-          ua4k--last-col -1)
+          ua4k--last-col -1
+          ua4k--header-start nil
+          ua4k--header-end nil
+          ua4k--board-start nil
+          ua4k--board-end nil
+          ua4k--status-start nil
+          ua4k--status-end nil)
     (when (ua4k--rule-field level "tickInterval")
       (message "ua4k.el does not support tick levels yet"))))
 
@@ -455,6 +630,7 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
   "Open GAME-FILE using compiled DATA at LEVEL."
   (let ((buffer (get-buffer-create (ua4k--buffer-name game-file))))
     (with-current-buffer buffer
+      (setq data (ua4k--normalize-compiled-data data))
       (ua4k-mode)
       (setq ua4k--game-file game-file
             ua4k--game-data data
