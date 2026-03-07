@@ -39,18 +39,6 @@ DESCRIPTION Force fields '#': you cannot move into them, so they reroute the pai
 
 MINMOVES 9
 
-xxxxxxxx
-x-#-2--x
-xxb--x-x
-x---#--x
-xa-#1--x
-x------x
-xxxxxxxx
-
-DESCRIPTION Rectangle 1 (7x9): a stretched compact board. The longer horizontal runway changes the reset timing.
-
-MINMOVES 13
-
 xxxxxx
 x#x#2x
 x----x
@@ -67,17 +55,37 @@ xxxxx
 
 MINMOVES 15
 
-xxxxxxxxxxx
-x--#---2--x
-xxb--x----x
-x---##----x
-xxa-#1----x
-xx--------x
-xxxxxxxxxxx
+xxxxxxxx
+x-#-2--x
+xxb--x-x
+x---#--x
+xa-#1--x
+x------x
+xxxxxxxx
 
-DESCRIPTION Wide Pocket 1 (7x11): one extra pocket is enough to make the horizontal slack genuinely matter.
+DESCRIPTION Rectangle 1 (7x9): a stretched compact board. The longer horizontal runway changes the reset timing.
 
-MINMOVES 15
+MINMOVES 13
+
+xxxxxx
+xb---x
+x-a1xx
+x##2-x
+xxxxxx
+
+MINMOVES 16
+
+xxxxxxxx
+x-#---2x
+xb--x--x
+x--##--x
+xa-#1--x
+x------x
+xxxxxxxx
+
+DESCRIPTION Force fields 1: a first compact '#' puzzle. The blockers matter, but the board still gives you room to recover.
+
+MINMOVES 11
 
 xxxxxxx
 x2#--xx
@@ -90,14 +98,6 @@ xxxxxxx
 DESCRIPTION Challenge Pack 4 (7x7): sparse geometry, but the wrong bump timing strands a drone on the wrong side.
 
 MINMOVES 15
-
-xxxxxx
-xb---x
-x-a1xx
-x##2-x
-xxxxxx
-
-MINMOVES 16
 
 xxxxxxx
 xx2x--x
@@ -121,17 +121,17 @@ xxxxxxxxxxxxx
 
 MINMOVES 17
 
-xxxxxxxx
-x-#---2x
-xb--x--x
-x--##--x
-xa-#1--x
-x------x
-xxxxxxxx
+xxxxxxxxxxx
+x--#---2--x
+xxb--x----x
+x---##----x
+xxa-#1----x
+xx--------x
+xxxxxxxxxxx
 
-DESCRIPTION Force fields 1: a first compact '#' puzzle. The blockers matter, but the board still gives you room to recover.
+DESCRIPTION Wide Pocket 1 (7x11): one extra pocket is enough to make the horizontal slack genuinely matter.
 
-MINMOVES 11
+MINMOVES 15
 
 xxxxxxx
 x--#-xx
@@ -154,18 +154,6 @@ xx----#----x
 xxxxxxxxxxxx
 
 DESCRIPTION Rectangle Split 1 (7x12): the old long rectangle cut down into a tighter pocket-transfer board.
-
-MINMOVES 17
-
-xxxxxxxxxxxx
-x--#---2---x
-xxb--x-----x
-x---##-----x
-xxa-#1-----x
-xx---------x
-xxxxxxxxxxxx
-
-DESCRIPTION Wide Pocket 2 (7x12): same family, but now the reset lane is long enough to force a fuller cycle.
 
 MINMOVES 17
 
@@ -220,18 +208,6 @@ DESCRIPTION Hook Turn 1 (7x10): short and mean. The lower-left hook makes the re
 
 MINMOVES 22
 
-xxxxxxxxxxx
-x---#2-----x
-xx-b-x-#---x
-x---##-----x
-xxa--1-#---x
-xx--------xx
-xxxxxxxxxxx
-
-DESCRIPTION Offset Latch 1 (7x11): a medium board where the main challenge is carrying the correct offset through a cramped latch.
-
-MINMOVES 22
-
 xxxxxxxx
 x-#---2x
 xb--x--x
@@ -243,6 +219,30 @@ xx#xxxxx
 DESCRIPTION Force fields 2: one more blocker trims the easy reset and forces a more careful route.
 
 MINMOVES 13
+
+xxxxxxxxxxxx
+x--#---2---x
+xxb--x-----x
+x---##-----x
+xxa-#1-----x
+xx---------x
+xxxxxxxxxxxx
+
+DESCRIPTION Wide Pocket 2 (7x12): same family, but now the reset lane is long enough to force a fuller cycle.
+
+MINMOVES 17
+
+xxxxxxxxxxx
+x---#2-----x
+xx-b-x-#---x
+x---##-----x
+xxa--1-#---x
+xx--------xx
+xxxxxxxxxxx
+
+DESCRIPTION Offset Latch 1 (7x11): a medium board where the main challenge is carrying the correct offset through a cramped latch.
+
+MINMOVES 22
 
 xxxxxxxxxxxx
 x--#--2----x

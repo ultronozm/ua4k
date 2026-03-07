@@ -68,19 +68,6 @@
     },
     {
       "board": [
-        "xxxxxxxx",
-        "x-#-2--x",
-        "xxb--x-x",
-        "x---#--x",
-        "xa-#1--x",
-        "x------x",
-        "xxxxxxxx"
-      ],
-      "description": "Rectangle 1 (7x9): a stretched compact board. The longer horizontal runway changes the reset timing.",
-      "minMoves": 13
-    },
-    {
-      "board": [
         "xxxxxx",
         "x#x#2x",
         "x----x",
@@ -101,16 +88,39 @@
     },
     {
       "board": [
-        "xxxxxxxxxxx",
-        "x--#---2--x",
-        "xxb--x----x",
-        "x---##----x",
-        "xxa-#1----x",
-        "xx--------x",
-        "xxxxxxxxxxx"
+        "xxxxxxxx",
+        "x-#-2--x",
+        "xxb--x-x",
+        "x---#--x",
+        "xa-#1--x",
+        "x------x",
+        "xxxxxxxx"
       ],
-      "description": "Wide Pocket 1 (7x11): one extra pocket is enough to make the horizontal slack genuinely matter.",
-      "minMoves": 15
+      "description": "Rectangle 1 (7x9): a stretched compact board. The longer horizontal runway changes the reset timing.",
+      "minMoves": 13
+    },
+    {
+      "board": [
+        "xxxxxx",
+        "xb---x",
+        "x-a1xx",
+        "x##2-x",
+        "xxxxxx"
+      ],
+      "minMoves": 16
+    },
+    {
+      "board": [
+        "xxxxxxxx",
+        "x-#---2x",
+        "xb--x--x",
+        "x--##--x",
+        "xa-#1--x",
+        "x------x",
+        "xxxxxxxx"
+      ],
+      "description": "Force fields 1: a first compact '#' puzzle. The blockers matter, but the board still gives you room to recover.",
+      "minMoves": 11
     },
     {
       "board": [
@@ -124,16 +134,6 @@
       ],
       "description": "Challenge Pack 4 (7x7): sparse geometry, but the wrong bump timing strands a drone on the wrong side.",
       "minMoves": 15
-    },
-    {
-      "board": [
-        "xxxxxx",
-        "xb---x",
-        "x-a1xx",
-        "x##2-x",
-        "xxxxxx"
-      ],
-      "minMoves": 16
     },
     {
       "board": [
@@ -162,16 +162,16 @@
     },
     {
       "board": [
-        "xxxxxxxx",
-        "x-#---2x",
-        "xb--x--x",
-        "x--##--x",
-        "xa-#1--x",
-        "x------x",
-        "xxxxxxxx"
+        "xxxxxxxxxxx",
+        "x--#---2--x",
+        "xxb--x----x",
+        "x---##----x",
+        "xxa-#1----x",
+        "xx--------x",
+        "xxxxxxxxxxx"
       ],
-      "description": "Force fields 1: a first compact '#' puzzle. The blockers matter, but the board still gives you room to recover.",
-      "minMoves": 11
+      "description": "Wide Pocket 1 (7x11): one extra pocket is enough to make the horizontal slack genuinely matter.",
+      "minMoves": 15
     },
     {
       "board": [
@@ -197,19 +197,6 @@
         "xxxxxxxxxxxx"
       ],
       "description": "Rectangle Split 1 (7x12): the old long rectangle cut down into a tighter pocket-transfer board.",
-      "minMoves": 17
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxx",
-        "x--#---2---x",
-        "xxb--x-----x",
-        "x---##-----x",
-        "xxa-#1-----x",
-        "xx---------x",
-        "xxxxxxxxxxxx"
-      ],
-      "description": "Wide Pocket 2 (7x12): same family, but now the reset lane is long enough to force a fuller cycle.",
       "minMoves": 17
     },
     {
@@ -272,19 +259,6 @@
     },
     {
       "board": [
-        "xxxxxxxxxxx",
-        "x---#2-----x",
-        "xx-b-x-#---x",
-        "x---##-----x",
-        "xxa--1-#---x",
-        "xx--------xx",
-        "xxxxxxxxxxx"
-      ],
-      "description": "Offset Latch 1 (7x11): a medium board where the main challenge is carrying the correct offset through a cramped latch.",
-      "minMoves": 22
-    },
-    {
-      "board": [
         "xxxxxxxx",
         "x-#---2x",
         "xb--x--x",
@@ -295,6 +269,32 @@
       ],
       "description": "Force fields 2: one more blocker trims the easy reset and forces a more careful route.",
       "minMoves": 13
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxx",
+        "x--#---2---x",
+        "xxb--x-----x",
+        "x---##-----x",
+        "xxa-#1-----x",
+        "xx---------x",
+        "xxxxxxxxxxxx"
+      ],
+      "description": "Wide Pocket 2 (7x12): same family, but now the reset lane is long enough to force a fuller cycle.",
+      "minMoves": 17
+    },
+    {
+      "board": [
+        "xxxxxxxxxxx",
+        "x---#2-----x",
+        "xx-b-x-#---x",
+        "x---##-----x",
+        "xxa--1-#---x",
+        "xx--------xx",
+        "xxxxxxxxxxx"
+      ],
+      "description": "Offset Latch 1 (7x11): a medium board where the main challenge is carrying the correct offset through a cramped latch.",
+      "minMoves": 22
     },
     {
       "board": [
