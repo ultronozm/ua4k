@@ -1,0 +1,1923 @@
+{
+  "binds": {
+    "A": {
+      "command": "look_w",
+      "description": "face west"
+    },
+    "D": {
+      "command": "look_e",
+      "description": "face east"
+    },
+    "S": {
+      "command": "look_s",
+      "description": "face south"
+    },
+    "W": {
+      "command": "look_n",
+      "description": "face north"
+    },
+    "a": {
+      "command": "move_w",
+      "description": "west"
+    },
+    "d": {
+      "command": "move_e",
+      "description": "east"
+    },
+    "e": {
+      "command": "mine",
+      "description": "mine amber"
+    },
+    "o": {
+      "command": "build_lantern",
+      "description": "build lantern"
+    },
+    "s": {
+      "command": "move_s",
+      "description": "south"
+    },
+    "w": {
+      "command": "move_n",
+      "description": "north"
+    },
+    "x": {
+      "command": "dismantle_lantern",
+      "description": "dismantle lantern"
+    }
+  },
+  "charMap": {},
+  "colorMap": {
+    "!": "#fff2cc",
+    "*": "#ffd966",
+    "-": "#aaaaaa",
+    "A": "#e69138",
+    "X": "#cc0000",
+    "o": "#ffb347",
+    "x": "#3f3f3f",
+    "~": "#3d85c6"
+  },
+  "globalTick": null,
+  "goals": [],
+  "hiddenLineChars": [
+    "%"
+  ],
+  "levels": [
+    {
+      "board": [
+        "xxxxxxxxxxxxxxx",
+        "x*--~--o--!---x",
+        "x-xx~xx-xx----x",
+        "x---~---------x",
+        "x---~--o--~---x",
+        "x------!--~---x",
+        "xxxxxxxxxxxxxxx",
+        "LI:............|---------",
+        "A:_____|-----------------",
+        "%:-------------------->-%%"
+      ],
+      "description": "Shadows '~' cost two light to cross. Lanterns 'o' refill your light when you stand next to them, so the first lesson is to hop from pool of light to pool of light.",
+      "minMoves": 17
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxxxx",
+        "x*--~---!o-----x",
+        "x-xx~xx-x-----x",
+        "x---~A--x-----x",
+        "x---------------x",
+        "x---------------x",
+        "xxxxxxxxxxxxxxxxx",
+        "LI:............|---------",
+        "A:_____|-----------------",
+        "%:-------------------->-%%"
+      ],
+      "description": "Amber crystals 'A' can be mined with 'e'. Spend one amber with 'o' to build a new lantern in front of you.",
+      "minMoves": 13
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxxxxx",
+        "x*---~-----!----x",
+        "x-xx-~xxx-xx---x",
+        "x-A--~--o-xx---x",
+        "xxx-xxxx-~--!--x",
+        "x------o-~-----x",
+        "x--------------x",
+        "xxxxxxxxxxxxxxxxxx",
+        "LI:............|---------",
+        "A:_____|-----------------",
+        "%:-------------------->-%%"
+      ],
+      "description": "Dismantling a lantern with 'x' gives the amber back. This makes the network movable instead of permanent.",
+      "minMoves": 22
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxxx",
+        "x*--~----!-----x",
+        "x-xx~xx-xxo---x",
+        "x-A-~--o-xx---x",
+        "xxx-xxxx-~----x",
+        "x!--~~~~-~--!-x",
+        "x----A--------x",
+        "xxxxxxxxxxxxxxxx",
+        "LI:............|---------",
+        "A:_____|-----------------",
+        "%:-------------------->-%%"
+      ],
+      "description": "Open night map: mine amber, move your lantern chain forward, and clear the relics without letting the dark eat your light.",
+      "minMoves": 28
+    }
+  ],
+  "rules": {
+    "build_lantern": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "spend_amber",
+              "type": "call"
+            },
+            {
+              "rules": [
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        ">?%"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        ">?%"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "*-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "*o"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        ">?%"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        ">?%"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "*~"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "*o"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "v?%"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "v?%"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "*",
+                        "-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "*",
+                        "o"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "v?%"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "v?%"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "*",
+                        "~"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "*",
+                        "o"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "<?%"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "<?%"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "-*"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "o*"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "<?%"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "<?%"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "~*"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "o*"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "^?%"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "^?%"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "-",
+                        "*"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "o",
+                        "*"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "^?%"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "^?%"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "~",
+                        "*"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "o",
+                        "*"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                }
+              ],
+              "type": "match1"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "consume_light1": {
+      "rules": [
+        {
+          "from": [
+            "LI:.............d"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:............-d"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:............d"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:...........-d"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:...........d"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:..........-d"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:..........d"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:.........-d"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:.........d"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:........-d"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:........d"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:.......-d"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:.......d"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:......-d"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:......d"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:.....-d"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:.....d"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:....-d"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:....d"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:...-d"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:...d"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:..-d"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:..d"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:.-d"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:.d"
+          ],
+          "method": "firstmatch",
+          "side_effects": [
+            "die"
+          ],
+          "to": [
+            "LI:-d"
+          ],
+          "type": "simple"
+        }
+      ],
+      "type": "match1"
+    },
+    "consume_light2": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "consume_light1",
+              "type": "call"
+            },
+            {
+              "name": "consume_light1",
+              "type": "call"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "die": {
+      "rules": [
+        {
+          "from": [
+            "*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "X"
+          ],
+          "type": "simple"
+        }
+      ],
+      "type": "match1"
+    },
+    "dismantle_lantern": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    ">?%"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">?%"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "*o"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "*-"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic"
+            },
+            {
+              "name": "gain_amber",
+              "type": "call"
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    "v?%"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v?%"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "*",
+                    "o"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "*",
+                    "-"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic"
+            },
+            {
+              "name": "gain_amber",
+              "type": "call"
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    "<?%"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "<?%"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "o*"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-*"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic"
+            },
+            {
+              "name": "gain_amber",
+              "type": "call"
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    "^?%"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "^?%"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "o",
+                    "*"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-",
+                    "*"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic"
+            },
+            {
+              "name": "gain_amber",
+              "type": "call"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "gain_amber": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "A:_"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:A"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:A_"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AA"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:AA_"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AAA"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:AAA_"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AAAA"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:AAAA_"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AAAAA"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:AAAAA_"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AAAAAA"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:AAAAAA_"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AAAAAAA"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:AAAAAAA_"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AAAAAAAA"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:AAAAAAAA_"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AAAAAAAAA"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:AAAAAAAAA_"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AAAAAAAAAA"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "look_e": {
+      "rules": [
+        {
+          "from": [
+            "??%"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            ">?%"
+          ],
+          "type": "simple"
+        }
+      ],
+      "type": "match1"
+    },
+    "look_n": {
+      "rules": [
+        {
+          "from": [
+            "%",
+            "?",
+            "?"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "%",
+            "?",
+            "^"
+          ],
+          "type": "simple"
+        }
+      ],
+      "type": "match1"
+    },
+    "look_s": {
+      "rules": [
+        {
+          "from": [
+            "?",
+            "?",
+            "%"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "v",
+            "?",
+            "%"
+          ],
+          "type": "simple"
+        }
+      ],
+      "type": "match1"
+    },
+    "look_w": {
+      "rules": [
+        {
+          "from": [
+            "%??"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "%?<"
+          ],
+          "type": "simple"
+        }
+      ],
+      "type": "match1"
+    },
+    "maybe_relight": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "*o"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "*o"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "*",
+                    "o"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "*",
+                    "o"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "o*"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "o*"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "o",
+                    "*"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "o",
+                    "*"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "match1"
+            },
+            {
+              "name": "refill_light",
+              "type": "call"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "mine": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    ">?%"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ">?%"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "*A"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "*-"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic"
+            },
+            {
+              "name": "gain_amber",
+              "type": "call"
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    "v?%"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "v?%"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "*",
+                    "A"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "*",
+                    "-"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic"
+            },
+            {
+              "name": "gain_amber",
+              "type": "call"
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    "<?%"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "<?%"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "A*"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-*"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic"
+            },
+            {
+              "name": "gain_amber",
+              "type": "call"
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    "^?%"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "^?%"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "A",
+                    "*"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-",
+                    "*"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic"
+            },
+            {
+              "name": "gain_amber",
+              "type": "call"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_e": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "maybe_relight",
+              "type": "call"
+            },
+            {
+              "name": "look_e",
+              "type": "call"
+            },
+            {
+              "rules": [
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "*-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-*"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "*!"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-*"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "*A"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-*"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "name": "consume_light1",
+                      "type": "call"
+                    },
+                    {
+                      "name": "maybe_relight",
+                      "type": "call"
+                    }
+                  ],
+                  "type": "try_all"
+                },
+                {
+                  "rules": [
+                    {
+                      "name": "consume_light1",
+                      "type": "call"
+                    },
+                    {
+                      "name": "maybe_relight",
+                      "type": "call"
+                    }
+                  ],
+                  "type": "try_all"
+                },
+                {
+                  "rules": [
+                    {
+                      "name": "consume_light1",
+                      "type": "call"
+                    },
+                    {
+                      "name": "maybe_relight",
+                      "type": "call"
+                    }
+                  ],
+                  "type": "try_all"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "*~"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-*"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "name": "consume_light2",
+                          "type": "call"
+                        },
+                        {
+                          "name": "maybe_relight",
+                          "type": "call"
+                        }
+                      ],
+                      "type": "try_all"
+                    }
+                  ],
+                  "type": "atomic"
+                }
+              ],
+              "type": "match1"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_n": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "maybe_relight",
+              "type": "call"
+            },
+            {
+              "name": "look_n",
+              "type": "call"
+            },
+            {
+              "rules": [
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "-",
+                        "*"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "*",
+                        "-"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "!",
+                        "*"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "*",
+                        "-"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "A",
+                        "*"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "*",
+                        "-"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "name": "consume_light1",
+                      "type": "call"
+                    },
+                    {
+                      "name": "maybe_relight",
+                      "type": "call"
+                    }
+                  ],
+                  "type": "try_all"
+                },
+                {
+                  "rules": [
+                    {
+                      "name": "consume_light1",
+                      "type": "call"
+                    },
+                    {
+                      "name": "maybe_relight",
+                      "type": "call"
+                    }
+                  ],
+                  "type": "try_all"
+                },
+                {
+                  "rules": [
+                    {
+                      "name": "consume_light1",
+                      "type": "call"
+                    },
+                    {
+                      "name": "maybe_relight",
+                      "type": "call"
+                    }
+                  ],
+                  "type": "try_all"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "~",
+                        "*"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "*",
+                        "-"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "name": "consume_light2",
+                          "type": "call"
+                        },
+                        {
+                          "name": "maybe_relight",
+                          "type": "call"
+                        }
+                      ],
+                      "type": "try_all"
+                    }
+                  ],
+                  "type": "atomic"
+                }
+              ],
+              "type": "match1"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_s": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "maybe_relight",
+              "type": "call"
+            },
+            {
+              "name": "look_s",
+              "type": "call"
+            },
+            {
+              "rules": [
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "*",
+                        "-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-",
+                        "*"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "*",
+                        "!"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-",
+                        "*"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "*",
+                        "A"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-",
+                        "*"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "name": "consume_light1",
+                      "type": "call"
+                    },
+                    {
+                      "name": "maybe_relight",
+                      "type": "call"
+                    }
+                  ],
+                  "type": "try_all"
+                },
+                {
+                  "rules": [
+                    {
+                      "name": "consume_light1",
+                      "type": "call"
+                    },
+                    {
+                      "name": "maybe_relight",
+                      "type": "call"
+                    }
+                  ],
+                  "type": "try_all"
+                },
+                {
+                  "rules": [
+                    {
+                      "name": "consume_light1",
+                      "type": "call"
+                    },
+                    {
+                      "name": "maybe_relight",
+                      "type": "call"
+                    }
+                  ],
+                  "type": "try_all"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "*",
+                        "~"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-",
+                        "*"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "name": "consume_light2",
+                          "type": "call"
+                        },
+                        {
+                          "name": "maybe_relight",
+                          "type": "call"
+                        }
+                      ],
+                      "type": "try_all"
+                    }
+                  ],
+                  "type": "atomic"
+                }
+              ],
+              "type": "match1"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_w": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "maybe_relight",
+              "type": "call"
+            },
+            {
+              "name": "look_w",
+              "type": "call"
+            },
+            {
+              "rules": [
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "-*"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "*-"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "!*"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "*-"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "A*"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "*-"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "name": "consume_light1",
+                      "type": "call"
+                    },
+                    {
+                      "name": "maybe_relight",
+                      "type": "call"
+                    }
+                  ],
+                  "type": "try_all"
+                },
+                {
+                  "rules": [
+                    {
+                      "name": "consume_light1",
+                      "type": "call"
+                    },
+                    {
+                      "name": "maybe_relight",
+                      "type": "call"
+                    }
+                  ],
+                  "type": "try_all"
+                },
+                {
+                  "rules": [
+                    {
+                      "name": "consume_light1",
+                      "type": "call"
+                    },
+                    {
+                      "name": "maybe_relight",
+                      "type": "call"
+                    }
+                  ],
+                  "type": "try_all"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "~*"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "*-"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "name": "consume_light2",
+                          "type": "call"
+                        },
+                        {
+                          "name": "maybe_relight",
+                          "type": "call"
+                        }
+                      ],
+                      "type": "try_all"
+                    }
+                  ],
+                  "type": "atomic"
+                }
+              ],
+              "type": "match1"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "refill_light": {
+      "rules": [
+        {
+          "from": [
+            "LI:?|"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:.|"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:??|"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:..|"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:???|"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:...|"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:????|"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:....|"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:?????|"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:.....|"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:??????|"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:......|"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:???????|"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:.......|"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:????????|"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:........|"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:?????????|"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:.........|"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:??????????|"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:..........|"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "LI:???????????|"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "LI:...........|"
+          ],
+          "type": "simple"
+        }
+      ],
+      "type": "match1"
+    },
+    "spend_amber": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "A:AAAAAAAAAAA"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AAAAAAAAAA_"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:AAAAAAAAAA"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AAAAAAAAA_"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:AAAAAAAAA"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AAAAAAAA_"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:AAAAAAAA"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AAAAAAA_"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:AAAAAAA"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AAAAAA_"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:AAAAAA"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AAAAA_"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:AAAAA"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AAAA_"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:AAAA"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AAA_"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:AAA"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:AA_"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "A:AA"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "A:A_"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [
+    [
+      "!"
+    ],
+    [
+      "X"
+    ]
+  ],
+  "whitespaceChars": []
+}

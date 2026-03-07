@@ -1,0 +1,178 @@
+VOID
+!
+
+VOID
+X
+
+COLOR x #3f3f3f
+COLOR - #aaaaaa
+COLOR * #ffd966
+COLOR o #ffb347
+COLOR A #e69138
+COLOR ~ #3d85c6
+COLOR ! #fff2cc
+COLOR X #cc0000
+
+HIDDEN_LINE_CHAR %
+
+TITLE Lantern Trail
+
+BIND w move_n "north" s move_s "south" a move_w "west" d move_e "east" e mine "mine amber" o build_lantern "build lantern" x dismantle_lantern "dismantle lantern"
+BIND W look_n "face north" S look_s "face south" A look_w "face west" D look_e "face east"
+
+xxxxxxxxxxxxxxx
+x*--~--o--!---x
+x-xx~xx-xx----x
+x---~---------x
+x---~--o--~---x
+x------!--~---x
+xxxxxxxxxxxxxxx
+LI:............|---------
+A:_____|-----------------
+%:-------------------->-%%
+
+DESCRIPTION Shadows '~' cost two light to cross. Lanterns 'o' refill your light when you stand next to them, so the first lesson is to hop from pool of light to pool of light.
+
+MINMOVES 17
+
+xxxxxxxxxxxxxxxxx
+x*--~---!o-----x
+x-xx~xx-x-----x
+x---~A--x-----x
+x---------------x
+x---------------x
+xxxxxxxxxxxxxxxxx
+LI:............|---------
+A:_____|-----------------
+%:-------------------->-%%
+
+DESCRIPTION Amber crystals 'A' can be mined with 'e'. Spend one amber with 'o' to build a new lantern in front of you.
+
+MINMOVES 13
+
+xxxxxxxxxxxxxxxxxx
+x*---~-----!----x
+x-xx-~xxx-xx---x
+x-A--~--o-xx---x
+xxx-xxxx-~--!--x
+x------o-~-----x
+x--------------x
+xxxxxxxxxxxxxxxxxx
+LI:............|---------
+A:_____|-----------------
+%:-------------------->-%%
+
+DESCRIPTION Dismantling a lantern with 'x' gives the amber back. This makes the network movable instead of permanent.
+
+MINMOVES 22
+
+xxxxxxxxxxxxxxxx
+x*--~----!-----x
+x-xx~xx-xxo---x
+x-A-~--o-xx---x
+xxx-xxxx-~----x
+x!--~~~~-~--!-x
+x----A--------x
+xxxxxxxxxxxxxxxx
+LI:............|---------
+A:_____|-----------------
+%:-------------------->-%%
+
+DESCRIPTION Open night map: mine amber, move your lantern chain forward, and clear the relics without letting the dark eat your light.
+
+MINMOVES 28
+
+ROTATE_CMDS look >v<^
+ ??% >?%
+
+CMD maybe_relight
+ ATOMIC
+  MATCH1
+   ROTATE
+    *o
+
+  CALL refill_light
+
+ROTATE_CMDS move >v<^
+ TRY_ALL
+  CALL maybe_relight
+  CALL look_e
+  MATCH1
+   FOR s -!A
+    ATOMIC
+     *s -*
+
+    TRY_ALL
+     CALL consume_light1
+     CALL maybe_relight
+
+   ATOMIC
+    *~ -*
+
+    TRY_ALL
+     CALL consume_light2
+     CALL maybe_relight
+
+CMD mine
+ MATCH1
+  ROTATE >v<^
+   ATOMIC
+    >?% >?% [norotate]
+
+    *A *-
+
+   CALL gain_amber
+
+CMD build_lantern
+ ATOMIC
+  CALL spend_amber
+
+  MATCH1
+   ROTATE >v<^
+    ATOMIC
+     >?% >?% [norotate]
+
+     *- *o
+
+    ATOMIC
+     >?% >?% [norotate]
+
+     *~ *o
+
+CMD dismantle_lantern
+ MATCH1
+  ROTATE >v<^
+   ATOMIC
+    >?% >?% [norotate]
+
+    *o *-
+
+   CALL gain_amber
+
+CMD gain_amber
+ MATCH1
+  LET_REPEAT 0 10 1 t A
+   A:t_ A:tA
+
+CMD spend_amber
+ MATCH1
+  LET_REPEAT 10 0 -1 t A
+   A:tA A:t_
+
+CMD consume_light1
+ LET_REPEAT 12 0 -1 r .
+  LI:r.d LI:r-d
+
+ LI:.d LI:-d die
+
+CMD consume_light2
+ ATOMIC
+  CALL consume_light1
+  CALL consume_light1
+
+CMD refill_light
+ LET_REPEAT 1 12 1 r ? s .
+  LI:r| LI:s|
+
+CMD die
+ * X

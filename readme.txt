@@ -143,3 +143,4 @@ Included New Game
 - `drone-gate-seal.txt`: irreversible gate prototype. Passing `g` consumes the paired `k` and turns the gate into `x`, permanently changing the board.
 - `signal-relay.txt`: single-agent relay-routing puzzle with 5 levels. Core order is `a -> b -> f -> c`; touching `c` overloads the board (`m -> x`); `h` is a late gate that only opens after `c`; and the whole puzzle is about planning one route that works both before and after overload.
 - `ice-slides.txt`: momentum puzzle with 8 levels. Inputs slide until blocked; collecting `k` upgrades the skater (`1 -> 2`) so `g` gates can be breached (`2g -> -1`); and fragile ice (`*`) melts into water (`w`), turning earlier lines into fatal traps.
+- `lantern-trail.txt`: exploratory night-expedition prototype with 4 levels. Movement drains a light meter, shadows `~` cost double, amber crystals `A` fund new lanterns `o`, and dismantling a lantern refunds the amber so the light network can be moved forward.
