@@ -9,6 +9,7 @@ Main Files
 - `compile-game-json.py`: one-shot compiler entrypoint that writes compiled JSON for a single game.
 - `build-web.py`: emits standalone per-game browser pages from the same compiled game object.
 - `build-emacs-assets.py`: emits Emacs-loadable compiled assets from the same compiled game object.
+- `build-all-assets.py`: builds both browser and Emacs assets for all shipped games, or for an explicit subset.
 - `compiler_common.py`: shared loader helpers for compiler-side emitters.
 - `ua4k.js`: runtime engine (rule application, rendering, input, levels).
 - `ua4k.css`: shared browser styling for both the hub page and standalone pages.
@@ -45,6 +46,17 @@ Build Standalone Browser Pages
 - Then open, for example:
   - `web-build/drone-swarm.html`
 - Standalone pages do not need the dropdown hub or `gamesData.js`.
+
+Build All Packaged Assets
+- Build both browser and Emacs assets for every buildable shipped root-level game:
+  - `python3 build-all-assets.py`
+- Or build a smaller subset:
+  - `python3 build-all-assets.py drone-swarm.txt ice-slides.txt`
+- Output goes to `dist/` by default:
+  - `dist/web/`
+  - `dist/emacs/`
+  - `dist/manifest.txt`
+- The default discovery path skips non-buildable root-level `*.txt` sources and reports them on stderr.
 
 Direct Browser Launch For Testing
 - Compile and open a specific game in one step:
