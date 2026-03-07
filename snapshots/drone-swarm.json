@@ -42,6 +42,27 @@
   "levels": [
     {
       "board": [
+        "xxxxxx",
+        "x1--2x",
+        "xxab-x",
+        "xxxxxx"
+      ],
+      "description": "Tiny onboarding 1: the drones move together, so the obvious direct route is not always the right one.",
+      "minMoves": 4
+    },
+    {
+      "board": [
+        "xxxxxx",
+        "x1---x",
+        "xa--2x",
+        "xb---x",
+        "xxxxxx"
+      ],
+      "description": "Tiny onboarding 2: sometimes one drone has to overshoot while the other lines up.",
+      "minMoves": 7
+    },
+    {
+      "board": [
         "xxxxxxxxxxxxxx",
         "x1--------2--x",
         "x---x--------x",
