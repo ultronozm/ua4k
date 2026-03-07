@@ -17,7 +17,6 @@ COLOR g #884422
 COLOR # #cc3333
 
 TITLE Drone Swarm
-
 xxxxxxxxxxxxxx
 x1--------2--x
 x---x--------x
@@ -31,33 +30,28 @@ DESCRIPTION To win, move '1' onto 'a' and '2' onto 'b' at the same time.
 
 MINMOVES 12
 
-xxxxxxxxxxxxx
-x1-----x---2x
-x-xx---x-xx-x
-x--a---#--b-x
-x------#----x
-x-----------x
-xxxxxxxxxxxxx
+xxxxxxxxx
+x1-#---2x
+x--#x---x
+x-a#b---x
+x-------x
+xxxxxxxxx
 
-DESCRIPTION Drones cannot move towards the force fields '#'.
+DESCRIPTION Force fields '#': you cannot move into them, so they reroute the pair instead of acting like ordinary walls.
 
-MINMOVES 6
+MINMOVES 9
 
-xxxxx
-x-1bx
-xx-ax
-x2--x
-xxxxx
+xxxxxxxx
+x-#-2--x
+xxb--x-x
+x---#--x
+xa-#1--x
+x------x
+xxxxxxxx
 
-MINMOVES 15
+DESCRIPTION Rectangle 1 (7x9): a stretched compact board. The longer horizontal runway changes the reset timing.
 
-xxxxx
-xab2x
-x---x
-x-x1x
-xxxxx
-
-MINMOVES 18
+MINMOVES 13
 
 xxxxxx
 x#x#2x
@@ -67,66 +61,25 @@ xxxxxx
 
 MINMOVES 14
 
-xxxxxx
-xb---x
-x-a1xx
-x##2-x
-xxxxxx
+xxxxx
+x-1bx
+xx-ax
+x2--x
+xxxxx
 
-MINMOVES 16
+MINMOVES 15
 
-xxxxxx
-x-12bx
-xx-a-x
-x--##x
-xxxxxx
+xxxxxxxxxxx
+x--#---2--x
+xxb--x----x
+x---##----x
+xxa-#1----x
+xx--------x
+xxxxxxxxxxx
 
-MINMOVES 22
+DESCRIPTION Wide Pocket 1 (7x11): one extra pocket is enough to make the horizontal slack genuinely matter.
 
-xxxxxxxxxxxxx
-x1---x---2--x
-x-xx-x-xx-x-x
-x--a-x---x-bx
-x------x---xx
-x-----------x
-xxxxxxxxxxxxx
-
-MINMOVES 17
-
-xxxxxx
-x#2--x
-x--x-x
-x-b--x
-x-ax1x
-xxxxxx
-
-DESCRIPTION Challenge Pack 1 (6x6): a tiny board with just enough walling to force repeated re-spacing.
-
-MINMOVES 18
-
-xxxxxxx
-x--#-xx
-x-##-#x
-x-ab#-x
-x#----x
-x-2-x1x
-xxxxxxx
-
-DESCRIPTION Challenge Pack 2 (7x7): the central cluster of force fields cuts off the obvious sync lines.
-
-MINMOVES 17
-
-xxxxxxx
-xx2x--x
-x#---xx
-x----#x
-x#a-1-x
-x---b-x
-xxxxxxx
-
-DESCRIPTION Challenge Pack 3 (7x7): the side pockets look roomy, but the docking order is still tight.
-
-MINMOVES 16
+MINMOVES 15
 
 xxxxxxx
 x2#--xx
@@ -152,6 +105,159 @@ DESCRIPTION Challenge Pack 5 (7x7, keys): the gate has to be opened on tempo; ot
 
 MINMOVES 15
 
+xxxxxx
+xb---x
+x-a1xx
+x##2-x
+xxxxxx
+
+MINMOVES 16
+
+xxxxxxx
+xx2x--x
+x#---xx
+x----#x
+x#a-1-x
+x---b-x
+xxxxxxx
+
+DESCRIPTION Challenge Pack 3 (7x7): the side pockets look roomy, but the docking order is still tight.
+
+MINMOVES 16
+
+xxxxxxxxxxxxx
+x1---x---2--x
+x-xx-x-xx-x-x
+x--a-x---x-bx
+x------x---xx
+x-----------x
+xxxxxxxxxxxxx
+
+MINMOVES 17
+
+xxxxxxx
+x--#-xx
+x-##-#x
+x-ab#-x
+x#----x
+x-2-x1x
+xxxxxxx
+
+DESCRIPTION Challenge Pack 2 (7x7): the central cluster of force fields cuts off the obvious sync lines.
+
+MINMOVES 17
+
+xxxxxxxxxxxx
+x---#-----2x
+xxxb--x----x
+x----#--x--x
+xxa-#1---#-x
+xx----#----x
+xxxxxxxxxxxx
+
+DESCRIPTION Rectangle Split 1 (7x12): the old long rectangle cut down into a tighter pocket-transfer board.
+
+MINMOVES 17
+
+xxxxxxxxxxxx
+x--#---2---x
+xxb--x-----x
+x---##-----x
+xxa-#1-----x
+xx---------x
+xxxxxxxxxxxx
+
+DESCRIPTION Wide Pocket 2 (7x12): same family, but now the reset lane is long enough to force a fuller cycle.
+
+MINMOVES 17
+
+xxxxx
+xab2x
+x---x
+x-x1x
+xxxxx
+
+MINMOVES 18
+
+xxxxxx
+x#2--x
+x--x-x
+x-b--x
+x-ax1x
+xxxxxx
+
+DESCRIPTION Challenge Pack 1 (6x6): a tiny board with just enough walling to force repeated re-spacing.
+
+MINMOVES 18
+
+xxxxxxxxxxxx
+x---#2-----x
+xx-b-x--#--x
+x---##-----x
+xxa--1--#--x
+xxx-------xx
+xxxxxxxxxxxx
+
+DESCRIPTION Zigzag Drift 1 (7x12): the board alternates between short pockets and long drifts, so the timing feels less orbit-like.
+
+MINMOVES 19
+
+xxxxxx
+x-12bx
+xx-a-x
+x--##x
+xxxxxx
+
+MINMOVES 22
+
+xxxxxxxxxx
+x-2#-----x
+x-xb-#-xx
+x---#---x
+xxa--1--x
+xxx-----x
+xxxxxxxxxx
+
+DESCRIPTION Hook Turn 1 (7x10): short and mean. The lower-left hook makes the re-spacing much less direct than the footprint suggests.
+
+MINMOVES 22
+
+xxxxxxxxxxx
+x---#2-----x
+xx-b-x-#---x
+x---##-----x
+xxa--1-#---x
+xx--------xx
+xxxxxxxxxxx
+
+DESCRIPTION Offset Latch 1 (7x11): a medium board where the main challenge is carrying the correct offset through a cramped latch.
+
+MINMOVES 22
+
+xxxxxxxxxxxx
+x--#--2----x
+xx-b-x-#---x
+x---##-----x
+xxa-#1--#--x
+xxx-------xx
+xxxxxxxxxxxx
+
+DESCRIPTION Zigzag Drift 2 (7x12): a denser version where the lower blockers create a much harsher endgame.
+
+MINMOVES 23
+
+xxxxxxxxxxx
+x---#2-----x
+xx-b-x-#---x
+x---##-----x
+xxa-#1-----x
+xx--------xx
+xxxxxxxxxxx
+
+DESCRIPTION Offset Latch 2 (7x11): slightly more open than the previous one, but the wrong dock timing still costs a full extra cycle.
+
+MINMOVES 24
+
 xxxxxxx
 x-2#--x
 x-xb-#x
@@ -163,6 +269,18 @@ xxxxxxx
 DESCRIPTION Midboss 1 (7x7): a tighter version of the wall gauntlets. The final sync still takes work, but the reset loops are shorter.
 
 MINMOVES 27
+
+xxxxxxxxxxx
+x-2#-----x
+x-xb-#-x-x
+x---#----x
+xxa--1---x
+xxx---#--x
+xxxxxxxxxxx
+
+DESCRIPTION Hook Turn 3 (7x11): similar footprint, different failure mode. This one is more about preserving a good phase through the return lane.
+
+MINMOVES 28
 
 xxxxxxx
 x-2#-xx
@@ -176,6 +294,31 @@ DESCRIPTION Midboss 2 (7x7): one extra blocker is enough to turn the pocket tran
 
 MINMOVES 29
 
+xxxxxxxx
+x-x#---x
+x--b---x
+x12#-a#x
+xx----xx
+x-#--x-x
+x-----xx
+xxxxxxxx
+
+DESCRIPTION 8x8 Entry 1: the larger frame gives you room to lose sync in several different ways.
+
+MINMOVES 29
+
+xxxxxxxxxxx
+x-2#-----x
+x-xb-#-x-x
+x---#----x
+xxa--1#--x
+xxx------x
+xxxxxxxxxxx
+
+DESCRIPTION Hook Turn 2 (7x11): one extra side wall turns the same idea into a much longer route with awkward resets.
+
+MINMOVES 30
+
 xxxxxxx
 x-2#--x
 x-xb-#x
@@ -185,6 +328,19 @@ xx---#x
 xxxxxxx
 
 DESCRIPTION Midboss 3 (7x7): close to a gauntlet, but still readable. You have to preserve the good spacing through several sweeps.
+
+MINMOVES 33
+
+xxxxxxxx
+x--x---x
+x-#x2--x
+xx-----x
+xxb-#a-x
+x#--1#-x
+x---x--x
+xxxxxxxx
+
+DESCRIPTION 8x8 Entry 2: still compact, but the extra lane space starts to create longer rerouting cycles.
 
 MINMOVES 33
 
@@ -199,6 +355,18 @@ xxxxxxx
 DESCRIPTION Midboss 4 (7x7): the extra wall deepens the cycle one more notch before the true gauntlets begin.
 
 MINMOVES 34
+
+xxxxxxxxxx##x
+x--#-----2#-x
+x#b--x----#-#
+#---#--x----#
+xa-#1---#---#
+x----#------#
+x#xx#x##xxxxx
+
+DESCRIPTION Rectangle Split 2 (7x13): same motif pushed into a denser frame. This one behaves more like a true late-game gauntlet.
+
+MINMOVES 41
 
 xxxxxxx
 x12x--x
@@ -224,152 +392,6 @@ DESCRIPTION Gauntlet 2 (7x7): a compact endurance puzzle. Almost every mistake s
 
 MINMOVES 47
 
-xxxxxxx
-x--#-2x
-x-xb--x
-x----#x
-x#a-#1x
-xx----x
-xxxxxxx
-
-DESCRIPTION Gauntlet 3 (7x7): the current top-end compact board. The cycle is long enough that recovering from a bad sweep is painful.
-
-MINMOVES 49
-
-xxxxxxxx
-x-x#---x
-x--b---x
-x12#-a#x
-xx----xx
-x-#--x-x
-x-----xx
-xxxxxxxx
-
-DESCRIPTION 8x8 Entry 1: the larger frame gives you room to lose sync in several different ways.
-
-MINMOVES 29
-
-xxxxxxxx
-x--x---x
-x-#x2--x
-xx-----x
-xxb-#a-x
-x#--1#-x
-x---x--x
-xxxxxxxx
-
-DESCRIPTION 8x8 Entry 2: still compact, but the extra lane space starts to create longer rerouting cycles.
-
-MINMOVES 33
-
-xxxxxxxx
-x-#-2--x
-xxb--x-x
-x---#--x
-xa-#1--x
-x------x
-xxxxxxxx
-
-DESCRIPTION Rectangle 1 (7x9): a stretched compact board. The longer horizontal runway changes the reset timing.
-
-MINMOVES 13
-
-xxxxxxxxxxxxxxxxxx
-x---#-----2------x
-xxxb--x----#-----x
-x----#--x----#---x
-xxa-#1---#------xx
-xx----#---------xx
-xxxxxxxxxxxxxxxxxx
-
-DESCRIPTION Rectangle 2 (7x18): a longer corridor experiment. This one actually uses the extended frame instead of just appending slack.
-
-MINMOVES 20
-
-xxxxxxxxxxx
-x--#---2--x
-xxb--x----x
-x---##----x
-xxa-#1----x
-xx--------x
-xxxxxxxxxxx
-
-DESCRIPTION Wide Pocket 1 (7x11): one extra pocket is enough to make the horizontal slack genuinely matter.
-
-MINMOVES 15
-
-xxxxxxxxxxxx
-x--#---2---x
-xxb--x-----x
-x---##-----x
-xxa-#1-----x
-xx---------x
-xxxxxxxxxxxx
-
-DESCRIPTION Wide Pocket 2 (7x12): same family, but now the reset lane is long enough to force a fuller cycle.
-
-MINMOVES 17
-
-xxxxxxxxxx
-x-2#-----x
-x-xb-#-xx
-x---#---x
-xxa--1--x
-xxx-----x
-xxxxxxxxxx
-
-DESCRIPTION Hook Turn 1 (7x10): short and mean. The lower-left hook makes the re-spacing much less direct than the footprint suggests.
-
-MINMOVES 22
-
-xxxxxxxxxxx
-x-2#-----x
-x-xb-#-x-x
-x---#----x
-xxa--1#--x
-xxx------x
-xxxxxxxxxxx
-
-DESCRIPTION Hook Turn 2 (7x11): one extra side wall turns the same idea into a much longer route with awkward resets.
-
-MINMOVES 30
-
-xxxxxxxxxxx
-x-2#-----x
-x-xb-#-x-x
-x---#----x
-xxa--1---x
-xxx---#--x
-xxxxxxxxxxx
-
-DESCRIPTION Hook Turn 3 (7x11): similar footprint, different failure mode. This one is more about preserving a good phase through the return lane.
-
-MINMOVES 28
-
-xxxxxxxxxxxx
-x---#2-----x
-xx-b-x--#--x
-x---##-----x
-xxa--1--#--x
-xxx-------xx
-xxxxxxxxxxxx
-
-DESCRIPTION Zigzag Drift 1 (7x12): the board alternates between short pockets and long drifts, so the timing feels less orbit-like.
-
-MINMOVES 19
-
-xxxxxxxxxxxx
-x--#--2----x
-xx-b-x-#---x
-x---##-----x
-xxa-#1--#--x
-xxx-------xx
-xxxxxxxxxxxx
-
-DESCRIPTION Zigzag Drift 2 (7x12): a denser version where the lower blockers create a much harsher endgame.
-
-MINMOVES 23
-
 xxxxxxxxxxxxx
 x---#-----2-x
 x-#--x-b---x
@@ -382,30 +404,17 @@ DESCRIPTION Long Reset 1 (7x13): this is the first new rectangle that really beh
 
 MINMOVES 49
 
-xxxxxxxxxxx
-x---#2-----x
-xx-b-x-#---x
-x---##-----x
-xxa--1-#---x
-xx--------xx
-xxxxxxxxxxx
+xxxxxxx
+x--#-2x
+x-xb--x
+x----#x
+x#a-#1x
+xx----x
+xxxxxxx
 
-DESCRIPTION Offset Latch 1 (7x11): a medium board where the main challenge is carrying the correct offset through a cramped latch.
+DESCRIPTION Gauntlet 3 (7x7): the current top-end compact board. The cycle is long enough that recovering from a bad sweep is painful.
 
-MINMOVES 22
-
-xxxxxxxxxxx
-x---#2-----x
-xx-b-x-#---x
-x---##-----x
-xxa-#1-----x
-xx--------xx
-xxxxxxxxxxx
-
-DESCRIPTION Offset Latch 2 (7x11): slightly more open than the previous one, but the wrong dock timing still costs a full extra cycle.
-
-MINMOVES 24
-
+MINMOVES 49
 
 BIND w swarm_step_n "north" s swarm_step_s "south" a swarm_step_w "west" d swarm_step_e "east"
 
