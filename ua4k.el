@@ -448,7 +448,8 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
 (define-derived-mode ua4k-mode special-mode "UA4K"
   "Major mode for playing UA4K games."
   (setq buffer-read-only t)
-  (setq-local truncate-lines t))
+  (setq-local truncate-lines nil)
+  (visual-line-mode 1))
 
 (defun ua4k--start-game (game-file data level)
   "Open GAME-FILE using compiled DATA at LEVEL."
