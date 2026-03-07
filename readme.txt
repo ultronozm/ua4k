@@ -7,7 +7,9 @@ Overview
 Main Files
 - `make-data.py`: compiler for the DSL game files.
 - `compile-game-json.py`: one-shot compiler entrypoint that writes compiled JSON for a single game.
+- `build-web.py`: emits standalone per-game browser pages from the same compiled game object.
 - `ua4k.js`: runtime engine (rule application, rendering, input, levels).
+- `ua4k.css`: shared browser styling for both the hub page and standalone pages.
 - `ua4k.html`: browser shell UI.
 - `ua4k.el`: Emacs frontend for compiled non-tick games.
 - `golden_snapshots.py`: per-game golden snapshot harness for compiler regression checks.
@@ -29,6 +31,18 @@ Run in Browser
 2. Open `ua4k.html` in a browser.
 3. Use the dropdown to select any compiled game.
 4. For engine debug logging, set `DEBUG_LOGS = true` in `ua4k.js`.
+
+Build Standalone Browser Pages
+- Generate self-contained per-game launchers that still work from `file://`:
+  - `python3 build-web.py drone-swarm.txt`
+- Output goes to `web-build/` by default and includes:
+  - shared `ua4k.js`
+  - shared `ua4k.css`
+  - one `GAME.data.js`
+  - one `GAME.html`
+- Then open, for example:
+  - `web-build/drone-swarm.html`
+- Standalone pages do not need the dropdown hub or `gamesData.js`.
 
 Direct Browser Launch For Testing
 - Compile and open a specific game in one step:
@@ -67,6 +81,7 @@ Play In Emacs
   - non-tick games are supported
   - this frontend consumes the same compiled rule IR as the browser, via `compile-game-json.py`
   - rendering uses the compiled `COLOR` and `CHARMAP` metadata inside Emacs
+  - this is the same underlying compiled game object shape used by `build-web.py` for standalone browser pages
 
 Puzzle Solver (shortest-path search)
 - Solve a specific level with BFS:

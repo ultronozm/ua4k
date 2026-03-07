@@ -13,8 +13,14 @@ let globalTickInterval = null;
 let timerId = null;
 let whitespaceChars = [];
 let hiddenLineChars = [];
+let gamesDropdown = null;
+let dropdownInitialized = false;
 
 const DEBUG_LOGS = false;
+
+function byId(id) {
+    return document.getElementById(id);
+}
 
 function getStartupSelection() {
     const injectedSelection = window.UA4K_STARTUP_SELECTION;
@@ -54,7 +60,10 @@ function debugLog(...args) {
 }
 
 function setHtml(id, value) {
-    document.getElementById(id).innerHTML = value;
+    const element = byId(id);
+    if (element) {
+        element.innerHTML = value;
+    }
 }
 
 function levelDescriptionHtml(level) {
@@ -106,19 +115,7 @@ function onTimerTick() {
     }
 }
 
-var gamesDropdown = document.getElementById('games');
-for (let key in gamesData) {
-    let option = document.createElement("option");
-    option.value = key;
-    option.textContent = key;
-    gamesDropdown.appendChild(option);
-}
-
-gamesDropdown.addEventListener('change', function() {
-    gamesDropdown.blur();
-});
-
-function initGame(data) {
+function initGame(data, options = {}) {
     debugLog("initGame");
     levels = data.levels;
     rules_dict = data.rules;
@@ -130,7 +127,7 @@ function initGame(data) {
     charMap = data.charMap;
     colorMap = data.colorMap;
     globalTickInterval = data.globalTick;
-    level_number = 0;
+    level_number = Number.isInteger(options.level) ? options.level : 0;
     board = null;
     initLevel();
     drawBoard();
@@ -150,33 +147,71 @@ function setLevel(level) {
     return true;
 }
 
-function handleGameSelection() {
-    const selectedGame = gamesData[gamesDropdown.value];
+function handleGameSelection(gamesDataObj) {
+    const selectedGame = gamesDataObj[gamesDropdown.value];
     initGame(selectedGame);
 }
 
-gamesDropdown.addEventListener('change', handleGameSelection);
+function initHub(gamesDataObj) {
+    gamesDropdown = byId('games');
+    if (!gamesDropdown) {
+        return false;
+    }
+    gamesDropdown.innerHTML = '';
+    for (let key in gamesDataObj) {
+        let option = document.createElement("option");
+        option.value = key;
+        option.textContent = key;
+        gamesDropdown.appendChild(option);
+    }
 
-const startupSelection = getStartupSelection();
-if (startupSelection.requestedGame && gamesData[startupSelection.requestedGame]) {
-    gamesDropdown.value = startupSelection.requestedGame;
+    if (!dropdownInitialized) {
+        gamesDropdown.addEventListener('change', function() {
+            gamesDropdown.blur();
+        });
+        gamesDropdown.addEventListener('change', function() {
+            handleGameSelection(gamesDataObj);
+        });
+        dropdownInitialized = true;
+    }
+
+    const startupSelection = getStartupSelection();
+    if (startupSelection.requestedGame && gamesDataObj[startupSelection.requestedGame]) {
+        gamesDropdown.value = startupSelection.requestedGame;
+    }
+    gamesDropdown.dispatchEvent(new Event('change'));
+    if (startupSelection.requestedLevel !== null) {
+        setLevel(startupSelection.requestedLevel);
+    }
+    return true;
 }
-gamesDropdown.dispatchEvent(new Event('change'));
-if (startupSelection.requestedLevel !== null) {
-    setLevel(startupSelection.requestedLevel);
+
+function startStandalone(data, options = {}) {
+    const startupSelection = getStartupSelection();
+    const level = Number.isInteger(options.level) ? options.level : startupSelection.requestedLevel;
+    initGame(data, { level: level });
 }
 
 // Rendering
 function updateLevelDisplay() {
-    document.getElementById('level').textContent = "Level: " + level_number;
+    const levelElem = byId('level');
+    if (levelElem) {
+        levelElem.textContent = "Level: " + level_number;
+    }
 }
 
 function updateMovesDisplay() {
-    document.getElementById('moves').textContent = "Moves: " + board_history.length;
+    const movesElem = byId('moves');
+    if (movesElem) {
+        movesElem.textContent = "Moves: " + board_history.length;
+    }
 }
 
 function updateDocsDisplay() {
-    let docsElem = document.getElementById('docs');
+    let docsElem = byId('docs');
+    if (!docsElem) {
+        return;
+    }
     docsElem.innerHTML = '';
     for (let key in binds) {
         let textNode = document.createTextNode(key + " : " + bindDescription(binds[key]));
@@ -184,26 +219,33 @@ function updateDocsDisplay() {
         let brNode = document.createElement("br");
         docsElem.appendChild(brNode);
     }
-    let goalsElem = document.getElementById('goals');
-    goalsElem.innerHTML = '';
-    for (let goal of goals) {
-        let textNode = document.createTextNode("Goal:" + goal);
-        goalsElem.appendChild(textNode);
-        let brNode = document.createElement("br");
-        goalsElem.appendChild(brNode);
+    let goalsElem = byId('goals');
+    if (goalsElem) {
+        goalsElem.innerHTML = '';
+        for (let goal of goals) {
+            let textNode = document.createTextNode("Goal:" + goal);
+            goalsElem.appendChild(textNode);
+            let brNode = document.createElement("br");
+            goalsElem.appendChild(brNode);
+        }
     }
-    let voidsElem = document.getElementById('voids');
-    voidsElem.innerHTML = '';
-    for (let voidPattern of voids) {
-        let textNode = document.createTextNode("Void:" + voidPattern);
-        voidsElem.appendChild(textNode);
-        let brNode = document.createElement("br");
-        voidsElem.appendChild(brNode);
+    let voidsElem = byId('voids');
+    if (voidsElem) {
+        voidsElem.innerHTML = '';
+        for (let voidPattern of voids) {
+            let textNode = document.createTextNode("Void:" + voidPattern);
+            voidsElem.appendChild(textNode);
+            let brNode = document.createElement("br");
+            voidsElem.appendChild(brNode);
+        }
     }
 }
 
 function drawBoard() {
-    let displayElem = document.getElementById('display');
+    let displayElem = byId('display');
+    if (!displayElem) {
+        return;
+    }
     displayElem.innerHTML = '';
     
     for (let row = 0; row < board.length; row++) {
@@ -541,7 +583,10 @@ function applyRule(rule, min_row=0, min_col=0) {
 
 function checkEndLevel() {
     if (levelComplete()) {
-        let displayElem = document.getElementById('status');
+        let displayElem = byId('status');
+        if (!displayElem) {
+            return;
+        }
         displayElem.innerHTML = 'Level complete!  Press any key to advance to the next level.';
     }
 }
@@ -580,10 +625,15 @@ function nextLevel() {
         drawBoard();
         updateLevelDisplay();
     } else {
-        document.getElementById('display').innerHTML = "You have completed all the levels.  Wow!";
+        const displayElem = byId('display');
+        if (!displayElem) {
+            board = null;
+            return;
+        }
+        displayElem.innerHTML = "You have completed all the levels.  Wow!";
         let img = document.createElement('img');
         img.src = 'kitten.jpg';
-        document.getElementById('display').appendChild(img);
+        displayElem.appendChild(img);
         board = null;
     }
 }
@@ -628,7 +678,10 @@ function isMobile() {
 }
 
 function initTouchControls() {
-  const touchControls = document.getElementById('touchControls');
+  const touchControls = byId('touchControls');
+  if (!touchControls) {
+    return;
+  }
   const buttons = touchControls.getElementsByClassName('controlBtn');
 
   for (let button of buttons) {
@@ -654,4 +707,13 @@ window.addEventListener('load', function() {
   if (isMobile()) {
     initTouchControls();
   }
+  if (typeof gamesData !== 'undefined') {
+    initHub(gamesData);
+  }
 });
+
+window.UA4K = {
+    startHub: initHub,
+    startStandalone: startStandalone,
+    setLevel: setLevel,
+};
