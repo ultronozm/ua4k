@@ -2,12 +2,14 @@ ULTRONO ARENA 4000 (ua4k)
 
 Overview
 - This repository contains a text-DSL-driven puzzle/game engine.
-- Games are authored in `*.txt` files, compiled into `gamesData.js`, and run in `ua4k.html` + `ua4k.js`.
+- Games are authored in `*.txt` files, compiled by `make-data.py`, and then consumed by either the browser runtime or the Emacs frontend.
 
 Main Files
 - `make-data.py`: compiler for the DSL game files.
+- `compile-game-json.py`: one-shot compiler entrypoint that writes compiled JSON for a single game.
 - `ua4k.js`: runtime engine (rule application, rendering, input, levels).
 - `ua4k.html`: browser shell UI.
+- `ua4k.el`: Emacs frontend for compiled non-tick games.
 - `golden_snapshots.py`: per-game golden snapshot harness for compiler regression checks.
 
 Compile Workflow
@@ -44,6 +46,22 @@ TUI Play/Test (uses existing `ua4k.js`)
   - `node tui_play.js drone-swarm`
   - `node tui_play.js drone-swarm wzaaassddddsawaaawwdddw 3`
 - Useful for quickly validating puzzle behavior without opening a browser.
+
+Play In Emacs
+- Start a compiled game from Emacs:
+  - `M-x load-file RET /path/to/ua4k.el RET`
+  - `M-x ua4k-play-game RET drone-swarm RET`
+- Or open a specific source file directly:
+  - `M-x ua4k-play-file RET /path/to/drone-swarm.txt RET`
+- Commands inside `ua4k-mode`:
+  - movement keys come from the game's `BIND` directives
+  - `u` undo
+  - `U` restart level
+  - `l` jump to level
+  - `q` quit
+- Current scope:
+  - non-tick games are supported
+  - this frontend consumes the same compiled rule IR as the browser, via `compile-game-json.py`
 
 Puzzle Solver (shortest-path search)
 - Solve a specific level with BFS:
