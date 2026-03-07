@@ -28,12 +28,20 @@
   "Python executable used to compile game files into JSON."
   :type 'string)
 
+(defconst ua4k--source-file
+  (or load-file-name buffer-file-name)
+  "Absolute path to the loaded `ua4k.el' source file.")
+
 (defvar-local ua4k--game-data nil)
 (defvar-local ua4k--levels nil)
 (defvar-local ua4k--rules nil)
 (defvar-local ua4k--binds nil)
 (defvar-local ua4k--goals nil)
 (defvar-local ua4k--voids nil)
+(defvar-local ua4k--char-map nil)
+(defvar-local ua4k--color-map nil)
+(defvar-local ua4k--whitespace-chars nil)
+(defvar-local ua4k--hidden-line-chars nil)
 (defvar-local ua4k--board nil)
 (defvar-local ua4k--board-history nil)
 (defvar-local ua4k--level-number 0)
@@ -43,7 +51,7 @@
 
 (defun ua4k--repo-root ()
   "Return the repository root for the current `ua4k.el' file."
-  (file-name-directory (or load-file-name buffer-file-name default-directory)))
+  (file-name-directory (or ua4k--source-file default-directory)))
 
 (defun ua4k--compile-json (game-file)
   "Compile GAME-FILE into compiled JSON and return it as an alist."
@@ -63,6 +71,11 @@
     (or (alist-get key object nil nil #'equal)
         (and (stringp key) (alist-get (intern key) object nil nil #'eq))
         (and (symbolp key) (alist-get (symbol-name key) object nil nil #'equal)))))
+
+(defun ua4k--game-file-prompt-default ()
+  "Return a sensible default game file for interactive commands."
+  (or (and (boundp 'ua4k--game-file) ua4k--game-file)
+      (expand-file-name "drone-swarm.txt" (ua4k--repo-root))))
 
 (defun ua4k--string-list->board (rows)
   "Convert ROWS (a list of strings) into a mutable board."
@@ -249,6 +262,38 @@
 (defun ua4k--current-level ()
   (nth ua4k--level-number ua4k--levels))
 
+(defun ua4k--display-text (char)
+  "Return the display text for board CHAR."
+  (let ((text (or (ua4k--obj-get ua4k--char-map (char-to-string char))
+                  (char-to-string char))))
+    (if (member (char-to-string char) ua4k--whitespace-chars)
+        " "
+      text)))
+
+(defun ua4k--insert-board-row (row)
+  "Insert ROW with Emacs faces derived from the game's color map."
+  (let ((hidden nil))
+    (dotimes (idx (length row))
+      (let* ((cell (aref row idx))
+             (cell-text (char-to-string cell)))
+        (when (member cell-text ua4k--hidden-line-chars)
+          (setq hidden t))
+        (unless hidden
+          (let ((display (ua4k--display-text cell))
+                (color (ua4k--obj-get ua4k--color-map cell-text)))
+            (insert
+             (if color
+                 (propertize display 'face `(:foreground ,color))
+               display))))))
+    (unless hidden
+      (insert "\n"))))
+
+(defun ua4k--level-label ()
+  "Return the level label shown in the header."
+  (if (= (length ua4k--levels) 1)
+      "Snippet"
+    (format "Level %d/%d" ua4k--level-number (1- (length ua4k--levels)))))
+
 (defun ua4k--render ()
   "Render the current level into the current buffer."
   (let* ((inhibit-read-only t)
@@ -258,10 +303,9 @@
          (min-moves (ua4k--rule-field level "minMoves"))
          (game-name (file-name-base (or ua4k--game-file "ua4k"))))
     (erase-buffer)
-    (insert (format "%s  Level %d/%d  Moves: %d\n"
+    (insert (format "%s  %s  Moves: %d\n"
                     game-name
-                    ua4k--level-number
-                    (1- (length ua4k--levels))
+                    (ua4k--level-label)
                     (length ua4k--board-history)))
     (when (and title (not (string-empty-p title)))
       (insert (format "%s\n" title)))
@@ -270,8 +314,8 @@
     (when (integerp min-moves)
       (insert (format "Min moves: %d\n" min-moves)))
     (insert "\n")
-    (dolist (row (ua4k--board-rows))
-      (insert row "\n"))
+    (dotimes (idx (length ua4k--board))
+      (ua4k--insert-board-row (aref ua4k--board idx)))
     (insert "\n")
     (when (ua4k--level-complete-p)
       (insert "Level complete. Press any movement key to advance.\n\n"))
@@ -377,7 +421,8 @@
 
 (define-derived-mode ua4k-mode special-mode "UA4K"
   "Major mode for playing UA4K games."
-  (setq buffer-read-only t))
+  (setq buffer-read-only t)
+  (setq-local truncate-lines t))
 
 (defun ua4k--start-game (game-file data level)
   "Open GAME-FILE using compiled DATA at LEVEL."
@@ -391,6 +436,10 @@
             ua4k--binds (ua4k--obj-get data "binds")
             ua4k--goals (ua4k--obj-get data "goals")
             ua4k--voids (ua4k--obj-get data "voids")
+            ua4k--char-map (ua4k--obj-get data "charMap")
+            ua4k--color-map (ua4k--obj-get data "colorMap")
+            ua4k--whitespace-chars (ua4k--obj-get data "whitespaceChars")
+            ua4k--hidden-line-chars (ua4k--obj-get data "hiddenLineChars")
             ua4k--level-number (or level 0))
       (ua4k--install-keymap)
       (ua4k--init-level)
@@ -412,6 +461,48 @@
   "Compile and play GAME-NAME from the repo root."
   (interactive "sUA4K game name: ")
   (ua4k-play-file (expand-file-name (format "%s.txt" game-name) (ua4k--repo-root)) level))
+
+(defun ua4k--parse-snippet-board (text)
+  "Parse raw board TEXT into a list of equal-width rows."
+  (let* ((rows (split-string (string-trim text) "\n" t))
+         (width (and rows (length (car rows)))))
+    (unless rows
+      (error "Snippet is empty"))
+    (dolist (row rows)
+      (unless (= (length row) width)
+        (error "Snippet rows must all have the same width")))
+    rows))
+
+(defun ua4k-play-region (start end game-file)
+  "Play region START..END as a single level using GAME-FILE's rules."
+  (interactive
+   (if (use-region-p)
+       (list (region-beginning)
+             (region-end)
+             (read-file-name "Base UA4K game file: "
+                             (file-name-directory (ua4k--game-file-prompt-default))
+                             (ua4k--game-file-prompt-default)
+                             t nil
+                             (lambda (f) (string-match-p "\\.txt\\'" f))))
+     (user-error "Select a board region first")))
+  (let* ((rows (ua4k--parse-snippet-board
+                (buffer-substring-no-properties start end)))
+         (compiled (ua4k--compile-json (expand-file-name game-file)))
+         (snippet-level
+          `((board . ,rows)
+            (title . "Snippet")
+            (description . ,(format "Snippet from %s" (file-name-nondirectory game-file)))))
+         (data
+          `((levels . ,(list snippet-level))
+            (rules . ,(ua4k--obj-get compiled "rules"))
+            (binds . ,(ua4k--obj-get compiled "binds"))
+            (goals . ,(ua4k--obj-get compiled "goals"))
+            (voids . ,(ua4k--obj-get compiled "voids"))
+            (charMap . ,(ua4k--obj-get compiled "charMap"))
+            (colorMap . ,(ua4k--obj-get compiled "colorMap"))
+            (whitespaceChars . ,(ua4k--obj-get compiled "whitespaceChars"))
+            (hiddenLineChars . ,(ua4k--obj-get compiled "hiddenLineChars")))))
+    (ua4k--start-game game-file data 0)))
 
 (provide 'ua4k)
 

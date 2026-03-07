@@ -53,6 +53,10 @@ Play In Emacs
   - `M-x ua4k-play-game RET drone-swarm RET`
 - Or open a specific source file directly:
   - `M-x ua4k-play-file RET /path/to/drone-swarm.txt RET`
+- Or select a raw board region and play it as a one-level scratch board using an existing game's rules:
+  - copy/paste the board into any buffer
+  - mark the region
+  - `M-x ua4k-play-region RET /path/to/drone-swarm.txt RET`
 - Commands inside `ua4k-mode`:
   - movement keys come from the game's `BIND` directives
   - `u` undo
@@ -62,6 +66,7 @@ Play In Emacs
 - Current scope:
   - non-tick games are supported
   - this frontend consumes the same compiled rule IR as the browser, via `compile-game-json.py`
+  - rendering uses the compiled `COLOR` and `CHARMAP` metadata inside Emacs
 
 Puzzle Solver (shortest-path search)
 - Solve a specific level with BFS:
