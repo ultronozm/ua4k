@@ -102,8 +102,15 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
 (defun ua4k--board-height ()
   (length ua4k--board))
 
+(defun ua4k--board-row-width (row)
+  "Return the width of board ROW."
+  (length (aref ua4k--board row)))
+
 (defun ua4k--board-width ()
-  (if (> (length ua4k--board) 0) (length (aref ua4k--board 0)) 0))
+  "Return the maximum row width of the current board."
+  (let ((max-width 0))
+    (dotimes (row (ua4k--board-height) max-width)
+      (setq max-width (max max-width (ua4k--board-row-width row))))))
 
 (defun ua4k--board-rows ()
   "Render the current board into a list of strings."
@@ -125,7 +132,9 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
     (when (and (>= row 0)
                (>= col 0)
                (<= (+ row height) (ua4k--board-height))
-               (<= (+ col width) (ua4k--board-width)))
+               (cl-loop for i from 0 below height
+                        always (<= (+ col width)
+                                   (ua4k--board-row-width (+ row i)))))
       (cl-loop for i from 0 below height
                always
                (cl-loop for j from 0 below width
