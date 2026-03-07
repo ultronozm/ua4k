@@ -79,6 +79,6 @@ Adding a New Game
 3. Reload `ua4k.html` and select `my-game` from the dropdown.
 
 Included New Game
-- `drone-swarm.txt`: lockstep dual-drone puzzle with 22 levels. Both drones move on every input; `#` acts as a hard force field that blocks approach without serving as a bump-stall surface; and `k`/`g` gates only open when one drone hits `k` while the other hits `g` on the same move.
+- `drone-swarm.txt`: lockstep dual-drone puzzle with 24 levels. Both drones move on every input; `#` acts as a hard force field that blocks approach without serving as a bump-stall surface; and `k`/`g` gates only open when one drone hits `k` while the other hits `g` on the same move.
 - `signal-relay.txt`: single-agent relay-routing puzzle with 5 levels. Core order is `a -> b -> f -> c`; touching `c` overloads the board (`m -> x`); `h` is a late gate that only opens after `c`; and the whole puzzle is about planning one route that works both before and after overload.
 - `ice-slides.txt`: momentum puzzle with 8 levels. Inputs slide until blocked; collecting `k` upgrades the skater (`1 -> 2`) so `g` gates can be breached (`2g -> -1`); and fragile ice (`*`) melts into water (`w`), turning earlier lines into fatal traps.

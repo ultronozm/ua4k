@@ -291,6 +291,30 @@
         "xxxxxxxx"
       ],
       "description": "8x8 Entry 2: still compact, but the extra lane space starts to create longer rerouting cycles."
+    },
+    {
+      "board": [
+        "xxxxxxxxx",
+        "x--#-2--x",
+        "x-xb--x-x",
+        "x----#--x",
+        "x#a-#1--x",
+        "xx------x",
+        "xxxxxxxxx"
+      ],
+      "description": "Rectangle 1 (7x9): a stretched compact board. The longer horizontal runway changes the reset timing."
+    },
+    {
+      "board": [
+        "xxxxxxxxxx",
+        "x--#-2---x",
+        "x-xb--x--x",
+        "x----#---x",
+        "x#a-#1---x",
+        "xx-------x",
+        "xxxxxxxxxx"
+      ],
+      "description": "Rectangle 2 (7x10): same idea, pushed one step farther. The extra lane makes false resets more tempting."
     }
   ],
   "rules": {
