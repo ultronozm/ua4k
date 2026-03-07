@@ -12,8 +12,6 @@ COLOR a #66cccc
 COLOR b #cc66cc
 COLOR A #00aa66
 COLOR B #00aa66
-COLOR k #dddd55
-COLOR g #884422
 COLOR # #cc3333
 
 TITLE Drone Swarm
@@ -126,18 +124,6 @@ x-b--#x
 xxxxxxx
 
 DESCRIPTION Challenge Pack 4 (7x7): sparse geometry, but the wrong bump timing strands a drone on the wrong side.
-
-MINMOVES 15
-
-xxxxxxx
-x1-b--x
-x---x-x
-xxk---x
-x---a2x
-x-g-x#x
-xxxxxxx
-
-DESCRIPTION Challenge Pack 5 (7x7, keys): the gate has to be opened on tempo; otherwise the board de-syncs before docking.
 
 MINMOVES 15
 
@@ -467,25 +453,18 @@ ROTATE_CMDS swarm_step
 
   2b -B
 
- ZIP p 12 q 21
-  ;; using keys to open gates
+ ;; bumping into ordinary walls
+ FOR s -
   ATOMIC
-   pk -p
+   1s -1
 
-   qg -q
+   2x 2x
 
-  ;; key pickup without unlock
+ FOR s -
   ATOMIC
-   pk -p
+   2s -2
 
-   q- -q
-
-  ;; bumping into walls, possibly picking up keys
-  FOR s -k
-   ATOMIC
-    ps -p
- 
-    qx qx
+   1x 1x
 
  ;; moving while side-by-side
  12- -12

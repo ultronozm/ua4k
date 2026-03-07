@@ -79,7 +79,7 @@ Adding a New Game
 3. Reload `ua4k.html` and select `my-game` from the dropdown.
 
 Included New Game
-- `drone-swarm.txt`: lockstep dual-drone puzzle with 38 levels. Both drones move on every input; `#` acts as a hard force field that blocks approach without serving as a bump-stall surface; and `k`/`g` gates only open when one drone hits `k` while the other hits `g` on the same move.
+- `drone-swarm.txt`: lockstep dual-drone puzzle with 37 levels. Both drones move on every input, and `#` acts as a hard force field that blocks approach without serving as a bump-stall surface.
 - `drone-gate-pass.txt`: first gate-pass prototype. A drone can cross `g` only while the other drone spends `k` on the same move; the gate stays on the board afterward.
 - `drone-gate-strict.txt`: stricter gate prototype. Keys cannot be banked; stepping on `k` only matters on the exact move the other drone passes a gate.
 - `drone-gate-seal.txt`: irreversible gate prototype. Passing `g` consumes the paired `k` and turns the gate into `x`, permanently changing the board.
