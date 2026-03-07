@@ -217,10 +217,10 @@ MINMOVES 22
 
 xxxxxxxxxx
 x-2#-----x
-x-xb-#-xx
-x---#---x
-xxa--1--x
-xxx-----x
+x-xb-#-xxx
+x---#---xx
+xxa--1--xx
+xxx-----xx
 xxxxxxxxxx
 
 DESCRIPTION Hook Turn 1 (7x10): short and mean. The lower-left hook makes the re-spacing much less direct than the footprint suggests.
