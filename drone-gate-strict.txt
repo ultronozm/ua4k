@@ -1,0 +1,70 @@
+GOAL
+A
+
+GOAL
+B
+
+COLOR x #444444
+COLOR - #aaaaaa
+COLOR 1 #3366ff
+COLOR 2 #ff7733
+COLOR a #66cccc
+COLOR b #cc66cc
+COLOR A #00aa66
+COLOR B #00aa66
+COLOR k #dddd55
+COLOR g #884422
+COLOR # #cc3333
+
+TITLE Drone Gate Strict
+
+xxxxxxxxxx
+x1-g----2x
+x-#-#-#-x
+x-k---g--x
+x-#---#-x
+xa---k-b-x
+xxxxxxxxxx
+
+DESCRIPTION Prototype variant: keys cannot be collected early. A key only disappears if the other drone passes a gate on that same move.
+
+xxxxxxxxxxx
+x1-g-----2x
+x-#-#-#--x
+x-k---g---x
+x-#---#---x
+xa---k-b--x
+xxxxxxxxxxx
+
+DESCRIPTION Same idea on a longer frame. This is still a mechanic demo, not a finished puzzle pack.
+
+BIND w move_n "north" s move_s "south" a move_w "west" d move_e "east"
+
+ROTATE_CMDS move
+ ATOMIC
+  1- -1
+
+  2- -2
+
+ ATOMIC
+  1a -A
+
+  2b -B
+
+ ZIP p 12 q 21
+  ;; A key only matters on the exact move the other drone passes a gate.
+  ATOMIC
+   pg- -gp
+
+   qk -q
+
+  ;; Ordinary movement: keys behave like blockers unless spent this turn.
+  FOR s -
+   ATOMIC
+    ps -p
+
+    qx qx
+
+ 12- -12
+
+ 21- -21

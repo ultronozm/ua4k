@@ -1,19 +1,19 @@
 {
   "binds": {
     "a": {
-      "command": "swarm_step_w",
+      "command": "move_w",
       "description": "west"
     },
     "d": {
-      "command": "swarm_step_e",
+      "command": "move_e",
       "description": "east"
     },
     "s": {
-      "command": "swarm_step_s",
+      "command": "move_s",
       "description": "south"
     },
     "w": {
-      "command": "swarm_step_n",
+      "command": "move_n",
       "description": "north"
     }
   },
@@ -44,281 +44,31 @@
   "levels": [
     {
       "board": [
-        "xxxxxxxxxxxxxx",
-        "x1--------2--x",
-        "x---x--------x",
-        "x---x--------x",
-        "x---x-a--b---x",
-        "x------------x",
-        "x------------x",
-        "xxxxxxxxxxxxxx"
+        "xxxxxxxxxx",
+        "x1-g----2x",
+        "x-#-#-#-x",
+        "x-k---g--x",
+        "x-#---#-x",
+        "xa---k-b-x",
+        "xxxxxxxxxx"
       ],
-      "description": "To win, move '1' onto 'a' and '2' onto 'b' at the same time."
+      "description": "Prototype variant: keys cannot be collected early. A key only disappears if the other drone passes a gate on that same move."
     },
     {
       "board": [
-        "xxxxxxxxxxxxx",
-        "x1-----x---2x",
-        "x-xx---x-xx-x",
-        "x--a---#--b-x",
-        "x------#----x",
-        "x-----------x",
-        "xxxxxxxxxxxxx"
+        "xxxxxxxxxxx",
+        "x1-g-----2x",
+        "x-#-#-#--x",
+        "x-k---g---x",
+        "x-#---#---x",
+        "xa---k-b--x",
+        "xxxxxxxxxxx"
       ],
-      "description": "Drones cannot move towards the force fields '#'."
-    },
-    {
-      "board": [
-        "xxxxx",
-        "x-1bx",
-        "xx-ax",
-        "x2--x",
-        "xxxxx"
-      ]
-    },
-    {
-      "board": [
-        "xxxxx",
-        "xab2x",
-        "x---x",
-        "x-x1x",
-        "xxxxx"
-      ]
-    },
-    {
-      "board": [
-        "xxxxxx",
-        "x#x#2x",
-        "x----x",
-        "xabx1x",
-        "xxxxxx"
-      ]
-    },
-    {
-      "board": [
-        "xxxxxx",
-        "xb---x",
-        "x-a1xx",
-        "x##2-x",
-        "xxxxxx"
-      ]
-    },
-    {
-      "board": [
-        "xxxxxx",
-        "x-12bx",
-        "xx-a-x",
-        "x--##x",
-        "xxxxxx"
-      ]
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxx",
-        "x1---x---2--x",
-        "x-xx-x-xx-x-x",
-        "x--a-x---x-bx",
-        "x------x---xx",
-        "x-----------x",
-        "xxxxxxxxxxxxx"
-      ]
-    },
-    {
-      "board": [
-        "xxxxxx",
-        "x#2--x",
-        "x--x-x",
-        "x-b--x",
-        "x-ax1x",
-        "xxxxxx"
-      ],
-      "description": "Challenge Pack 1 (6x6): a tiny board with just enough walling to force repeated re-spacing."
-    },
-    {
-      "board": [
-        "xxxxxxx",
-        "x--#-xx",
-        "x-##-#x",
-        "x-ab#-x",
-        "x#----x",
-        "x-2-x1x",
-        "xxxxxxx"
-      ],
-      "description": "Challenge Pack 2 (7x7): the central cluster of force fields cuts off the obvious sync lines."
-    },
-    {
-      "board": [
-        "xxxxxxx",
-        "xx2x--x",
-        "x#---xx",
-        "x----#x",
-        "x#a-1-x",
-        "x---b-x",
-        "xxxxxxx"
-      ],
-      "description": "Challenge Pack 3 (7x7): the side pockets look roomy, but the docking order is still tight."
-    },
-    {
-      "board": [
-        "xxxxxxx",
-        "x2#--xx",
-        "x1---#x",
-        "x---x#x",
-        "xa----x",
-        "x-b--#x",
-        "xxxxxxx"
-      ],
-      "description": "Challenge Pack 4 (7x7): sparse geometry, but the wrong bump timing strands a drone on the wrong side."
-    },
-    {
-      "board": [
-        "xxxxxxx",
-        "x1-b--x",
-        "x---x-x",
-        "xxk---x",
-        "x---a2x",
-        "x-g-x#x",
-        "xxxxxxx"
-      ],
-      "description": "Challenge Pack 5 (7x7, keys): the gate has to be opened on tempo; otherwise the board de-syncs before docking."
-    },
-    {
-      "board": [
-        "xxxxxxx",
-        "x-2#--x",
-        "x-xb-#x",
-        "x----#x",
-        "xxa--1x",
-        "xxx---x",
-        "xxxxxxx"
-      ],
-      "description": "Midboss 1 (7x7): a tighter version of the wall gauntlets. The final sync still takes work, but the reset loops are shorter."
-    },
-    {
-      "board": [
-        "xxxxxxx",
-        "x-2#-xx",
-        "x-xb-#x",
-        "x----#x",
-        "xxa--1x",
-        "xx----x",
-        "xxxxxxx"
-      ],
-      "description": "Midboss 2 (7x7): one extra blocker is enough to turn the pocket transfer into a longer route."
-    },
-    {
-      "board": [
-        "xxxxxxx",
-        "x-2#--x",
-        "x-xb-#x",
-        "x----#x",
-        "xxa--1x",
-        "xx---#x",
-        "xxxxxxx"
-      ],
-      "description": "Midboss 3 (7x7): close to a gauntlet, but still readable. You have to preserve the good spacing through several sweeps."
-    },
-    {
-      "board": [
-        "xxxxxxx",
-        "x-2#--x",
-        "x-xb-#x",
-        "x----#x",
-        "xxa--1x",
-        "xx--#-x",
-        "xxxxxxx"
-      ],
-      "description": "Midboss 4 (7x7): the extra wall deepens the cycle one more notch before the true gauntlets begin."
-    },
-    {
-      "board": [
-        "xxxxxxx",
-        "x12x--x",
-        "x-xb--x",
-        "x----#x",
-        "xxa-#-x",
-        "xx---#x",
-        "xxxxxxx"
-      ],
-      "description": "Gauntlet 1 (7x7): same small footprint, but now the drones start entangled and the reset loops are long."
-    },
-    {
-      "board": [
-        "xxxxxxx",
-        "x-2#--x",
-        "x-xb--x",
-        "x----#x",
-        "xxa-#1x",
-        "xx----x",
-        "xxxxxxx"
-      ],
-      "description": "Gauntlet 2 (7x7): a compact endurance puzzle. Almost every mistake sends you through another long synchronization cycle."
-    },
-    {
-      "board": [
-        "xxxxxxx",
-        "x--#-2x",
-        "x-xb--x",
-        "x----#x",
-        "x#a-#1x",
-        "xx----x",
-        "xxxxxxx"
-      ],
-      "description": "Gauntlet 3 (7x7): the current top-end compact board. The cycle is long enough that recovering from a bad sweep is painful."
-    },
-    {
-      "board": [
-        "xxxxxxxx",
-        "x-x#---x",
-        "x--b---x",
-        "x12#-a#x",
-        "xx----xx",
-        "x-#--x-x",
-        "x-----xx",
-        "xxxxxxxx"
-      ],
-      "description": "8x8 Entry 1: the larger frame gives you room to lose sync in several different ways."
-    },
-    {
-      "board": [
-        "xxxxxxxx",
-        "x--x---x",
-        "x-#x2--x",
-        "xx-----x",
-        "xxb-#a-x",
-        "x#--1#-x",
-        "x---x--x",
-        "xxxxxxxx"
-      ],
-      "description": "8x8 Entry 2: still compact, but the extra lane space starts to create longer rerouting cycles."
-    },
-    {
-      "board": [
-        "xxxxxxxxx",
-        "x--#-2--x",
-        "x-xb--x-x",
-        "x----#--x",
-        "x#a-#1--x",
-        "xx------x",
-        "xxxxxxxxx"
-      ],
-      "description": "Rectangle 1 (7x9): a stretched compact board. The longer horizontal runway changes the reset timing."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxxxxxxx",
-        "x---#-----2------x",
-        "xxxb--x----#-----x",
-        "x----#--x----#---x",
-        "xxa-#1---#------xx",
-        "xx----#---------xx",
-        "xxxxxxxxxxxxxxxxxx"
-      ],
-      "description": "Rectangle 2 (7x18): a longer corridor experiment. This one actually uses the extended frame instead of just appending slack."
+      "description": "Same idea on a longer frame. This is still a mechanic demo, not a finished puzzle pack."
     }
   ],
   "rules": {
-    "swarm_step_e": {
+    "move_e": {
       "rules": [
         {
           "rules": [
@@ -378,45 +128,18 @@
           "rules": [
             {
               "from": [
-                "1k"
+                "1g-"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "-1"
+                "-g1"
               ],
               "type": "simple"
             },
             {
               "from": [
-                "2g"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-2"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "from": [
-                "1k"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2-"
+                "2k"
               ],
               "method": "firstmatch",
               "side_effects": [],
@@ -459,72 +182,18 @@
           "rules": [
             {
               "from": [
+                "2g-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-g2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
                 "1k"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2x"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2x"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "from": [
-                "2k"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1g"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-1"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "from": [
-                "2k"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1-"
               ],
               "method": "firstmatch",
               "side_effects": [],
@@ -541,33 +210,6 @@
             {
               "from": [
                 "2-"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1x"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1x"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "from": [
-                "2k"
               ],
               "method": "firstmatch",
               "side_effects": [],
@@ -615,7 +257,7 @@
       ],
       "type": "match1"
     },
-    "swarm_step_n": {
+    "move_n": {
       "rules": [
         {
           "rules": [
@@ -683,143 +325,7 @@
           "rules": [
             {
               "from": [
-                "k",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1",
-                "-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "g",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2",
-                "-"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "from": [
-                "k",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1",
-                "-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
                 "-",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2",
-                "-"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "from": [
-                "-",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1",
-                "-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "x",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "x",
-                "2"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "from": [
-                "k",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1",
-                "-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "x",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "x",
-                "2"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "from": [
-                "k",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2",
-                "-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
                 "g",
                 "1"
               ],
@@ -827,15 +333,11 @@
               "side_effects": [],
               "to": [
                 "1",
+                "g",
                 "-"
               ],
               "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
+            },
             {
               "from": [
                 "k",
@@ -848,10 +350,61 @@
                 "-"
               ],
               "type": "simple"
-            },
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
             {
               "from": [
                 "-",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "x",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "x",
+                "2"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "-",
+                "g",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "g",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "k",
                 "1"
               ],
               "method": "firstmatch",
@@ -870,37 +423,6 @@
             {
               "from": [
                 "-",
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2",
-                "-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "x",
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "x",
-                "1"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "from": [
-                "k",
                 "2"
               ],
               "method": "firstmatch",
@@ -960,7 +482,7 @@
       ],
       "type": "match1"
     },
-    "swarm_step_s": {
+    "move_s": {
       "rules": [
         {
           "rules": [
@@ -1029,51 +551,22 @@
             {
               "from": [
                 "1",
-                "k"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-",
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2",
-                "g"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-",
-                "2"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "from": [
-                "1",
-                "k"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-",
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2",
+                "g",
                 "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "g",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "k"
               ],
               "method": "firstmatch",
               "side_effects": [],
@@ -1121,83 +614,23 @@
           "rules": [
             {
               "from": [
-                "1",
-                "k"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-",
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
                 "2",
-                "x"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2",
-                "x"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "from": [
-                "2",
-                "k"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-",
-                "2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1",
-                "g"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-",
-                "1"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "from": [
-                "2",
-                "k"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-",
-                "2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1",
+                "g",
                 "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "g",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "k"
               ],
               "method": "firstmatch",
               "side_effects": [],
@@ -1216,37 +649,6 @@
               "from": [
                 "2",
                 "-"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "-",
-                "2"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "1",
-                "x"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1",
-                "x"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "from": [
-                "2",
-                "k"
               ],
               "method": "firstmatch",
               "side_effects": [],
@@ -1305,7 +707,7 @@
       ],
       "type": "match1"
     },
-    "swarm_step_w": {
+    "move_w": {
       "rules": [
         {
           "rules": [
@@ -1365,45 +767,18 @@
           "rules": [
             {
               "from": [
-                "k1"
+                "-g1"
               ],
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "1-"
+                "1g-"
               ],
               "type": "simple"
             },
             {
               "from": [
-                "g2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2-"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "from": [
-                "k1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "-2"
+                "k2"
               ],
               "method": "firstmatch",
               "side_effects": [],
@@ -1446,72 +821,18 @@
           "rules": [
             {
               "from": [
+                "-g2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2g-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
                 "k1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "x2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "x2"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "from": [
-                "k2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "g1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1-"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "from": [
-                "k2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "-1"
               ],
               "method": "firstmatch",
               "side_effects": [],
@@ -1528,33 +849,6 @@
             {
               "from": [
                 "-2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2-"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "x1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "x1"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "atomic"
-        },
-        {
-          "rules": [
-            {
-              "from": [
-                "k2"
               ],
               "method": "firstmatch",
               "side_effects": [],

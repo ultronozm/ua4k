@@ -228,15 +228,15 @@ xxxxxxxxx
 
 DESCRIPTION Rectangle 1 (7x9): a stretched compact board. The longer horizontal runway changes the reset timing.
 
-xxxxxxxxxx
-x--#-2---x
-x-xb--x--x
-x----#---x
-x#a-#1---x
-xx-------x
-xxxxxxxxxx
+xxxxxxxxxxxxxxxxxx
+x---#-----2------x
+xxxb--x----#-----x
+x----#--x----#---x
+xxa-#1---#------xx
+xx----#---------xx
+xxxxxxxxxxxxxxxxxx
 
-DESCRIPTION Rectangle 2 (7x10): same idea, pushed one step farther. The extra lane makes false resets more tempting.
+DESCRIPTION Rectangle 2 (7x18): a longer corridor experiment. This one actually uses the extended frame instead of just appending slack.
 
 
 BIND w swarm_step_n "north" s swarm_step_s "south" a swarm_step_w "west" d swarm_step_e "east"
