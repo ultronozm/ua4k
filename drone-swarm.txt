@@ -40,42 +40,6 @@ DESCRIPTION Force fields '#': you cannot move into them, so they reroute the pai
 MINMOVES 9
 
 xxxxxxxx
-x-#---2x
-xb--x--x
-x--##--x
-xa-#1--x
-x------x
-xxxxxxxx
-
-DESCRIPTION Force fields 1: a first compact '#' puzzle. The blockers matter, but the board still gives you room to recover.
-
-MINMOVES 11
-
-xxxxxxxx
-x-#---2x
-xb--x--x
-x--##--x
-xa-#1--x
-x------x
-xx#xxxxx
-
-DESCRIPTION Force fields 2: one more blocker trims the easy reset and forces a more careful route.
-
-MINMOVES 13
-
-xxxxxxxx
-x-#---2x
-xb--x--x
-#--##--x
-xa-#1--x
-x------x
-xx#xxxxx
-
-DESCRIPTION Force fields 3: same core layout, but now the wrong sweep costs a full extra cycle.
-
-MINMOVES 18
-
-xxxxxxxx
 x-#-2--x
 xxb--x-x
 x---#--x
@@ -156,6 +120,18 @@ x-----------x
 xxxxxxxxxxxxx
 
 MINMOVES 17
+
+xxxxxxxx
+x-#---2x
+xb--x--x
+x--##--x
+xa-#1--x
+x------x
+xxxxxxxx
+
+DESCRIPTION Force fields 1: a first compact '#' puzzle. The blockers matter, but the board still gives you room to recover.
+
+MINMOVES 11
 
 xxxxxxx
 x--#-xx
@@ -256,6 +232,18 @@ DESCRIPTION Offset Latch 1 (7x11): a medium board where the main challenge is ca
 
 MINMOVES 22
 
+xxxxxxxx
+x-#---2x
+xb--x--x
+x--##--x
+xa-#1--x
+x------x
+xx#xxxxx
+
+DESCRIPTION Force fields 2: one more blocker trims the easy reset and forces a more careful route.
+
+MINMOVES 13
+
 xxxxxxxxxxxx
 x--#--2----x
 xx-b-x-#---x
@@ -340,6 +328,18 @@ xxxxxxxxxxx
 DESCRIPTION Hook Turn 2 (7x11): one extra side wall turns the same idea into a much longer route with awkward resets.
 
 MINMOVES 30
+
+xxxxxxxx
+x-#---2x
+xb--x--x
+#--##--x
+xa-#1--x
+x------x
+xx#xxxxx
+
+DESCRIPTION Force fields 3: same core layout, but now the wrong sweep costs a full extra cycle.
+
+MINMOVES 18
 
 xxxxxxx
 x-2#--x

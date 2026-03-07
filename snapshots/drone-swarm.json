@@ -69,45 +69,6 @@
     {
       "board": [
         "xxxxxxxx",
-        "x-#---2x",
-        "xb--x--x",
-        "x--##--x",
-        "xa-#1--x",
-        "x------x",
-        "xxxxxxxx"
-      ],
-      "description": "Force fields 1: a first compact '#' puzzle. The blockers matter, but the board still gives you room to recover.",
-      "minMoves": 11
-    },
-    {
-      "board": [
-        "xxxxxxxx",
-        "x-#---2x",
-        "xb--x--x",
-        "x--##--x",
-        "xa-#1--x",
-        "x------x",
-        "xx#xxxxx"
-      ],
-      "description": "Force fields 2: one more blocker trims the easy reset and forces a more careful route.",
-      "minMoves": 13
-    },
-    {
-      "board": [
-        "xxxxxxxx",
-        "x-#---2x",
-        "xb--x--x",
-        "#--##--x",
-        "xa-#1--x",
-        "x------x",
-        "xx#xxxxx"
-      ],
-      "description": "Force fields 3: same core layout, but now the wrong sweep costs a full extra cycle.",
-      "minMoves": 18
-    },
-    {
-      "board": [
-        "xxxxxxxx",
         "x-#-2--x",
         "xxb--x-x",
         "x---#--x",
@@ -198,6 +159,19 @@
         "xxxxxxxxxxxxx"
       ],
       "minMoves": 17
+    },
+    {
+      "board": [
+        "xxxxxxxx",
+        "x-#---2x",
+        "xb--x--x",
+        "x--##--x",
+        "xa-#1--x",
+        "x------x",
+        "xxxxxxxx"
+      ],
+      "description": "Force fields 1: a first compact '#' puzzle. The blockers matter, but the board still gives you room to recover.",
+      "minMoves": 11
     },
     {
       "board": [
@@ -311,6 +285,19 @@
     },
     {
       "board": [
+        "xxxxxxxx",
+        "x-#---2x",
+        "xb--x--x",
+        "x--##--x",
+        "xa-#1--x",
+        "x------x",
+        "xx#xxxxx"
+      ],
+      "description": "Force fields 2: one more blocker trims the easy reset and forces a more careful route.",
+      "minMoves": 13
+    },
+    {
+      "board": [
         "xxxxxxxxxxxx",
         "x--#--2----x",
         "xx-b-x-#---x",
@@ -400,6 +387,19 @@
       ],
       "description": "Hook Turn 2 (7x11): one extra side wall turns the same idea into a much longer route with awkward resets.",
       "minMoves": 30
+    },
+    {
+      "board": [
+        "xxxxxxxx",
+        "x-#---2x",
+        "xb--x--x",
+        "#--##--x",
+        "xa-#1--x",
+        "x------x",
+        "xx#xxxxx"
+      ],
+      "description": "Force fields 3: same core layout, but now the wrong sweep costs a full extra cycle.",
+      "minMoves": 18
     },
     {
       "board": [
