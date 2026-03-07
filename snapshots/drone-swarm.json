@@ -316,13 +316,13 @@
     },
     {
       "board": [
-        "xxxxxxxxx",
-        "x--#-2--x",
-        "x-xb--x-x",
-        "x----#--x",
-        "x#a-#1--x",
-        "xx------x",
-        "xxxxxxxxx"
+        "xxxxxxxx",
+        "x-#-2--x",
+        "xxb--x-x",
+        "x---#--x",
+        "xa-#1--x",
+        "x------x",
+        "xxxxxxxx"
       ],
       "description": "Rectangle 1 (7x9): a stretched compact board. The longer horizontal runway changes the reset timing.",
       "minMoves": 13
@@ -339,6 +339,136 @@
       ],
       "description": "Rectangle 2 (7x18): a longer corridor experiment. This one actually uses the extended frame instead of just appending slack.",
       "minMoves": 20
+    },
+    {
+      "board": [
+        "xxxxxxxxxxx",
+        "x--#---2--x",
+        "xxb--x----x",
+        "x---##----x",
+        "xxa-#1----x",
+        "xx--------x",
+        "xxxxxxxxxxx"
+      ],
+      "description": "Wide Pocket 1 (7x11): one extra pocket is enough to make the horizontal slack genuinely matter.",
+      "minMoves": 15
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxx",
+        "x--#---2---x",
+        "xxb--x-----x",
+        "x---##-----x",
+        "xxa-#1-----x",
+        "xx---------x",
+        "xxxxxxxxxxxx"
+      ],
+      "description": "Wide Pocket 2 (7x12): same family, but now the reset lane is long enough to force a fuller cycle.",
+      "minMoves": 17
+    },
+    {
+      "board": [
+        "xxxxxxxxxx",
+        "x-2#-----x",
+        "x-xb-#-xx",
+        "x---#---x",
+        "xxa--1--x",
+        "xxx-----x",
+        "xxxxxxxxxx"
+      ],
+      "description": "Hook Turn 1 (7x10): short and mean. The lower-left hook makes the re-spacing much less direct than the footprint suggests.",
+      "minMoves": 22
+    },
+    {
+      "board": [
+        "xxxxxxxxxxx",
+        "x-2#-----x",
+        "x-xb-#-x-x",
+        "x---#----x",
+        "xxa--1#--x",
+        "xxx------x",
+        "xxxxxxxxxxx"
+      ],
+      "description": "Hook Turn 2 (7x11): one extra side wall turns the same idea into a much longer route with awkward resets.",
+      "minMoves": 30
+    },
+    {
+      "board": [
+        "xxxxxxxxxxx",
+        "x-2#-----x",
+        "x-xb-#-x-x",
+        "x---#----x",
+        "xxa--1---x",
+        "xxx---#--x",
+        "xxxxxxxxxxx"
+      ],
+      "description": "Hook Turn 3 (7x11): similar footprint, different failure mode. This one is more about preserving a good phase through the return lane.",
+      "minMoves": 28
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxx",
+        "x---#2-----x",
+        "xx-b-x--#--x",
+        "x---##-----x",
+        "xxa--1--#--x",
+        "xxx-------xx",
+        "xxxxxxxxxxxx"
+      ],
+      "description": "Zigzag Drift 1 (7x12): the board alternates between short pockets and long drifts, so the timing feels less orbit-like.",
+      "minMoves": 19
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxx",
+        "x--#--2----x",
+        "xx-b-x-#---x",
+        "x---##-----x",
+        "xxa-#1--#--x",
+        "xxx-------xx",
+        "xxxxxxxxxxxx"
+      ],
+      "description": "Zigzag Drift 2 (7x12): a denser version where the lower blockers create a much harsher endgame.",
+      "minMoves": 23
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "x---#-----2-x",
+        "x-#--x-b---x",
+        "x----##----x",
+        "x-#--1--a--x",
+        "xx-----#--xx",
+        "xxxxxxxxxxxxx"
+      ],
+      "description": "Long Reset 1 (7x13): this is the first new rectangle that really behaves like a gauntlet rather than a stretched puzzle.",
+      "minMoves": 49
+    },
+    {
+      "board": [
+        "xxxxxxxxxxx",
+        "x---#2-----x",
+        "xx-b-x-#---x",
+        "x---##-----x",
+        "xxa--1-#---x",
+        "xx--------xx",
+        "xxxxxxxxxxx"
+      ],
+      "description": "Offset Latch 1 (7x11): a medium board where the main challenge is carrying the correct offset through a cramped latch.",
+      "minMoves": 22
+    },
+    {
+      "board": [
+        "xxxxxxxxxxx",
+        "x---#2-----x",
+        "xx-b-x-#---x",
+        "x---##-----x",
+        "xxa-#1-----x",
+        "xx--------xx",
+        "xxxxxxxxxxx"
+      ],
+      "description": "Offset Latch 2 (7x11): slightly more open than the previous one, but the wrong dock timing still costs a full extra cycle.",
+      "minMoves": 24
     }
   ],
   "rules": {
