@@ -9,6 +9,7 @@
 ;; Entry points:
 ;;   M-x ua4k-play-file
 ;;   M-x ua4k-play-game
+;;   M-x ua4k-play-asset-file
 ;;
 ;; This frontend intentionally targets non-tick games first. It interprets the
 ;; same compiled JSON IR used by the browser runtime, so it does not need a
@@ -27,6 +28,11 @@
 (defcustom ua4k-python-command "python3"
   "Python executable used to compile game files into JSON."
   :type 'string)
+
+(defcustom ua4k-asset-directory nil
+  "Directory containing precompiled Emacs UA4K assets.
+When non-nil, `ua4k-play-asset' loads game data from this directory."
+  :type '(choice (const :tag "Unset" nil) directory))
 
 (defconst ua4k--source-file
   (or load-file-name buffer-file-name)
@@ -76,6 +82,14 @@
   "Return a sensible default game file for interactive commands."
   (or (and (boundp 'ua4k--game-file) ua4k--game-file)
       (expand-file-name "drone-swarm.txt" (ua4k--repo-root))))
+
+(defun ua4k--asset-variable-symbol (game-name)
+  "Return the variable symbol for compiled GAME-NAME data."
+  (intern (format "ua4k_data_%s" (replace-regexp-in-string "-" "_" game-name))))
+
+(defun ua4k--asset-feature-symbol (game-name)
+  "Return the feature symbol provided by GAME-NAME's asset file."
+  (intern (format "ua4k-data-%s" game-name)))
 
 (defun ua4k--string-list->board (rows)
   "Convert ROWS (a list of strings) into a mutable board."
@@ -461,6 +475,36 @@
   "Compile and play GAME-NAME from the repo root."
   (interactive "sUA4K game name: ")
   (ua4k-play-file (expand-file-name (format "%s.txt" game-name) (ua4k--repo-root)) level))
+
+(defun ua4k-play-asset-file (asset-file &optional level)
+  "Load compiled ASSET-FILE and play it, starting at LEVEL."
+  (interactive
+   (list (read-file-name "UA4K asset file: "
+                         (or ua4k-asset-directory (ua4k--repo-root))
+                         nil t nil
+                         (lambda (f) (string-match-p "\\.el\\'" f)))
+         current-prefix-arg))
+  (let* ((file (expand-file-name asset-file))
+         (game-name (replace-regexp-in-string "^ua4k-data-" ""
+                                              (file-name-base file)))
+         (feature (ua4k--asset-feature-symbol game-name))
+         (variable (ua4k--asset-variable-symbol game-name))
+         (level-number (when level (prefix-numeric-value level))))
+    (load file nil t)
+    (unless (featurep feature)
+      (error "Asset file did not provide %S" feature))
+    (unless (boundp variable)
+      (error "Asset file did not define %S" variable))
+    (ua4k--start-game file (symbol-value variable) level-number)))
+
+(defun ua4k-play-asset (game-name &optional level)
+  "Play precompiled GAME-NAME from `ua4k-asset-directory'."
+  (interactive "sUA4K compiled game name: ")
+  (unless ua4k-asset-directory
+    (error "Set `ua4k-asset-directory' or use `ua4k-play-asset-file'"))
+  (ua4k-play-asset-file
+   (expand-file-name (format "ua4k-data-%s.el" game-name) ua4k-asset-directory)
+   level))
 
 (defun ua4k--parse-snippet-board (text)
   "Parse raw board TEXT into a list of equal-width rows."

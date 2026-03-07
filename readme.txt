@@ -8,6 +8,8 @@ Main Files
 - `make-data.py`: compiler for the DSL game files.
 - `compile-game-json.py`: one-shot compiler entrypoint that writes compiled JSON for a single game.
 - `build-web.py`: emits standalone per-game browser pages from the same compiled game object.
+- `build-emacs-assets.py`: emits Emacs-loadable compiled assets from the same compiled game object.
+- `compiler_common.py`: shared loader helpers for compiler-side emitters.
 - `ua4k.js`: runtime engine (rule application, rendering, input, levels).
 - `ua4k.css`: shared browser styling for both the hub page and standalone pages.
 - `ua4k.html`: browser shell UI.
@@ -67,6 +69,12 @@ Play In Emacs
   - `M-x ua4k-play-game RET drone-swarm RET`
 - Or open a specific source file directly:
   - `M-x ua4k-play-file RET /path/to/drone-swarm.txt RET`
+- Or prebuild Emacs assets once and play without Python at runtime:
+  - `python3 build-emacs-assets.py drone-swarm.txt`
+  - in Emacs: `(setq ua4k-asset-directory "/path/to/emacs-build")`
+  - `M-x ua4k-play-asset RET drone-swarm RET`
+- Or load one compiled asset file directly:
+  - `M-x ua4k-play-asset-file RET /path/to/emacs-build/ua4k-data-drone-swarm.el RET`
 - Or select a raw board region and play it as a one-level scratch board using an existing game's rules:
   - copy/paste the board into any buffer
   - mark the region
@@ -79,7 +87,7 @@ Play In Emacs
   - `q` quit
 - Current scope:
   - non-tick games are supported
-  - this frontend consumes the same compiled rule IR as the browser, via `compile-game-json.py`
+  - this frontend can consume the same compiled rule IR either via `compile-game-json.py` or via prebuilt `.el` assets
   - rendering uses the compiled `COLOR` and `CHARMAP` metadata inside Emacs
   - this is the same underlying compiled game object shape used by `build-web.py` for standalone browser pages
 

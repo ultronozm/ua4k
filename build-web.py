@@ -3,22 +3,11 @@ from __future__ import annotations
 
 import argparse
 import html
-import importlib.util
 import json
 import shutil
 import sys
 from pathlib import Path
-
-
-def load_make_data_module(repo_root: Path):
-    module_path = repo_root / "make-data.py"
-    spec = importlib.util.spec_from_file_location("make_data", module_path)
-    if spec is None or spec.loader is None:
-        raise RuntimeError(f"unable to load compiler module from {module_path}")
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
-    return module
+from compiler_common import load_make_data_module, repo_root
 
 
 def standalone_html(game_name: str) -> str:
@@ -91,16 +80,16 @@ def main(argv: list[str]) -> int:
     )
     args = parser.parse_args(argv[1:])
 
-    repo_root = Path(__file__).resolve().parent
-    output_dir = (repo_root / args.output_dir).resolve()
+    root = repo_root()
+    output_dir = (root / args.output_dir).resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    module = load_make_data_module(repo_root)
+    module = load_make_data_module()
     for asset_name in ("ua4k.js", "ua4k.css", "kitten.jpg"):
-        shutil.copy2(repo_root / asset_name, output_dir / asset_name)
+        shutil.copy2(root / asset_name, output_dir / asset_name)
 
     for game_file in args.game_files:
-        source_path = (repo_root / game_file).resolve()
+        source_path = (root / game_file).resolve()
         game_name = source_path.stem
         try:
             compiled = module.compile_game(str(source_path))
