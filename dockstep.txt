@@ -251,13 +251,13 @@ DESCRIPTION Wide Pocket 2 (7x12): same family, but now the reset lane is long en
 
 MINMOVES 17
 
-xxxxxxxxxxx
+xxxxxxxxxxxx
 x---#2-----x
 xx-b-x-#---x
 x---##-----x
 xxa--1-#---x
 xx--------xx
-xxxxxxxxxxx
+xxxxxxxxxxxx
 
 DESCRIPTION Offset Latch 1 (7x11): a medium board where the main challenge is carrying the correct offset through a cramped latch.
 
@@ -275,13 +275,13 @@ DESCRIPTION Zigzag Drift 2 (7x12): a denser version where the lower blockers cre
 
 MINMOVES 23
 
-xxxxxxxxxxx
+xxxxxxxxxxxx
 x---#2-----x
 xx-b-x-#---x
 x---##-----x
 xxa-#1-----x
 xx--------xx
-xxxxxxxxxxx
+xxxxxxxxxxxx
 
 DESCRIPTION Offset Latch 2 (7x11): slightly more open than the previous one, but the wrong dock timing still costs a full extra cycle.
 
