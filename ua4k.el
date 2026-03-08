@@ -58,6 +58,7 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
 (defvar-local ua4k--board-history nil)
 (defvar-local ua4k--level-number 0)
 (defvar-local ua4k--game-file nil)
+(defvar-local ua4k--source-kind 'file)
 (defvar-local ua4k--last-row -1)
 (defvar-local ua4k--last-col -1)
 (defvar-local ua4k--header-start nil)
@@ -502,7 +503,7 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
                             (if (symbolp (car pair)) (symbol-name (car pair)) (car pair))
                             (ua4k--bind-description (cdr pair)))))
           ua4k--binds)
-    (insert "\nExtra:\n  u  undo\n  U  restart level\n  L  jump to level\n  q  quit\n")
+    (insert "\nExtra:\n  u  undo\n  U  restart level\n  g  reload from file\n  L  jump to level\n  q  quit\n")
     (goto-char (point-min))))
 
 (defun ua4k--render ()
@@ -577,6 +578,21 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
    (list (string-to-number (read-string "Level number: "))))
   (ua4k--set-level level))
 
+(defun ua4k-reload-from-file ()
+  "Recompile and reload the current level from the source game file."
+  (interactive)
+  (unless (and (eq ua4k--source-kind 'file)
+               (stringp ua4k--game-file)
+               (string-match-p "\\.txt\\'" ua4k--game-file))
+    (user-error "Current buffer is not backed by a source game file"))
+  (let* ((data (ua4k--compile-json ua4k--game-file))
+         (level-count (length (ua4k--obj-get data "levels")))
+         (level (if (> level-count 0)
+                    (min ua4k--level-number (1- level-count))
+                  0)))
+    (ua4k--load-game-into-current-buffer ua4k--game-file data level 'file)
+    (message "Reloaded %s level %d" (file-name-nondirectory ua4k--game-file) level)))
+
 (defun ua4k-quit ()
   "Quit the current ua4k buffer."
   (interactive)
@@ -616,6 +632,7 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
                       (ua4k--perform-action key)))))
     (define-key map (kbd "u") #'ua4k-undo)
     (define-key map (kbd "U") #'ua4k-restart-level)
+    (define-key map (kbd "g") #'ua4k-reload-from-file)
     (define-key map (kbd "L") #'ua4k-jump-to-level)
     (define-key map (kbd "q") #'ua4k-quit)
     (use-local-map map)))
@@ -626,27 +643,32 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
   (setq-local truncate-lines nil)
   (visual-line-mode 1))
 
-(defun ua4k--start-game (game-file data level)
-  "Open GAME-FILE using compiled DATA at LEVEL."
+(defun ua4k--load-game-into-current-buffer (game-file data level source-kind)
+  "Load GAME-FILE using compiled DATA at LEVEL with SOURCE-KIND."
+  (setq data (ua4k--normalize-compiled-data data))
+  (ua4k-mode)
+  (setq ua4k--game-file game-file
+        ua4k--source-kind source-kind
+        ua4k--game-data data
+        ua4k--levels (ua4k--obj-get data "levels")
+        ua4k--rules (ua4k--obj-get data "rules")
+        ua4k--binds (ua4k--obj-get data "binds")
+        ua4k--goals (ua4k--obj-get data "goals")
+        ua4k--voids (ua4k--obj-get data "voids")
+        ua4k--char-map (ua4k--obj-get data "charMap")
+        ua4k--color-map (ua4k--obj-get data "colorMap")
+        ua4k--whitespace-chars (ua4k--obj-get data "whitespaceChars")
+        ua4k--hidden-line-chars (ua4k--obj-get data "hiddenLineChars")
+        ua4k--level-number (or level 0))
+  (ua4k--install-keymap)
+  (ua4k--init-level)
+  (ua4k--render))
+
+(defun ua4k--start-game (game-file data level &optional source-kind)
+  "Open GAME-FILE using compiled DATA at LEVEL with SOURCE-KIND."
   (let ((buffer (get-buffer-create (ua4k--buffer-name game-file))))
     (with-current-buffer buffer
-      (setq data (ua4k--normalize-compiled-data data))
-      (ua4k-mode)
-      (setq ua4k--game-file game-file
-            ua4k--game-data data
-            ua4k--levels (ua4k--obj-get data "levels")
-            ua4k--rules (ua4k--obj-get data "rules")
-            ua4k--binds (ua4k--obj-get data "binds")
-            ua4k--goals (ua4k--obj-get data "goals")
-            ua4k--voids (ua4k--obj-get data "voids")
-            ua4k--char-map (ua4k--obj-get data "charMap")
-            ua4k--color-map (ua4k--obj-get data "colorMap")
-            ua4k--whitespace-chars (ua4k--obj-get data "whitespaceChars")
-            ua4k--hidden-line-chars (ua4k--obj-get data "hiddenLineChars")
-            ua4k--level-number (or level 0))
-      (ua4k--install-keymap)
-      (ua4k--init-level)
-      (ua4k--render))
+      (ua4k--load-game-into-current-buffer game-file data level (or source-kind 'file)))
     (pop-to-buffer buffer)))
 
 (defun ua4k-play-file (game-file &optional level)
@@ -658,7 +680,7 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
   (let* ((file (expand-file-name game-file))
          (data (ua4k--compile-json file))
          (level-number (when level (prefix-numeric-value level))))
-    (ua4k--start-game file data level-number)))
+    (ua4k--start-game file data level-number 'file)))
 
 (defun ua4k-play-game (game-name &optional level)
   "Compile and play GAME-NAME from the repo root."
@@ -684,7 +706,7 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
       (error "Asset file did not provide %S" feature))
     (unless (boundp variable)
       (error "Asset file did not define %S" variable))
-    (ua4k--start-game file (symbol-value variable) level-number)))
+    (ua4k--start-game file (symbol-value variable) level-number 'asset)))
 
 (defun ua4k-play-asset (game-name &optional level)
   "Play precompiled GAME-NAME from `ua4k-asset-directory'."
@@ -735,7 +757,7 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
             (colorMap . ,(ua4k--obj-get compiled "colorMap"))
             (whitespaceChars . ,(ua4k--obj-get compiled "whitespaceChars"))
             (hiddenLineChars . ,(ua4k--obj-get compiled "hiddenLineChars")))))
-    (ua4k--start-game game-file data 0)))
+    (ua4k--start-game game-file data 0 'region)))
 
 (provide 'ua4k)
 
