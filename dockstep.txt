@@ -15,24 +15,6 @@ COLOR B #00aa66
 COLOR # #cc3333
 
 TITLE Drone Swarm
-xxxxxx
-x1--2x
-xxab-x
-xxxxxx
-
-DESCRIPTION Tiny onboarding 1: the drones move together, so the obvious direct route is not always the right one.
-
-MINMOVES 4
-
-xxxxxx
-x1---x
-xa--2x
-xb---x
-xxxxxx
-
-DESCRIPTION Tiny onboarding 2: sometimes one drone has to overshoot while the other lines up.
-
-MINMOVES 7
 
 xxxxxxxxxxxxxx
 x1--------2--x
@@ -47,11 +29,50 @@ DESCRIPTION To win, move '1' onto 'a' and '2' onto 'b' at the same time.
 
 MINMOVES 12
 
+xxxxxx
+x1--2x
+xxab-x
+xxxxxx
+
+MINMOVES 4
+
+xxxxxx
+x1---x
+xa--2x
+xb---x
+xxxxxx
+
+MINMOVES 7
+
+xxxxxxxxxxxxx
+x1-a-x2--x-bx
+x------x---xx
+x-----------x
+xxxxxxxxxxxxx
+
+MINMOVES 17
+
+xxxxx
+x-1bx
+xx-ax
+x2--x
+xxxxx
+
+MINMOVES 15
+
+xxxxx
+xab2x
+x---x
+x-x1x
+xxxxx
+
+MINMOVES 18
+
 xxxxxxxxx
 x1-#---2x
 x--#x---x
 x-a#b---x
-x-------x
+#-------#
 xxxxxxxxx
 
 DESCRIPTION Force fields '#': you cannot move into them, so they reroute the pair instead of acting like ordinary walls.
@@ -65,14 +86,6 @@ xabx1x
 xxxxxx
 
 MINMOVES 14
-
-xxxxx
-x-1bx
-xx-ax
-x2--x
-xxxxx
-
-MINMOVES 15
 
 xxxxxxxx
 x-#-2--x
@@ -116,7 +129,7 @@ xxxxxxx
 
 DESCRIPTION Challenge Pack 4 (7x7): sparse geometry, but the wrong bump timing strands a drone on the wrong side.
 
-MINMOVES 15
+=MINMOVES 15
 
 xxxxxxx
 xx2x--x
@@ -129,16 +142,6 @@ xxxxxxx
 DESCRIPTION Challenge Pack 3 (7x7): the side pockets look roomy, but the docking order is still tight.
 
 MINMOVES 16
-
-xxxxxxxxxxxxx
-x1---x---2--x
-x-xx-x-xx-x-x
-x--a-x---x-bx
-x------x---xx
-x-----------x
-xxxxxxxxxxxxx
-
-MINMOVES 17
 
 xxxxxxxxxxx
 x--#---2--x
@@ -175,14 +178,6 @@ xxxxxxxxxxxx
 DESCRIPTION Rectangle Split 1 (7x12): the old long rectangle cut down into a tighter pocket-transfer board.
 
 MINMOVES 17
-
-xxxxx
-xab2x
-x---x
-x-x1x
-xxxxx
-
-MINMOVES 18
 
 xxxxxx
 x#2--x
