@@ -1,0 +1,144 @@
+GOAL
+E
+
+VOID
+X
+
+COLOR x #2c3e50
+COLOR - #ecf0f1
+COLOR 1 #e74c3c
+COLOR 2 #3498db
+COLOR k #f1c40f
+COLOR g #95a5a6
+COLOR E #2ecc71
+
+TITLE Phase Shift
+
+DESCRIPTION Welcome to Phase Shift! Collect keys (k) to unlock gates (g) and reach the exit (E). Switch phases with Z - red phase (1) passes red barriers, blue phase (2) passes blue barriers.
+
+xxxxxxxxxx
+x--------x
+x---k----x
+x---g----x
+x----E---x
+x--------x
+x--------x
+x----1---x
+x--------x
+xxxxxxxxxx
+
+DESCRIPTION Level 1: Walk up, collect the key (k) to open the gate (g), then reach the exit (E).
+
+MINMOVES 5
+
+xxxxxxxxxxxx
+x----------x
+x-----k----x
+x-----g----x
+x-----E----x
+x----------x
+x----------x
+x-----1----x
+xxxxxxxxxxxx
+
+DESCRIPTION Level 2: A bit longer path. Collect key, open gate, reach exit.
+
+MINMOVES 6
+
+xxxxxxxxxxxxxx
+x------------x
+x-------k----x
+x-------g----x
+x-------E----x
+x------------x
+x------------x
+x-------1----x
+xxxxxxxxxxxxxx
+
+DESCRIPTION Level 3: Navigate to the key first.
+
+MINMOVES 8
+
+xxxxxxxxxxxxxxxx
+x--------------x
+x---------k----x
+x---------g----x
+x---------E----x
+x--------------x
+x--------------x
+x---------1----x
+xxxxxxxxxxxxxxxx
+
+DESCRIPTION Level 4: A longer journey.
+
+MINMOVES 10
+
+xxxxxxxxxxxxxxxxxx
+x----------------x
+x-----------k----x
+x-----------g----x
+x-----------E----x
+x----------------x
+x----------------x
+x-----------1----x
+xxxxxxxxxxxxxxxxxx
+
+DESCRIPTION Level 5: Keep climbing.
+
+MINMOVES 12
+
+xxxxxxxxxxxxxxxxxxxx
+x------------------x
+x-------------k----x
+x-------------g----x
+x-------------E----x
+x------------------x
+x------------------x
+x-------------1----x
+xxxxxxxxxxxxxxxxxxxx
+
+DESCRIPTION Level 6: Almost there.
+
+MINMOVES 14
+
+xxxxxxxxxxxxxxxxxxxxxx
+x--------------------x
+x---------------k----x
+x---------------g----x
+x---------------E----x
+x--------------------x
+x--------------------x
+x---------------1----x
+xxxxxxxxxxxxxxxxxxxxxx
+
+DESCRIPTION Level 7: The final challenge.
+
+MINMOVES 16
+
+BIND w move_n s move_s a move_w d move_e z shift_phase
+
+ROTATE_CMDS move
+ MATCH1
+  1- -1
+  2- -2
+
+  1k -1 get_key
+  2k -2 get_key
+
+  1g -1 open_gate
+  2g -2 open_gate
+
+CMD get_key
+ MATCH1
+  k -
+  g -
+
+CMD open_gate
+ MATCH1
+  g -
+
+CMD shift_phase
+ MATCH1
+  1 2
+  2 1
+
