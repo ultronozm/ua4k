@@ -27,14 +27,14 @@ xxxxxxxxxxxxxx
 
 DESCRIPTION To win, move '1' onto 'a' and '2' onto 'b' at the same time.
 
-;; MINMOVES 12
+MINMOVES 12
 
 xxxxxx
 x1--2x
 xxab-x
 xxxxxx
 
-;; MINMOVES 4
+MINMOVES 4
 
 xxxxxx
 x1---x
@@ -42,7 +42,7 @@ xa--2x
 xb---x
 xxxxxx
 
-;; MINMOVES 7
+MINMOVES 7
 
 xxxxxxxxxxxxx
 x1-a-x2--x-bx
@@ -50,7 +50,7 @@ x------x---xx
 x-----------x
 xxxxxxxxxxxxx
 
-;; MINMOVES 17
+MINMOVES 17
 
 xxxxx
 x-1bx
@@ -58,7 +58,7 @@ xx-ax
 x2--x
 xxxxx
 
-;; MINMOVES 15
+MINMOVES 15
 
 xxxxx
 xab2x
@@ -66,7 +66,7 @@ x---x
 x-x1x
 xxxxx
 
-;; MINMOVES 18
+MINMOVES 18
 
 xxxxx
 x2x-x
@@ -76,7 +76,7 @@ xa-1x
 x--bx
 xxxxx
 
-;; MINMOVES 16
+MINMOVES 16
 
 xxxxxx
 xb---x
@@ -84,7 +84,7 @@ x-a1xx
 x--2-x
 xxxxxx
 
-;; MINMOVES 16
+MINMOVES 16
 
 xxxxxx
 x2---x
@@ -93,7 +93,7 @@ xa---x
 x-b--x
 xxxxxx
 
-;; MINMOVES 12
+MINMOVES 12
 
 xxxxxxxxx
 x1-#---2x
@@ -104,7 +104,7 @@ x#xxxxxxx
 
 DESCRIPTION You can't bump into the force fields '#'.
 
-;; MINMOVES 17
+MINMOVES 17
 
 xxxxxx
 x#x#2x
@@ -112,7 +112,7 @@ x----x
 xabx1x
 xxxxxx
 
-;; MINMOVES 14
+MINMOVES 14
 
 xxxxxxxx
 x-#---2x
@@ -122,7 +122,7 @@ xa-#1--x
 x------x
 xxxxxxxx
 
-;; MINMOVES 11
+MINMOVES 11
 
 xxxxxxxx
 x-#-2--x
@@ -132,7 +132,7 @@ xa-#1--x
 x------x
 xxxxxxxx
 
-;; MINMOVES 13
+MINMOVES 13
 
 xxxxxxx
 x--#-xx
@@ -142,7 +142,7 @@ x#----x
 x-2-x1x
 xxxxxxx
 
-;; MINMOVES 17
+MINMOVES 17
 
 xxxxxxxxxxx
 x--#-----2x
@@ -152,9 +152,7 @@ xa-#1---#-x
 x----#----x
 xxxxxxxxxxx
 
-DESCRIPTION Rectangle Split 1 (7x12): the old long rectangle cut down into a tighter pocket-transfer board.
-
-;; MINMOVES 17
+MINMOVES 17
 
 xxxxxx
 x#2--x
@@ -163,9 +161,7 @@ x-b--x
 x-ax1x
 xxxxxx
 
-DESCRIPTION Challenge Pack 1 (6x6): a tiny board with just enough walling to force repeated re-spacing.
-
-;; MINMOVES 18
+MINMOVES 18
 
 xxxxxxxxx
 x---#2--x
@@ -175,7 +171,7 @@ xxa--1--x
 xxx-----x
 xxxxxxxxx
 
-;; MINMOVES 19
+MINMOVES 19
 
 xxxxxx
 x-12bx
@@ -183,7 +179,7 @@ xx-a-x
 x--##x
 xxxxxx
 
-;; MINMOVES 22
+MINMOVES 22
 
 xxxxxxxxxx
 x-2#-----x
@@ -193,7 +189,7 @@ x-a--1--xx
 x-------xx
 xxxxxxxxxx
 
-;; MINMOVES 22
+MINMOVES 20
 
 xxxxxxxx
 x-#---2x
@@ -203,7 +199,7 @@ xa-#1--x
 x------x
 xx#xxxxx
 
-;; MINMOVES 13
+MINMOVES 13
 
 xxxxxxxxxxx
 x----2----x
@@ -213,7 +209,7 @@ xa-#1--#--x
 xx-------xx
 xxxxxxxxxxx
 
-;; MINMOVES 23
+MINMOVES 23
 
 xxxxxxxx
 x---#2-x
@@ -223,9 +219,7 @@ xxa-#1-x
 xx-----x
 xxxxxxxx
 
-DESCRIPTION Offset Latch 2 (7x11): slightly more open than the previous one, but the wrong dock timing still costs a full extra cycle.
-
-;; MINMOVES 24
+MINMOVES 24
 
 xxxxxxx
 x-2#--x
@@ -235,7 +229,7 @@ xxa--1x
 xxx---x
 xxxxxxx
 
-;; MINMOVES 27
+MINMOVES 27
 
 xxxxxxxxxx
 x-2#-----x
@@ -245,7 +239,7 @@ xxa--1---x
 xxx---#--x
 xxxxxxxxxx
 
-;; MINMOVES 28
+MINMOVES 28
 
 xxxxxxx
 x-2#-xx
@@ -255,7 +249,7 @@ xxa--1x
 xx----x
 xxxxxxx
 
-;; MINMOVES 29
+MINMOVES 29
 
 xxxxxxxx
 x-x#---x
@@ -266,7 +260,7 @@ x-#--x-x
 x-----xx
 xxxxxxxx
 
-;; MINMOVES 29
+MINMOVES 29
 
 xxxxxxxxxx
 x-2#-----x
@@ -276,7 +270,7 @@ xxa--1#--x
 xxx------x
 xxxxxxxxxx
 
-;; MINMOVES 30
+MINMOVES 30
 
 xxxxxxxx
 x-#---2x
@@ -286,7 +280,7 @@ xa-#1--x
 x------x
 xx#xxxxx
 
-;; MINMOVES 18
+MINMOVES 18
 
 xxxxxxx
 x-2#--x
@@ -296,7 +290,7 @@ xxa--1x
 xx---#x
 xxxxxxx
 
-;; MINMOVES 33
+MINMOVES 33
 
 xxxxxxxx
 x--x---x
@@ -307,7 +301,7 @@ x#--1#-x
 x---x--x
 xxxxxxxx
 
-;; MINMOVES 33
+MINMOVES 33
 
 xxxxxxx
 x-2#--x
@@ -317,7 +311,7 @@ xxa--1x
 xx--#-x
 xxxxxxx
 
-;; MINMOVES 34
+MINMOVES 34
 
 xxxxxxxxxx##x
 x--#-----2#-x
@@ -327,7 +321,7 @@ xa-#1---#---#
 x----#------#
 x#xx#x##xxxxx
 
-;; MINMOVES 41
+MINMOVES 41
 
 xxxxxxx
 x12x--x
@@ -337,7 +331,7 @@ xxa-#-x
 xx---#x
 xxxxxxx
 
-;; MINMOVES 42
+MINMOVES 42
 
 xxxxxxx
 x-2#--x
@@ -347,17 +341,7 @@ xxa-#1x
 xx----x
 xxxxxxx
 
-;; MINMOVES 47
-
-xxxxxxxxxxxxx
-x---#-----2-x
-x-#--x-b---xx
-x----##----xx
-x-#--1--a--xx
-xx-----#--xxx
-xxxxxxxxxxxxx
-
-;; MINMOVES 49
+MINMOVES 47
 
 xxxxxxx
 x--#-2x
@@ -367,7 +351,17 @@ x#a-#1x
 xx----x
 xxxxxxx
 
-;; MINMOVES 49
+MINMOVES 49
+
+xxxxxxxxxxxxx
+x---#-----2-x
+x-#--x-b---xx
+x----##----xx
+x-#--1--a--xx
+xx-----#--xxx
+xxxxxxxxxxxxx
+
+MINMOVES 49
 
 BIND w swarm_step_n "north" s swarm_step_s "south" a swarm_step_w "west" d swarm_step_e "east" 
 
