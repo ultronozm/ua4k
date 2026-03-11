@@ -462,10 +462,15 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
 (defun ua4k--replace-region-between-markers (start end string)
   "Replace text between START and END markers with STRING."
   (save-excursion
-    (goto-char start)
-    (delete-region start end)
-    (insert string)
-    (set-marker end (point))))
+    (let ((start-pos (marker-position start)))
+      (goto-char start-pos)
+      (delete-region start end)
+      ;; Deleting the region can collapse START to the old end position.
+      ;; Re-anchor both markers around the newly inserted replacement.
+      (set-marker start start-pos)
+      (goto-char start-pos)
+      (insert string)
+      (set-marker end (point)))))
 
 (defun ua4k--render-full ()
   "Render the entire buffer, rebuilding static and dynamic sections."
@@ -517,11 +522,11 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
              (markerp ua4k--status-end))
         (progn
           (ua4k--replace-region-between-markers
-           ua4k--header-start ua4k--header-end (ua4k--header-string))
+           ua4k--status-start ua4k--status-end (ua4k--status-string))
           (ua4k--replace-region-between-markers
            ua4k--board-start ua4k--board-end (ua4k--board-string))
           (ua4k--replace-region-between-markers
-           ua4k--status-start ua4k--status-end (ua4k--status-string)))
+           ua4k--header-start ua4k--header-end (ua4k--header-string)))
       (ua4k--render-full))))
 
 (defun ua4k--init-level ()
