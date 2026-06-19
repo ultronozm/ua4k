@@ -363,6 +363,39 @@ xxxxxxxxxxxxx
 
 MINMOVES 49
 
+xxxxxxxxxxxxx
+x1---#-----2x
+x-----x---bxx
+x--#-------xx
+xx----a-----x
+xx----#-----x
+xxxxxxxxxxxxx
+
+xxxxxxxxxxxxx
+x1--------2-x
+x---#---b--xx
+x-----x----xx
+xx---a#----xx
+xx---------xx
+xxxxxxxxxxxxx
+
+xxxxxxxxxxxxx
+x1----#----2x
+x---b----x-xx
+x-----#----xx
+xx-#--a----xx
+xx---------xx
+xxxxxxxxxxxxx
+
+xxxxxxxxxxxxxx
+x1----#-----2x
+x---b-----x-xx
+x------#----xx
+xx-#---a----xx
+xx----------xx
+xx-----#----xx
+xxxxxxxxxxxxxx
+
 BIND w swarm_step_n "north" s swarm_step_s "south" a swarm_step_w "west" d swarm_step_e "east" 
 
 ROTATE_CMDS swarm_step
