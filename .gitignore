@@ -1,3 +1,15 @@
 gamesData.js
 .ua4k-launch.html
 rust-parser/target/
+.DS_Store
+__pycache__/
+*.pyc
+_region_.*
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.bak
+web-build/
+.ua4k-http-server.*
+.agent-shell/

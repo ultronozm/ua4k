@@ -1,0 +1,28 @@
+VOID
+!
+
+BIND w north s south a west d east
+
+*-----
+------
+---!--
+------
+------
+
+CMD east
+  FOR s -!
+    *s -*
+
+CMD west
+  FOR s -!
+    s* *-
+
+CMD south
+  FOR s -!
+   * -
+   s *
+
+CMD north
+  FOR s -!
+   s *
+   * -
