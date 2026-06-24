@@ -826,20 +826,12 @@ function drawBoard() {
     fitBoardToDisplay(displayElem, renderedRows);
 }
 
-function shouldFitBoardToDisplay() {
-    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
-        return false;
-    }
-    return window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
-}
-
 function fitBoardToDisplay(displayElem, renderedRows) {
     if (
         !displayElem ||
         !displayElem.style ||
         !Array.isArray(renderedRows) ||
         renderedRows.length === 0 ||
-        !shouldFitBoardToDisplay() ||
         typeof window.getComputedStyle !== 'function'
     ) {
         return;
