@@ -783,6 +783,9 @@ function drawBoard() {
     if (!displayElem) {
         return;
     }
+    if (displayElem.style) {
+        displayElem.style.removeProperty('font-size');
+    }
     clearElement(displayElem);
 
     const visibleRows = [];
@@ -793,7 +796,9 @@ function drawBoard() {
         visibleRows.push(board[row]);
     }
 
+    const renderedRows = [];
     for (let row = 0; row < visibleRows.length; row++) {
+        let renderedRow = '';
         for (let col = 0; col < visibleRows[row].length; col++) {
             let baseChar = visibleRows[row][col];
             let newChar = baseChar;
@@ -803,6 +808,7 @@ function drawBoard() {
             else if (charMap[newChar]) {
                 newChar = charMap[newChar];
             }
+            renderedRow += newChar;
             if (colorMap[baseChar]) {
                 let span = document.createElement('span');
                 span.setAttribute('style', `color: ${colorMap[baseChar]}`);
@@ -815,6 +821,71 @@ function drawBoard() {
         if (row !== visibleRows.length - 1) {
             appendBreak(displayElem);
         }
+        renderedRows.push(renderedRow);
+    }
+    fitBoardToDisplay(displayElem, renderedRows);
+}
+
+function shouldFitBoardToDisplay() {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+        return false;
+    }
+    return window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
+}
+
+function fitBoardToDisplay(displayElem, renderedRows) {
+    if (
+        !displayElem ||
+        !displayElem.style ||
+        !Array.isArray(renderedRows) ||
+        renderedRows.length === 0 ||
+        !shouldFitBoardToDisplay() ||
+        typeof window.getComputedStyle !== 'function'
+    ) {
+        return;
+    }
+
+    const styles = window.getComputedStyle(displayElem);
+    const fontSize = Number.parseFloat(styles.fontSize);
+    const paddingRight = Number.parseFloat(styles.paddingRight) || 0;
+    const availableWidth = displayElem.clientWidth - paddingRight - 2;
+    const longestRow = renderedRows.reduce(function(longest, row) {
+        return row.length > longest.length ? row : longest;
+    }, '');
+
+    const measure = document.createElement('span');
+    measure.textContent = longestRow;
+    measure.setAttribute(
+        'style',
+        [
+            'position: absolute',
+            'visibility: hidden',
+            'white-space: pre',
+            `font-family: ${styles.fontFamily}`,
+            `font-size: ${styles.fontSize}`,
+            `letter-spacing: ${styles.letterSpacing}`,
+            `line-height: ${styles.lineHeight}`,
+        ].join('; ')
+    );
+    displayElem.appendChild(measure);
+    const contentWidth = measure.getBoundingClientRect().width;
+    displayElem.removeChild(measure);
+
+    if (
+        !Number.isFinite(fontSize) ||
+        !Number.isFinite(contentWidth) ||
+        !Number.isFinite(availableWidth) ||
+        fontSize <= 0 ||
+        contentWidth <= 0 ||
+        availableWidth <= 0 ||
+        contentWidth <= availableWidth
+    ) {
+        return;
+    }
+
+    const fittedSize = Math.max(14, Math.floor((fontSize * availableWidth * 100) / contentWidth) / 100);
+    if (fittedSize < fontSize) {
+        displayElem.style.fontSize = `${fittedSize}px`;
     }
 }
 
