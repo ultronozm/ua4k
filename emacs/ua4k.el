@@ -70,7 +70,10 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
 
 (defun ua4k--repo-root ()
   "Return the repository root for the current `ua4k.el' file."
-  (file-name-directory (or ua4k--source-file default-directory)))
+  (let ((source-dir (file-name-directory (or ua4k--source-file default-directory))))
+    (if (string= (file-name-nondirectory (directory-file-name source-dir)) "emacs")
+        (file-name-directory (directory-file-name source-dir))
+      source-dir)))
 
 (defun ua4k--compile-json (game-file)
   "Compile GAME-FILE into compiled JSON and return it as an alist."
@@ -101,7 +104,7 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
 (defun ua4k--game-file-prompt-default ()
   "Return a sensible default game file for interactive commands."
   (or (and (boundp 'ua4k--game-file) ua4k--game-file)
-      (expand-file-name "drone-swarm.txt" (ua4k--repo-root))))
+      (expand-file-name "games/polished/dockstep.txt" (ua4k--repo-root))))
 
 (defun ua4k--asset-variable-symbol (game-name)
   "Return the variable symbol for compiled GAME-NAME data."

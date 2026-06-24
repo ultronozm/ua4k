@@ -5,7 +5,7 @@ import argparse
 import sys
 
 from asset_builders import build_emacs_assets
-from compiler_common import load_make_data_module, repo_root
+from compiler_common import load_make_data_module, repo_root, resolve_game_file
 
 
 def main(argv: list[str]) -> int:
@@ -15,7 +15,7 @@ def main(argv: list[str]) -> int:
     parser.add_argument(
         "game_files",
         nargs="+",
-        help="Game source files to compile, for example drone-swarm.txt",
+        help="Game source files or unique stems, for example dockstep",
     )
     parser.add_argument(
         "-o",
@@ -29,7 +29,7 @@ def main(argv: list[str]) -> int:
     output_dir = (root / args.output_dir).resolve()
     module = load_make_data_module()
     for game_file in args.game_files:
-        source_path = (root / game_file).resolve()
+        source_path = resolve_game_file(game_file)
         try:
             module.compile_game(str(source_path))
         except module.DSLParseError as exc:

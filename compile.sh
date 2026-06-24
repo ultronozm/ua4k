@@ -7,5 +7,5 @@ if [ $# -eq 0 ]; then
 fi
 
 for file in "$@"; do
-    python3 ./make-data.py $file
+    python3 ./make-data.py "$file"
 done

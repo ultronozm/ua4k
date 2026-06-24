@@ -10,6 +10,10 @@ def repo_root() -> Path:
     return Path(__file__).resolve().parent
 
 
+def games_root() -> Path:
+    return repo_root() / "games"
+
+
 def load_make_data_module():
     module_path = repo_root() / "make-data.py"
     spec = importlib.util.spec_from_file_location("make_data", module_path)
@@ -26,11 +30,44 @@ def compile_game_file(filename: str):
     return module, module.compile_game(filename)
 
 
+def resolve_game_file(filename: str) -> Path:
+    """Resolve a game argument from a path or unique stem under games/."""
+    root = repo_root()
+    raw_path = Path(filename)
+
+    direct_candidates = []
+    if raw_path.is_absolute():
+        direct_candidates.append(raw_path)
+    else:
+        direct_candidates.append(root / raw_path)
+    if raw_path.suffix != ".txt":
+        if raw_path.is_absolute():
+            direct_candidates.append(raw_path.with_suffix(".txt"))
+        else:
+            direct_candidates.append(root / raw_path.with_suffix(".txt"))
+
+    for candidate in direct_candidates:
+        if candidate.is_file():
+            return candidate.resolve()
+
+    target_name = raw_path.name if raw_path.suffix == ".txt" else raw_path.name + ".txt"
+    matches = sorted(games_root().rglob(target_name))
+    if not matches:
+        raise FileNotFoundError(f"game file not found: {filename}")
+    if len(matches) > 1:
+        choices = ", ".join(str(path.relative_to(root)) for path in matches)
+        raise ValueError(f"ambiguous game name {filename!r}; use one of: {choices}")
+    return matches[0].resolve()
+
+
+def game_key_for_path(path: str | Path) -> str:
+    return Path(path).stem
+
+
 def discover_game_files() -> list[str]:
     return sorted(
-        path.name
-        for path in repo_root().glob("*.txt")
-        if not path.name.startswith("fixture-") and path.name != "readme.txt"
+        str(path.relative_to(repo_root()))
+        for path in games_root().rglob("*.txt")
     )
 
 

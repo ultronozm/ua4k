@@ -11,5 +11,8 @@ _region_.*
 *.log
 *.bak
 web-build/
+dist/
+emacs-build/
+site/
 .ua4k-http-server.*
 .agent-shell/

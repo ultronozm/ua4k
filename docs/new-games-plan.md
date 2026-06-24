@@ -19,7 +19,7 @@ Push/pull crates with magnet toggle.
 3. `laser-mirrors-mini.txt`  
 Mirror orientation puzzle with beam path goals.
 
-4. `drone-swarm.txt`  
+4. `dockstep.txt`
 One input moves multiple agents by rule priority.
 
 5. `factory-lines.txt`  

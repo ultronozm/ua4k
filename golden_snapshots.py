@@ -6,16 +6,17 @@ Usage:
   python3 golden_snapshots.py check [game files...]
 
 If no game files are given, defaults to:
-  game.txt
-  tetris.txt
-  crash-landing.txt
-  drone-swarm.txt
-  fixture-indent.txt
-  fixture-for.txt
-  fixture-zip-let-repeat.txt
-  fixture-mandatory-side-effects.txt
-  fixture-call-each.txt
-  fixture-rotate.txt
+  games/polished/game.txt
+  games/polished/crash-landing.txt
+  games/polished/dockstep.txt
+  games/toys/tetris.txt
+  games/wip/ice-slides.txt
+  tests/fixtures/fixture-indent.txt
+  tests/fixtures/fixture-for.txt
+  tests/fixtures/fixture-zip-let-repeat.txt
+  tests/fixtures/fixture-mandatory-side-effects.txt
+  tests/fixtures/fixture-call-each.txt
+  tests/fixtures/fixture-rotate.txt
 """
 
 from __future__ import annotations
@@ -31,19 +32,19 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-SNAPSHOT_DIR = ROOT / "snapshots"
+SNAPSHOT_DIR = ROOT / "tests" / "snapshots"
 DEFAULT_GAMES = (
-    "game.txt",
-    "ice-slides.txt",
-    "tetris.txt",
-    "crash-landing.txt",
-    "drone-swarm.txt",
-    "fixture-indent.txt",
-    "fixture-for.txt",
-    "fixture-zip-let-repeat.txt",
-    "fixture-mandatory-side-effects.txt",
-    "fixture-call-each.txt",
-    "fixture-rotate.txt",
+    "games/polished/game.txt",
+    "games/polished/crash-landing.txt",
+    "games/polished/dockstep.txt",
+    "games/toys/tetris.txt",
+    "games/wip/ice-slides.txt",
+    "tests/fixtures/fixture-indent.txt",
+    "tests/fixtures/fixture-for.txt",
+    "tests/fixtures/fixture-zip-let-repeat.txt",
+    "tests/fixtures/fixture-mandatory-side-effects.txt",
+    "tests/fixtures/fixture-call-each.txt",
+    "tests/fixtures/fixture-rotate.txt",
 )
 GAMES_PREFIX = "let gamesData = "
 
@@ -129,7 +130,7 @@ def format_diff(game_name: str, expected: dict, actual: dict) -> str:
     diff = difflib.unified_diff(
         expected_lines,
         actual_lines,
-        fromfile=f"snapshots/{game_name}.json",
+        fromfile=f"tests/snapshots/{game_name}.json",
         tofile=f"current/{game_name}.json",
     )
     return "".join(diff)

@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 import sys
-from compiler_common import load_make_data_module
+from compiler_common import load_make_data_module, resolve_game_file
 
 
 def main(argv: list[str]) -> int:
@@ -11,7 +11,7 @@ def main(argv: list[str]) -> int:
         print("usage: python3 compile-game-json.py <game-file>", file=sys.stderr)
         return 2
 
-    filename = argv[1]
+    filename = str(resolve_game_file(argv[1]))
     module = load_make_data_module()
     try:
         result = module.compile_game(filename)

@@ -11,7 +11,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent
-INVALID_DIR = ROOT / "invalid-fixtures"
+INVALID_DIR = ROOT / "tests" / "invalid-fixtures"
 
 
 CASES = [

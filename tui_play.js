@@ -28,6 +28,35 @@ class FakeEventTarget {
   }
 }
 
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function serializeFakeNode(node) {
+  if (!node) {
+    return '';
+  }
+  if (node.nodeType === 'text') {
+    return escapeHtml(node.textContent || '');
+  }
+  const tagName = node.tagName;
+  if (tagName === 'br') {
+    return '<br>';
+  }
+  if (tagName === 'img') {
+    return `<img src="${escapeHtml(node.src || '')}">`;
+  }
+  const attrs = Object.entries(node.attributes || {})
+    .map(([name, value]) => ` ${name}="${escapeHtml(value)}"`)
+    .join('');
+  const content = node.innerHTML || escapeHtml(node.textContent || '');
+  return `<${tagName}${attrs}>${content}</${tagName}>`;
+}
+
 class FakeElement extends FakeEventTarget {
   constructor(tagName, id = null) {
     super();
@@ -50,8 +79,9 @@ class FakeElement extends FakeEventTarget {
     if (this.tagName === 'select' && node.tagName === 'option' && !this.value) {
       this.value = node.value;
     }
-    if (node.tagName === 'img') {
-      this.innerHTML += `<img src="${node.src || ''}">`;
+    this.innerHTML += serializeFakeNode(node);
+    if (node.textContent) {
+      this.textContent += node.textContent;
     }
     return node;
   }
@@ -60,6 +90,9 @@ class FakeElement extends FakeEventTarget {
 
   setAttribute(name, value) {
     this.attributes[name] = String(value);
+    if (name === 'class') {
+      this.className = String(value);
+    }
   }
 
   getAttribute(name) {
@@ -129,20 +162,61 @@ function loadGamesData(root) {
   return JSON.parse(payload);
 }
 
-function compileGame(root, gameName) {
-  const gameFile = path.join(root, `${gameName}.txt`);
-  if (!fs.existsSync(gameFile)) {
-    throw new Error(`Game file not found: ${gameName}.txt`);
+function findGameFiles(dir, result = []) {
+  if (!fs.existsSync(dir)) {
+    return result;
   }
-  const result = spawnSync('python3', ['make-data.py', `${gameName}.txt`], {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      findGameFiles(fullPath, result);
+    } else if (entry.isFile() && entry.name.endsWith('.txt')) {
+      result.push(fullPath);
+    }
+  }
+  return result;
+}
+
+function resolveGameFile(root, gameArg) {
+  const direct = path.resolve(root, gameArg);
+  if (fs.existsSync(direct) && fs.statSync(direct).isFile()) {
+    return direct;
+  }
+
+  const directWithSuffix = gameArg.endsWith('.txt') ? direct : `${direct}.txt`;
+  if (fs.existsSync(directWithSuffix) && fs.statSync(directWithSuffix).isFile()) {
+    return directWithSuffix;
+  }
+
+  const targetName = gameArg.endsWith('.txt') ? path.basename(gameArg) : `${path.basename(gameArg)}.txt`;
+  const matches = findGameFiles(path.join(root, 'games')).filter((candidate) => {
+    return path.basename(candidate) === targetName;
+  }).sort();
+  if (matches.length === 0) {
+    throw new Error(`Game file not found: ${gameArg}`);
+  }
+  if (matches.length > 1) {
+    throw new Error(`Ambiguous game name ${gameArg}; use one of: ${matches.map((p) => path.relative(root, p)).join(', ')}`);
+  }
+  return matches[0];
+}
+
+function gameNameFromFile(gameFile) {
+  return path.basename(gameFile, '.txt');
+}
+
+function compileGame(root, gameArg) {
+  const gameFile = resolveGameFile(root, gameArg);
+  const result = spawnSync('python3', ['make-data.py', path.relative(root, gameFile)], {
     cwd: root,
     encoding: 'utf8',
   });
   if (result.status !== 0) {
     const stderr = (result.stderr || '').trim();
     const stdout = (result.stdout || '').trim();
-    throw new Error(`Failed to compile ${gameName}.txt\n${stderr || stdout}`);
+    throw new Error(`Failed to compile ${path.relative(root, gameFile)}\n${stderr || stdout}`);
   }
+  return gameNameFromFile(gameFile);
 }
 
 function stripHtml(line) {
@@ -267,15 +341,15 @@ function runInteractive(document) {
 
 function main() {
   const root = process.cwd();
-  const gameName = process.argv[2];
+  const gameArg = process.argv[2];
   const keySequence = process.argv[3] || '';
   const levelArg = process.argv[4];
-  if (!gameName) {
-    console.error('usage: node tui_play.js <game-name> [keys] [level-index]');
+  if (!gameArg) {
+    console.error('usage: node tui_play.js <game-name-or-file> [keys] [level-index]');
     process.exit(2);
   }
 
-  compileGame(root, gameName);
+  const gameName = compileGame(root, gameArg);
   const gamesData = loadGamesData(root);
   if (!(gameName in gamesData)) {
     const names = Object.keys(gamesData).sort().join(', ');

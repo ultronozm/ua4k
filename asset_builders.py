@@ -6,7 +6,7 @@ import json
 import shutil
 from pathlib import Path
 
-from compiler_common import load_make_data_module, repo_root
+from compiler_common import load_make_data_module, repo_root, resolve_game_file
 
 
 def standalone_html(game_name: str) -> str:
@@ -15,6 +15,7 @@ def standalone_html(game_name: str) -> str:
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{title} - ULTRONO ARENA 4000</title>
     <link rel="stylesheet" href="ua4k.css">
   </head>
@@ -32,15 +33,7 @@ def standalone_html(game_name: str) -> str:
     <div id="goals"></div>
     <div id="voids"></div>
 
-    <div id="touchControls">
-      <button class="controlBtn" data-key="w">↑</button>
-      <button class="controlBtn" data-key="s">↓</button>
-      <button class="controlBtn" data-key="a">←</button>
-      <button class="controlBtn" data-key="d">→</button>
-      <button class="controlBtn" data-key="z">Z</button>
-      <button class="controlBtn" data-key="u">Undo</button>
-      <button class="controlBtn" data-key="U">Restart</button>
-    </div>
+    <div id="touchControls"></div>
 
     <script src="ua4k.js"></script>
     <script src="{game_name}.data.js"></script>
@@ -72,7 +65,7 @@ def build_web_assets(game_files: list[str], output_dir: Path) -> None:
 
     module = load_make_data_module()
     for game_file in game_files:
-        source_path = (root / game_file).resolve()
+        source_path = resolve_game_file(game_file)
         compiled = module.compile_game(str(source_path))
         emit_web_game(output_dir, source_path.stem, compiled)
 
@@ -131,10 +124,10 @@ def build_emacs_assets(game_files: list[str], output_dir: Path) -> None:
     root = repo_root()
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    shutil.copy2(root / "ua4k.el", output_dir / "ua4k.el")
+    shutil.copy2(root / "emacs" / "ua4k.el", output_dir / "ua4k.el")
 
     module = load_make_data_module()
     for game_file in game_files:
-        source_path = (root / game_file).resolve()
+        source_path = resolve_game_file(game_file)
         compiled = module.compile_game(str(source_path))
         emit_emacs_asset(output_dir, source_path.stem, compiled)

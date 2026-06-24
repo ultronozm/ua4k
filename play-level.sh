@@ -7,9 +7,9 @@ launch_html=.ua4k-launch.html
 usage() {
     echo "usage: ./play-level.sh <game-name-or-file> [level]" >&2
     echo "examples:" >&2
-    echo "  ./play-level.sh drone-swarm" >&2
-    echo "  ./play-level.sh drone-swarm 3" >&2
-    echo "  ./play-level.sh drone-swarm.txt 3" >&2
+    echo "  ./play-level.sh dockstep" >&2
+    echo "  ./play-level.sh dockstep 3" >&2
+    echo "  ./play-level.sh games/polished/dockstep.txt 3" >&2
 }
 
 if [ $# -lt 1 ] || [ $# -gt 2 ]; then
@@ -20,18 +20,28 @@ fi
 game_arg=$1
 level_arg=${2-}
 
-if [[ "$game_arg" == *.txt ]]; then
+if [ -f "$game_arg" ]; then
     game_file=$game_arg
-    game_name=${game_arg%.txt}
 else
-    game_file="${game_arg}.txt"
-    game_name=$game_arg
+    if [[ "$game_arg" == *.txt ]]; then
+        target_name=$(basename "$game_arg")
+    else
+        target_name="$(basename "$game_arg").txt"
+    fi
+    matches=$(find games -type f -name "$target_name" | sort)
+    match_count=$(printf '%s\n' "$matches" | sed '/^$/d' | wc -l | tr -d ' ')
+    if [ "$match_count" -eq 0 ]; then
+        echo "game file not found: $game_arg" >&2
+        exit 1
+    fi
+    if [ "$match_count" -gt 1 ]; then
+        echo "ambiguous game name: $game_arg" >&2
+        printf '%s\n' "$matches" >&2
+        exit 1
+    fi
+    game_file=$matches
 fi
-
-if [ ! -f "$game_file" ]; then
-    echo "game file not found: $game_file" >&2
-    exit 1
-fi
+game_name=$(basename "$game_file" .txt)
 
 if [ -n "$level_arg" ] && ! [[ "$level_arg" =~ ^[0-9]+$ ]]; then
     echo "level must be a non-negative integer" >&2

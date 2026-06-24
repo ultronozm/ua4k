@@ -21,7 +21,7 @@ def main(argv: list[str]) -> int:
     parser.add_argument(
         "game_files",
         nargs="*",
-        help="Game source files to build. Defaults to all shipped root-level games.",
+        help="Game source files or unique stems to build. Defaults to all games under games/.",
     )
     parser.add_argument(
         "-o",

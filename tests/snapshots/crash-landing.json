@@ -7207,16 +7207,12 @@
       "rules": [
         {
           "from": [
-            "%",
-            "?",
-            "?"
+            "??%"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "%",
-            "?",
-            "^"
+            "^?%"
           ],
           "type": "simple"
         }
@@ -7227,16 +7223,12 @@
       "rules": [
         {
           "from": [
-            "?",
-            "?",
-            "%"
+            "??%"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "v",
-            "?",
-            "%"
+            "v?%"
           ],
           "type": "simple"
         }
@@ -7247,12 +7239,12 @@
       "rules": [
         {
           "from": [
-            "%??"
+            "??%"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "%?<"
+            "<?%"
           ],
           "type": "simple"
         }

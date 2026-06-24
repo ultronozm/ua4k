@@ -1,0 +1,114 @@
+#+title: UA4K Cleanup Ledger
+
+This ledger records the current cleanup direction before the project is shared
+more widely.
+
+* Current Pass
+
+** Remove Rust parser material
+
+The Rust parser was only a stub and created a false impression that there were
+two parser implementations to understand. The Python compiler remains the
+source of truth.
+
+** Fix the Dockstep rename fallout
+
+=drone-swarm.txt= was renamed to =dockstep.txt=. Docs, test defaults, Emacs
+defaults, and snapshots should use Dockstep.
+
+** Put game files in clear buckets
+
+- =games/polished/=: public-facing candidates.
+- =games/toys/=: working toy/demo games.
+- =games/wip/=: playable but not curated mechanic sketches.
+- =games/experiments/=: jokes or odd experiments that are not in the normal
+  curated set.
+- =games/legacy/=: old format experiments that the current compiler is not
+  expected to handle.
+
+Initial classification:
+
+- polished: =game=, =crash-landing=, =dockstep=
+- toys: =snake=, =tetris=, =turing=, plus smaller working demos
+- WIP: =ice-slides=, =lantern-trail=, =signal-relay=, =phase-shift=, =bet=,
+  =drone-gate-*=
+- experiments: =pong=
+- legacy: =rpg=
+
+** Keep local browser launch simple
+
+The project should continue to support:
+
+- compile with Python
+- open an HTML file directly
+- optionally ship a standalone browser artifact without requiring a web server
+
+The accumulative =gamesData.js= workflow can stay for local development. The
+cleaner share path should be generated static assets from =build-web.py=.
+
+** Add a Makefile
+
+There should be one obvious local quality command. It should run parser
+diagnostics, golden snapshots, a build check, and a small runtime/solver smoke
+test.
+
+** Add a static public site
+
+The first online version should be a GitHub Pages-compatible static site:
+
+- one index page
+- one page per published game
+- generated data files checked at build time but not committed
+- no arbitrary browser-side puzzle submission yet
+
+This gives people a way to try the games before the project takes on portal or
+editor complexity.
+
+** Improve authoring docs
+
+Keep =docs/dsl-spec-current.md= as the exact current behavior, but add a more
+approachable guide for writing small games.
+
+* Follow-Up Work
+
+** Fix game-level metadata
+
+Today =TITLE=, =BY=, and =DESCRIPTION= attach only after a level exists. That
+makes top-level titles in files like =ice-slides.txt= effectively ignored. The
+format should probably grow explicit game-level metadata, or the parser should
+document and enforce the current level-only behavior more clearly.
+
+** Harden browser rendering
+
+The browser runtime used to render some game-authored data via =innerHTML=.
+Board and metadata rendering should stay on text nodes or equivalent escaping,
+especially before accepting any browser-authored puzzle input.
+
+** Add scratch levels
+
+For existing games, allow a player to paste or edit only the board grid and run
+it against the checked-in rules for that game. This is a smaller, safer feature
+than a full browser rules editor:
+
+- no custom rules
+- no generated JavaScript
+- validate board size, shape, and character set
+- save scratch boards locally in the browser
+- keep full game editing as a later project
+
+** Add runtime smoke tests
+
+Golden snapshots protect compiler output, not runtime behavior. Add a small
+browser or Node runtime smoke suite with one scripted move sequence per curated
+game.
+
+** Design hosted puzzle sharing later
+
+A hosted puzzle portal needs more than static files:
+
+- untrusted puzzle validation
+- resource limits
+- safe rendering
+- share URLs
+- possibly a browser-side editor and diagnostics
+- a versioned compiled data contract

@@ -210,13 +210,13 @@ Compiler emits one entry per game into `gamesData.js`:
 - Blank lines are overloaded as flush boundaries for multiple parser states.
 - `TITLE`/`DESCRIPTION`/`MINMOVES`/`BY`/`TICK` attach only when a level already exists (except global `TICK` before levels).
 - `CMD <name>` merges rules across repeated declarations of the same command.
-- `gamesData.js` read failures print `data read failed` and start from `{}`.
+- `gamesData.js` read failures print a warning to stderr and start from `{}`.
 - The parser is indentation-sensitive, with stack unwinding on equal-or-lower indentation.
 
 ## 8. Coverage Status (Snapshots/Fixtures)
 
 Covered by default snapshot set:
-- Representative games: `game`, `tetris`, `crash-landing`
+- Representative games: `game`, `crash-landing`, `dockstep`, `tetris`, `ice-slides`
 - Tiny fixtures:
   - `fixture-indent` (indent-sensitive nesting)
   - `fixture-for` (`FOR` expansion)

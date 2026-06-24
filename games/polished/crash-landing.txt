@@ -283,7 +283,7 @@ DESCRIPTION This level is not particularly inspired, and should be replaced with
 
 
 ROTATE_CMDS look >v<^
- ??% >?%
+ ??% >?% [norotate]
 
 CMD maybe_breath
  ATOMIC

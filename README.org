@@ -1,0 +1,189 @@
+#+title: ULTRONO ARENA 4000
+
+ULTRONO ARENA 4000, or =ua4k=, is a small rule-rewriting puzzle/game engine.
+Games are plain text files written in the UA4K DSL, compiled by Python, and
+played either in a browser or in Emacs.
+
+* Repository Layout
+
+- =games/polished/=: games that are closest to public-facing examples.
+- =games/toys/=: playable small demos and joke-sized implementations.
+- =games/wip/=: mechanic sketches and prototypes that still need curation.
+- =games/experiments/=: odd experiments that are not part of the normal build.
+- =games/legacy/=: old format experiments not expected to compile today.
+- =tests/fixtures/=: tiny parser/compiler fixtures.
+- =tests/invalid-fixtures/=: expected parser diagnostic failures.
+- =tests/snapshots/=: golden compiler output.
+- =docs/=: format notes, design notes, and authoring guides.
+- =emacs/=: Emacs player and DSL major mode.
+
+Key scripts:
+
+- =make-data.py=: compile one game into the local accumulative =gamesData.js= file.
+- =compile-game-json.py=: compile one game to JSON on stdout.
+- =build-web.py=: build standalone browser pages for selected games.
+- =build-site.py=: build a static index plus one page per published game.
+- =build-emacs-assets.py=: build Emacs-loadable compiled assets.
+- =build-all-assets.py=: build web and Emacs assets for every buildable game under =games/=.
+- =golden_snapshots.py=: compiler golden snapshot checks.
+- =parser_diagnostics.py=: invalid-fixture diagnostic checks.
+- =tui_play.js=: terminal wrapper around the browser runtime.
+- =solve_level.js=: simple BFS shortest-path solver for selected levels.
+
+* Quick Start
+
+Compile and open Dockstep in the browser:
+
+#+begin_src sh
+./play-level.sh dockstep
+#+end_src
+
+Compile a game into the local browser hub:
+
+#+begin_src sh
+python3 make-data.py games/polished/dockstep.txt
+open ua4k.html
+#+end_src
+
+Build standalone browser files that can still be opened from =file://=:
+
+#+begin_src sh
+python3 build-web.py dockstep
+open web-build/dockstep.html
+#+end_src
+
+Build all packaged assets:
+
+#+begin_src sh
+python3 build-all-assets.py
+#+end_src
+
+The default build scans =games/= recursively, builds what compiles, and reports
+non-buildable experiments on stderr.
+
+Build the GitHub Pages/static website locally:
+
+#+begin_src sh
+python3 build-site.py
+open site/index.html
+#+end_src
+
+The site build publishes =games/polished/= and =games/toys/= by default. Use
+=python3 build-site.py --include-wip= to include =games/wip/= prototypes.
+
+Generated game pages also include an =Edit Scratch Level= panel. It lets you
+paste or edit a board grid for the current game and run that board against the
+existing checked-in rules. It does not edit or upload rules.
+
+On narrow or touch-oriented browsers, game pages show on-screen controls built
+from the game's =BIND= directives. The controls are arranged in compact keyboard
+rows, with undo and restart kept as separate system buttons.
+
+* Playing In Emacs
+
+Load the Emacs frontend:
+
+#+begin_src emacs-lisp
+(load-file "/path/to/ua4k/emacs/ua4k.el")
+#+end_src
+
+Then use one of:
+
+- =M-x ua4k-play-game RET dockstep RET=
+- =M-x ua4k-play-file RET /path/to/ua4k/games/polished/dockstep.txt RET=
+- =M-x ua4k-play-asset RET dockstep RET= after running =build-emacs-assets.py=
+
+Inside =ua4k-mode=:
+
+- movement keys come from the game's =BIND= directives
+- =u= undoes one move
+- =U= restarts the level
+- =l= jumps to a level
+- =q= quits
+
+The Emacs frontend currently targets non-tick games first.
+
+* Tests And Checks
+
+Run the normal local check suite:
+
+#+begin_src sh
+make check
+#+end_src
+
+Equivalent manual commands:
+
+#+begin_src sh
+python3 parser_diagnostics.py
+python3 golden_snapshots.py check
+python3 build-all-assets.py -o /tmp/ua4k-dist-check
+node solve_level.js game 0 20 50000
+#+end_src
+
+Refresh golden snapshots after intentional compiler output changes:
+
+#+begin_src sh
+python3 golden_snapshots.py refresh
+#+end_src
+
+* Game Buckets
+
+Polished:
+
+- =games/polished/game.txt=
+- =games/polished/crash-landing.txt=
+- =games/polished/dockstep.txt=
+
+Playable toys:
+
+- =games/toys/snake.txt=
+- =games/toys/tetris.txt=
+- =games/toys/turing.txt=
+- and other compact demos in =games/toys/=
+
+WIP prototypes:
+
+- =games/wip/ice-slides.txt=
+- =games/wip/lantern-trail.txt=
+- =games/wip/signal-relay.txt=
+- =games/wip/drone-gate-*.txt=
+
+Experiments and legacy files are intentionally kept out of the polished set.
+
+* Format
+
+The precise current behavior is documented in =docs/dsl-spec-current.md=.
+For a gentler introduction, start with =docs/creating-games.md=.
+
+Important DSL ideas:
+
+- =GOAL= and =VOID= define completion and failure patterns.
+- =BIND= maps keys to commands.
+- =CMD= defines command rule blocks.
+- =?= matches any source cell and preserves a destination cell.
+- =ATOMIC= rolls back a group if any child rule fails.
+- =MATCH1= tries children until one succeeds.
+- =ROTATE= and =ROTATE_CMDS= generate directional rule variants.
+
+* Browser Data Notes
+
+=gamesData.js= is intentionally ignored by git. It is a local convenience file
+for the browser hub: each =make-data.py= run updates one game key in that file.
+
+For shareable artifacts, prefer =build-web.py=. It emits a standalone
+=GAME.html= plus =GAME.data.js= and shared runtime files. This preserves the
+useful =file://= workflow without requiring a local web server.
+
+* GitHub Pages
+
+The repository includes a Pages workflow at =.github/workflows/pages.yml=. On
+pushes to =main=, it builds =site/= with =build-site.py= and deploys the result
+to GitHub Pages.
+
+In the GitHub repository settings, configure Pages to use GitHub Actions as the
+publishing source.
+
+This first-pass site publishes only checked-in games. It does not accept
+arbitrary user-authored rules in the browser. Scratch levels accept only board
+grids, validate them against the current game's character set, and use safer
+text-node board rendering instead of interpreting board text as HTML.

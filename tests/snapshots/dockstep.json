@@ -42,27 +42,6 @@
   "levels": [
     {
       "board": [
-        "xxxxxx",
-        "x1--2x",
-        "xxab-x",
-        "xxxxxx"
-      ],
-      "description": "Tiny onboarding 1: the drones move together, so the obvious direct route is not always the right one.",
-      "minMoves": 4
-    },
-    {
-      "board": [
-        "xxxxxx",
-        "x1---x",
-        "xa--2x",
-        "xb---x",
-        "xxxxxx"
-      ],
-      "description": "Tiny onboarding 2: sometimes one drone has to overshoot while the other lines up.",
-      "minMoves": 7
-    },
-    {
-      "board": [
         "xxxxxxxxxxxxxx",
         "x1--------2--x",
         "x---x--------x",
@@ -77,25 +56,32 @@
     },
     {
       "board": [
-        "xxxxxxxxx",
-        "x1-#---2x",
-        "x--#x---x",
-        "x-a#b---x",
-        "x-------x",
-        "xxxxxxxxx"
+        "xxxxxx",
+        "x1--2x",
+        "xxab-x",
+        "xxxxxx"
       ],
-      "description": "Force fields '#': you cannot move into them, so they reroute the pair instead of acting like ordinary walls.",
-      "minMoves": 9
+      "minMoves": 4
     },
     {
       "board": [
         "xxxxxx",
-        "x#x#2x",
-        "x----x",
-        "xabx1x",
+        "x1---x",
+        "xa--2x",
+        "xb---x",
         "xxxxxx"
       ],
-      "minMoves": 14
+      "minMoves": 7
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "x1-a-x2--x-bx",
+        "x------x---xx",
+        "x-----------x",
+        "xxxxxxxxxxxxx"
+      ],
+      "minMoves": 17
     },
     {
       "board": [
@@ -109,26 +95,68 @@
     },
     {
       "board": [
-        "xxxxxxxx",
-        "x-#-2--x",
-        "xxb--x-x",
-        "x---#--x",
-        "xa-#1--x",
-        "x------x",
-        "xxxxxxxx"
+        "xxxxx",
+        "xab2x",
+        "x---x",
+        "x-x1x",
+        "xxxxx"
       ],
-      "description": "Rectangle 1 (7x9): a stretched compact board. The longer horizontal runway changes the reset timing.",
-      "minMoves": 13
+      "minMoves": 18
+    },
+    {
+      "board": [
+        "xxxxx",
+        "x2x-x",
+        "x---x",
+        "x---x",
+        "xa-1x",
+        "x--bx",
+        "xxxxx"
+      ],
+      "minMoves": 16
     },
     {
       "board": [
         "xxxxxx",
         "xb---x",
         "x-a1xx",
-        "x##2-x",
+        "x--2-x",
         "xxxxxx"
       ],
       "minMoves": 16
+    },
+    {
+      "board": [
+        "xxxxxx",
+        "x2---x",
+        "x1--xx",
+        "xa---x",
+        "x-b--x",
+        "xxxxxx"
+      ],
+      "minMoves": 12
+    },
+    {
+      "board": [
+        "xxxxxxxxx",
+        "x1-#---2x",
+        "x--#x---x",
+        "x-a#b---x",
+        "#-------#",
+        "x#xxxxxxx"
+      ],
+      "description": "You can't bump into the force fields '#'.",
+      "minMoves": 17
+    },
+    {
+      "board": [
+        "xxxxxx",
+        "x#x#2x",
+        "x----x",
+        "xabx1x",
+        "xxxxxx"
+      ],
+      "minMoves": 14
     },
     {
       "board": [
@@ -140,59 +168,19 @@
         "x------x",
         "xxxxxxxx"
       ],
-      "description": "Force fields 1: a first compact '#' puzzle. The blockers matter, but the board still gives you room to recover.",
       "minMoves": 11
     },
     {
       "board": [
-        "xxxxxxx",
-        "x2#--xx",
-        "x1---#x",
-        "x---x#x",
-        "xa----x",
-        "x-b--#x",
-        "xxxxxxx"
+        "xxxxxxxx",
+        "x-#-2--x",
+        "xxb--x-x",
+        "x---#--x",
+        "xa-#1--x",
+        "x------x",
+        "xxxxxxxx"
       ],
-      "description": "Challenge Pack 4 (7x7): sparse geometry, but the wrong bump timing strands a drone on the wrong side.",
-      "minMoves": 15
-    },
-    {
-      "board": [
-        "xxxxxxx",
-        "xx2x--x",
-        "x#---xx",
-        "x----#x",
-        "x#a-1-x",
-        "x---b-x",
-        "xxxxxxx"
-      ],
-      "description": "Challenge Pack 3 (7x7): the side pockets look roomy, but the docking order is still tight.",
-      "minMoves": 16
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxx",
-        "x1---x---2--x",
-        "x-xx-x-xx-x-x",
-        "x--a-x---x-bx",
-        "x------x---xx",
-        "x-----------x",
-        "xxxxxxxxxxxxx"
-      ],
-      "minMoves": 17
-    },
-    {
-      "board": [
-        "xxxxxxxxxxx",
-        "x--#---2--x",
-        "xxb--x----x",
-        "x---##----x",
-        "xxa-#1----x",
-        "xx--------x",
-        "xxxxxxxxxxx"
-      ],
-      "description": "Wide Pocket 1 (7x11): one extra pocket is enough to make the horizontal slack genuinely matter.",
-      "minMoves": 15
+      "minMoves": 13
     },
     {
       "board": [
@@ -204,31 +192,19 @@
         "x-2-x1x",
         "xxxxxxx"
       ],
-      "description": "Challenge Pack 2 (7x7): the central cluster of force fields cuts off the obvious sync lines.",
       "minMoves": 17
     },
     {
       "board": [
-        "xxxxxxxxxxxx",
-        "x---#-----2x",
-        "xxxb--x----x",
-        "x----#--x--x",
-        "xxa-#1---#-x",
-        "xx----#----x",
-        "xxxxxxxxxxxx"
+        "xxxxxxxxxxx",
+        "x--#-----2x",
+        "xxb--x----x",
+        "x---#--x--x",
+        "xa-#1---#-x",
+        "x----#----x",
+        "xxxxxxxxxxx"
       ],
-      "description": "Rectangle Split 1 (7x12): the old long rectangle cut down into a tighter pocket-transfer board.",
       "minMoves": 17
-    },
-    {
-      "board": [
-        "xxxxx",
-        "xab2x",
-        "x---x",
-        "x-x1x",
-        "xxxxx"
-      ],
-      "minMoves": 18
     },
     {
       "board": [
@@ -239,20 +215,18 @@
         "x-ax1x",
         "xxxxxx"
       ],
-      "description": "Challenge Pack 1 (6x6): a tiny board with just enough walling to force repeated re-spacing.",
       "minMoves": 18
     },
     {
       "board": [
-        "xxxxxxxxxxxx",
-        "x---#2-----x",
-        "xx-b-x--#--x",
-        "x---##-----x",
-        "xxa--1--#--x",
-        "xxx-------xx",
-        "xxxxxxxxxxxx"
+        "xxxxxxxxx",
+        "x---#2--x",
+        "xx-b-x--x",
+        "x---##--x",
+        "xxa--1--x",
+        "xxx-----x",
+        "xxxxxxxxx"
       ],
-      "description": "Zigzag Drift 1 (7x12): the board alternates between short pockets and long drifts, so the timing feels less orbit-like.",
       "minMoves": 19
     },
     {
@@ -269,14 +243,13 @@
       "board": [
         "xxxxxxxxxx",
         "x-2#-----x",
-        "x-xb-#-xxx",
+        "x--b-#-xxx",
         "x---#---xx",
-        "xxa--1--xx",
-        "xxx-----xx",
+        "x-a--1--xx",
+        "x-------xx",
         "xxxxxxxxxx"
       ],
-      "description": "Hook Turn 1 (7x10): short and mean. The lower-left hook makes the re-spacing much less direct than the footprint suggests.",
-      "minMoves": 22
+      "minMoves": 20
     },
     {
       "board": [
@@ -288,59 +261,30 @@
         "x------x",
         "xx#xxxxx"
       ],
-      "description": "Force fields 2: one more blocker trims the easy reset and forces a more careful route.",
       "minMoves": 13
     },
     {
       "board": [
-        "xxxxxxxxxxxx",
-        "x--#---2---x",
-        "xxb--x-----x",
-        "x---##-----x",
-        "xxa-#1-----x",
-        "xx---------x",
-        "xxxxxxxxxxxx"
-      ],
-      "description": "Wide Pocket 2 (7x12): same family, but now the reset lane is long enough to force a fuller cycle.",
-      "minMoves": 17
-    },
-    {
-      "board": [
         "xxxxxxxxxxx",
-        "x---#2-----x",
-        "xx-b-x-#---x",
-        "x---##-----x",
-        "xxa--1-#---x",
-        "xx--------xx",
+        "x----2----x",
+        "x-b-x-#---x",
+        "#--##-----x",
+        "xa-#1--#--x",
+        "xx-------xx",
         "xxxxxxxxxxx"
       ],
-      "description": "Offset Latch 1 (7x11): a medium board where the main challenge is carrying the correct offset through a cramped latch.",
-      "minMoves": 22
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxx",
-        "x--#--2----x",
-        "xx-b-x-#---x",
-        "x---##-----x",
-        "xxa-#1--#--x",
-        "xxx-------xx",
-        "xxxxxxxxxxxx"
-      ],
-      "description": "Zigzag Drift 2 (7x12): a denser version where the lower blockers create a much harsher endgame.",
       "minMoves": 23
     },
     {
       "board": [
-        "xxxxxxxxxxx",
-        "x---#2-----x",
-        "xx-b-x-#---x",
-        "x---##-----x",
-        "xxa-#1-----x",
-        "xx--------xx",
-        "xxxxxxxxxxx"
+        "xxxxxxxx",
+        "x---#2-x",
+        "xx-b-x-x",
+        "x---##-x",
+        "xxa-#1-x",
+        "xx-----x",
+        "xxxxxxxx"
       ],
-      "description": "Offset Latch 2 (7x11): slightly more open than the previous one, but the wrong dock timing still costs a full extra cycle.",
       "minMoves": 24
     },
     {
@@ -353,20 +297,18 @@
         "xxx---x",
         "xxxxxxx"
       ],
-      "description": "Midboss 1 (7x7): a tighter version of the wall gauntlets. The final sync still takes work, but the reset loops are shorter.",
       "minMoves": 27
     },
     {
       "board": [
-        "xxxxxxxxxxx",
+        "xxxxxxxxxx",
         "x-2#-----x",
         "x-xb-#-x-x",
         "x---#----x",
         "xxa--1---x",
         "xxx---#--x",
-        "xxxxxxxxxxx"
+        "xxxxxxxxxx"
       ],
-      "description": "Hook Turn 3 (7x11): similar footprint, different failure mode. This one is more about preserving a good phase through the return lane.",
       "minMoves": 28
     },
     {
@@ -379,7 +321,6 @@
         "xx----x",
         "xxxxxxx"
       ],
-      "description": "Midboss 2 (7x7): one extra blocker is enough to turn the pocket transfer into a longer route.",
       "minMoves": 29
     },
     {
@@ -393,20 +334,18 @@
         "x-----xx",
         "xxxxxxxx"
       ],
-      "description": "8x8 Entry 1: the larger frame gives you room to lose sync in several different ways.",
       "minMoves": 29
     },
     {
       "board": [
-        "xxxxxxxxxxx",
+        "xxxxxxxxxx",
         "x-2#-----x",
         "x-xb-#-x-x",
         "x---#----x",
         "xxa--1#--x",
         "xxx------x",
-        "xxxxxxxxxxx"
+        "xxxxxxxxxx"
       ],
-      "description": "Hook Turn 2 (7x11): one extra side wall turns the same idea into a much longer route with awkward resets.",
       "minMoves": 30
     },
     {
@@ -419,7 +358,6 @@
         "x------x",
         "xx#xxxxx"
       ],
-      "description": "Force fields 3: same core layout, but now the wrong sweep costs a full extra cycle.",
       "minMoves": 18
     },
     {
@@ -432,7 +370,6 @@
         "xx---#x",
         "xxxxxxx"
       ],
-      "description": "Midboss 3 (7x7): close to a gauntlet, but still readable. You have to preserve the good spacing through several sweeps.",
       "minMoves": 33
     },
     {
@@ -446,7 +383,6 @@
         "x---x--x",
         "xxxxxxxx"
       ],
-      "description": "8x8 Entry 2: still compact, but the extra lane space starts to create longer rerouting cycles.",
       "minMoves": 33
     },
     {
@@ -459,7 +395,6 @@
         "xx--#-x",
         "xxxxxxx"
       ],
-      "description": "Midboss 4 (7x7): the extra wall deepens the cycle one more notch before the true gauntlets begin.",
       "minMoves": 34
     },
     {
@@ -472,7 +407,6 @@
         "x----#------#",
         "x#xx#x##xxxxx"
       ],
-      "description": "Rectangle Split 2 (7x13): same motif pushed into a denser frame. This one behaves more like a true late-game gauntlet.",
       "minMoves": 41
     },
     {
@@ -485,7 +419,6 @@
         "xx---#x",
         "xxxxxxx"
       ],
-      "description": "Gauntlet 1 (7x7): same small footprint, but now the drones start entangled and the reset loops are long.",
       "minMoves": 42
     },
     {
@@ -498,21 +431,7 @@
         "xx----x",
         "xxxxxxx"
       ],
-      "description": "Gauntlet 2 (7x7): a compact endurance puzzle. Almost every mistake sends you through another long synchronization cycle.",
       "minMoves": 47
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxx",
-        "x---#-----2-x",
-        "x-#--x-b---x",
-        "x----##----x",
-        "x-#--1--a--x",
-        "xx-----#--xx",
-        "xxxxxxxxxxxxx"
-      ],
-      "description": "Long Reset 1 (7x13): this is the first new rectangle that really behaves like a gauntlet rather than a stretched puzzle.",
-      "minMoves": 49
     },
     {
       "board": [
@@ -524,7 +443,18 @@
         "xx----x",
         "xxxxxxx"
       ],
-      "description": "Gauntlet 3 (7x7): the current top-end compact board. The cycle is long enough that recovering from a bad sweep is painful.",
+      "minMoves": 49
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "x---#-----2-x",
+        "x-#--x-b---xx",
+        "x----##----xx",
+        "x-#--1--a--xx",
+        "xx-----#--xxx",
+        "xxxxxxxxxxxxx"
+      ],
       "minMoves": 49
     }
   ],
@@ -613,6 +543,17 @@
           "type": "atomic"
         },
         {
+          "from": [
+            "12-"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-12"
+          ],
+          "type": "simple"
+        },
+        {
           "rules": [
             {
               "from": [
@@ -638,17 +579,6 @@
             }
           ],
           "type": "atomic"
-        },
-        {
-          "from": [
-            "12-"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-12"
-          ],
-          "type": "simple"
         },
         {
           "from": [
@@ -760,6 +690,21 @@
           "type": "atomic"
         },
         {
+          "from": [
+            "-",
+            "2",
+            "1"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "2",
+            "1",
+            "-"
+          ],
+          "type": "simple"
+        },
+        {
           "rules": [
             {
               "from": [
@@ -789,21 +734,6 @@
             }
           ],
           "type": "atomic"
-        },
-        {
-          "from": [
-            "-",
-            "2",
-            "1"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "2",
-            "1",
-            "-"
-          ],
-          "type": "simple"
         },
         {
           "from": [
@@ -919,6 +849,21 @@
           "type": "atomic"
         },
         {
+          "from": [
+            "1",
+            "2",
+            "-"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-",
+            "1",
+            "2"
+          ],
+          "type": "simple"
+        },
+        {
           "rules": [
             {
               "from": [
@@ -948,21 +893,6 @@
             }
           ],
           "type": "atomic"
-        },
-        {
-          "from": [
-            "1",
-            "2",
-            "-"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-",
-            "1",
-            "2"
-          ],
-          "type": "simple"
         },
         {
           "from": [
@@ -1066,6 +996,17 @@
           "type": "atomic"
         },
         {
+          "from": [
+            "-21"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "21-"
+          ],
+          "type": "simple"
+        },
+        {
           "rules": [
             {
               "from": [
@@ -1091,17 +1032,6 @@
             }
           ],
           "type": "atomic"
-        },
-        {
-          "from": [
-            "-21"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "21-"
-          ],
-          "type": "simple"
         },
         {
           "from": [

@@ -5,6 +5,7 @@ import itertools
 import json
 import sys
 from dataclasses import dataclass, field
+from pathlib import Path
 
 
 TOP_LEVEL_ONLY_DIRECTIVES = {
@@ -948,11 +949,16 @@ def compile_game(filename: str) -> dict:
 def read_existing_games_data() -> dict:
     try:
         with open("gamesData.js", "r", encoding="utf-8") as json_file:
-            data = json_file.read()[len("let gamesData = ") :].strip()
-            data = data[:-1]
+            text = json_file.read()
+            prefix = "let gamesData = "
+            if not text.startswith(prefix):
+                raise ValueError("unexpected gamesData.js prefix")
+            data = text[len(prefix) :].strip()
+            if data.endswith(";"):
+                data = data[:-1]
             return json.loads(data)
-    except Exception:
-        print("data read failed")
+    except Exception as exc:
+        print(f"data read failed: {exc}", file=sys.stderr)
         return {}
 
 
@@ -976,7 +982,7 @@ def main(argv: list[str]) -> int:
         return 2
 
     data = read_existing_games_data()
-    data[filename.split(".")[0]] = result
+    data[Path(filename).stem] = result
     write_games_data(data)
     return 0
 
