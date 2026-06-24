@@ -154,6 +154,7 @@ Experiments and legacy files are intentionally kept out of the polished set.
 
 The precise current behavior is documented in =docs/dsl-spec-current.md=.
 For a gentler introduction, start with =docs/creating-games.md=.
+For planned cleanup and larger ideas, see =docs/roadmap.org=.
 
 Important DSL ideas:
 

@@ -1,0 +1,35 @@
+#+title: UA4K Roadmap
+
+This is a lightweight working roadmap, not a release promise.
+
+* Immediate
+
+- Playtest =Crash Landing= and =Dockstep= on laptop and phone.
+- Tighten confusing level descriptions and level ordering.
+- Keep the public site focused on =games/polished/= and the clearest toys.
+- Add one or two hand-written notes to each polished game explaining its hook.
+- Keep mobile controls usable, but optimize first for keyboard play.
+
+* Near Term
+
+- Add curated screenshots or richer board previews to the site index.
+- Improve =docs/creating-games.md= with a full tiny tutorial game.
+- Add more parser diagnostics for common authoring mistakes.
+- Decide whether =games/toys/= should all remain public by default.
+- Make level numbers and scratch-level sharing easier to talk about.
+
+* Later
+
+- Add a browser workflow for editing a board and sharing it as a URL fragment.
+- Consider a small hosted puzzle portal only after the static site and format
+  docs are stable.
+- Revisit game-level metadata, since =TITLE= and =BY= currently attach only
+  after a level exists.
+- Consider a better data format for site builds than generated JavaScript.
+
+* Not Now
+
+- Do not rewrite the parser in Rust unless Python parser performance or
+  packaging becomes a real blocker.
+- Do not build a full web rule editor before the game format is easier to
+  explain and validate.

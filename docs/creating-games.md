@@ -7,6 +7,20 @@ used by the browser and Emacs runtimes.
 Start by copying a small working file from `games/toys/`, then change one thing
 at a time.
 
+## Fastest First Experiment
+
+Before writing a new rules file, open any generated game page and use
+`Edit Scratch Level`.
+
+1. Pick a game with rules close to what you want.
+2. Press `Edit Scratch Level`.
+3. Change only the board grid.
+4. Press `Run Scratch`.
+
+Scratch boards use the current game's existing rules. This is good for testing
+new levels, but it will not create new mechanics. If the scratch board works,
+copy it into the source game file as a new board section and rebuild the site.
+
 ## Minimal Shape
 
 ```txt

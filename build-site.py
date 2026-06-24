@@ -21,6 +21,30 @@ OPTIONAL_CATEGORIES = (
     ("wip", "Works In Progress", "games/wip"),
 )
 
+GAME_SUMMARIES = {
+    "game": "The original UA4K puzzle set: small rewrite-rule levels about moving symbols into goals.",
+    "crash-landing": "A resource-management puzzle about oxygen, mining, construction, and getting back to your ship.",
+    "dockstep": "A lockstep movement puzzle where multiple agents move together and force fields shape the route.",
+    "arithmetic": "A tiny arithmetic toy built out of board rewrites.",
+    "basic-game": "A minimal movement example for understanding the format.",
+    "fight": "A compact turn-style combat toy.",
+    "hanoi": "A Towers of Hanoi-flavored board rewrite demo.",
+    "river-crossing": "The wolf, goat, and cabbage puzzle expressed as a UA4K game.",
+    "snake": "A complete Snake implementation inside the puzzle engine.",
+    "sokoban": "A small Sokoban-style box-pushing toy.",
+    "synth": "A small symbol-manipulation puzzle with swap commands.",
+    "tetris": "A Tetris-shaped toy that stress-tests how far the engine can be pushed.",
+    "theseus-minotaur": "A pursuit puzzle inspired by Theseus and the Minotaur.",
+    "towers": "A tower-moving toy puzzle.",
+    "turing": "A compact Turing-machine joke/demo implemented as a board game.",
+}
+
+CATEGORY_NOTES = {
+    "polished": "The clearest examples right now. Start here.",
+    "toys": "Playable experiments and demos. Some are intentionally small or strange.",
+    "wip": "Mechanic sketches that are not part of the default public build.",
+}
+
 
 @dataclass(frozen=True)
 class SiteGame:
@@ -105,6 +129,9 @@ def first_level(game: SiteGame) -> dict:
 
 
 def game_description(game: SiteGame) -> str:
+    if game.name in GAME_SUMMARIES:
+        return GAME_SUMMARIES[game.name]
+
     level = first_level(game)
     description = level.get("description")
     if isinstance(description, str) and description:
@@ -168,8 +195,14 @@ a {
 }
 
 .game-section h2 {
-  margin: 0 0 14px;
+  margin: 0;
   font-size: 18px;
+}
+
+.section-note {
+  margin: 4px 0 14px;
+  color: #666;
+  line-height: 1.4;
 }
 
 .game-grid {
@@ -196,6 +229,12 @@ a {
 .game-card h3 {
   margin: 0;
   font-size: 17px;
+}
+
+.game-meta {
+  margin-top: 2px;
+  color: #777;
+  font-size: 13px;
 }
 
 .game-card p {
@@ -299,8 +338,12 @@ a {
 
 
 def game_card(game: SiteGame) -> str:
+    level_count = len(game.compiled.get("levels", []))
     return f"""<a class="game-card" href="games/{html.escape(game.name)}.html">
-  <h3>{html.escape(game.display_name)}</h3>
+  <div>
+    <h3>{html.escape(game.display_name)}</h3>
+    <p class="game-meta">{level_count} level{'s' if level_count != 1 else ''}</p>
+  </div>
   <pre class="board-preview">{html.escape(preview_board(game))}</pre>
   <p>{html.escape(game_description(game))}</p>
 </a>"""
@@ -316,10 +359,12 @@ def index_html(games: list[SiteGame]) -> str:
     for category in seen_categories:
         category_games = [game for game in games if game.category == category]
         title = category_games[0].category_title
+        note = CATEGORY_NOTES.get(category, "")
         cards = "\n".join(game_card(game) for game in category_games)
         sections.append(
             f"""<section class="game-section">
   <h2>{html.escape(title)}</h2>
+  <p class="section-note">{html.escape(note)}</p>
   <div class="game-grid">
 {cards}
   </div>
@@ -337,7 +382,7 @@ def index_html(games: list[SiteGame]) -> str:
   <body>
     <header class="site-header">
       <h1>ULTRONO ARENA 4000</h1>
-      <p>A small rule-rewriting puzzle engine. Pick a game below; each page is static and works without a backend.</p>
+      <p>A small rule-rewriting puzzle engine. Pick a game below; each page is static, works without a backend, and includes a scratch board editor for trying custom levels.</p>
     </header>
 {''.join(sections)}
   </body>
