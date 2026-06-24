@@ -156,6 +156,11 @@
         display: flex;
     }
 
+    .key-help,
+    #docs {
+        display: none;
+    }
+
     #level,
     #status {
         font-size: 24px;

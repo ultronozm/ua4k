@@ -367,7 +367,7 @@ def game_page_html(game: SiteGame) -> str:
       <div id="display"></div>
       <div id="title"></div>
       <div id="author"></div>
-      <p>u: undo. U: restart level.</p>
+      <p class="key-help">u: undo. U: restart level.</p>
       <div id="docs"></div>
       <div id="goals"></div>
       <div id="voids"></div>
