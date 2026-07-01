@@ -136,6 +136,7 @@ Polished:
 
 Playable toys:
 
+- =games/toys/bet.txt=
 - =games/toys/snake.txt=
 - =games/toys/tetris.txt=
 - =games/toys/turing.txt=

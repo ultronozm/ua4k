@@ -29,8 +29,8 @@ defaults, and snapshots should use Dockstep.
 Initial classification:
 
 - polished: =game=, =crash-landing=, =dockstep=
-- toys: =snake=, =tetris=, =turing=, plus smaller working demos
-- WIP: =ice-slides=, =lantern-trail=, =signal-relay=, =phase-shift=, =bet=,
+- toys: =bet=, =snake=, =tetris=, =turing=, plus smaller working demos
+- WIP: =ice-slides=, =lantern-trail=, =signal-relay=, =phase-shift=,
   =drone-gate-*=
 - experiments: =pong=
 - legacy: =rpg=

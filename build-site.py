@@ -27,6 +27,7 @@ GAME_SUMMARIES = {
     "dockstep": "A lockstep movement puzzle where multiple agents move together and force fields shape the route.",
     "arithmetic": "A tiny arithmetic toy built out of board rewrites.",
     "basic-game": "A minimal movement example for understanding the format.",
+    "bet": "A quick probability toy about wagering on which side has more dots.",
     "fight": "A compact turn-style combat toy.",
     "hanoi": "A Towers of Hanoi-flavored board rewrite demo.",
     "river-crossing": "The wolf, goat, and cabbage puzzle expressed as a UA4K game.",
