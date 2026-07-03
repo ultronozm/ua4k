@@ -1,0 +1,1007 @@
+{
+  "binds": {
+    "a": {
+      "command": "move_w",
+      "description": "west"
+    },
+    "d": {
+      "command": "move_e",
+      "description": "east"
+    },
+    "s": {
+      "command": "move_s",
+      "description": "south"
+    },
+    "w": {
+      "command": "move_n",
+      "description": "north"
+    },
+    "z": {
+      "command": "wait",
+      "description": "wait"
+    }
+  },
+  "charMap": {
+    "E": ">",
+    "N": "^",
+    "S": "v",
+    "W": "<"
+  },
+  "colorMap": {
+    "-": "#aaaaaa",
+    "<": "#ff7733",
+    ">": "#ff7733",
+    "E": "#aa44ff",
+    "G": "#00cc88",
+    "H": "#bb66ff",
+    "N": "#aa44ff",
+    "P": "#3366ff",
+    "S": "#aa44ff",
+    "W": "#aa44ff",
+    "X": "#cc0000",
+    "^": "#ff7733",
+    "c": "#aa8855",
+    "g": "#00aa66",
+    "h": "#8844cc",
+    "o": "#141414",
+    "v": "#ff7733",
+    "x": "#444444"
+  },
+  "gameAuthor": "Claude",
+  "gameDescription": "Herd a wind-up robot you can never touch. It marches every turn you spend, and turns clockwise when blocked.",
+  "gameTitle": "Clockwise",
+  "globalTick": null,
+  "goals": [
+    [
+      "G"
+    ]
+  ],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "xxxxxxxx",
+        "x>----gx",
+        "x------x",
+        "xP-----x",
+        "xxxxxxxx"
+      ],
+      "description": "The wind-up robot marches one step forward every time you spend a turn. You are the blue 'P'. You cannot touch the robot, and you do not need to: press z to wait and watch it dock on 'g'.",
+      "minMoves": 5,
+      "title": "Wind-Up"
+    },
+    {
+      "board": [
+        "xxxxxxx",
+        "x>----x",
+        "x-----x",
+        "xP---gx",
+        "xxxxxxx"
+      ],
+      "description": "When the robot cannot step forward, it does not stop. It spends the turn rotating clockwise, then marches on. Its whole life is march-or-turn.",
+      "minMoves": 7,
+      "title": "Clockwise"
+    },
+    {
+      "board": [
+        "xxxxxxxxx",
+        "x-------x",
+        "x->-----x",
+        "x-------x",
+        "x---g---x",
+        "x------Px",
+        "xxxxxxxxx"
+      ],
+      "description": "You are a wall too. Stand in the robot's path at the right moment and it will turn clockwise toward the pad.",
+      "minMoves": 12,
+      "title": "Body Check"
+    },
+    {
+      "board": [
+        "xxxxxxxxx",
+        "x>------x",
+        "x---c---x",
+        "x---P---x",
+        "x--g----x",
+        "xxxxxxxxx"
+      ],
+      "description": "Crates 'c' push like furniture, one cell at a time. A crate in the road turns the robot just like your body does. Unlike your body, it stays put.",
+      "minMoves": 6,
+      "title": "Roadblock"
+    },
+    {
+      "board": [
+        "xxxxxxxxx",
+        "x>---o--x",
+        "x---P---x",
+        "x--g----x",
+        "xxxxxxxxx"
+      ],
+      "description": "Pits 'o' do not stop the robot. It will march straight in and wreck itself. This one has four turns to live.",
+      "minMoves": 5,
+      "title": "Sinkhole"
+    },
+    {
+      "board": [
+        "xxxxxxxxx",
+        "x>--o--gx",
+        "x---c---x",
+        "x---P---x",
+        "xxxxxxxxx"
+      ],
+      "description": "A crate pushed into a pit fills it and leaves solid floor.",
+      "minMoves": 6,
+      "title": "Landfill"
+    },
+    {
+      "board": [
+        "xxxxxxxxxx",
+        "x>-----o-x",
+        "x-----P--x",
+        "x--xgx---x",
+        "x---xx---x",
+        "x--------x",
+        "xxxxxxxxxx"
+      ],
+      "description": "The dock only opens from the north, and the pit is waiting. There is exactly one place to stand.",
+      "minMoves": 6,
+      "title": "Needle"
+    },
+    {
+      "board": [
+        "xxxxxxxxx",
+        "x>------x",
+        "x--xx---x",
+        "x--xg---x",
+        "x--xx---x",
+        "xP------x",
+        "xxxxxxxxx"
+      ],
+      "description": "The pen opens from the east, so the robot must arrive walking west. Let the walls make the first turns for you.",
+      "minMoves": 13,
+      "title": "Sheep Pen"
+    },
+    {
+      "board": [
+        "xxxxxxxxxx",
+        "x>-----o-x",
+        "x----x-c-x",
+        "x---xg---x",
+        "x----x---x",
+        "x-----P--x",
+        "xxxxxxxxxx"
+      ],
+      "description": "First save it, then catch it. The crate plugs the pit, and the dock takes deliveries from the east only.",
+      "minMoves": 14,
+      "title": "Terminal"
+    },
+    {
+      "board": [
+        "xxxxxxxxxx",
+        "x>-------x",
+        "x--------x",
+        "x--xxg-x-x",
+        "x---xxx--x",
+        "x---P----x",
+        "xxxxxxxxxx"
+      ],
+      "description": "No pits and no crates: just you, the robot, and a lap of the yard. If you cannot get there in time, send the robot the long way around.",
+      "minMoves": 25,
+      "title": "Roundabout"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxx",
+        "x>--------x",
+        "x-xx-xxxx-x",
+        "x-x-----x-x",
+        "x-x-xgx-x-x",
+        "x-x-----x-x",
+        "x-xxxxxxx-x",
+        "x---P-----x",
+        "xxxxxxxxxxx"
+      ],
+      "description": "The core is two rings deep. Meeting the robot head-on bounces it backward, and you will need the lap that buys. Once you are both inside, remember: in a narrow ring, whoever is in front decides where the other one turns.",
+      "minMoves": 34,
+      "title": "Snail"
+    },
+    {
+      "board": [
+        "xxxxxxxxx",
+        "x--xx---x",
+        "x-x----ox",
+        "x-x-<x--x",
+        "x---x---x",
+        "x--gx--Px",
+        "xxxxxxxxx"
+      ],
+      "description": "The robot circles its cage clockwise and slips out the east gap, straight into the pit. Redirecting it means getting into the cage with it, and living on its rhythm.",
+      "minMoves": 16,
+      "title": "Escapement"
+    },
+    {
+      "board": [
+        "xxxxxxxxxx",
+        "x>------ox",
+        "x--c-----x",
+        "x--P---xgx",
+        "x------x-x",
+        "x--------x",
+        "xxxxxxxxxx"
+      ],
+      "description": "One crate, one pit, one dock. Remember that you, the robot, and a crate you keep pushing all move at exactly the same speed.",
+      "minMoves": 16,
+      "title": "Convoy"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxx",
+        "x>------xxx",
+        "xxxxxx-xgxx",
+        "xxxxxx-xPxx",
+        "xxxxxx---xx",
+        "xxxxxxxxxxx"
+      ],
+      "description": "Every wall turns the robot right for free. A left turn is three rights, and the third only happens if you are standing right where it came from. Stay close behind, and mind the shuttle upstairs.",
+      "minMoves": 35,
+      "title": "Heel"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxx",
+        "x>------Pxxx",
+        "xxxxxx-xxxxx",
+        "xxxxxx-xxxxx",
+        "xxxxxx-co-gx",
+        "xxxxxxxxxxxx"
+      ],
+      "description": "Last delivery of the night. Plug the floor before you invite it downstairs, and do not get caught in the hall when it comes marching back.",
+      "minMoves": 26,
+      "title": "Night Shift"
+    },
+    {
+      "board": [
+        "xxxxxxxxx",
+        "x-------x",
+        "x-----W-x",
+        "x-------x",
+        "x---h---x",
+        "xP------x",
+        "xxxxxxxxx"
+      ],
+      "description": "A new model walks the floor tonight: the violet robot turns COUNTERclockwise when blocked, and docks only on violet pads 'h'. Everything you know still works. Backwards.",
+      "goals": [
+        [
+          "H"
+        ]
+      ],
+      "minMoves": 12,
+      "title": "Widdershins"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxx",
+        "x>P------Wx",
+        "x---------x",
+        "xg---oho--x",
+        "xxxxxxxxxxx"
+      ],
+      "description": "Two robots, one lane, and you are the only signal on duty. Blocked head-on, orange peels off to its right and violet to its left. Every column is a different fate.",
+      "goals": [
+        [
+          "G"
+        ],
+        [
+          "H"
+        ]
+      ],
+      "minMoves": 6,
+      "title": "Traffic"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxx",
+        "x>----xWxxx",
+        "xxxxx-P-xxx",
+        "xxxxx---xxx",
+        "xxxxh-gxxxx",
+        "xxxxxxxxxxx"
+      ],
+      "description": "In watchmaking, a complication is everything the movement does beyond telling time. Two gears, two cages, one keeper. They cannot touch you, and they cannot pass each other \u2014 but one can be the wall the other needs.",
+      "goals": [
+        [
+          "G"
+        ],
+        [
+          "H"
+        ]
+      ],
+      "minMoves": 22,
+      "title": "Complications"
+    }
+  ],
+  "rules": {
+    "ccw_step": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "Eh"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-H"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "Eo"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-X"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "E-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-E"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "E"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "N"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "S",
+                "h"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "H"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "S",
+                "o"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "X"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "S",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "S"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "S"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "E"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "hW"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "H-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "oW"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "X-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-W"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "W-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "W"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "S"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "h",
+                "N"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "H",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "o",
+                "N"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "X",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-",
+                "N"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "N",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "N"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "W"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "cw_step": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                ">g"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-G"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                ">o"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-X"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                ">-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "->"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                ">"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "v"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "v",
+                "g"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "G"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "v",
+                "o"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "X"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "v",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "v"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "v"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "<"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "g<"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "G-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "o<"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "X-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-<"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "<-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "<"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "^"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "g",
+                "^"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "G",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "o",
+                "^"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "X",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-",
+                "^"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "^",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "^"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                ">"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_e": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "Pco"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-P-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "Pc-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-Pc"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "P-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-P"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "match1"
+            },
+            {
+              "rules": [
+                {
+                  "name": "robot_step",
+                  "type": "call"
+                }
+              ],
+              "type": "try_all"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_n": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "o",
+                    "c",
+                    "P"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-",
+                    "P",
+                    "-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-",
+                    "c",
+                    "P"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "c",
+                    "P",
+                    "-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-",
+                    "P"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "P",
+                    "-"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "match1"
+            },
+            {
+              "rules": [
+                {
+                  "name": "robot_step",
+                  "type": "call"
+                }
+              ],
+              "type": "try_all"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_s": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "P",
+                    "c",
+                    "o"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-",
+                    "P",
+                    "-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "P",
+                    "c",
+                    "-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-",
+                    "P",
+                    "c"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "P",
+                    "-"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-",
+                    "P"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "match1"
+            },
+            {
+              "rules": [
+                {
+                  "name": "robot_step",
+                  "type": "call"
+                }
+              ],
+              "type": "try_all"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_w": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "ocP"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-P-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-cP"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "cP-"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "-P"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "P-"
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "match1"
+            },
+            {
+              "rules": [
+                {
+                  "name": "robot_step",
+                  "type": "call"
+                }
+              ],
+              "type": "try_all"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "robot_step": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "cw_step",
+              "type": "call"
+            },
+            {
+              "name": "ccw_step",
+              "type": "call"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    },
+    "wait": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "name": "robot_step",
+              "type": "call"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [
+    [
+      "X"
+    ]
+  ],
+  "whitespaceChars": []
+}
