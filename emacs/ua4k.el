@@ -60,8 +60,15 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
   :type '(choice (const :tag "Unset" nil) directory))
 
 (defconst ua4k--source-file
-  (or load-file-name buffer-file-name)
-  "Absolute path to the loaded `ua4k.el' source file.")
+  (when-let* ((raw (or load-file-name buffer-file-name)))
+    ;; When loading byte-compiled output from a package build directory,
+    ;; the .elc is a real file but its sibling .el is typically a symlink
+    ;; into the repository checkout (e.g. under elpaca). Resolve through
+    ;; the .el so `ua4k--repo-root' finds the checkout, where the Python
+    ;; compiler and the games live.
+    (let ((el (concat (file-name-sans-extension raw) ".el")))
+      (file-truename (if (file-exists-p el) el raw))))
+  "Absolute path to the true `ua4k.el' source file.")
 
 (defvar-local ua4k--game-data nil)
 (defvar-local ua4k--levels nil)
