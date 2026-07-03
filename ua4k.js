@@ -961,28 +961,19 @@ function restoreOriginalLevel() {
 }
 
 // Rule engine
-function getSubgrid(row, col, height, width) {
-    let subgrid = [];
-    for (let i = 0; i < height; i++) {
-        let subgridRow = [];
-        for (let j = 0; j < width; j++) {
-            subgridRow.push(board[row + i][col + j]);
-        }
-        subgrid.push(subgridRow);
-    }
-    return subgrid;
-}
 
-// this function is needed because of the awkward difference between
-// how boards and rules are stored (strings vs. arrays of single
-// character strings).
-function patternMatchHelper(fromPattern, subgrid) {
-    for (let i = 0; i < fromPattern.length; i++) {
-        for (let j = 0; j < fromPattern[0].length; j++) {
-            let cell = fromPattern[i][j];
-            if (cell == '?')
-                continue;
-            if (cell != subgrid[i][j]) {
+function patternMatch(fromPattern, row, col) {
+    let patternHeight = fromPattern.length;
+    let patternWidth = fromPattern[0].length;
+    if (row < 0 || col < 0 || row + patternHeight > board.length || col + patternWidth > board[0].length) {
+        return false;
+    }
+    for (let i = 0; i < patternHeight; i++) {
+        let patternRow = fromPattern[i];
+        let boardRow = board[row + i];
+        for (let j = 0; j < patternWidth; j++) {
+            let cell = patternRow[j];
+            if (cell != '?' && cell != boardRow[col + j]) {
                 return false;
             }
         }
@@ -990,54 +981,54 @@ function patternMatchHelper(fromPattern, subgrid) {
     return true;
 }
 
-function patternMatch(fromPattern, row, col) {
-    let patternHeight = fromPattern.length;
-    let patternWidth = fromPattern[0].length;
-    if (row >= 0 && col >= 0 && row + patternHeight <= board.length && col + patternWidth <= board[0].length) {
-        let subgrid = getSubgrid(row, col, patternHeight, patternWidth);
-        return patternMatchHelper(fromPattern, subgrid);
-    }
-    return false;
-}
-
 function applyRuleAt(rule, row, col) {
-    debugLog("Applying rule " + rule + " at " + row + ", " + col);
-    debugLog("Board before applying rule: " + board);
+    if (DEBUG_LOGS) {
+        debugLog("Applying rule " + rule + " at " + row + ", " + col);
+        debugLog("Board before applying rule: " + board);
+        debugLog("toPattern: " + rule.to);
+        debugLog("sideEffects: " + rule.side_effects);
+    }
     let toPattern = rule.to;
     let sideEffects = rule.side_effects;
-    debugLog("toPattern: " + toPattern);
-    debugLog("sideEffects: " + sideEffects);
     let patternHeight = toPattern.length;
     let patternWidth = toPattern[0].length;
     if (row >= 0 && col >= 0 && row + patternHeight <= board.length && col + patternWidth <= board[0].length) {
-        var tempBoard = JSON.parse(JSON.stringify(board));
-        debugLog("Temp board: " + tempBoard);
+        // Board rows are immutable strings, so a shallow row-array copy is a
+        // full snapshot. Only mandatory ('!') side effects can roll back, so
+        // only they need one.
+        var needsSnapshot = false;
+        for (let sideEffect of sideEffects) {
+            if (sideEffect[sideEffect.length - 1] == '!') {
+                needsSnapshot = true;
+                break;
+            }
+        }
+        var tempBoard = needsSnapshot ? board.slice() : null;
         for (let i = 0; i < patternHeight; i++) {
             for (let j = 0; j < patternWidth; j++) {
                 let cell = toPattern[i][j];
                 if (cell == '?')
                     continue;
-                let tempRow = board[row + i].split('');
-                tempRow[col + j] = cell;
-                board[row + i] = tempRow.join('');
-                debugLog("Setting cell " + (row + i) + ", " + (col + j) + " to " + cell);
+                let boardRow = board[row + i];
+                board[row + i] = boardRow.substring(0, col + j) + cell + boardRow.substring(col + j + 1);
+                if (DEBUG_LOGS) debugLog("Setting cell " + (row + i) + ", " + (col + j) + " to " + cell);
             }
         }
-        debugLog("Board after applying rule: " + board);
+        if (DEBUG_LOGS) debugLog("Board after applying rule: " + board);
 
         for (let sideEffect of sideEffects) {
-            debugLog("Applying side effect: " + sideEffect);
+            if (DEBUG_LOGS) debugLog("Applying side effect: " + sideEffect);
             if (sideEffect[sideEffect.length - 1] == '!') {
                 sideEffect = sideEffect.slice(0, -1);
                 if (!applyRule(rules_dict[sideEffect])) {
-                    board = JSON.parse(JSON.stringify(tempBoard));
-                    debugLog("Board after reverting: " + board);
+                    board = tempBoard.slice();
+                    if (DEBUG_LOGS) debugLog("Board after reverting: " + board);
                     return false;
                 }
             } else {
                 applyRule(rules_dict[sideEffect]);
             }
-            debugLog("Board after applying side effect " + sideEffect + ": " + board);
+            if (DEBUG_LOGS) debugLog("Board after applying side effect " + sideEffect + ": " + board);
         }
     } else {
         debugLog("This should never happen.")
@@ -1097,16 +1088,30 @@ function applyRule(rule, min_row=0, min_col=0) {
     case "simple":
         var height = board.length;
         var width = board[0].length;
-        debugLog("Applying SIMPLE " + rule.from + " with min_row, min_col: " + min_row + ", " + min_col);
+        if (DEBUG_LOGS) debugLog("Applying SIMPLE " + rule.from + " with min_row, min_col: " + min_row + ", " + min_col);
 
         var ruleApplied = false;
         if (rule.method == 'firstmatch') {
+            // When the pattern anchor is a concrete character, let the native
+            // string search skip the empty space between candidates.
+            var anchor = rule.from[0][0];
             for (let i = min_row; i < height && !ruleApplied; i++) {
-                for (let j = min_col; j < width && !ruleApplied; j++) {
-                    if (patternMatch(rule.from, i, j)) {
-                        ruleApplied = applyRuleAt(rule, i, j);
-                        lastRow = i;
-                        lastCol = j;
+                if (anchor != '?') {
+                    var boardRow = board[i];
+                    for (let j = boardRow.indexOf(anchor, min_col); j != -1 && !ruleApplied; j = boardRow.indexOf(anchor, j + 1)) {
+                        if (patternMatch(rule.from, i, j)) {
+                            ruleApplied = applyRuleAt(rule, i, j);
+                            lastRow = i;
+                            lastCol = j;
+                        }
+                    }
+                } else {
+                    for (let j = min_col; j < width && !ruleApplied; j++) {
+                        if (patternMatch(rule.from, i, j)) {
+                            ruleApplied = applyRuleAt(rule, i, j);
+                            lastRow = i;
+                            lastCol = j;
+                        }
                     }
                 }
             }
@@ -1167,7 +1172,7 @@ function applyRule(rule, min_row=0, min_col=0) {
         var randomIndex = Math.floor(Math.random() * length);
         return applyRule(rules[randomIndex]);
     case "atomic":
-        var board_copy = JSON.parse(JSON.stringify(board));
+        var board_copy = board.slice();
         var ruleApplied = true;
         var rules = rule.rules;
         var condition = rule.condition;
@@ -1175,8 +1180,10 @@ function applyRule(rule, min_row=0, min_col=0) {
         var min_col =0;
         for (let i = 0; i < rules.length; i++) {
             var rule = rules[i];
-            debugLog("Applying atomic rule " + rule + ", step " + i + " with min_row, min_col: " + min_row + ", " + min_col);
-            debugLog("condition: " + condition);
+            if (DEBUG_LOGS) {
+                debugLog("Applying atomic rule " + rule + ", step " + i + " with min_row, min_col: " + min_row + ", " + min_col);
+                debugLog("condition: " + condition);
+            }
             if (!applyRule(rule, min_row, min_col)) {
                 ruleApplied = false;
                 debugLog("Atomic rule fail: " + rules[i]);
@@ -1213,7 +1220,7 @@ function checkEndLevel() {
 // Input handling
 function gameAction(a) {
     debugLog("gameAction: " + a);
-    var board_copy = JSON.parse(JSON.stringify(board));
+    var board_copy = board.slice();
     let cmd = bindCommand(binds[a]);
     if (!cmd) {
         return false;
