@@ -9,8 +9,8 @@ from pathlib import Path
 from compiler_common import load_make_data_module, repo_root, resolve_game_file
 
 
-def standalone_html(game_name: str) -> str:
-    title = html.escape(game_name)
+def standalone_html(game_name: str, display_name: str | None = None) -> str:
+    title = html.escape(display_name or game_name)
     return f"""<!DOCTYPE html>
 <html>
   <head>
@@ -52,7 +52,8 @@ def emit_web_game(output_dir: Path, game_name: str, compiled: dict) -> None:
         "window.UA4K_GAME_DATA = " + json.dumps(compiled, indent=2) + ";\n",
         encoding="utf-8",
     )
-    html_path.write_text(standalone_html(game_name), encoding="utf-8")
+    display_name = compiled.get("gameTitle") or None
+    html_path.write_text(standalone_html(game_name, display_name), encoding="utf-8")
 
 
 def compile_games(game_files: list[str]) -> dict[str, dict]:

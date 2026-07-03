@@ -39,6 +39,9 @@
     "r": "#777777",
     "x": "#444444"
   },
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": "Signal Relay",
   "globalTick": null,
   "goals": [
     [

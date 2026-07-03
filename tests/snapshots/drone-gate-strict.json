@@ -31,6 +31,9 @@
     "k": "#dddd55",
     "x": "#444444"
   },
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": "Drone Gate Strict",
   "globalTick": null,
   "goals": [
     [

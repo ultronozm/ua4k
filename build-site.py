@@ -60,6 +60,9 @@ class SiteGame:
 
     @property
     def display_name(self) -> str:
+        game_title = self.compiled.get("gameTitle")
+        if isinstance(game_title, str) and game_title:
+            return game_title
         return self.name.replace("-", " ").title()
 
 
@@ -130,6 +133,10 @@ def first_level(game: SiteGame) -> dict:
 
 
 def game_description(game: SiteGame) -> str:
+    compiled_description = game.compiled.get("gameDescription")
+    if isinstance(compiled_description, str) and compiled_description:
+        return compiled_description
+
     if game.name in GAME_SUMMARIES:
         return GAME_SUMMARIES[game.name]
 

@@ -29,6 +29,9 @@
     "b": "#cc66cc",
     "x": "#444444"
   },
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": "Dockstep",
   "globalTick": null,
   "goals": [
     [

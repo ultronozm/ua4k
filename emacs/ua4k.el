@@ -160,6 +160,11 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
           (mapcar #'ua4k--normalize-pattern (ua4k--obj-get data "goals")))
   (setcdr (ua4k--obj-cell data "voids")
           (mapcar #'ua4k--normalize-pattern (ua4k--obj-get data "voids")))
+  (dolist (level (ua4k--obj-get data "levels"))
+    (dolist (key '("goals" "voids"))
+      (let ((cell (ua4k--obj-cell level key)))
+        (when cell
+          (setcdr cell (mapcar #'ua4k--normalize-pattern (cdr cell)))))))
   data)
 
 (defun ua4k--board-copy (board)
@@ -241,11 +246,19 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
                   (cl-loop for col from 0 to max-col
                            thereis (ua4k--pattern-match pattern row col)))))))
 
+(defun ua4k--active-goals ()
+  "Goals for the current level: its own GOAL blocks, else the game's."
+  (or (ua4k--obj-get (ua4k--current-level) "goals") ua4k--goals))
+
+(defun ua4k--active-voids ()
+  "Voids for the current level: its own VOID blocks, else the game's."
+  (or (ua4k--obj-get (ua4k--current-level) "voids") ua4k--voids))
+
 (defun ua4k--level-complete-p ()
   "Return non-nil if goals are satisfied and voids are absent."
   (and
-   (cl-every #'ua4k--pattern-occurs ua4k--goals)
-   (cl-every (lambda (void-pattern) (not (ua4k--pattern-occurs void-pattern))) ua4k--voids)))
+   (cl-every #'ua4k--pattern-occurs (ua4k--active-goals))
+   (cl-every (lambda (void-pattern) (not (ua4k--pattern-occurs void-pattern))) (ua4k--active-voids))))
 
 (defun ua4k--rule-type (rule)
   (ua4k--obj-get rule "type"))

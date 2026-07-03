@@ -54,6 +54,9 @@ Important details:
 - A board is just consecutive non-directive lines.
 - `GOAL` patterns must occur for a level to be complete.
 - `VOID` patterns must not occur.
+- `GOAL`/`VOID` before the first board apply to every level. A `GOAL` or
+  `VOID` written after a board belongs to that level only, and replaces the
+  game-wide patterns there. Most games only need the game-wide form.
 - `BIND` maps keys to command names and optional display labels. Labels are
   used in the browser key list and in generated touch controls.
 - `CMD` starts a command rule block.
@@ -181,12 +184,13 @@ examples of `ROTATE_CMDS`.
 - `games/toys/turing.txt`: compact computational joke/demo.
 - `tests/fixtures/fixture-rotate.txt`: tiny focused rotation example.
 
-## Current Metadata Quirk
+## Metadata
 
-`TITLE`, `DESCRIPTION`, `BY`, and `MINMOVES` currently attach to the most
-recent level. If they appear before the first board, they do not become
-game-level metadata. This should probably be improved later; for now, put
-level-specific metadata after the board it describes.
+`TITLE`, `DESCRIPTION`, and `BY` written before the first board describe the
+game as a whole: the site index and standalone pages use them. Written after
+a board, they describe that level. `MINMOVES` always describes the most
+recent level, and `make check` verifies every `MINMOVES` claim with the
+solver, so state the true minimum (easiest: read it off `solve_level.js`).
 
 ## Full Reference
 

@@ -50,7 +50,11 @@ Supported directives are:
 
 Directive behavior:
 - `GOAL` starts accumulating goal pattern lines until the next blank line.
+  - Before any level: appended to the game-wide goal set.
+  - After a level: attached to the most recent level. A level with its own
+    goals uses them *instead of* the game-wide goals.
 - `VOID` starts accumulating forbidden pattern lines until the next blank line.
+  - Same scoping as `GOAL`: level voids replace game-wide voids for that level.
 - `BIND` is parsed as repeated `key command ["description"]` entries.
   - Description is optional and must be quoted when present.
   - Runtime input dispatch uses `command`; UI docs show `description` when provided.
@@ -59,6 +63,9 @@ Directive behavior:
   - `<base>_e`, `<base>_s`, `<base>_w`, `<base>_n`
   - enclosed rules are expanded once per direction (east/south/west/north).
 - `TITLE`, `DESCRIPTION`, `MINMOVES`, `BY`, `TICK` attach to the most recent level when one exists.
+  - `TITLE`, `DESCRIPTION`, `BY` before any level become game-level metadata
+    (`gameTitle`, `gameDescription`, `gameAuthor`), used by the site index and
+    standalone pages.
   - `TICK` before any level sets global tick interval.
   - `MINMOVES <n>` stores a solver-backed minimum-move count for the level and is displayed in the UI.
 - `WHITESPACE` appends characters rendered as non-breaking spaces in the browser.
@@ -199,6 +206,9 @@ Compiler emits one entry per game into `gamesData.js`:
 - `colorMap`
 - `hiddenLineChars`
 - `globalTick`
+- `gameTitle`, `gameDescription`, `gameAuthor` (game-level metadata; `null` when absent)
+
+Levels may additionally carry `goals`/`voids` lists (per-level overrides).
 
 `make-data.py` is accumulative:
 - Reads existing `gamesData.js` when possible.
@@ -208,7 +218,7 @@ Compiler emits one entry per game into `gamesData.js`:
 ## 7. Known Quirks Preserved
 
 - Blank lines are overloaded as flush boundaries for multiple parser states.
-- `TITLE`/`DESCRIPTION`/`MINMOVES`/`BY`/`TICK` attach only when a level already exists (except global `TICK` before levels).
+- `MINMOVES` attaches only when a level already exists.
 - `CMD <name>` merges rules across repeated declarations of the same command.
 - `gamesData.js` read failures print a warning to stderr and start from `{}`.
 - The parser is indentation-sensitive, with stack unwinding on equal-or-lower indentation.

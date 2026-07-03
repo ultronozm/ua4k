@@ -25,6 +25,9 @@
     "v": "#0000aa",
     "x": "#444444"
   },
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": null,
   "globalTick": null,
   "goals": [],
   "hiddenLineChars": [],

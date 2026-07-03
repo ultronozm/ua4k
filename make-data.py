@@ -101,6 +101,9 @@ class ParseState:
     color_map: dict[str, str] = field(default_factory=dict)
     hidden_line_chars: list[str] = field(default_factory=list)
     global_tick: int | None = None
+    game_title: str | None = None
+    game_description: str | None = None
+    game_author: str | None = None
 
     temp_board: list[str] = field(default_factory=list)
     temp_goal: list[str] | None = None
@@ -478,11 +481,17 @@ def flush_on_blank_line(state: ParseState) -> None:
         state.temp_board = []
         return
     if state.temp_goal is not None and state.temp_goal:
-        state.goals.append(state.temp_goal)
+        if state.levels:
+            state.levels[-1].setdefault("goals", []).append(state.temp_goal)
+        else:
+            state.goals.append(state.temp_goal)
         state.temp_goal = None
         return
     if state.temp_void is not None and state.temp_void:
-        state.voids.append(state.temp_void)
+        if state.levels:
+            state.levels[-1].setdefault("voids", []).append(state.temp_void)
+        else:
+            state.voids.append(state.temp_void)
         state.temp_void = None
         return
     if state.rule_buffer.from_rows:
@@ -618,6 +627,8 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
         description = line.split("DESCRIPTION", 1)[1].strip()
         if state.levels:
             state.levels[-1]["description"] = description
+        else:
+            state.game_description = description
         return True
 
     if head == "MINMOVES":
@@ -644,6 +655,8 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
         title = line.split("TITLE", 1)[1].strip()
         if state.levels:
             state.levels[-1]["title"] = title
+        else:
+            state.game_title = title
         return True
 
     if head == "WHITESPACE":
@@ -668,6 +681,8 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
         author = line.split("BY", 1)[1].strip()
         if state.levels:
             state.levels[-1]["author"] = author
+        else:
+            state.game_author = author
         return True
 
     if head == "BIND":
@@ -904,6 +919,9 @@ def emit_result(state: ParseState) -> dict:
         "colorMap": state.color_map,
         "hiddenLineChars": state.hidden_line_chars,
         "globalTick": state.global_tick,
+        "gameTitle": state.game_title,
+        "gameDescription": state.game_description,
+        "gameAuthor": state.game_author,
     }
 
 

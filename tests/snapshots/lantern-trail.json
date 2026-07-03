@@ -56,6 +56,9 @@
     "x": "#3f3f3f",
     "~": "#3d85c6"
   },
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": "Lantern Trail",
   "globalTick": null,
   "goals": [],
   "hiddenLineChars": [

@@ -65,6 +65,9 @@
     "r": "#990055",
     "~": "#0000ff"
   },
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": null,
   "globalTick": null,
   "goals": [],
   "hiddenLineChars": [

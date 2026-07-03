@@ -35,6 +35,9 @@
     "w": "#3d85c6",
     "x": "#2f3b52"
   },
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": "Ice Slides",
   "globalTick": null,
   "goals": [
     [

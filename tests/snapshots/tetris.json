@@ -23,6 +23,9 @@
     "o": "#cc0000",
     "x": "#cc0000"
   },
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": null,
   "globalTick": null,
   "goals": [
     [

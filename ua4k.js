@@ -759,7 +759,7 @@ function updateDocsDisplay() {
     let goalsElem = byId('goals');
     if (goalsElem) {
         goalsElem.innerHTML = '';
-        for (let goal of goals) {
+        for (let goal of activeGoals()) {
             let textNode = document.createTextNode("Goal:" + goal);
             goalsElem.appendChild(textNode);
             let brNode = document.createElement("br");
@@ -769,7 +769,7 @@ function updateDocsDisplay() {
     let voidsElem = byId('voids');
     if (voidsElem) {
         voidsElem.innerHTML = '';
-        for (let voidPattern of voids) {
+        for (let voidPattern of activeVoids()) {
             let textNode = document.createTextNode("Void:" + voidPattern);
             voidsElem.appendChild(textNode);
             let brNode = document.createElement("br");
@@ -910,6 +910,7 @@ function initLevel() {
     let level = levels[level_number];
     scratchInitialBoard = null;
     loadBoardRows(level['board'], level);
+    updateDocsDisplay();
 }
 
 function restartLevel() {
@@ -1057,13 +1058,30 @@ function patternOccurs(pattern) {
     return false;
 }
 
+// A level's own GOAL/VOID blocks replace the game-wide ones for that level.
+function activeGoals() {
+    let level = levels[level_number];
+    if (level && level.goals && level.goals.length) {
+        return level.goals;
+    }
+    return goals;
+}
+
+function activeVoids() {
+    let level = levels[level_number];
+    if (level && level.voids && level.voids.length) {
+        return level.voids;
+    }
+    return voids;
+}
+
 function levelComplete() {
-    for (let goal of goals) {
+    for (let goal of activeGoals()) {
         if (!patternOccurs(goal)) {
             return false;
         }
     }
-    for (let voidPattern of voids) {
+    for (let voidPattern of activeVoids()) {
         if (patternOccurs(voidPattern)) {
             return false;
         }
