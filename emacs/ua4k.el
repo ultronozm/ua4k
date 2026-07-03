@@ -115,8 +115,11 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
   (intern (format "ua4k-data-%s" game-name)))
 
 (defun ua4k--string-list->board (rows)
-  "Convert ROWS (a list of strings) into a mutable board."
-  (vconcat (mapcar (lambda (row) (string-to-vector row)) rows)))
+  "Convert ROWS (a list of strings) into a board vector.
+Rows are treated as immutable: writers replace a row with a copy
+before changing it (see `ua4k--apply-rule-at'), so the strings may
+be shared with the compiled game data and with snapshots."
+  (vconcat rows))
 
 (defun ua4k--normalize-pattern (rows)
   "Convert ROWS into a compiled `ua4k-pattern'."
@@ -168,8 +171,10 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
   data)
 
 (defun ua4k--board-copy (board)
-  "Deep copy BOARD."
-  (vconcat (mapcar #'copy-sequence board)))
+  "Snapshot BOARD.
+Rows are immutable strings, so a shallow copy of the row vector is a
+complete snapshot."
+  (copy-sequence board))
 
 (defun ua4k--board-height ()
   (length ua4k--board))
@@ -266,15 +271,25 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
 (defun ua4k--rule-field (rule key)
   (ua4k--obj-get rule key))
 
-(defun ua4k--apply-rule-at (rule row col)
+(defun ua4k--write-cell (board-row col value copied-rows)
+  "Write VALUE at COL of BOARD-ROW, copying the row first if needed.
+COPIED-ROWS is a list of row indices already made private during the
+current rule application. Returns the updated COPIED-ROWS."
+  (unless (memq board-row copied-rows)
+    (aset ua4k--board board-row (copy-sequence (aref ua4k--board board-row)))
+    (push board-row copied-rows))
+  (aset (aref ua4k--board board-row) col value)
+  copied-rows)
+
+(cl-defun ua4k--apply-rule-at (rule row col)
   "Apply simple RULE at ROW/COL."
-  (let* ((from-pattern (ua4k--rule-field rule "from"))
-         (to-pattern (ua4k--rule-field rule "to"))
+  (let* ((to-pattern (ua4k--rule-field rule "to"))
          (side-effects (ua4k--rule-field rule "side_effects"))
          (needs-rollback (cl-some (lambda (side-effect)
                                     (string-suffix-p "!" side-effect))
                                   side-effects))
-         (snapshot (and needs-rollback (ua4k--board-copy ua4k--board))))
+         (snapshot (and needs-rollback (ua4k--board-copy ua4k--board)))
+         (copied-rows nil))
     (if (ua4k-pattern-p to-pattern)
         (let ((cells (ua4k-pattern-cells to-pattern)))
           (dotimes (idx (length cells))
@@ -282,14 +297,16 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
                    (i (aref cell 0))
                    (j (aref cell 1))
                    (value (aref cell 2)))
-              (aset (aref ua4k--board (+ row i)) (+ col j) value))))
+              (setq copied-rows
+                    (ua4k--write-cell (+ row i) (+ col j) value copied-rows)))))
       (let ((height (ua4k--pattern-height to-pattern))
             (width (ua4k--pattern-width to-pattern)))
         (dotimes (i height)
           (dotimes (j width)
             (let ((cell (ua4k--pattern-char to-pattern i j)))
               (unless (eq cell ?\?)
-                (aset (aref ua4k--board (+ row i)) (+ col j) cell)))))))
+                (setq copied-rows
+                      (ua4k--write-cell (+ row i) (+ col j) cell copied-rows))))))))
     (dolist (side-effect side-effects)
       (if (string-suffix-p "!" side-effect)
           (let ((name (substring side-effect 0 -1)))
@@ -336,16 +353,33 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
                                 (throw 'ua4k-found (ua4k--apply-rule-at rule row col)))))))
         nil))
      (t
-      (catch 'ua4k-found
-        (cl-loop for row from min-row below height do
-                 (let ((max-col (- (ua4k--board-row-width row) pattern-width)))
-                   (when (>= max-col min-col)
-                     (cl-loop for col from min-col to max-col do
-                              (when (ua4k--pattern-match from-pattern row col)
-                                (setq ua4k--last-row row
-                                      ua4k--last-col col)
-                                (throw 'ua4k-found (ua4k--apply-rule-at rule row col)))))))
-        nil)))))
+      (let* ((anchor (and (> pattern-width 0)
+                          (> (ua4k--pattern-height from-pattern) 0)
+                          (ua4k--pattern-char from-pattern 0 0)))
+             (anchor-string (and anchor (not (eq anchor ?\?))
+                                 (char-to-string anchor))))
+        (catch 'ua4k-found
+          (cl-loop for row from min-row below height do
+                   (let ((max-col (- (ua4k--board-row-width row) pattern-width)))
+                     (when (>= max-col min-col)
+                       (if anchor-string
+                           ;; Jump between anchor-character candidates with the
+                           ;; native string search instead of visiting every cell.
+                           (let ((board-row (aref ua4k--board row))
+                                 (col min-col))
+                             (while (and (setq col (string-search anchor-string board-row col))
+                                         (<= col max-col))
+                               (when (ua4k--pattern-match from-pattern row col)
+                                 (setq ua4k--last-row row
+                                       ua4k--last-col col)
+                                 (throw 'ua4k-found (ua4k--apply-rule-at rule row col)))
+                               (setq col (1+ col))))
+                         (cl-loop for col from min-col to max-col do
+                                  (when (ua4k--pattern-match from-pattern row col)
+                                    (setq ua4k--last-row row
+                                          ua4k--last-col col)
+                                    (throw 'ua4k-found (ua4k--apply-rule-at rule row col))))))))
+          nil))))))
 
 (defun ua4k--apply-atomic-rule (rule)
   "Apply atomic RULE."
@@ -627,7 +661,11 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
            (command-name (ua4k--bind-command entry))
            (rule (and command-name (ua4k--obj-get ua4k--rules command-name))))
       (when (and rule ua4k--board)
-        (let ((snapshot (ua4k--board-copy ua4k--board)))
+        (let ((snapshot (ua4k--board-copy ua4k--board))
+              ;; Self-recursive rule sets (one CALL level per board cell, as
+              ;; in Game of Life implementations) need far more nesting than
+              ;; the default allows.
+              (max-lisp-eval-depth (max max-lisp-eval-depth 200000)))
           (when (ua4k--apply-rule rule)
             (push snapshot ua4k--board-history))))
       (ua4k--render))))
