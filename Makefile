@@ -1,9 +1,9 @@
-.PHONY: check parser-diagnostics snapshots build-check site-check scratch-smoke solve-smoke refresh-snapshots build-site build-web build-emacs clean-generated
+.PHONY: check parser-diagnostics snapshots build-check site-check scratch-smoke solve-smoke verify-minmoves refresh-snapshots build-site build-web build-emacs clean-generated
 
 CHECK_DIST ?= /tmp/ua4k-dist-check
 CHECK_SITE ?= /tmp/ua4k-site-check
 
-check: parser-diagnostics snapshots build-check site-check scratch-smoke solve-smoke
+check: parser-diagnostics snapshots build-check site-check scratch-smoke solve-smoke verify-minmoves
 
 parser-diagnostics:
 	python3 parser_diagnostics.py
@@ -26,6 +26,9 @@ scratch-smoke:
 
 solve-smoke:
 	node solve_level.js game 0 20 50000
+
+verify-minmoves:
+	node verify_minmoves.js
 
 refresh-snapshots:
 	python3 golden_snapshots.py refresh

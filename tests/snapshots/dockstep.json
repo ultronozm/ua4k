@@ -81,7 +81,7 @@
         "x-----------x",
         "xxxxxxxxxxxxx"
       ],
-      "minMoves": 17
+      "minMoves": 12
     },
     {
       "board": [
@@ -113,7 +113,7 @@
         "x--bx",
         "xxxxx"
       ],
-      "minMoves": 16
+      "minMoves": 15
     },
     {
       "board": [
@@ -123,7 +123,7 @@
         "x--2-x",
         "xxxxxx"
       ],
-      "minMoves": 16
+      "minMoves": 12
     },
     {
       "board": [
