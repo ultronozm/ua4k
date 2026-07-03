@@ -84,7 +84,31 @@ rows, with undo and restart kept as separate system buttons.
 
 * Playing In Emacs
 
-Load the Emacs frontend:
+The Emacs frontend lives in =emacs/= as two packages: =ua4k= (the player)
+and =ua4k-dsl-mode= (a major mode for authoring game files). Install them
+with your preferred package manager, pointing at the =emacs/= subdirectory
+of this repository. For example, using
+[[https://github.com/progfolio/elpaca][elpaca]]:
+
+#+begin_src emacs-lisp
+(use-package ua4k
+  :ensure (:host github :repo "ultronozm/ua4k"
+                 :files ("emacs/ua4k.el")
+                 :depth nil))
+
+(use-package ua4k-dsl-mode
+  :ensure (:host github :repo "ultronozm/ua4k"
+                 :files ("emacs/ua4k-dsl-mode.el")
+                 :depth nil))
+#+end_src
+
+Note that =M-x ua4k-play-file= compiles games with the Python compiler from
+this repository, so playing from source works best from a checkout (the
+elpaca recipes above keep one under your package manager's repos
+directory). Precompiled assets built with =build-emacs-assets.py= can be
+played anywhere via =M-x ua4k-play-asset-file=.
+
+Alternatively, load the frontend directly from a checkout:
 
 #+begin_src emacs-lisp
 (load-file "/path/to/ua4k/emacs/ua4k.el")
