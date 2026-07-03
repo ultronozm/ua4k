@@ -41,6 +41,7 @@ Supported directives are:
 - `MATCH1`
 - `TRY_ALL`
 - `RANDOM`
+- `REPEAT`
 - `FOR`
 - `ZIP`
 - `LET_REPEAT`
@@ -113,6 +114,7 @@ Supported:
 - `MATCH1`
 - `TRY_ALL`
 - `RANDOM`
+- `REPEAT`
 - `ATOMIC`
 - `ATOMIC_VERTICAL`
 - `ATOMIC_HORIZONTAL`
@@ -122,6 +124,14 @@ All wrap a nested `rules` list. Runtime behavior:
 - `match1`: try children in order, stop on first success.
 - `try_all`: apply every child (returns true).
 - `random`: choose one child uniformly and apply it.
+- `repeat`: like `match1`, repeatedly. Try the children in order; when one
+  succeeds, start over from the first child. Stop when no child succeeds,
+  or the successful child made no progress (guards against non-terminating
+  loops of test rules). A `REPEAT` always succeeds, even with zero
+  completed iterations. For an all-or-nothing *sequence* per iteration,
+  nest a single `ATOMIC` inside the `REPEAT`. This is the primitive form
+  of the older recursion idiom `MATCH1(ATOMIC(...body, CALL self), ?)`,
+  and runs iteratively, so it does not grow the call stack with the board.
 - `atomic`: all-or-nothing; rollback board on first child failure.
 - `atomic` with condition `vertical`/`horizontal`: same rollback behavior plus monotone cursor progression (`min_row`/`min_col`) across child applications.
 

@@ -36,6 +36,7 @@ RULE_BLOCK_DIRECTIVES = {
     "MATCH1",
     "TRY_ALL",
     "RANDOM",
+    "REPEAT",
     "CALL",
     "CALL_EACH",
 }
@@ -51,6 +52,7 @@ BLOCK_DIRECTIVE_NODES = {
     "MATCH1": {"type": "match1"},
     "TRY_ALL": {"type": "try_all"},
     "RANDOM": {"type": "random"},
+    "REPEAT": {"type": "repeat"},
 }
 
 ALL_DIRECTIVES = TOP_LEVEL_ONLY_DIRECTIVES | RULE_BLOCK_DIRECTIVES | TOP_LEVEL_BLOCK_DIRECTIVES | {
@@ -267,7 +269,7 @@ def deep_subs(rule: dict, assn: dict[str, str]) -> None:
         return
     if rule_type == "call":
         return
-    if rule_type in ["atomic", "match1", "try_all", "random", "cmd", "rotate", "rotate_cmds"]:
+    if rule_type in ["atomic", "match1", "try_all", "random", "repeat", "cmd", "rotate", "rotate_cmds"]:
         for child in rule["rules"]:
             deep_subs(child, assn)
         return
@@ -307,7 +309,7 @@ def collect_references_from_rule(state: ParseState, rule: dict) -> None:
                 fail(line_no, "empty side-effect command")
             add_reference(state, command_name, line_no, "side effect")
         return
-    if rule_type in {"atomic", "match1", "try_all", "random", "cmd", "for", "zip", "let_repeat"}:
+    if rule_type in {"atomic", "match1", "try_all", "random", "repeat", "cmd", "for", "zip", "let_repeat"}:
         for child in rule["rules"]:
             collect_references_from_rule(state, child)
         return
@@ -416,7 +418,7 @@ def expand_rotate_subtree(rule: dict, step: int, orbits: list[str], rewrite_suff
             rule["name"] = rewrite_directional_suffix(rule["name"], step)
         return
 
-    if rule_type in {"atomic", "match1", "try_all", "random", "cmd"}:
+    if rule_type in {"atomic", "match1", "try_all", "random", "repeat", "cmd"}:
         for child in rule["rules"]:
             expand_rotate_subtree(child, step, orbits, rewrite_suffixes)
         return
@@ -504,7 +506,7 @@ def process_rule_stack_to_level(state: ParseState, level: int) -> None:
         rule = state.rules_stack.pop()
         rule_type = rule["type"]
 
-        if rule_type in {"simple", "atomic", "match1", "try_all", "random", "cmd"}:
+        if rule_type in {"simple", "atomic", "match1", "try_all", "random", "repeat", "cmd"}:
             add_rule(state, rule)
             continue
 

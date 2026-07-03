@@ -151,6 +151,23 @@ CMD move_e
 `ATOMIC` applies children as an all-or-nothing group; if any child fails, the
 board rolls back.
 
+`REPEAT` is `MATCH1`, repeatedly: it tries its children in order, and each
+time one succeeds it starts over from the first child. It stops when no
+child applies (or the applying child stops changing the board), and always
+succeeds. Use it for "keep rewriting until settled" sweeps, like spreading
+water east until it hits walls:
+
+```txt
+CMD flood
+  REPEAT
+    ~- ~~
+```
+
+When each pass needs several steps that must all happen together, nest an
+`ATOMIC` inside the `REPEAT`. Older games wrote all of this as
+self-recursive commands (`MATCH1(ATOMIC(...work, CALL self), ?)`);
+`REPEAT` is the same thing without the ceremony.
+
 Mandatory side effects use `!`:
 
 ```txt

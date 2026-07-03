@@ -1,0 +1,60 @@
+{
+  "binds": {
+    "z": "sweep"
+  },
+  "charMap": {},
+  "colorMap": {},
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": null,
+  "globalTick": null,
+  "goals": [
+    [
+      "D"
+    ]
+  ],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "a--b"
+      ]
+    }
+  ],
+  "rules": {
+    "sweep": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "ab"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "aD"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "a-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-a"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "repeat"
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [],
+  "whitespaceChars": []
+}

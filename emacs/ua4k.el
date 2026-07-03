@@ -403,11 +403,38 @@ current rule application. Returns the updated COPIED-ROWS."
       (setq ua4k--board snapshot))
     ok))
 
+(defun ua4k--boards-equal-p (a b)
+  "Return non-nil if boards A and B have identical contents.
+Rows are replaced on write, so unchanged rows keep their identity."
+  (and (= (length a) (length b))
+       (catch 'ua4k-boards-differ
+         (dotimes (i (length a) t)
+           (let ((row-a (aref a i))
+                 (row-b (aref b i)))
+             (unless (or (eq row-a row-b) (string= row-a row-b))
+               (throw 'ua4k-boards-differ nil)))))))
+
+(defun ua4k--apply-repeat-rule (rule)
+  "Apply REPEAT RULE: like match1, repeatedly.
+Try the children in order; when one succeeds, start over from the
+first child. Stop when no child succeeds, or the successful child made
+no progress (guards against non-terminating loops of test rules).
+Always succeeds."
+  (let ((children (ua4k--rule-field rule "rules"))
+        (looping t))
+    (while looping
+      (let ((before (ua4k--board-copy ua4k--board)))
+        (unless (and (cl-some #'ua4k--apply-rule children)
+                     (not (ua4k--boards-equal-p ua4k--board before)))
+          (setq looping nil))))
+    t))
+
 (defun ua4k--apply-rule (rule &optional min-row min-col)
   "Apply compiled RULE."
   (when rule
     (pcase (ua4k--rule-type rule)
       ("simple" (ua4k--apply-simple-rule rule min-row min-col))
+      ("repeat" (ua4k--apply-repeat-rule rule))
       ("call" (ua4k--apply-rule (ua4k--obj-get ua4k--rules (ua4k--rule-field rule "name"))))
       ("match1"
        (cl-some #'ua4k--apply-rule (ua4k--rule-field rule "rules")))

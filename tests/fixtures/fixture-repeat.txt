@@ -1,0 +1,15 @@
+GOAL
+D
+
+a--b
+
+BIND z sweep
+
+;; REPEAT is match1, repeatedly: specific rule first, general rule second,
+;; iterate until neither applies.
+
+CMD sweep
+  REPEAT
+    ab aD
+
+    a- -a

@@ -962,6 +962,19 @@ function restoreOriginalLevel() {
 
 // Rule engine
 
+function boardsEqual(a, b) {
+    if (a.length != b.length) {
+        return false;
+    }
+    for (let i = 0; i < a.length; i++) {
+        // Rows are replaced on write, so unchanged rows keep their identity.
+        if (a[i] !== b[i] && a[i] != b[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
 function patternMatch(fromPattern, row, col) {
     let patternHeight = fromPattern.length;
     let patternWidth = fromPattern[0].length;
@@ -1150,6 +1163,25 @@ function applyRule(rule, min_row=0, min_col=0) {
         var ruleApplied = applyRule(rules_dict[name]);
         debugLog("CALL " + name + " applied: " + ruleApplied);
         return ruleApplied;
+    case "repeat":
+        // Like match1, repeatedly: try the children in order; when one
+        // succeeds, start over from the first child. Stop when no child
+        // succeeds, or the successful child made no progress (guards
+        // against non-terminating loops of test rules). Always succeeds.
+        while (true) {
+            var beforeIteration = board.slice();
+            var anySucceeded = false;
+            for (let child of rule.rules) {
+                if (applyRule(child)) {
+                    anySucceeded = true;
+                    break;
+                }
+            }
+            if (!anySucceeded || boardsEqual(board, beforeIteration)) {
+                break;
+            }
+        }
+        return true;
     case "match1":
         var ruleApplied = false;
         var rules = rule.rules;
