@@ -302,6 +302,7 @@ function currentTouchActions() {
     actions.push(
         { key: 'u', label: 'Undo', title: 'u: undo', kind: 'system' },
         { key: 'U', label: 'Restart', title: 'U: restart level', kind: 'system' },
+        { key: 'l', label: 'Level', title: 'l: jump to level', kind: 'system' },
     );
     return actions;
 }
