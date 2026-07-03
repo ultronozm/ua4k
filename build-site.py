@@ -147,16 +147,33 @@ def game_description(game: SiteGame) -> str:
     return f"{game.display_name} ({len(game.compiled.get('levels', []))} level(s))"
 
 
-def preview_board(game: SiteGame, max_rows: int = 10, max_cols: int = 40) -> str:
+def preview_board_html(game: SiteGame, max_rows: int = 10, max_cols: int = 40) -> str:
+    """First board as colored HTML, using the game's own COLOR/CHARMAP data.
+
+    All board content is escaped; colors and display chars come only from
+    checked-in game files (the same data the game pages already style with).
+    """
     hidden = set(game.compiled.get("hiddenLineChars") or [])
-    rows = []
+    color_map = game.compiled.get("colorMap") or {}
+    char_map = game.compiled.get("charMap") or {}
+    whitespace = set(game.compiled.get("whitespaceChars") or [])
+    lines = []
     for row in first_level(game).get("board", []):
         if any(char in hidden for char in row):
             continue
-        rows.append(row[:max_cols])
-        if len(rows) >= max_rows:
+        parts = []
+        for char in row[:max_cols]:
+            shown = "\u00a0" if char in whitespace else char_map.get(char, char)
+            escaped = html.escape(shown)
+            color = color_map.get(char)
+            if color:
+                parts.append(f'<span style="color: {html.escape(color)}">{escaped}</span>')
+            else:
+                parts.append(escaped)
+        lines.append("".join(parts))
+        if len(lines) >= max_rows:
             break
-    return "\n".join(rows)
+    return "<br>".join(lines)
 
 
 def write_shared_assets(output_dir: Path) -> None:
@@ -352,7 +369,7 @@ def game_card(game: SiteGame) -> str:
     <h3>{html.escape(game.display_name)}</h3>
     <p class="game-meta">{level_count} level{'s' if level_count != 1 else ''}</p>
   </div>
-  <pre class="board-preview">{html.escape(preview_board(game))}</pre>
+  <pre class="board-preview">{preview_board_html(game)}</pre>
   <p>{html.escape(game_description(game))}</p>
 </a>"""
 
