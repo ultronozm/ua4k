@@ -976,27 +976,12 @@ function getSubgrid(row, col, height, width) {
 // how boards and rules are stored (strings vs. arrays of single
 // character strings).
 function patternMatchHelper(fromPattern, subgrid) {
-    // digits serve as wildcards but need to match consistently
-    var digitMap = {};
     for (let i = 0; i < fromPattern.length; i++) {
         for (let j = 0; j < fromPattern[0].length; j++) {
             let cell = fromPattern[i][j];
-            let subgridCell = subgrid[i][j];
             if (cell == '?')
                 continue;
-            // we should modify this so that the file somehow specifies which
-            // characters to use as wildcards
-            if (false && cell >= '0' && cell <= '9') {
-                if (digitMap[cell]) {
-                    if (digitMap[cell] != subgridCell) {
-                        // debugLog("Pattern match failed at " + i + ", " + j + " with " + cell + " and " + subgridCell + " due to digitMap");                        
-                        return false;
-                    }
-                } else {
-                    digitMap[cell] = subgridCell;
-                }
-            } else if (cell != subgridCell) {
-                // debugLog("Pattern match failed at " + i + ", " + j + " with " + cell + " and " + subgridCell + " due to cell");
+            if (cell != subgrid[i][j]) {
                 return false;
             }
         }
@@ -1017,25 +1002,13 @@ function patternMatch(fromPattern, row, col) {
 function applyRuleAt(rule, row, col) {
     debugLog("Applying rule " + rule + " at " + row + ", " + col);
     debugLog("Board before applying rule: " + board);
-    let fromPattern = rule.from;
     let toPattern = rule.to;
     let sideEffects = rule.side_effects;
-    debugLog("fromPattern: " + fromPattern);
     debugLog("toPattern: " + toPattern);
     debugLog("sideEffects: " + sideEffects);
     let patternHeight = toPattern.length;
     let patternWidth = toPattern[0].length;
     if (row >= 0 && col >= 0 && row + patternHeight <= board.length && col + patternWidth <= board[0].length) {
-        var subgrid = getSubgrid(row, col, patternHeight, patternWidth);
-        var digitMap = {};
-        for (let i = 0; i < patternHeight; i++) {
-            for (let j = 0; j < patternWidth; j++) {
-                let cell = fromPattern[i][j];
-                if (cell >= '0' && cell <= '9') {
-                    digitMap[cell] = subgrid[i][j];
-                }
-            }
-        }
         var tempBoard = JSON.parse(JSON.stringify(board));
         debugLog("Temp board: " + tempBoard);
         for (let i = 0; i < patternHeight; i++) {
@@ -1043,9 +1016,6 @@ function applyRuleAt(rule, row, col) {
                 let cell = toPattern[i][j];
                 if (cell == '?')
                     continue;
-                // again, TODO: modify to accomodate arbitrary wildcards
-                if (false && cell >= '0' && cell <= '9')
-                    cell = digitMap[cell];
                 let tempRow = board[row + i].split('');
                 tempRow[col + j] = cell;
                 board[row + i] = tempRow.join('');
@@ -1067,23 +1037,7 @@ function applyRuleAt(rule, row, col) {
                 applyRule(rules_dict[sideEffect]);
             }
             debugLog("Board after applying side effect " + sideEffect + ": " + board);
-        }            
-
-        
-        // if (sideEffect && sideEffect.length > 0) {
-        //     debugLog("Applying side effect: " + sideEffect);
-        //     if (sideEffect[sideEffect.length - 1] == '!') {
-        //         sideEffect = sideEffect.slice(0, -1);
-        //         if (!applyRule(rules_dict[sideEffect])) {
-        //             board = JSON.parse(JSON.stringify(tempBoard));
-        //             debugLog("Board after reverting: " + board);
-        //             return false;
-        //         }
-        //     } else {
-        //         applyRule(rules_dict[sideEffect]);
-        //     }
-        //     debugLog("Board after applying rule and side effect " + sideEffect + ": " + board);
-        // }
+        }
     } else {
         debugLog("This should never happen.")
     }
@@ -1104,8 +1058,6 @@ function patternOccurs(pattern) {
 }
 
 function levelComplete() {
-    let height = board.length;
-    let width = board[0].length;
     for (let goal of goals) {
         if (!patternOccurs(goal)) {
             return false;
@@ -1313,10 +1265,6 @@ function handleKeyPress(event) {
         else {
             gameAction(String.fromCharCode(charCode));
         }
-        // else if ((charCode >= 97 && charCode <= 122) || (charCode >= 48 && charCode <= 57)) {
-        //     var action = String.fromCharCode(charCode);
-        //     gameAction(action);
-        // }
     }
 }
 

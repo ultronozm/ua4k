@@ -3,9 +3,11 @@ from __future__ import annotations
 import copy
 import itertools
 import json
+import shutil
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import NoReturn
 
 
 TOP_LEVEL_ONLY_DIRECTIVES = {
@@ -101,7 +103,7 @@ class ParseState:
     side_effect_references: list[tuple[str, int, str]] = field(default_factory=list)
 
 
-def fail(line_no: int, message: str) -> None:
+def fail(line_no: int, message: str) -> NoReturn:
     raise DSLParseError(line_no, message)
 
 
@@ -947,6 +949,8 @@ def compile_game(filename: str) -> dict:
 
 
 def read_existing_games_data() -> dict:
+    if not Path("gamesData.js").exists():
+        return {}
     try:
         with open("gamesData.js", "r", encoding="utf-8") as json_file:
             text = json_file.read()
@@ -958,7 +962,15 @@ def read_existing_games_data() -> dict:
                 data = data[:-1]
             return json.loads(data)
     except Exception as exc:
-        print(f"data read failed: {exc}", file=sys.stderr)
+        # Never silently discard previously compiled games: keep the
+        # unparseable file around so nothing is lost.
+        backup = "gamesData.js.corrupt"
+        shutil.copy2("gamesData.js", backup)
+        print(
+            f"warning: could not parse gamesData.js ({exc}); "
+            f"saved a copy to {backup} and starting from an empty set",
+            file=sys.stderr,
+        )
         return {}
 
 
