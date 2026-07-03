@@ -63,6 +63,7 @@
   "Font-lock rules for `ua4k-dsl-mode'.")
 
 ;;;###autoload
+;;;###autoload
 (define-derived-mode ua4k-dsl-mode text-mode "UA4K-DSL"
   "Major mode for UA4K game DSL files."
   (setq-local comment-start ";; ")

@@ -776,6 +776,7 @@ Always succeeds."
       (ua4k--load-game-into-current-buffer game-file data level (or source-kind 'file)))
     (pop-to-buffer buffer)))
 
+;;;###autoload
 (defun ua4k-play-file (game-file &optional level)
   "Compile and play GAME-FILE, starting at LEVEL."
   (interactive
@@ -787,11 +788,13 @@ Always succeeds."
          (level-number (when level (prefix-numeric-value level))))
     (ua4k--start-game file data level-number 'file)))
 
+;;;###autoload
 (defun ua4k-play-game (game-name &optional level)
   "Compile and play GAME-NAME from the repo root."
   (interactive "sUA4K game name: ")
   (ua4k-play-file (expand-file-name (format "%s.txt" game-name) (ua4k--repo-root)) level))
 
+;;;###autoload
 (defun ua4k-play-asset-file (asset-file &optional level)
   "Load compiled ASSET-FILE and play it, starting at LEVEL."
   (interactive
@@ -813,6 +816,7 @@ Always succeeds."
       (error "Asset file did not define %S" variable))
     (ua4k--start-game file (symbol-value variable) level-number 'asset)))
 
+;;;###autoload
 (defun ua4k-play-asset (game-name &optional level)
   "Play precompiled GAME-NAME from `ua4k-asset-directory'."
   (interactive "sUA4K compiled game name: ")
@@ -833,6 +837,7 @@ Always succeeds."
         (error "Snippet rows must all have the same width")))
     rows))
 
+;;;###autoload
 (defun ua4k-play-region (start end game-file)
   "Play region START..END as a single level using GAME-FILE's rules."
   (interactive
