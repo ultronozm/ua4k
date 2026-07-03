@@ -184,6 +184,16 @@ def write_shared_assets(output_dir: Path) -> None:
     write_site_css(output_dir / "site.css")
 
 
+def write_unlisted_pages(output_dir: Path) -> None:
+    root = repo_root()
+    scratch_dir = output_dir / "scratch"
+    scratch_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(
+        root / "scratch" / "modular-schmodular.html",
+        scratch_dir / "modular-schmodular.html",
+    )
+
+
 def write_site_css(path: Path) -> None:
     path.write_text(
         """body {
@@ -599,6 +609,7 @@ def build_site(args: argparse.Namespace) -> None:
         raise SystemExit("no games selected")
 
     write_shared_assets(output_dir)
+    write_unlisted_pages(output_dir)
     games_dir = output_dir / "games"
     games_dir.mkdir(parents=True, exist_ok=True)
     shutil.copy2(repo_root() / "kitten.jpg", games_dir / "kitten.jpg")
