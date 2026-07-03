@@ -3,7 +3,65 @@
 This ledger records the current cleanup direction before the project is shared
 more widely.
 
-* Current Pass
+* Pass 2 (2026-07)
+
+Findings from a whole-repo review. Ordered roughly by execution.
+
+** DONE Hygiene
+- Delete the disabled digit-wildcard branches and dead =digitMap= work in
+  =ua4k.js= (original purpose is forgotten; the dead map was still computed on
+  every rule application).
+- Remove =emacs/game.el= (dead 2024 prototype, unrelated to the current
+  frontend).
+- =scratch/modular-schmodular.*= stays: it does not belong to the game, but it
+  is deliberately kept until it has a better home.
+- Make =make-data.py= back up an unparseable =gamesData.js= before starting
+  from ={}= instead of silently discarding all previously compiled games.
+- Derive the golden-snapshot default set from =tests/snapshots/*.json= so
+  snapshots can never silently fall out of coverage again (five were orphaned:
+  =drone-gate-*=, =lantern-trail=, =signal-relay=). Add a =clockwise= snapshot.
+
+** DONE Solver as test harness
+- Extract the fake-DOM/VM bootstrap shared by =tui_play.js=,
+  =solve_level.js=, and =scratch_smoke.js= into =node_harness.js=.
+- Add =replay_level.js=: step a key sequence against a level and print each
+  board state. This was the essential authoring instrument for Clockwise.
+- Add =verify_minmoves.js=: BFS-check every =MINMOVES= claim in every game,
+  with state caps and skip-with-warning for games using =RANDOM= rules. Wire
+  into =make check=. This doubles as the runtime smoke suite the previous pass
+  asked for: every claimed level is exercised through the real runtime.
+
+** DONE CI runs the checks
+=pages.yml= only built and deployed the site; =make check= ran nowhere in CI.
+Add a check job and make deploy depend on it.
+
+** DONE Compiler internals
+- =golden_snapshots.py= and =parser_diagnostics.py= now import
+  =compile_game= like every other consumer instead of copying =make-data.py=
+  to a tempdir and shelling out.
+- Compile each game once per =build-all-assets.py= run instead of three times.
+- Collapse the four identical ATOMIC/MATCH1/TRY_ALL/RANDOM directive handlers.
+
+** DONE Format: game-level metadata and per-level goals
+- =TITLE=/=DESCRIPTION=/=BY= before the first board now attach to the game.
+  The site prefers them over its hand-maintained summary table.
+- =GOAL=/=VOID= after a board attach to that level and replace the global
+  patterns for that level (mirroring how =TICK= overrides). Implemented in
+  both engines (=ua4k.js= and =ua4k.el=). This removes the hidden-status-row
+  workaround Clockwise used to satisfy game-global goals vacuously.
+
+** DONE Site and authoring docs
+- Board preview (first board, colored) per game on the site index.
+- =docs/level-design.md=: the solver-driven authoring method.
+- =games/.dir-locals.el= so game files open in =ua4k-dsl-mode= in Emacs
+  without renaming away from =.txt= (see roadmap note on extensions).
+
+** Deferred from this pass
+- Replace the =let gamesData = ...;= text contract with JSON plus a JS shim.
+- Shareable solution replays and URL-fragment scratch boards.
+- Solver-derived difficulty annotations on the site.
+
+* Pass 1
 
 ** Remove Rust parser material
 

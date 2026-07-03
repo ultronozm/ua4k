@@ -28,7 +28,10 @@ Key scripts:
 - =golden_snapshots.py=: compiler golden snapshot checks.
 - =parser_diagnostics.py=: invalid-fixture diagnostic checks.
 - =tui_play.js=: terminal wrapper around the browser runtime.
-- =solve_level.js=: simple BFS shortest-path solver for selected levels.
+- =solve_level.js=: BFS shortest-solution solver for one level.
+- =replay_level.js=: step a key sequence and print every board state.
+- =verify_minmoves.js=: solver check of every =MINMOVES= claim (runs in =make check=).
+- =node_harness.js=: shared fake-DOM/runtime scaffolding for the Node tools.
 
 * Quick Start
 
@@ -118,6 +121,7 @@ python3 parser_diagnostics.py
 python3 golden_snapshots.py check
 python3 build-all-assets.py -o /tmp/ua4k-dist-check
 node solve_level.js game 0 20 50000
+node verify_minmoves.js
 #+end_src
 
 Refresh golden snapshots after intentional compiler output changes:
@@ -144,6 +148,7 @@ Playable toys:
 
 WIP prototypes:
 
+- =games/wip/clockwise.txt=
 - =games/wip/ice-slides.txt=
 - =games/wip/lantern-trail.txt=
 - =games/wip/signal-relay.txt=
@@ -155,6 +160,7 @@ Experiments and legacy files are intentionally kept out of the polished set.
 
 The precise current behavior is documented in =docs/dsl-spec-current.md=.
 For a gentler introduction, start with =docs/creating-games.md=.
+For the solver-driven level design method, see =docs/level-design.md=.
 For planned cleanup and larger ideas, see =docs/roadmap.org=.
 
 Important DSL ideas:

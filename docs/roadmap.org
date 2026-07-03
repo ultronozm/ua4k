@@ -33,3 +33,11 @@ This is a lightweight working roadmap, not a release promise.
   packaging becomes a real blocker.
 - Do not build a full web rule editor before the game format is easier to
   explain and validate.
+- Do not add an in-game hint button or player-facing solver UI. The solver
+  stays an offline authoring and testing tool (=solve_level.js=,
+  =verify_minmoves.js=); puzzles are meant to be struggled with.
+- Do not rename game files away from =.txt=. A dedicated extension would buy
+  Emacs =auto-mode-alist= convenience but would obscure that games are plain
+  text anyone can edit. =games/.dir-locals.el= gives Emacs the mode without
+  the rename; revisit only if the format ever needs to be recognized outside
+  this repo.
