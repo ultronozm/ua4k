@@ -55,7 +55,21 @@ def emit_web_game(output_dir: Path, game_name: str, compiled: dict) -> None:
     html_path.write_text(standalone_html(game_name), encoding="utf-8")
 
 
-def build_web_assets(game_files: list[str], output_dir: Path) -> None:
+def compile_games(game_files: list[str]) -> dict[str, dict]:
+    """Compile each game once; keyed by game name (file stem)."""
+    module = load_make_data_module()
+    compiled: dict[str, dict] = {}
+    for game_file in game_files:
+        source_path = resolve_game_file(game_file)
+        compiled[source_path.stem] = module.compile_game(str(source_path))
+    return compiled
+
+
+def build_web_assets(
+    game_files: list[str],
+    output_dir: Path,
+    compiled: dict[str, dict] | None = None,
+) -> None:
     root = repo_root()
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -63,11 +77,10 @@ def build_web_assets(game_files: list[str], output_dir: Path) -> None:
     shutil.copy2(root / "ua4k.css", output_dir / "ua4k.css")
     shutil.copy2(root / "kitten.jpg", output_dir / "kitten.jpg")
 
-    module = load_make_data_module()
-    for game_file in game_files:
-        source_path = resolve_game_file(game_file)
-        compiled = module.compile_game(str(source_path))
-        emit_web_game(output_dir, source_path.stem, compiled)
+    if compiled is None:
+        compiled = compile_games(game_files)
+    for game_name, data in compiled.items():
+        emit_web_game(output_dir, game_name, data)
 
 
 def to_elisp(value) -> str:
@@ -120,14 +133,17 @@ def emit_emacs_asset(output_dir: Path, game_name: str, compiled: dict) -> None:
     )
 
 
-def build_emacs_assets(game_files: list[str], output_dir: Path) -> None:
+def build_emacs_assets(
+    game_files: list[str],
+    output_dir: Path,
+    compiled: dict[str, dict] | None = None,
+) -> None:
     root = repo_root()
     output_dir.mkdir(parents=True, exist_ok=True)
 
     shutil.copy2(root / "emacs" / "ua4k.el", output_dir / "ua4k.el")
 
-    module = load_make_data_module()
-    for game_file in game_files:
-        source_path = resolve_game_file(game_file)
-        compiled = module.compile_game(str(source_path))
-        emit_emacs_asset(output_dir, source_path.stem, compiled)
+    if compiled is None:
+        compiled = compile_games(game_files)
+    for game_name, data in compiled.items():
+        emit_emacs_asset(output_dir, game_name, data)

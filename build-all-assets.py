@@ -5,7 +5,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from asset_builders import build_emacs_assets, build_web_assets
+from asset_builders import build_emacs_assets, build_web_assets, compile_games
 from compiler_common import discover_buildable_game_files, repo_root
 
 
@@ -34,16 +34,17 @@ def main(argv: list[str]) -> int:
     skipped: list[tuple[str, str]] = []
     if args.game_files:
         game_files = args.game_files
+        compiled = compile_games(game_files)
     else:
-        game_files, skipped = discover_buildable_game_files()
+        game_files, skipped, compiled = discover_buildable_game_files()
     root = repo_root()
     output_root = (root / args.output_dir).resolve()
     web_dir = output_root / "web"
     emacs_dir = output_root / "emacs"
     output_root.mkdir(parents=True, exist_ok=True)
 
-    build_web_assets(game_files, web_dir)
-    build_emacs_assets(game_files, emacs_dir)
+    build_web_assets(game_files, web_dir, compiled=compiled)
+    build_emacs_assets(game_files, emacs_dir, compiled=compiled)
     write_manifest(output_root, game_files)
 
     print(f"built {len(game_files)} games")
@@ -57,6 +58,4 @@ def main(argv: list[str]) -> int:
 
 
 if __name__ == "__main__":
-    import sys
-
     raise SystemExit(main(sys.argv))

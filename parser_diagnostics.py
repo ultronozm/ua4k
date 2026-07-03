@@ -3,11 +3,10 @@
 
 from __future__ import annotations
 
-import shutil
-import subprocess
 import sys
-import tempfile
 from pathlib import Path
+
+import compiler_common
 
 
 ROOT = Path(__file__).resolve().parent
@@ -50,35 +49,28 @@ CASES = [
 ]
 
 
-def run_case(name: str, expected: str) -> None:
+def run_case(module, name: str, expected: str) -> None:
     fixture = INVALID_DIR / name
     if not fixture.is_file():
         raise FileNotFoundError(f"missing invalid fixture: {fixture.relative_to(ROOT)}")
 
-    with tempfile.TemporaryDirectory() as tmp:
-        tmp_dir = Path(tmp)
-        shutil.copy2(ROOT / "make-data.py", tmp_dir / "make-data.py")
-        shutil.copy2(fixture, tmp_dir / name)
-
-        proc = subprocess.run(
-            ["python3", "make-data.py", name],
-            cwd=tmp_dir,
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-
-    if proc.returncode == 0:
+    try:
+        module.compile_game(str(fixture))
+    except module.DSLParseError as exc:
+        actual = f"{name}:{exc.line_no}: error: {exc.message}"
+    else:
         raise AssertionError(f"{name}: expected failure, got success")
-    if expected not in proc.stderr:
+
+    if expected != actual:
         raise AssertionError(
-            f"{name}: expected stderr to contain:\n{expected}\n\nactual stderr:\n{proc.stderr}"
+            f"{name}: expected diagnostic:\n{expected}\n\nactual diagnostic:\n{actual}"
         )
 
 
 def main() -> int:
+    module = compiler_common.load_make_data_module()
     for name, expected in CASES:
-        run_case(name, expected)
+        run_case(module, name, expected)
         print(f"ok: {name}")
     return 0
 

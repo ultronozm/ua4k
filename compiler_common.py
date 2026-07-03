@@ -71,15 +71,22 @@ def discover_game_files() -> list[str]:
     )
 
 
-def discover_buildable_game_files() -> tuple[list[str], list[tuple[str, str]]]:
+def discover_buildable_game_files() -> tuple[list[str], list[tuple[str, str]], dict[str, dict]]:
+    """Return (buildable relpaths, skipped (name, reason) pairs, compiled data).
+
+    Each game is compiled exactly once; the compiled data is keyed by game
+    name so builders can reuse it instead of recompiling.
+    """
     module = load_make_data_module()
     buildable: list[str] = []
     skipped: list[tuple[str, str]] = []
+    compiled: dict[str, dict] = {}
     for name in discover_game_files():
         try:
-            module.compile_game(str(repo_root() / name))
+            data = module.compile_game(str(repo_root() / name))
         except Exception as exc:  # noqa: BLE001
             skipped.append((name, str(exc)))
             continue
         buildable.append(name)
-    return buildable, skipped
+        compiled[Path(name).stem] = data
+    return buildable, skipped, compiled

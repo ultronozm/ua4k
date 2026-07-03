@@ -42,6 +42,17 @@ RULE_BLOCK_DIRECTIVES = {
 
 TOP_LEVEL_BLOCK_DIRECTIVES = {"ROTATE_CMDS"}
 
+# Compound control blocks that share one parse shape: open a nested rule
+# list at the current indent level. Values are the runtime node skeletons.
+BLOCK_DIRECTIVE_NODES = {
+    "ATOMIC": {"type": "atomic"},
+    "ATOMIC_VERTICAL": {"type": "atomic", "condition": "vertical"},
+    "ATOMIC_HORIZONTAL": {"type": "atomic", "condition": "horizontal"},
+    "MATCH1": {"type": "match1"},
+    "TRY_ALL": {"type": "try_all"},
+    "RANDOM": {"type": "random"},
+}
+
 ALL_DIRECTIVES = TOP_LEVEL_ONLY_DIRECTIVES | RULE_BLOCK_DIRECTIVES | TOP_LEVEL_BLOCK_DIRECTIVES | {
     "CMD"
 }
@@ -780,55 +791,13 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
         state.indent_stack.append(level)
         return True
 
-    if head == "ATOMIC":
-        ensure_rule_context(state, "ATOMIC", line_no)
+    if head in BLOCK_DIRECTIVE_NODES:
+        ensure_rule_context(state, head, line_no)
         level = token.indent + 1
         process_rule_stack_to_level(state, level)
-        state.rules_stack.append({"type": "atomic", "rules": [], "line_no": line_no})
-        state.indent_stack.append(level)
-        return True
-
-    if head == "ATOMIC_VERTICAL":
-        ensure_rule_context(state, "ATOMIC_VERTICAL", line_no)
-        level = token.indent + 1
-        process_rule_stack_to_level(state, level)
-        state.rules_stack.append(
-            {"type": "atomic", "condition": "vertical", "rules": [], "line_no": line_no}
-        )
-        state.indent_stack.append(level)
-        return True
-
-    if head == "ATOMIC_HORIZONTAL":
-        ensure_rule_context(state, "ATOMIC_HORIZONTAL", line_no)
-        level = token.indent + 1
-        process_rule_stack_to_level(state, level)
-        state.rules_stack.append(
-            {"type": "atomic", "condition": "horizontal", "rules": [], "line_no": line_no}
-        )
-        state.indent_stack.append(level)
-        return True
-
-    if head == "MATCH1":
-        ensure_rule_context(state, "MATCH1", line_no)
-        level = token.indent + 1
-        process_rule_stack_to_level(state, level)
-        state.rules_stack.append({"type": "match1", "rules": [], "line_no": line_no})
-        state.indent_stack.append(level)
-        return True
-
-    if head == "TRY_ALL":
-        ensure_rule_context(state, "TRY_ALL", line_no)
-        level = token.indent + 1
-        process_rule_stack_to_level(state, level)
-        state.rules_stack.append({"type": "try_all", "rules": [], "line_no": line_no})
-        state.indent_stack.append(level)
-        return True
-
-    if head == "RANDOM":
-        ensure_rule_context(state, "RANDOM", line_no)
-        level = token.indent + 1
-        process_rule_stack_to_level(state, level)
-        state.rules_stack.append({"type": "random", "rules": [], "line_no": line_no})
+        node: dict = dict(BLOCK_DIRECTIVE_NODES[head])
+        node.update({"rules": [], "line_no": line_no})
+        state.rules_stack.append(node)
         state.indent_stack.append(level)
         return True
 

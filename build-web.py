@@ -28,15 +28,16 @@ def main(argv: list[str]) -> int:
     root = repo_root()
     output_dir = (root / args.output_dir).resolve()
     module = load_make_data_module()
+    compiled = {}
     for game_file in args.game_files:
         source_path = resolve_game_file(game_file)
         try:
-            module.compile_game(str(source_path))
+            compiled[source_path.stem] = module.compile_game(str(source_path))
         except module.DSLParseError as exc:
             print(f"{game_file}:{exc.line_no}: error: {exc.message}", file=sys.stderr)
             return 2
 
-    build_web_assets(args.game_files, output_dir)
+    build_web_assets(args.game_files, output_dir, compiled=compiled)
     print(f"wrote standalone pages to {output_dir}")
     return 0
 

@@ -5,18 +5,9 @@ Usage:
   python3 golden_snapshots.py refresh [game files...]
   python3 golden_snapshots.py check [game files...]
 
-If no game files are given, defaults to:
-  games/polished/game.txt
-  games/polished/crash-landing.txt
-  games/polished/dockstep.txt
-  games/toys/tetris.txt
-  games/wip/ice-slides.txt
-  tests/fixtures/fixture-indent.txt
-  tests/fixtures/fixture-for.txt
-  tests/fixtures/fixture-zip-let-repeat.txt
-  tests/fixtures/fixture-mandatory-side-effects.txt
-  tests/fixtures/fixture-call-each.txt
-  tests/fixtures/fixture-rotate.txt
+If no game files are given, the set is derived from tests/snapshots/*.json:
+every existing snapshot is checked, so snapshots cannot silently fall out of
+coverage. `refresh <new-game.txt>` adds a snapshot to the default set.
 """
 
 from __future__ import annotations
@@ -24,29 +15,14 @@ from __future__ import annotations
 import argparse
 import difflib
 import json
-import shutil
-import subprocess
 import sys
-import tempfile
 from pathlib import Path
+
+import compiler_common
 
 
 ROOT = Path(__file__).resolve().parent
 SNAPSHOT_DIR = ROOT / "tests" / "snapshots"
-DEFAULT_GAMES = (
-    "games/polished/game.txt",
-    "games/polished/crash-landing.txt",
-    "games/polished/dockstep.txt",
-    "games/toys/tetris.txt",
-    "games/wip/ice-slides.txt",
-    "tests/fixtures/fixture-indent.txt",
-    "tests/fixtures/fixture-for.txt",
-    "tests/fixtures/fixture-zip-let-repeat.txt",
-    "tests/fixtures/fixture-mandatory-side-effects.txt",
-    "tests/fixtures/fixture-call-each.txt",
-    "tests/fixtures/fixture-rotate.txt",
-)
-GAMES_PREFIX = "let gamesData = "
 
 
 def parse_args() -> argparse.Namespace:
@@ -56,49 +32,34 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def default_game_files() -> list[Path]:
+    """One entry per existing snapshot: fixtures by path, games by stem."""
+    files = []
+    for snapshot in sorted(SNAPSHOT_DIR.glob("*.json")):
+        fixture = ROOT / "tests" / "fixtures" / f"{snapshot.stem}.txt"
+        if fixture.is_file():
+            files.append(fixture)
+        else:
+            files.append(compiler_common.resolve_game_file(snapshot.stem))
+    return files
+
+
 def resolve_game_files(games: list[str]) -> list[Path]:
-    names = games or list(DEFAULT_GAMES)
-    files = [ROOT / name for name in names]
+    if not games:
+        return default_game_files()
+    files = [ROOT / name for name in games]
     missing = [str(path.relative_to(ROOT)) for path in files if not path.is_file()]
     if missing:
         raise FileNotFoundError("Missing game files: " + ", ".join(missing))
     return files
 
 
-def read_games_data(path: Path) -> dict:
-    text = path.read_text(encoding="utf-8")
-    if not text.startswith(GAMES_PREFIX):
-        raise ValueError(f"Unexpected gamesData.js format in {path}")
-    payload = text[len(GAMES_PREFIX) :].strip()
-    if payload.endswith(";"):
-        payload = payload[:-1]
-    return json.loads(payload)
-
-
 def compile_games(game_files: list[Path]) -> dict[str, dict]:
-    with tempfile.TemporaryDirectory() as tmp:
-        tmp_dir = Path(tmp)
-        shutil.copy2(ROOT / "make-data.py", tmp_dir / "make-data.py")
-        for game_file in game_files:
-            shutil.copy2(game_file, tmp_dir / game_file.name)
-
-        for game_file in game_files:
-            subprocess.run(
-                ["python3", "make-data.py", game_file.name],
-                cwd=tmp_dir,
-                check=True,
-                capture_output=True,
-                text=True,
-            )
-
-        all_games = read_games_data(tmp_dir / "gamesData.js")
-        compiled: dict[str, dict] = {}
-        for game_file in game_files:
-            game_name = game_file.stem
-            if game_name not in all_games:
-                raise KeyError(f"Compiler did not emit key: {game_name}")
-            compiled[game_name] = all_games[game_name]
-        return compiled
+    module = compiler_common.load_make_data_module()
+    compiled: dict[str, dict] = {}
+    for game_file in game_files:
+        compiled[game_file.stem] = module.compile_game(str(game_file))
+    return compiled
 
 
 def snapshot_path(game_name: str) -> Path:
