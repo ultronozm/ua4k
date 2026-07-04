@@ -9,6 +9,9 @@ This is a lightweight working roadmap, not a release promise.
 - Keep the public site focused on =games/polished/= and the clearest toys.
 - Add one or two hand-written notes to each polished game explaining its hook.
 - Keep mobile controls usable, but optimize first for keyboard play.
+- Treat the =SUP= level in =game.txt= as a useful quality bar: it has a
+  compact board, a legible trick, and enough mirror/pushing structure that
+  brute force is not a cheap substitute for understanding the route.
 
 * Near Term
 
@@ -31,6 +34,13 @@ This is a lightweight working roadmap, not a release promise.
 
 - Do not rewrite the parser in Rust unless Python parser performance or
   packaging becomes a real blocker.
+- Do not publish =Clockwise= just because it is mechanically verified. It is
+  still in =games/wip/= because the puzzle set does not yet have the depth of
+  the strongest =game.txt= and =dockstep.txt= levels.
+- Do not spend time simplifying =games/toys/life.txt= under the old "24
+  neighbor rules" premise. Current =life.txt= already uses =FOR= + =ROTATE= +
+  =REPEAT= for neighbor counting; any further cleanup needs a specific,
+  observed authoring pain.
 - Do not build a full web rule editor before the game format is easier to
   explain and validate.
 - Do not add an in-game hint button or player-facing solver UI. The solver

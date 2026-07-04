@@ -60,6 +60,14 @@ Add a check job and make deploy depend on it.
 - Replace the =let gamesData = ...;= text contract with JSON plus a JS shim.
 - Shareable solution replays and URL-fragment scratch boards.
 - Solver-derived difficulty annotations on the site.
+- =Clockwise= stays WIP despite its verified pars; mechanical verification is
+  not the same thing as puzzle quality.
+- =games/toys/life.txt= no longer has the old "24 neighbor rules" problem:
+  neighbor counting is already expressed with =FOR=, =ROTATE=, and =REPEAT=.
+- The =SUP= level in =games/polished/game.txt= is a good regression example
+  for "interesting by thought, not just by BFS": full BFS over the general
+  runtime can explode, while the intended route is to clear row 3, move the
+  slash mirror to the far right, and fire north into the goal.
 
 * Pass 1
 
