@@ -9,6 +9,7 @@ This is a lightweight working roadmap, not a release promise.
 - Keep the public site focused on =games/polished/= and the clearest toys.
 - Add one or two hand-written notes to each polished game explaining its hook.
 - Keep mobile controls usable, but optimize first for keyboard play.
+- Cancel stale GitHub Pages deploys when rapid pushes supersede them.
 - Treat the =SUP= level in =game.txt= as a useful quality bar: it has a
   compact board, a legible trick, and enough mirror/pushing structure that
   brute force is not a cheap substitute for understanding the route.
@@ -19,7 +20,11 @@ This is a lightweight working roadmap, not a release promise.
 - Improve =docs/creating-games.md= with a full tiny tutorial game.
 - Add more parser diagnostics for common authoring mistakes.
 - Decide whether =games/toys/= should all remain public by default.
-- Make level numbers and scratch-level sharing easier to talk about.
+- Replace the prompt-based level jump with a real level picker, and avoid
+  accidental keypresses skipping the next level's description.
+- Add shareable solution replays; the solver already emits compact key
+  strings, so the smallest useful version is "copy replay / paste to watch".
+- Audit older games for rules that can now be simplified with =REPEAT=.
 
 * Later
 
@@ -29,6 +34,11 @@ This is a lightweight working roadmap, not a release promise.
 - Revisit game-level metadata, since =TITLE= and =BY= currently attach only
   after a level exists.
 - Consider a better data format for site builds than generated JavaScript.
+- Bring the Emacs frontend closer to browser parity: tick games need a timer
+  loop, and =_init= rules should not be silently ignored.
+- Consider small DSL primitives only when a concrete game asks for them:
+  negative pattern tests (=absent=), declared character classes (=CLASS=), or
+  capture wildcards for Sokoban-style goal tiles.
 
 * Not Now
 
