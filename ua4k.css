@@ -10,6 +10,28 @@
     white-space: nowrap;
 }
 
+#display.display-complete {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35em;
+    overflow-x: visible;
+    padding-right: 0;
+    white-space: normal;
+}
+
+#display.display-complete .completion-message {
+    max-width: 100%;
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+#display.display-complete .completion-kitten {
+    display: block;
+    width: min(250px, 100%);
+    height: auto;
+}
+
 #description {
     font-size: 30px;
     letter-spacing: 0;

@@ -40,6 +40,28 @@ function appendBreak(element) {
     element.appendChild(document.createElement('br'));
 }
 
+function toggleClass(element, className, enabled) {
+    if (!element) {
+        return;
+    }
+    if (element.classList) {
+        element.classList.toggle(className, enabled);
+        return;
+    }
+
+    const classes = new Set(String(element.className || '').split(/\s+/).filter(Boolean));
+    if (enabled) {
+        classes.add(className);
+    } else {
+        classes.delete(className);
+    }
+    const value = Array.from(classes).join(' ');
+    element.className = value;
+    if (element.setAttribute) {
+        element.setAttribute('class', value);
+    }
+}
+
 function setText(id, value) {
     const element = byId(id);
     if (!element) {
@@ -784,6 +806,7 @@ function drawBoard() {
     if (!displayElem) {
         return;
     }
+    toggleClass(displayElem, 'display-complete', false);
     if (displayElem.style) {
         displayElem.style.removeProperty('font-size');
     }
@@ -1291,9 +1314,20 @@ function nextLevel() {
             return;
         }
         clearElement(displayElem);
-        appendText(displayElem, "You have completed all the levels.  Wow!");
+        toggleClass(displayElem, 'display-complete', true);
+        if (displayElem.style) {
+            displayElem.style.removeProperty('font-size');
+        }
+
+        const message = document.createElement('p');
+        message.setAttribute('class', 'completion-message');
+        message.textContent = "You have completed all the levels. Wow!";
+        displayElem.appendChild(message);
+
         let img = document.createElement('img');
+        img.setAttribute('class', 'completion-kitten');
         img.src = 'kitten.jpg';
+        img.alt = 'Kitten';
         displayElem.appendChild(img);
         board = null;
     }
