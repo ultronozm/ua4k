@@ -80,7 +80,7 @@ existing checked-in rules. It does not edit or upload rules.
 
 On narrow or touch-oriented browsers, game pages show on-screen controls built
 from the game's =BIND= directives. The controls are arranged in compact keyboard
-rows, with undo and restart kept as separate system buttons.
+rows, with level switching, undo, and restart kept as separate system controls.
 
 * Playing In Emacs
 
