@@ -300,6 +300,25 @@ function appendTouchButtonLabel(button, action) {
     button.appendChild(commandLabel);
 }
 
+function addTouchPressHandler(element, handler) {
+    const press = function(e) {
+        if (e && typeof e.preventDefault === 'function') {
+            e.preventDefault();
+        }
+        handler(e);
+        if (typeof element.blur === 'function') {
+            element.blur();
+        }
+    };
+
+    if (window.PointerEvent) {
+        element.addEventListener('pointerdown', press);
+    } else {
+        element.addEventListener('touchstart', press);
+        element.addEventListener('click', press);
+    }
+}
+
 function currentTouchActions() {
     const actions = [];
     const seenCommands = new Set();
@@ -324,7 +343,6 @@ function currentTouchActions() {
     actions.push(
         { key: 'u', label: 'Undo', title: 'u: undo', kind: 'system' },
         { key: 'U', label: 'Restart', title: 'U: restart level', kind: 'system' },
-        { key: 'l', label: 'Level', title: 'l: jump to level', kind: 'system' },
     );
     return actions;
 }
@@ -382,23 +400,26 @@ function createTouchButton(action) {
     button.setAttribute('aria-label', action.title);
     appendTouchButtonLabel(button, action);
 
-    const press = function(e) {
-        if (e && typeof e.preventDefault === 'function') {
-            e.preventDefault();
-        }
+    addTouchPressHandler(button, function() {
         simulateKeyPress(action.key);
-        if (typeof button.blur === 'function') {
-            button.blur();
-        }
-    };
+    });
 
-    if (window.PointerEvent) {
-        button.addEventListener('pointerdown', press);
-    } else {
-        button.addEventListener('touchstart', press);
-        button.addEventListener('click', press);
-    }
+    return button;
+}
 
+function createTouchCommandButton(label, title, className, handler) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = `controlBtn ${className || ''}`.trim();
+    button.setAttribute('title', title);
+    button.setAttribute('aria-label', title);
+
+    const labelElem = document.createElement('span');
+    labelElem.className = 'controlBtn-label';
+    appendText(labelElem, label);
+    button.appendChild(labelElem);
+
+    addTouchPressHandler(button, handler);
     return button;
 }
 
@@ -496,6 +517,115 @@ function appendTouchButtonRow(container, actions, className) {
         row.appendChild(createTouchButton(action));
     }
     container.appendChild(row);
+}
+
+function updateLevelControlsState() {
+    const levelSelect = byId('touchLevelSelect');
+    if (!levelSelect) {
+        return;
+    }
+
+    levelSelect.value = String(level_number);
+
+    const prevButton = byId('touchLevelPrev');
+    if (prevButton) {
+        prevButton.disabled = level_number <= 0;
+    }
+
+    const nextButton = byId('touchLevelNext');
+    if (nextButton) {
+        nextButton.disabled = level_number >= levels.length - 1;
+    }
+}
+
+function appendTouchLevelControls(container) {
+    if (!Array.isArray(levels) || levels.length <= 1) {
+        return;
+    }
+
+    const row = document.createElement('div');
+    row.className = 'controlLevelRow';
+
+    const prevButton = createTouchCommandButton(
+        'Prev',
+        'Previous level',
+        'controlBtn-system controlBtn-levelStep',
+        function() {
+            setLevel(Math.max(0, level_number - 1));
+        }
+    );
+    prevButton.id = 'touchLevelPrev';
+
+    const levelSelect = document.createElement('select');
+    levelSelect.id = 'touchLevelSelect';
+    levelSelect.className = 'controlLevelSelect';
+    levelSelect.setAttribute('aria-label', 'Change level');
+    levelSelect.setAttribute('title', 'Change level');
+
+    for (let index = 0; index < levels.length; index++) {
+        const option = document.createElement('option');
+        option.value = String(index);
+        option.textContent = `Level ${index}`;
+        levelSelect.appendChild(option);
+    }
+
+    levelSelect.addEventListener('change', function() {
+        const selectedLevel = Number.parseInt(levelSelect.value, 10);
+        if (!setLevel(selectedLevel)) {
+            updateLevelControlsState();
+        }
+        if (typeof levelSelect.blur === 'function') {
+            levelSelect.blur();
+        }
+    });
+
+    const nextButton = createTouchCommandButton(
+        'Next',
+        'Next level',
+        'controlBtn-system controlBtn-levelStep',
+        function() {
+            setLevel(Math.min(levels.length - 1, level_number + 1));
+        }
+    );
+    nextButton.id = 'touchLevelNext';
+
+    row.appendChild(prevButton);
+    row.appendChild(levelSelect);
+    row.appendChild(nextButton);
+    container.appendChild(row);
+    updateLevelControlsState();
+}
+
+function updateTouchControlsLayoutSpace() {
+    const touchControls = byId('touchControls');
+    const root = document.documentElement;
+    if (
+        !touchControls ||
+        !root ||
+        !root.style ||
+        typeof root.style.setProperty !== 'function'
+    ) {
+        return;
+    }
+
+    let height = 0;
+    if (typeof touchControls.getBoundingClientRect === 'function') {
+        const rect = touchControls.getBoundingClientRect();
+        height = rect && Number.isFinite(rect.height) ? rect.height : 0;
+    }
+    if (height <= 0 && Number.isFinite(touchControls.offsetHeight)) {
+        height = touchControls.offsetHeight;
+    }
+    if (height > 0) {
+        root.style.setProperty('--touch-controls-height', `${Math.ceil(height)}px`);
+    }
+}
+
+function scheduleTouchControlsLayoutUpdate() {
+    updateTouchControlsLayoutSpace();
+    if (typeof window.requestAnimationFrame === 'function') {
+        window.requestAnimationFrame(updateTouchControlsLayoutSpace);
+    }
 }
 
 function collectPatternChars(rows, alphabet) {
@@ -758,6 +888,7 @@ function updateLevelDisplay() {
     if (levelElem) {
         levelElem.textContent = (scratchInitialBoard ? "Scratch Level: " : "Level: ") + level_number;
     }
+    updateLevelControlsState();
 }
 
 function updateMovesDisplay() {
@@ -1330,6 +1461,7 @@ function nextLevel() {
         img.alt = 'Kitten';
         displayElem.appendChild(img);
         board = null;
+        updateLevelControlsState();
     }
 }
 
@@ -1362,6 +1494,7 @@ function handleKeyPress(event) {
 
 document.addEventListener('keypress', handleKeyPress);
 window.addEventListener('hashchange', handleLocationChange);
+window.addEventListener('resize', scheduleTouchControlsLayoutUpdate);
 
 function initTouchControls() {
     const touchControls = byId('touchControls');
@@ -1387,7 +1520,9 @@ function initTouchControls() {
     const systemActions = actions.filter((action) => action.kind === 'system');
 
     appendKeyboardTouchControls(touchControls, gameActions);
+    appendTouchLevelControls(touchControls);
     appendTouchButtonRow(touchControls, systemActions, 'controlSystemRow');
+    scheduleTouchControlsLayoutUpdate();
 }
 
 function simulateKeyPress(key) {
