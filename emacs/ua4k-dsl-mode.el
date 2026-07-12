@@ -27,6 +27,19 @@
 
 ;;; Code:
 
+(autoload 'ua4k-play-buffer "ua4k" nil t)
+(autoload 'ua4k-play-region "ua4k" nil t)
+
+(defgroup ua4k-dsl nil
+  "Editing UA4K game DSL files."
+  :group 'languages)
+
+(defcustom ua4k-dsl-indent-offset 2
+  "Number of columns used by UA4K DSL rigid indentation commands."
+  :type 'integer
+  :safe #'integerp
+  :group 'ua4k-dsl)
+
 (defconst ua4k-dsl-directives
   '("GOAL" "VOID" "HIDDEN_LINE_CHAR" "DESCRIPTION" "MINMOVES" "TICK" "TITLE"
     "WHITESPACE" "CHARMAP" "COLOR" "BY" "BIND" "FOR" "ZIP"
@@ -61,6 +74,48 @@
        (1 font-lock-warning-face))
       ("^[ \t]*;;.*$" . font-lock-comment-face)))
   "Font-lock rules for `ua4k-dsl-mode'.")
+
+(defun ua4k-dsl-indent-shift-left (start end &optional count)
+  "Shift lines in START..END left by COUNT columns.
+COUNT defaults to `ua4k-dsl-indent-offset'.  When the region is inactive,
+shift the current line.  Refuse to shift if a nonblank line would pass column
+zero."
+  (interactive
+   (if (use-region-p)
+       (list (region-beginning) (region-end) current-prefix-arg)
+     (list (line-beginning-position) (line-end-position) current-prefix-arg)))
+  (setq count (if count (prefix-numeric-value count) ua4k-dsl-indent-offset))
+  (when (> count 0)
+    (let ((deactivate-mark nil))
+      (save-excursion
+        (goto-char start)
+        (while (< (point) end)
+          (when (and (< (current-indentation) count)
+                     (not (looking-at-p "[ \t]*$")))
+            (user-error "Can't shift all lines enough"))
+          (forward-line 1))
+        (indent-rigidly start end (- count))))))
+
+(defun ua4k-dsl-indent-shift-right (start end &optional count)
+  "Shift lines in START..END right by COUNT columns.
+COUNT defaults to `ua4k-dsl-indent-offset'.  When the region is inactive,
+shift the current line."
+  (interactive
+   (if (use-region-p)
+       (list (region-beginning) (region-end) current-prefix-arg)
+     (list (line-beginning-position) (line-end-position) current-prefix-arg)))
+  (let ((deactivate-mark nil))
+    (setq count (if count (prefix-numeric-value count) ua4k-dsl-indent-offset))
+    (indent-rigidly start end count)))
+
+(defvar ua4k-dsl-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-c C-b") #'ua4k-play-buffer)
+    (define-key map (kbd "C-c C-r") #'ua4k-play-region)
+    (define-key map (kbd "C-c <") #'ua4k-dsl-indent-shift-left)
+    (define-key map (kbd "C-c >") #'ua4k-dsl-indent-shift-right)
+    map)
+  "Keymap for `ua4k-dsl-mode'.")
 
 ;;;###autoload
 (define-derived-mode ua4k-dsl-mode text-mode "UA4K-DSL"
