@@ -229,9 +229,9 @@ complete snapshot."
 
 (defun ua4k--board-width ()
   "Return the maximum row width of the current board."
-  (let ((max-width 0))
-    (dotimes (row (ua4k--board-height) max-width)
-      (setq max-width (max max-width (ua4k--board-row-width row))))))
+  (if (> (ua4k--board-height) 0)
+      (apply #'max (mapcar #'length (append ua4k--board nil)))
+    0))
 
 (defun ua4k--board-rows ()
   "Render the current board into a list of strings."
@@ -267,13 +267,14 @@ complete snapshot."
                      nil)))
         (if cells
             (catch 'ua4k-mismatch
-              (dotimes (idx (length cells) t)
-                (let* ((cell (aref cells idx))
+              (cl-loop for cell across cells
+                       do (let* (
                        (i (aref cell 0))
                        (j (aref cell 1))
                        (value (aref cell 2)))
                   (unless (eq value (aref (aref ua4k--board (+ row i)) (+ col j)))
-                    (throw 'ua4k-mismatch nil)))))
+                    (throw 'ua4k-mismatch nil)))
+                       finally return t))
           (cl-loop for i from 0 below height
                    always
                    (cl-loop for j from 0 below width
@@ -451,12 +452,11 @@ current rule application. Returns the updated COPIED-ROWS."
   "Return non-nil if boards A and B have identical contents.
 Rows are replaced on write, so unchanged rows keep their identity."
   (and (= (length a) (length b))
-       (catch 'ua4k-boards-differ
-         (dotimes (i (length a) t)
-           (let ((row-a (aref a i))
-                 (row-b (aref b i)))
-             (unless (or (eq row-a row-b) (string= row-a row-b))
-               (throw 'ua4k-boards-differ nil)))))))
+       (cl-every (lambda (rows)
+                   (let ((row-a (car rows))
+                         (row-b (cdr rows)))
+                     (or (eq row-a row-b) (string= row-a row-b))))
+                 (cl-mapcar #'cons (append a nil) (append b nil)))))
 
 (defun ua4k--apply-repeat-rule (rule)
   "Apply REPEAT RULE: like match1, repeatedly.
