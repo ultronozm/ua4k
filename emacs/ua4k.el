@@ -27,6 +27,7 @@
 ;;
 ;; Entry points:
 ;;   M-x ua4k-play-file
+;;   M-x ua4k-play-buffer
 ;;   M-x ua4k-play-game
 ;;   M-x ua4k-play-asset-file
 ;;
@@ -112,6 +113,23 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
         (error "ua4k compile failed:\n%s" (string-trim (buffer-string)))))
     (goto-char (point-min))
     (json-parse-buffer :object-type 'alist :array-type 'list :null-object nil :false-object nil)))
+
+(defun ua4k--compile-buffer (&optional buffer)
+  "Compile BUFFER's contents and return the compiled data as an alist.
+BUFFER defaults to the current buffer.  A temporary source file is made in
+the buffer's directory so relative references behave as they do when the
+buffer's associated file is compiled."
+  (with-current-buffer (or buffer (current-buffer))
+    (let* ((directory (if buffer-file-name
+                          (file-name-directory buffer-file-name)
+                        default-directory))
+           (temporary-file-directory directory)
+           (file (make-temp-file ".ua4k-buffer-" nil ".txt")))
+      (unwind-protect
+          (progn
+            (write-region (point-min) (point-max) file nil 'silent)
+            (ua4k--compile-json file))
+        (delete-file file)))))
 
 (defun ua4k--obj-get (object key)
   "Return KEY from OBJECT, accepting either string or symbol keys."
@@ -796,6 +814,18 @@ Always succeeds."
     (ua4k--start-game file data level-number 'file)))
 
 ;;;###autoload
+(defun ua4k-play-buffer (&optional level)
+  "Compile and play the current buffer's contents, starting at LEVEL.
+With a prefix argument, start at that level number.  Unsaved changes are
+included; the buffer need not be visiting a file."
+  (interactive (list current-prefix-arg))
+  (let* ((source (current-buffer))
+         (name (or buffer-file-name (buffer-name)))
+         (data (ua4k--compile-buffer source))
+         (level-number (when level (prefix-numeric-value level))))
+    (ua4k--start-game name data level-number 'buffer)))
+
+;;;###autoload
 (defun ua4k-play-game (game-name &optional level)
   "Compile and play GAME-NAME from the repo root."
   (interactive "sUA4K game name: ")
@@ -845,25 +875,24 @@ Always succeeds."
     rows))
 
 ;;;###autoload
-(defun ua4k-play-region (start end game-file)
-  "Play region START..END as a single level using GAME-FILE's rules."
+(defun ua4k-play-region (start end)
+  "Play region START..END as a single level using the current buffer's rules.
+The entire buffer, including unsaved changes, is compiled as the game source;
+the region supplies the board for the single level."
   (interactive
    (if (use-region-p)
        (list (region-beginning)
-             (region-end)
-             (read-file-name "Base UA4K game file: "
-                             (file-name-directory (ua4k--game-file-prompt-default))
-                             (ua4k--game-file-prompt-default)
-                             t nil
-                             (lambda (f) (string-match-p "\\.txt\\'" f))))
+             (region-end))
      (user-error "Select a board region first")))
-  (let* ((rows (ua4k--parse-snippet-board
+  (let* ((source (current-buffer))
+         (source-name (or buffer-file-name (buffer-name)))
+         (rows (ua4k--parse-snippet-board
                 (buffer-substring-no-properties start end)))
-         (compiled (ua4k--compile-json (expand-file-name game-file)))
+         (compiled (ua4k--compile-buffer source))
          (snippet-level
           `((board . ,rows)
             (title . "Snippet")
-            (description . ,(format "Snippet from %s" (file-name-nondirectory game-file)))))
+            (description . ,(format "Snippet from %s" (file-name-nondirectory source-name)))))
          (data
           `((levels . ,(list snippet-level))
             (rules . ,(ua4k--obj-get compiled "rules"))
@@ -874,7 +903,7 @@ Always succeeds."
             (colorMap . ,(ua4k--obj-get compiled "colorMap"))
             (whitespaceChars . ,(ua4k--obj-get compiled "whitespaceChars"))
             (hiddenLineChars . ,(ua4k--obj-get compiled "hiddenLineChars")))))
-    (ua4k--start-game game-file data 0 'region)))
+    (ua4k--start-game source-name data 0 'region)))
 
 (provide 'ua4k)
 
