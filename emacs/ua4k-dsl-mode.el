@@ -122,7 +122,9 @@ shift the current line."
   "Major mode for UA4K game DSL files."
   (setq-local comment-start ";; ")
   (setq-local comment-start-skip ";;+\\s-*")
-  (setq-local font-lock-defaults '(ua4k-dsl-font-lock-keywords)))
+  (setq-local font-lock-defaults '(ua4k-dsl-font-lock-keywords))
+  (setq-local imenu-generic-expression 
+              '((nil "^\\(CMD\\|ROTATE_CMDS\\)\\s-+\\([^[:space:]]+\\)" 2))))
 
 (provide 'ua4k-dsl-mode)
 
