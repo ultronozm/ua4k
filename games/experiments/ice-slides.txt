@@ -1,0 +1,177 @@
+GOAL
+E
+
+VOID
+X
+
+COLOR x #2f3b52
+COLOR - #b7d7ff
+COLOR 1 #3c78d8
+COLOR 2 #6fa8dc
+COLOR k #ffd966
+COLOR g #8e7cc3
+COLOR * #a4c2f4
+COLOR w #3d85c6
+COLOR e #00a2a2
+COLOR E #00cc88
+COLOR X #cc0000
+
+TITLE Ice Slides
+
+DESCRIPTION Choose a direction and glide until something stops you. Collect k to pass g, and be careful with fragile * ice: crossing it leaves deadly water behind.
+
+xxxxxxxx
+x-x--1xx
+x-xx---x
+x------x
+xe--x--x
+xxxxxxxx
+
+TITLE First Brake
+
+DESCRIPTION Warm-up glide: walls are your brakes. You only stop when something solid catches you.
+
+MINMOVES 7
+
+xxxxxxxx
+xx-----x
+x---xexx
+x------x
+x1x-x--x
+xxxxxxxx
+
+TITLE Cornering
+
+DESCRIPTION The route is short, but the stopping pattern is not obvious.
+
+MINMOVES 9
+
+xxxxxxxxxx
+x-x--x---x
+x---x----x
+x-e-g----x
+x----kx-1x
+xxxxxxxxxx
+
+TITLE Cold Key
+
+DESCRIPTION Touching k upgrades you to 2, and only 2 can pass through g.
+
+MINMOVES 11
+
+xxxxxxxxxx
+x---x--g-x
+x-----k--x
+x--ex---xx
+x---x1---x
+xxxxxxxxxx
+
+TITLE Gate Timing
+
+DESCRIPTION You need the key, but the real puzzle is choosing the right stopping walls after the gate.
+
+MINMOVES 10
+
+xxxxxxxxx
+x-----xex
+x------gx
+x-x-----x
+x-k*--1-x
+x-x----xx
+xxxxxxxxx
+
+TITLE No Return
+
+DESCRIPTION Slide west across the fragile tile to collect the key. It melts behind you, so the obvious eastbound return is deadly; circle around to approach the gate from below.
+
+MINMOVES 8
+
+xxxxxxxxx
+x------xx
+xx-----xx
+xx--eg--x
+x-------x
+x1--*k-xx
+xxxxxxxxx
+
+TITLE Burned Bridge
+
+DESCRIPTION The key and fragile tile share one launch lane. Crossing them cuts off the direct return, so use the middle lane to approach the gate from the other side.
+
+MINMOVES 10
+
+xxxxxxxxx
+x--xkxx-x
+xeg-----x
+xx---x--x
+x--x--xxx
+x1-*-x--x
+xxxxxxxxx
+
+TITLE Late Crack
+
+DESCRIPTION Collect the key in the upper pocket before touching the lower ice. Once that lane becomes water, reaching the gate requires a reverse approach.
+
+MINMOVES 12
+
+xxxxxxxxxxxxx
+x-x----x--xxx
+x-----xx----x
+x----x-x-x--x
+xx-----x--xex
+x--k--xx-*-xx
+x--x---xx---x
+x-*--1-g----x
+x---x-xx-x-xx
+xxxxxxxxxxxxx
+
+TITLE Crosscurrent
+
+DESCRIPTION Fragile pivots offer routes through opposite halves of the board. The key is easy to see; preserving a safe approach through the gate is the puzzle.
+
+MINMOVES 20
+
+xxxxxxxxxxxxxxx
+xk--x----xx--xx
+x--xx---xx----x
+xx--x-x--g--x-x
+x---x----xx-x-x
+xx*-x-x--x--xxx
+x---g----x----x
+x-1-x----x--x-x
+x---x---*xe-x-x
+x-x-x-x--x-*x-x
+x---x-k--x----x
+xxxxxxxxxxxxxxx
+
+TITLE Lock Cascade
+
+DESCRIPTION Two keys, two gates, and three shortest-route melts form one chained route. A locally convenient slide can flood the safe lane needed after the next lock.
+
+MINMOVES 21
+
+BIND w move_n "slide north" s move_s "slide south" a move_w "slide west" d move_e "slide east"
+
+ROTATE_CMDS move
+ MATCH1
+  1- -1 move_e
+
+  2- -2 move_e
+
+  1k -2 move_e
+
+  2k -2 move_e
+
+  2g -1 move_e
+
+  1* w1 move_e
+
+  2* w2 move_e
+
+  1w -X
+
+  2w -X
+
+  1e -E
+
+  2e -E

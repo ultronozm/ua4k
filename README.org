@@ -172,11 +172,17 @@ Playable toys:
 
 WIP prototypes:
 
-- =games/wip/clockwise.txt=
-- =games/wip/ice-slides.txt=
 - =games/wip/lantern-trail.txt=
-- =games/wip/signal-relay.txt=
 - =games/wip/drone-gate-*.txt=
+
+Experimental candidates (versioned for playtesting, but excluded from the
+published game set):
+
+- =games/experiments/clockwise.txt=
+- =games/experiments/deadlock-protocol.txt=
+- =games/experiments/ice-slides.txt=
+- =games/experiments/phase-shift.txt=
+- =games/experiments/signal-relay.txt=
 
 Experiments and legacy files are intentionally kept out of the polished set.
 

@@ -4,141 +4,209 @@ E
 VOID
 X
 
-COLOR x #2c3e50
-COLOR - #ecf0f1
+COLOR x #263445
+COLOR - #d9e2ec
 COLOR 1 #e74c3c
 COLOR 2 #3498db
-COLOR k #f1c40f
-COLOR g #95a5a6
+COLOR r #c0392b
+COLOR b #2471a3
+COLOR p #9b59b6
+COLOR e #16a085
 COLOR E #2ecc71
+COLOR X #cc0000
 
 TITLE Phase Shift
 
-DESCRIPTION Welcome to Phase Shift! Collect keys (k) to unlock gates (g) and reach the exit (E). Switch phases with Z - red phase (1) passes red barriers, blue phase (2) passes blue barriers.
+DESCRIPTION Red crosses r walls and blue crosses b walls. Violet p inverters are consumed when they change your phase; crossing a matching wall leaves it behind you, and later loops may meet it in a new place.
 
-xxxxxxxxxx
-x--------x
-x---k----x
-x---g----x
-x----E---x
-x--------x
-x--------x
-x----1---x
-x--------x
-xxxxxxxxxx
+xxxxxxxxx
+x1-p-b-ex
+xxxxxxxxx
 
-DESCRIPTION Level 1: Walk up, collect the key (k) to open the gate (g), then reach the exit (E).
+TITLE First Inversion
 
-MINMOVES 5
-
-xxxxxxxxxxxx
-x----------x
-x-----k----x
-x-----g----x
-x-----E----x
-x----------x
-x----------x
-x-----1----x
-xxxxxxxxxxxx
-
-DESCRIPTION Level 2: A bit longer path. Collect key, open gate, reach exit.
+DESCRIPTION Cross the violet inverter to become blue, then pass the blue wall and reach the exit.
 
 MINMOVES 6
 
-xxxxxxxxxxxxxx
-x------------x
-x-------k----x
-x-------g----x
-x-------E----x
-x------------x
-x------------x
-x-------1----x
-xxxxxxxxxxxxxx
+xxxxxxx
+x1r-p-x
+xxxxx-x
+xxxeb-x
+xxxxxxx
 
-DESCRIPTION Level 3: Navigate to the key first.
+TITLE Full Spectrum
+
+DESCRIPTION Begin red, carry the red wall behind you, then invert to blue for the second half of the corridor.
 
 MINMOVES 8
 
-xxxxxxxxxxxxxxxx
-x--------------x
-x---------k----x
-x---------g----x
-x---------E----x
-x--------------x
-x--------------x
-x---------1----x
-xxxxxxxxxxxxxxxx
+xxxxxxx
+x1p-b-x
+xxxxx-x
+xer-p-x
+xxxxxxx
 
-DESCRIPTION Level 4: A longer journey.
+TITLE Double Inversion
+
+DESCRIPTION Two inverters force a complete red-blue-red cycle. Their phase changes are part of the map, not an extra command.
 
 MINMOVES 10
 
-xxxxxxxxxxxxxxxxxx
-x----------------x
-x-----------k----x
-x-----------g----x
-x-----------E----x
-x----------------x
-x----------------x
-x-----------1----x
-xxxxxxxxxxxxxxxxxx
+xxxxxxxxx
+x--br1p-x
+xexx----x
+xxxxxxxxx
 
-DESCRIPTION Level 5: Keep climbing.
+TITLE Return Ticket
+
+DESCRIPTION The nearby inverter controls a tight return around the upper hook. Reach the exit from the east while the wall colors shift behind you.
+
+MINMOVES 11
+
+xxxxxxxx
+xx---x-x
+x---xx-x
+x-x--xxx
+xxbrr-1x
+xe-xp-xx
+xxxxxxxx
+
+TITLE Relay Glass
+
+DESCRIPTION A tight lower loop forces one inversion and a blue crossing before the exit can be approached from the correct side.
 
 MINMOVES 12
 
-xxxxxxxxxxxxxxxxxxxx
-x------------------x
-x-------------k----x
-x-------------g----x
-x-------------E----x
-x------------------x
-x------------------x
-x-------------1----x
-xxxxxxxxxxxxxxxxxxxx
+xxxxxxxx
+xx-----x
+xxr--pxx
+xebx-1xx
+xx-xxx-x
+xxxxxxxx
 
-DESCRIPTION Level 6: Almost there.
+TITLE Side Channel
+
+DESCRIPTION Enter the upper pocket for its inverter, then thread the compact red-and-blue choke toward the exit.
 
 MINMOVES 14
 
-xxxxxxxxxxxxxxxxxxxxxx
-x--------------------x
-x---------------k----x
-x---------------g----x
-x---------------E----x
-x--------------------x
-x--------------------x
-x---------------1----x
-xxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxx
+x-e---xxx
+xbxxxxx-x
+xr-1---xx
+x--xpx--x
+xxxxxx-xx
+xxxxxxxxx
 
-DESCRIPTION Level 7: The final challenge.
+TITLE Crosscurrent
 
-MINMOVES 16
+DESCRIPTION The exit is close in geometry and far in state. The inverter loop turns a short walk into two distinct phase routes.
 
-BIND w move_n s move_s a move_w d move_e z shift_phase
+MINMOVES 15
+
+xxxxxxxx
+xx-x-p-x
+x--xr--x
+x--br-xx
+x---x-1x
+x-e-x-xx
+xxxxxxxx
+
+TITLE Parallax
+
+DESCRIPTION Two red walls share a cramped loop. Move them in the wrong order and the route back from the inverter closes.
+
+MINMOVES 17
+
+xxxxxxxx
+x------x
+xxpx--xx
+x-r1x-rx
+x--bpxex
+x--xx--x
+xxxxxxxx
+
+TITLE Double Exposure
+
+DESCRIPTION Both inverters matter. The route changes phase twice, revisits the red choke, then returns to red for the final approach.
+
+MINMOVES 18
+
+xxxxxxxx
+x------x
+xr--r-px
+xbxx---x
+x--x-xxx
+xex-1--x
+xxxxxxxx
+
+TITLE Afterimage
+
+DESCRIPTION The shortest routes loop around two red walls and one mandatory inverter, with phase alignment changing as the walls shift.
+
+MINMOVES 21
+
+xxxxxxxx
+xxxx1p-x
+x-ex---x
+xrxx-x-x
+x--x---x
+x-b-bp-x
+xx--x--x
+xxxxxxxx
+
+TITLE Interference
+
+DESCRIPTION Two blue walls and two mandatory inverters form a red-blue-red circuit through overlapping corridors.
+
+MINMOVES 21
+
+xxxxxxx
+x---1xx
+xx---xx
+x---pxx
+x--xxxx
+x--r-bx
+xx--xex
+xxxxxxx
+
+TITLE Refraction
+
+DESCRIPTION Descend through the inverter chamber, cross both wall colors, and approach the exit in the only usable phase.
+
+MINMOVES 22
+
+xxxxxxxxx
+x-x---xxx
+xe-xxx1px
+x--x-x-xx
+x-br---xx
+x-x----xx
+xxxxxxxxx
+
+TITLE Eventide
+
+DESCRIPTION The compact finale forces an inverter, both wall colors, and a spatial revisit through a route with many deceptively similar branches.
+
+MINMOVES 23
+
+BIND w move_n "north" s move_s "south" a move_w "west" d move_e "east"
 
 ROTATE_CMDS move
  MATCH1
   1- -1
+
   2- -2
 
-  1k -1 get_key
-  2k -2 get_key
+  1r r1
 
-  1g -1 open_gate
-  2g -2 open_gate
+  2b b2
 
-CMD get_key
- MATCH1
-  k -
-  g -
+  1p -2
 
-CMD open_gate
- MATCH1
-  g -
+  2p -1
 
-CMD shift_phase
- MATCH1
-  1 2
-  2 1
+  1e -E
 
+  2e -E

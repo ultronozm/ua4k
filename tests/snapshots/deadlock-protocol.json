@@ -32,8 +32,8 @@
     "x": "#444444"
   },
   "gameAuthor": null,
-  "gameDescription": null,
-  "gameTitle": "Drone Gate Seal",
+  "gameDescription": "Move two drones in lockstep. A drone crosses a gate only when its partner simultaneously spends the paired key; the gate then seals into a permanent wall. An x wall stops only the drone that hits it, while a # force field cancels the whole shared move.",
+  "gameTitle": "Deadlock Protocol",
   "globalTick": null,
   "goals": [
     [
@@ -47,27 +47,177 @@
   "levels": [
     {
       "board": [
-        "xxxxxxxxxxx",
-        "x1-g---#-2x",
-        "x-#-#-#--x",
-        "x-k---g---x",
-        "x-#---#---x",
-        "xa---k-b--x",
-        "xxxxxxxxxxx"
+        "xxxxxxxxx",
+        "x1g--a--x",
+        "x2k-b---x",
+        "xxxxxxxxx"
       ],
-      "description": "Prototype variant: a passed gate seals into a wall. Opening the route also changes the future bump topology."
+      "description": "Press east when drone 1 faces the gate and drone 2 faces the key. The same input spends the key, passes the gate, and seals a wall behind drone 1.",
+      "minMoves": 3,
+      "title": "Handshake"
     },
     {
       "board": [
-        "xxxxxxxxxxxx",
-        "x1-g---#--2x",
-        "x-#-#-#---x",
-        "x-k---g----x",
-        "x-#-#-#----x",
-        "xa---k-b---x",
-        "xxxxxxxxxxxx"
+        "xxxxxxxxxx",
+        "x1g---a--x",
+        "x2k-b----x",
+        "xxxxxxxxxx"
       ],
-      "description": "Longer corridor version of the same irreversible gate rule. Still a small mechanic demo."
+      "description": "Commit east, then back up once. The new wall holds drone 1 while drone 2 gains the extra column needed by the pads.",
+      "minMoves": 5,
+      "title": "Backstep"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "x1g--g---a--x",
+        "x2kk-b------x",
+        "xxxxxxxxxxxxx"
+      ],
+      "description": "After each transaction, back up once against the new wall. Each seal adds another column of separation, preparing the next key and finally the delivery pads.",
+      "minMoves": 8,
+      "title": "Double Commit"
+    },
+    {
+      "board": [
+        "xxxxxxxxx",
+        "x----1--x",
+        "x--k--bax",
+        "x----g-2x",
+        "x------#x",
+        "xxxxxxxxx"
+      ],
+      "description": "The red force field beneath drone 2 cancels a shared south move; it cannot hold one drone like a gray wall. Route around it, commit west, then use the new seal to advance drone 1 alone.",
+      "minMoves": 12,
+      "title": "Hard Stop"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "x#-#--1-#--#x",
+        "x#-a----#---x",
+        "x#--##---k--x",
+        "x##----#-b#-x",
+        "x-----------x",
+        "x2---------#x",
+        "x-----g-----x",
+        "xxxxxxxxxxxxx"
+      ],
+      "description": "A compact transaction: synchronize the key spend, accept the new wall, and still deliver both drones together.",
+      "minMoves": 24,
+      "title": "Commit Point"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "x---------#-x",
+        "x--#--g-----x",
+        "x##--k-1----x",
+        "x---------#-x",
+        "x#-b---a----x",
+        "x------#----x",
+        "x----2#-----x",
+        "xxxxxxxxxxxxx"
+      ],
+      "description": "A central start creates many symmetric-looking lines. Build the offset first; only one simultaneous key-and-gate contact preserves both pad approaches.",
+      "minMoves": 25,
+      "title": "Race Condition"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "x#-----#--2-x",
+        "x--#----g---x",
+        "x#----b-----x",
+        "x-#-#---##k-x",
+        "x--g----#---x",
+        "x1--------a-x",
+        "x----k--#---x",
+        "xxxxxxxxxxxxx"
+      ],
+      "description": "The pads are close, but the useful blockers are not. Establish the final offset before spending either key.",
+      "minMoves": 25,
+      "title": "Mutual Exclusion"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "x----1---#--x",
+        "x---k--g--#2x",
+        "x#----------x",
+        "x-#a--------x",
+        "x-----------x",
+        "x-g-----#---x",
+        "x##-b---k---x",
+        "xxxxxxxxxxxxx"
+      ],
+      "description": "Open space does not mean freedom when both drones share every command. Route around the force fields until an ordinary wall can hold one drone while the other advances.",
+      "minMoves": 25,
+      "title": "Split Authority"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "x-#-k--#----x",
+        "xgk-g------1x",
+        "x-----------x",
+        "x------#----x",
+        "x-b-#-2--#--x",
+        "x----###----x",
+        "x#--#-#---a-x",
+        "xxxxxxxxxxxxx"
+      ],
+      "description": "Two adjacent gates make the upper lane look decisive. The real solution depends on delaying which wall gets burned into place.",
+      "minMoves": 36,
+      "title": "Burn Notice"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "x----k------x",
+        "x--#-1-ag---x",
+        "x-b-##-#----x",
+        "x-----#-----x",
+        "x---#------#x",
+        "x---#----2--x",
+        "x---------#-x",
+        "xxxxxxxxxxxxx"
+      ],
+      "description": "The gate can be paid only when the other drone reaches the distant key on the same input. Build that alignment without losing either pad approach.",
+      "minMoves": 37,
+      "title": "Escrow"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "x--b-------#x",
+        "x#--------#-x",
+        "x-#-k2-g---#x",
+        "x#---a#-----x",
+        "x----##----#x",
+        "x--#----#---x",
+        "x1----#-g--kx",
+        "xxxxxxxxxxxxx"
+      ],
+      "description": "Keys and gates occupy different timing lanes. Route each drone by thinking about what the other must be touching on the same turn.",
+      "minMoves": 39,
+      "title": "Counterparty"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "x-2#-------1x",
+        "x----gk----#x",
+        "x##---#-#---x",
+        "x----##-----x",
+        "x---##ak-#--x",
+        "xg---#--b---x",
+        "x-----------x",
+        "xxxxxxxxxxxxx"
+      ],
+      "description": "The drones begin on opposite rims of a broken arena. Every useful alignment changes which sealed corridor can still be crossed.",
+      "minMoves": 59,
+      "title": "Event Horizon"
     }
   ],
   "rules": {

@@ -40,7 +40,7 @@
     "x": "#444444"
   },
   "gameAuthor": null,
-  "gameDescription": null,
+  "gameDescription": "Activate a, b, f, then c in order and finish at e. Crossing a soft m bridge shifts it behind you; activating c overloads every remaining bridge into a wall and opens h channels.",
   "gameTitle": "Signal Relay",
   "globalTick": null,
   "goals": [
@@ -53,66 +53,118 @@
     {
       "board": [
         "xxxxxxxxxxxxx",
-        "xpqrnxxxxxxxx",
+        "xpqnrxxxxxxxx",
         "x1-a---f-c-ex",
         "x-xxx-x-xxx-x",
-        "x---b-m---h-x",
+        "x---b-------x",
         "xxxxxxxxxxxxx"
       ],
-      "description": "Primer: the relay order is a -> b -> f -> c. After c, every m bridge collapses into x."
-    },
-    {
-      "board": [
-        "xxxxxxxxxxxxx",
-        "xpqrnxxxxxxxx",
-        "x1-a---x---ex",
-        "x-xxx-xx-xx-x",
-        "x---b-fc-h--x",
-        "x--m--------x",
-        "xxxxxxxxxxxxx"
-      ],
-      "description": "First loop: use m before overload, then finish through the late h gate after c."
+      "description": "Learn the relay order: a -> b -> f -> c. The status row lights up as each stage comes online.",
+      "minMoves": 16,
+      "title": "Boot Sequence"
     },
     {
       "board": [
         "xxxxxxxxxxxxxxx",
-        "xpqrnxxxxxxxxxx",
-        "x1--a--x----ex",
-        "x-xx-x-xx-xx-x",
-        "x--b-x-fc-xh-x",
-        "x----m-----x-x",
+        "xpqnrxxxxxxxxxx",
+        "x1-a-b-f-cxxxxx",
+        "xxx-x-xxxxxxxxx",
+        "xehm--xxxxxxxxx",
         "xxxxxxxxxxxxxxx"
       ],
-      "description": "Cross-phase route: c sits deep in the map, and touching it changes the only easy bridge."
+      "description": "Shift the fuse out of the lower lane and into the upper spur. Then c opens the h channel home while sealing the fuse safely out of the way.",
+      "minMoves": 22,
+      "title": "Fuse Spur"
     },
     {
       "board": [
-        "xxxxxxxxxxxxxxxxx",
-        "xpqrnxxxxxxxxxxxx",
-        "x1--a--x------ex",
-        "x-xx-x-x-xx-xx-x",
-        "x--b-x-m-x-fc-x",
-        "x-xx-x-xxx-xh-x",
-        "x----x-----x--x",
-        "x-------------x",
-        "xxxxxxxxxxxxxxxxx"
+        "xxxxxxxxxxx",
+        "xpqnrxxxxxx",
+        "x---x-xb--x",
+        "x---x--1xxx",
+        "x-c--x-x-xx",
+        "x-x-m--ae-x",
+        "xx-x--xf-xx",
+        "xxxxxxxxxxx"
       ],
-      "description": "Long loop: route for both phases before you commit to c."
+      "description": "The fuse's starting cell lies on the return from c. Its safe final position depends on which side you cross it from.",
+      "minMoves": 31,
+      "title": "Southern Pocket"
     },
     {
       "board": [
-        "xxxxxxxxxxxxxxxxxxx",
-        "xpqrnxxxxxxxxxxxxxx",
-        "x1--a--x-------x-ex",
-        "x-xx-x-x-xx-xx-x-xx",
-        "x--b-x-m-x---xfc--x",
-        "x-xx-x-xxx-x-x-xx-x",
-        "x----x---h-x-x----x",
-        "x-xxxx---x---x----x",
-        "x------m---x------x",
-        "xxxxxxxxxxxxxxxxxxx"
+        "xxxxxxxxxxx",
+        "xpqnrxxxxxx",
+        "xx-1--f--xx",
+        "xxe-xm---xx",
+        "x-x-x---axx",
+        "xxx-xxx-b-x",
+        "x-----xc-xx",
+        "xxxxxxxxxxx"
       ],
-      "description": "Mesh finale: two soft bridges help in different phases, but only one full route survives overload."
+      "description": "The fuse is useful before f and dangerous after c. The route needs it twice, in opposite roles.",
+      "minMoves": 30,
+      "title": "Borrowed Fuse"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxx",
+        "xpqnrxxxxxx",
+        "x--1-x-xxex",
+        "x-c--xx--mx",
+        "xx-----x--x",
+        "x----axx-fx",
+        "xx-xb-----x",
+        "xxxxxxxxxxx"
+      ],
+      "description": "The eastern fuse occupies the only post-overload return. Relocate it before c without losing access to the scattered relays.",
+      "minMoves": 42,
+      "title": "Eastern Drop"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "xpqnrxxxxxxxx",
+        "x---xx-c-x-xx",
+        "x-b--1m-f--xx",
+        "x-x-x----x--x",
+        "x---m----x--x",
+        "x--xexa----xx",
+        "xxxxxxxxxxxxx"
+      ],
+      "description": "Both return lanes carry a fuse. Their pre-c shortcuts and post-c walls pull the route in opposite directions.",
+      "minMoves": 30,
+      "title": "Twin Returns"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxx",
+        "xpqnrxxxxxx",
+        "x-1---xx-xx",
+        "x-xcmxxe--x",
+        "x-fxm--abxx",
+        "x-xx-x-x--x",
+        "x----x-x--x",
+        "xxxxxxxxxxx"
+      ],
+      "description": "Two stacked fuses must be untangled before c. Their final walls determine which side of the board remains connected.",
+      "minMoves": 34,
+      "title": "Stack Exchange"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxx",
+        "xpqnrxxxxxxxx",
+        "x-b-----1---x",
+        "x----c--a---x",
+        "xx-----x--xxx",
+        "x----x-xxmexx",
+        "x-f-x--m----x",
+        "xxxxxxxxxxxxx"
+      ],
+      "description": "The two fuses obstruct different halves of the final circuit. Both must be handled before committing to the central overload.",
+      "minMoves": 37,
+      "title": "Double Detour"
     }
   ],
   "rules": {
@@ -339,7 +391,7 @@
               "side_effects": [],
               "to": [
                 "1",
-                "-"
+                "m"
               ],
               "type": "simple"
             },
@@ -467,7 +519,7 @@
               "method": "firstmatch",
               "side_effects": [],
               "to": [
-                "-",
+                "m",
                 "1"
               ],
               "type": "simple"
@@ -700,7 +752,7 @@
               "type": "simple"
             }
           ],
-          "type": "try_all"
+          "type": "repeat"
         }
       ],
       "type": "match1"

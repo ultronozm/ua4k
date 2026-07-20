@@ -60,8 +60,9 @@ Add a check job and make deploy depend on it.
 - Replace the =let gamesData = ...;= text contract with JSON plus a JS shim.
 - Shareable solution replays and URL-fragment scratch boards.
 - Solver-derived difficulty annotations on the site.
-- =Clockwise= stays WIP despite its verified pars; mechanical verification is
-  not the same thing as puzzle quality.
+- =Clockwise= remains unpublished under =games/experiments/=. A second
+  replay-and-mutation pass rebuilt the wait-to-win Body Check and cut the
+  padded Heel level, but mechanical verification is not a human playtest.
 - =games/toys/life.txt= no longer has the old "24 neighbor rules" problem:
   neighbor counting is already expressed with =FOR=, =ROTATE=, and =REPEAT=.
 - The =SUP= level in =games/polished/game.txt= is a good regression example

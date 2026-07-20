@@ -232,6 +232,10 @@ function createRuntime(root, data, options = {}) {
   vm.runInContext(source, context, { filename: 'ua4k.js' });
   const level = Number.isInteger(options.level) ? options.level : 0;
   vm.runInContext(`window.UA4K.startStandalone(gameData, { level: ${level} })`, context);
+  vm.runInContext(
+    'globalThis.__ua4kSetBoard = function (nextBoard) { board = nextBoard.slice(); board_history = []; };',
+    context
+  );
   return { context, document, window };
 }
 
@@ -244,7 +248,7 @@ function getBoard(context) {
 }
 
 function setBoard(context, board) {
-  vm.runInContext(`board = ${JSON.stringify(board)}; board_history = [];`, context);
+  context.__ua4kSetBoard(board);
 }
 
 function levelComplete(context) {
@@ -257,6 +261,17 @@ function gameAction(context, key) {
 
 function boundActions(context) {
   return JSON.parse(vm.runInContext('JSON.stringify(Object.keys(binds).sort())', context));
+}
+
+function prepareSolverContext(context) {
+  if (context.__ua4kSolverPrepared) {
+    return;
+  }
+  vm.runInContext(
+    'drawBoard = function () {}; updateMovesDisplay = function () {}; checkEndLevel = function () {};',
+    context
+  );
+  context.__ua4kSolverPrepared = true;
 }
 
 function pressKey(document, key) {
@@ -296,6 +311,7 @@ module.exports = {
   levelComplete,
   gameAction,
   boundActions,
+  prepareSolverContext,
   pressKey,
   applySequence,
 };

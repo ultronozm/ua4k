@@ -63,19 +63,19 @@ DESCRIPTION When the robot cannot step forward, it does not stop. It spends the 
 
 MINMOVES 7
 
-xxxxxxxxx
-x-------x
-x->-----x
-x-------x
-x---g---x
-x------Px
-xxxxxxxxx
+xxxxxxxx
+x------x
+x----x-x
+x-g-->-x
+xxxP---x
+x------x
+xxxxxxxx
 
 TITLE Body Check
 
-DESCRIPTION You are a wall too. Stand in the robot's path at the right moment and it will turn clockwise toward the pad.
+DESCRIPTION You are a wall too. Race east beneath the robot; when it turns down at the right wall, you must already be in its path to send it west toward the pad.
 
-MINMOVES 12
+MINMOVES 7
 
 xxxxxxxxx
 x>------x
@@ -213,19 +213,6 @@ TITLE Convoy
 DESCRIPTION One crate, one pit, one dock. Remember that you, the robot, and a crate you keep pushing all move at exactly the same speed.
 
 MINMOVES 16
-
-xxxxxxxxxxx
-x>------xxx
-xxxxxx-xgxx
-xxxxxx-xPxx
-xxxxxx---xx
-xxxxxxxxxxx
-
-TITLE Heel
-
-DESCRIPTION Every wall turns the robot right for free. A left turn is three rights, and the third only happens if you are standing right where it came from. Stay close behind, and mind the shuttle upstairs.
-
-MINMOVES 35
 
 xxxxxxxxxxxx
 x>------Pxxx

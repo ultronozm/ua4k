@@ -1,0 +1,266 @@
+GOAL
+E
+
+COLOR x #444444
+COLOR - #aaaaaa
+COLOR 1 #2e6cff
+COLOR a #6aa84f
+COLOR b #8e7cc3
+COLOR f #c27ba0
+COLOR c #e69138
+COLOR h #a64d79
+COLOR e #00a2a2
+COLOR E #00cc88
+COLOR p #777777
+COLOR q #777777
+COLOR r #777777
+COLOR n #777777
+COLOR P #6aa84f
+COLOR Q #8e7cc3
+COLOR R #e69138
+COLOR N #c27ba0
+COLOR m #557766
+
+TITLE Signal Relay
+
+DESCRIPTION Activate a, b, f, then c in order and finish at e. Crossing a soft m bridge shifts it behind you; activating c overloads every remaining bridge into a wall and opens h channels.
+
+xxxxxxxxxxxxx
+xpqnrxxxxxxxx
+x1-a---f-c-ex
+x-xxx-x-xxx-x
+x---b-------x
+xxxxxxxxxxxxx
+
+TITLE Boot Sequence
+
+DESCRIPTION Learn the relay order: a -> b -> f -> c. The status row lights up as each stage comes online.
+
+MINMOVES 16
+
+xxxxxxxxxxxxxxx
+xpqnrxxxxxxxxxx
+x1-a-b-f-cxxxxx
+xxx-x-xxxxxxxxx
+xehm--xxxxxxxxx
+xxxxxxxxxxxxxxx
+
+TITLE Fuse Spur
+
+DESCRIPTION Shift the fuse out of the lower lane and into the upper spur. Then c opens the h channel home while sealing the fuse safely out of the way.
+
+MINMOVES 22
+
+xxxxxxxxxxx
+xpqnrxxxxxx
+x---x-xb--x
+x---x--1xxx
+x-c--x-x-xx
+x-x-m--ae-x
+xx-x--xf-xx
+xxxxxxxxxxx
+
+TITLE Southern Pocket
+
+DESCRIPTION The fuse's starting cell lies on the return from c. Its safe final position depends on which side you cross it from.
+
+MINMOVES 31
+
+xxxxxxxxxxx
+xpqnrxxxxxx
+xx-1--f--xx
+xxe-xm---xx
+x-x-x---axx
+xxx-xxx-b-x
+x-----xc-xx
+xxxxxxxxxxx
+
+TITLE Borrowed Fuse
+
+DESCRIPTION The fuse is useful before f and dangerous after c. The route needs it twice, in opposite roles.
+
+MINMOVES 30
+
+xxxxxxxxxxx
+xpqnrxxxxxx
+x--1-x-xxex
+x-c--xx--mx
+xx-----x--x
+x----axx-fx
+xx-xb-----x
+xxxxxxxxxxx
+
+TITLE Eastern Drop
+
+DESCRIPTION The eastern fuse occupies the only post-overload return. Relocate it before c without losing access to the scattered relays.
+
+MINMOVES 42
+
+xxxxxxxxxxxxx
+xpqnrxxxxxxxx
+x---xx-c-x-xx
+x-b--1m-f--xx
+x-x-x----x--x
+x---m----x--x
+x--xexa----xx
+xxxxxxxxxxxxx
+
+TITLE Twin Returns
+
+DESCRIPTION Both return lanes carry a fuse. Their pre-c shortcuts and post-c walls pull the route in opposite directions.
+
+MINMOVES 30
+
+xxxxxxxxxxx
+xpqnrxxxxxx
+x-1---xx-xx
+x-xcmxxe--x
+x-fxm--abxx
+x-xx-x-x--x
+x----x-x--x
+xxxxxxxxxxx
+
+TITLE Stack Exchange
+
+DESCRIPTION Two stacked fuses must be untangled before c. Their final walls determine which side of the board remains connected.
+
+MINMOVES 34
+
+xxxxxxxxxxxxx
+xpqnrxxxxxxxx
+x-b-----1---x
+x----c--a---x
+xx-----x--xxx
+x----x-xxmexx
+x-f-x--m----x
+xxxxxxxxxxxxx
+
+TITLE Double Detour
+
+DESCRIPTION The two fuses obstruct different halves of the final circuit. Both must be handled before committing to the central overload.
+
+MINMOVES 37
+
+BIND w move_north "north" s move_south "south" a move_west "west" d move_east "east"
+
+CMD haveA
+ MATCH1
+  P P
+
+CMD haveB
+ MATCH1
+  Q Q
+
+CMD haveC
+ MATCH1
+  R R
+
+CMD haveF
+ MATCH1
+  N N
+
+CMD setA
+ TRY_ALL
+  p P
+
+CMD setB
+ TRY_ALL
+  q Q
+
+CMD setC
+ TRY_ALL
+  r R overload
+
+CMD setF
+ TRY_ALL
+  n N
+
+CMD overload
+ REPEAT
+  m x
+
+CMD move_north
+ MATCH1
+  - 1
+  1 -
+
+  m 1
+  1 m
+
+  a 1 setA
+  1 -
+
+  b 1 haveA! setB
+  1 -
+
+  f 1 haveB! setF
+  1 -
+
+  c 1 haveF! setC
+  1 -
+
+  h 1 haveC!
+  1 -
+
+  e E haveC!
+  1 -
+
+CMD move_south
+ MATCH1
+  1 -
+  - 1
+
+  1 m
+  m 1
+
+  1 -
+  a 1 setA
+
+  1 -
+  b 1 haveA! setB
+
+  1 -
+  f 1 haveB! setF
+
+  1 -
+  c 1 haveF! setC
+
+  1 -
+  h 1 haveC!
+
+  1 -
+  e E haveC!
+
+CMD move_west
+ MATCH1
+  FOR s -m
+   s1 1s
+
+  a1 1- setA
+
+  b1 1- haveA! setB
+
+  f1 1- haveB! setF
+
+  c1 1- haveF! setC
+
+  h1 1- haveC!
+
+  e1 E- haveC!
+
+CMD move_east
+ MATCH1
+  FOR s -m
+   1s s1
+
+  1a -1 setA
+
+  1b -1 haveA! setB
+
+  1f -1 haveB! setF
+
+  1c -1 haveF! setC
+
+  1h -1 haveC!
+
+  1e -E haveC!
