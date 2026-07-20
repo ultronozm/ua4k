@@ -135,6 +135,35 @@ shift the current line."
                 definitions))
         (nreverse definitions)))))
 
+(cl-defmethod xref-backend-references ((_backend (eql 'ua4k-dsl)) identifier)
+  (save-excursion
+    (goto-char (point-min))
+    (let* ((rotate-definition
+            (re-search-forward
+             (format "^[ \\t]*ROTATE_CMDS[ \\t]+%s\\_>"
+                     (regexp-quote identifier))
+             nil t))
+           (names (if rotate-definition
+                      (mapcar (lambda (suffix) (concat identifier suffix))
+                              '("_e" "_s" "_w" "_n"))
+                    (list identifier)))
+           (regexp (concat "\\_<" (regexp-opt names t) "\\_>"))
+           references)
+      (goto-char (point-min))
+      (while (re-search-forward regexp nil t)
+        (unless (save-excursion
+                  (goto-char (line-beginning-position))
+                  (looking-at-p "[ \\t]*\\(?:;;\\|CMD\\_>\\|ROTATE_CMDS\\_>\\)"))
+          (let ((position (match-beginning 0))
+                (summary (buffer-substring-no-properties
+                          (line-beginning-position) (line-end-position))))
+            (push (xref-make (replace-regexp-in-string
+                              "\\`[ \\t]*\\|[ \\t]*\\'" "" summary)
+                             (xref-make-buffer-location
+                              (current-buffer) position))
+                  references))))
+      (nreverse references))))
+
 (defvar ua4k-dsl-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-b") #'ua4k-play-buffer)
