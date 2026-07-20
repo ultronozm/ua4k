@@ -29,6 +29,7 @@
 
 (autoload 'ua4k-play-buffer "ua4k" nil t)
 (autoload 'ua4k-play-region "ua4k" nil t)
+(require 'xref)
 
 (defgroup ua4k-dsl nil
   "Editing UA4K game DSL files."
@@ -109,6 +110,31 @@ shift the current line."
     (setq count (if count (prefix-numeric-value count) ua4k-dsl-indent-offset))
     (indent-rigidly start end count)))
 
+(defun ua4k-dsl--xref-backend ()
+  "Return the xref backend for a UA4K DSL buffer."
+  'ua4k-dsl)
+
+(cl-defmethod xref-backend-identifier-at-point ((_backend (eql 'ua4k-dsl)))
+  (thing-at-point 'symbol t))
+
+(cl-defmethod xref-backend-definitions ((_backend (eql 'ua4k-dsl)) identifier)
+  (let ((names (list identifier)))
+    (when (string-match "\\`\\(.+\\)_[eswn]\\'" identifier)
+      (push (match-string 1 identifier) names))
+    (save-excursion
+      (goto-char (point-min))
+      (let ((regexp (format "^[ \\t]*\\(?:CMD[ \\t]+%s\\|ROTATE_CMDS[ \\t]+%s\\)\\_>"
+                            (regexp-quote identifier)
+                            (regexp-opt names t)))
+            definitions)
+        (while (re-search-forward regexp nil t)
+          (push (xref-make (replace-regexp-in-string
+                            "\\`[ \\t]*" "" (match-string 0))
+                           (xref-make-buffer-location
+                            (current-buffer) (line-beginning-position)))
+                definitions))
+        (nreverse definitions)))))
+
 (defvar ua4k-dsl-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-b") #'ua4k-play-buffer)
@@ -124,6 +150,7 @@ shift the current line."
   (setq-local comment-start ";; ")
   (setq-local comment-start-skip ";;+\\s-*")
   (setq-local font-lock-defaults '(ua4k-dsl-font-lock-keywords))
+  (add-hook 'xref-backend-functions #'ua4k-dsl--xref-backend nil t)
   (setq-local imenu-generic-expression 
               '((nil "^\\(CMD\\|ROTATE_CMDS\\)\\s-+\\([^[:space:]]+\\)" 2))))
 
