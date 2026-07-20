@@ -15,10 +15,6 @@
     "w": {
       "command": "move_n",
       "description": "slide north"
-    },
-    "z": {
-      "command": "wait",
-      "description": "wait"
     }
   },
   "charMap": {},
@@ -36,7 +32,7 @@
     "x": "#2f3b52"
   },
   "gameAuthor": null,
-  "gameDescription": null,
+  "gameDescription": "Choose a direction and glide until something stops you. Collect k to pass g, and be careful with fragile * ice: crossing it leaves deadly water behind.",
   "gameTitle": "Ice Slides",
   "globalTick": null,
   "goals": [
@@ -55,7 +51,9 @@
         "xe--x--x",
         "xxxxxxxx"
       ],
-      "description": "Warm-up glide: walls are your brakes. You only stop when something solid catches you."
+      "description": "Warm-up glide: walls are your brakes. You only stop when something solid catches you.",
+      "minMoves": 7,
+      "title": "First Brake"
     },
     {
       "board": [
@@ -66,7 +64,9 @@
         "x1x-x--x",
         "xxxxxxxx"
       ],
-      "description": "Cornering: the route is short, but the stopping pattern is not obvious."
+      "description": "The route is short, but the stopping pattern is not obvious.",
+      "minMoves": 9,
+      "title": "Cornering"
     },
     {
       "board": [
@@ -77,7 +77,9 @@
         "x----kx-1x",
         "xxxxxxxxxx"
       ],
-      "description": "Key route: touching k upgrades you to 2, and only 2 can pass through g."
+      "description": "Touching k upgrades you to 2, and only 2 can pass through g.",
+      "minMoves": 11,
+      "title": "Cold Key"
     },
     {
       "board": [
@@ -88,56 +90,87 @@
         "x---x1---x",
         "xxxxxxxxxx"
       ],
-      "description": "Gate timing: you need the key, but the real puzzle is choosing the right stopping walls after the gate."
+      "description": "You need the key, but the real puzzle is choosing the right stopping walls after the gate.",
+      "minMoves": 10,
+      "title": "Gate Timing"
     },
     {
       "board": [
-        "xxxxxxxxxx",
-        "x-k------x",
-        "x-------xx",
-        "xxx*-eg--x",
-        "x1-------x",
-        "x----x---x",
-        "xxxxxxxxxx"
+        "xxxxxxxxx",
+        "x-----xex",
+        "x------gx",
+        "x-x-----x",
+        "x-k*--1-x",
+        "x-x----xx",
+        "xxxxxxxxx"
       ],
-      "description": "Fragile ice: the * tile is a one-shot pivot. Melt it at the wrong time and the whole right side becomes poisonous."
+      "description": "Slide west across the fragile tile to collect the key. It melts behind you, so the obvious eastbound return is deadly; circle around to approach the gate from below.",
+      "minMoves": 8,
+      "title": "No Return"
     },
     {
       "board": [
-        "xxxxxxxxxx",
-        "x--k-x---x",
-        "x1-------x",
-        "xx--x----x",
-        "x---e*---x",
-        "x---g--x-x",
-        "xxxxxxxxxx"
+        "xxxxxxxxx",
+        "x------xx",
+        "xx-----xx",
+        "xx--eg--x",
+        "x-------x",
+        "x1--*k-xx",
+        "xxxxxxxxx"
       ],
-      "description": "Mixed route: the exit is visible early, but the real problem is sequencing the key, gate, and one-shot ice pivot."
+      "description": "The key and fragile tile share one launch lane. Crossing them cuts off the direct return, so use the middle lane to approach the gate from the other side.",
+      "minMoves": 10,
+      "title": "Burned Bridge"
     },
     {
       "board": [
-        "xxxxxxxxxxx",
-        "x--x------x",
-        "x------1--x",
-        "x---xx----x",
-        "xx----g-e-x",
-        "x----x-k-*x",
-        "xxxxxxxxxxx"
+        "xxxxxxxxx",
+        "x--xkxx-x",
+        "xeg-----x",
+        "xx---x--x",
+        "x--x--xxx",
+        "x1-*-x--x",
+        "xxxxxxxxx"
       ],
-      "description": "Hard route: the fragile tile only helps if you arrive with the right momentum after the gate."
+      "description": "Collect the key in the upper pocket before touching the lower ice. Once that lane becomes water, reaching the gate requires a reverse approach.",
+      "minMoves": 12,
+      "title": "Late Crack"
     },
     {
       "board": [
-        "xxxxxxxxxxx",
-        "x---x---1xx",
-        "x-----x-*-x",
-        "x--------gx",
-        "x---x-----x",
-        "xk--e-----x",
-        "x------x--x",
-        "xxxxxxxxxxx"
+        "xxxxxxxxxxxxx",
+        "x-x----x--xxx",
+        "x-----xx----x",
+        "x----x-x-x--x",
+        "xx-----x--xex",
+        "x--k--xx-*-xx",
+        "x--x---xx---x",
+        "x-*--1-g----x",
+        "x---x-xx-x-xx",
+        "xxxxxxxxxxxxx"
       ],
-      "description": "Finale: a larger mixed board where the key, gate, and fragile ice all interact through stopping geometry rather than raw maze length."
+      "description": "Fragile pivots offer routes through opposite halves of the board. The key is easy to see; preserving a safe approach through the gate is the puzzle.",
+      "minMoves": 20,
+      "title": "Crosscurrent"
+    },
+    {
+      "board": [
+        "xxxxxxxxxxxxxxx",
+        "xk--x----xx--xx",
+        "x--xx---xx----x",
+        "xx--x-x--g--x-x",
+        "x---x----xx-x-x",
+        "xx*-x-x--x--xxx",
+        "x---g----x----x",
+        "x-1-x----x--x-x",
+        "x---x---*xe-x-x",
+        "x-x-x-x--x-*x-x",
+        "x---x-k--x----x",
+        "xxxxxxxxxxxxxxx"
+      ],
+      "description": "Two keys, two gates, and three shortest-route melts form one chained route. A locally convenient slide can flood the safe lane needed after the next lock.",
+      "minMoves": 21,
+      "title": "Lock Cascade"
     }
   ],
   "rules": {
@@ -756,38 +789,6 @@
               "side_effects": [],
               "to": [
                 "E-"
-              ],
-              "type": "simple"
-            }
-          ],
-          "type": "match1"
-        }
-      ],
-      "type": "match1"
-    },
-    "wait": {
-      "rules": [
-        {
-          "rules": [
-            {
-              "from": [
-                "1"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "1"
-              ],
-              "type": "simple"
-            },
-            {
-              "from": [
-                "2"
-              ],
-              "method": "firstmatch",
-              "side_effects": [],
-              "to": [
-                "2"
               ],
               "type": "simple"
             }

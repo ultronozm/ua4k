@@ -1,8 +1,9 @@
 # Plan: 10 New Games for UA4K
 
-> **Status (2026-07): historical.** This plan is kept for reference. Several of
-> the proposed games shipped (ice-slides, dockstep, signal-relay), others were
-> superseded by different designs (clockwise, lantern-trail, phase-shift). The
+> **Status (2026-07): historical.** This plan is kept for reference. Dockstep
+> shipped; Ice Slides and Signal Relay remain playtest candidates under
+> `games/experiments/`; other proposals were superseded by different designs
+> (Clockwise, Lantern Trail, Phase Shift). The
 > runtime smoke idea landed as the solver-based `verify_minmoves.js` check
 > rather than a Playwright harness, and `run_all_checks.py` became `make check`.
 

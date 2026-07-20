@@ -44,9 +44,9 @@ This is a lightweight working roadmap, not a release promise.
 
 - Do not rewrite the parser in Rust unless Python parser performance or
   packaging becomes a real blocker.
-- Do not publish =Clockwise= just because it is mechanically verified. It is
-  still in =games/wip/= because the puzzle set does not yet have the depth of
-  the strongest =game.txt= and =dockstep.txt= levels.
+- Do not publish the candidate games under =games/experiments/= until they
+  have been played by a human. Exact solver proofs and mutation audits are
+  necessary authoring checks, not substitutes for playtesting.
 - Do not spend time simplifying =games/toys/life.txt= under the old "24
   neighbor rules" premise. Current =life.txt= already uses =FOR= + =ROTATE= +
   =REPEAT= for neighbor counting; any further cleanup needs a specific,

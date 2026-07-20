@@ -189,7 +189,7 @@ ROTATE_CMDS move
  1- -1
 ```
 
-See `games/wip/ice-slides.txt` and `games/wip/lantern-trail.txt` for larger
+See `games/experiments/ice-slides.txt` and `games/wip/lantern-trail.txt` for larger
 examples of `ROTATE_CMDS`.
 
 ## Good Example Files

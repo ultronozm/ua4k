@@ -1,0 +1,218 @@
+GOAL
+A
+
+GOAL
+B
+
+COLOR x #444444
+COLOR - #aaaaaa
+COLOR 1 #3366ff
+COLOR 2 #ff7733
+COLOR a #66cccc
+COLOR b #cc66cc
+COLOR A #00aa66
+COLOR B #00aa66
+COLOR k #dddd55
+COLOR g #884422
+COLOR # #cc3333
+
+TITLE Deadlock Protocol
+
+DESCRIPTION Move two drones in lockstep. A drone crosses a gate only when its partner simultaneously spends the paired key; the gate then seals into a permanent wall. An x wall stops only the drone that hits it, while a # force field cancels the whole shared move.
+
+xxxxxxxxx
+x1g--a--x
+x2k-b---x
+xxxxxxxxx
+
+TITLE Handshake
+
+DESCRIPTION Press east when drone 1 faces the gate and drone 2 faces the key. The same input spends the key, passes the gate, and seals a wall behind drone 1.
+
+MINMOVES 3
+
+xxxxxxxxxx
+x1g---a--x
+x2k-b----x
+xxxxxxxxxx
+
+TITLE Backstep
+
+DESCRIPTION Commit east, then back up once. The new wall holds drone 1 while drone 2 gains the extra column needed by the pads.
+
+MINMOVES 5
+
+xxxxxxxxxxxxx
+x1g--g---a--x
+x2kk-b------x
+xxxxxxxxxxxxx
+
+TITLE Double Commit
+
+DESCRIPTION After each transaction, back up once against the new wall. Each seal adds another column of separation, preparing the next key and finally the delivery pads.
+
+MINMOVES 8
+
+xxxxxxxxx
+x----1--x
+x--k--bax
+x----g-2x
+x------#x
+xxxxxxxxx
+
+TITLE Hard Stop
+
+DESCRIPTION The red force field beneath drone 2 cancels a shared south move; it cannot hold one drone like a gray wall. Route around it, commit west, then use the new seal to advance drone 1 alone.
+
+MINMOVES 12
+
+xxxxxxxxxxxxx
+x#-#--1-#--#x
+x#-a----#---x
+x#--##---k--x
+x##----#-b#-x
+x-----------x
+x2---------#x
+x-----g-----x
+xxxxxxxxxxxxx
+
+TITLE Commit Point
+
+DESCRIPTION A compact transaction: synchronize the key spend, accept the new wall, and still deliver both drones together.
+
+MINMOVES 24
+xxxxxxxxxxxxx
+x---------#-x
+x--#--g-----x
+x##--k-1----x
+x---------#-x
+x#-b---a----x
+x------#----x
+x----2#-----x
+xxxxxxxxxxxxx
+
+TITLE Race Condition
+
+DESCRIPTION A central start creates many symmetric-looking lines. Build the offset first; only one simultaneous key-and-gate contact preserves both pad approaches.
+
+MINMOVES 25
+xxxxxxxxxxxxx
+x#-----#--2-x
+x--#----g---x
+x#----b-----x
+x-#-#---##k-x
+x--g----#---x
+x1--------a-x
+x----k--#---x
+xxxxxxxxxxxxx
+
+TITLE Mutual Exclusion
+
+DESCRIPTION The pads are close, but the useful blockers are not. Establish the final offset before spending either key.
+
+MINMOVES 25
+xxxxxxxxxxxxx
+x----1---#--x
+x---k--g--#2x
+x#----------x
+x-#a--------x
+x-----------x
+x-g-----#---x
+x##-b---k---x
+xxxxxxxxxxxxx
+
+TITLE Split Authority
+
+DESCRIPTION Open space does not mean freedom when both drones share every command. Route around the force fields until an ordinary wall can hold one drone while the other advances.
+
+MINMOVES 25
+xxxxxxxxxxxxx
+x-#-k--#----x
+xgk-g------1x
+x-----------x
+x------#----x
+x-b-#-2--#--x
+x----###----x
+x#--#-#---a-x
+xxxxxxxxxxxxx
+
+TITLE Burn Notice
+
+DESCRIPTION Two adjacent gates make the upper lane look decisive. The real solution depends on delaying which wall gets burned into place.
+
+MINMOVES 36
+xxxxxxxxxxxxx
+x----k------x
+x--#-1-ag---x
+x-b-##-#----x
+x-----#-----x
+x---#------#x
+x---#----2--x
+x---------#-x
+xxxxxxxxxxxxx
+
+TITLE Escrow
+
+DESCRIPTION The gate can be paid only when the other drone reaches the distant key on the same input. Build that alignment without losing either pad approach.
+
+MINMOVES 37
+xxxxxxxxxxxxx
+x--b-------#x
+x#--------#-x
+x-#-k2-g---#x
+x#---a#-----x
+x----##----#x
+x--#----#---x
+x1----#-g--kx
+xxxxxxxxxxxxx
+
+TITLE Counterparty
+
+DESCRIPTION Keys and gates occupy different timing lanes. Route each drone by thinking about what the other must be touching on the same turn.
+
+MINMOVES 39
+xxxxxxxxxxxxx
+x-2#-------1x
+x----gk----#x
+x##---#-#---x
+x----##-----x
+x---##ak-#--x
+xg---#--b---x
+x-----------x
+xxxxxxxxxxxxx
+
+TITLE Event Horizon
+
+DESCRIPTION The drones begin on opposite rims of a broken arena. Every useful alignment changes which sealed corridor can still be crossed.
+
+MINMOVES 59
+BIND w move_n "north" s move_s "south" a move_w "west" d move_e "east"
+
+ROTATE_CMDS move
+ ATOMIC
+  1- -1
+
+  2- -2
+
+ ATOMIC
+  1a -A
+
+  2b -B
+
+ ZIP p 12 q 21
+  ;; Passing a gate consumes the paired key and leaves a hard wall behind.
+  ATOMIC
+   pg- -xp
+
+   qk -q
+
+  ;; Keys cannot be banked in advance.
+  FOR s -
+   ATOMIC
+    ps -p
+
+    qx qx
+
+ 12- -12
+
+ 21- -21

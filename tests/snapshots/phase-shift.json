@@ -1,0 +1,649 @@
+{
+  "binds": {
+    "a": {
+      "command": "move_w",
+      "description": "west"
+    },
+    "d": {
+      "command": "move_e",
+      "description": "east"
+    },
+    "s": {
+      "command": "move_s",
+      "description": "south"
+    },
+    "w": {
+      "command": "move_n",
+      "description": "north"
+    }
+  },
+  "charMap": {},
+  "colorMap": {
+    "-": "#d9e2ec",
+    "1": "#e74c3c",
+    "2": "#3498db",
+    "E": "#2ecc71",
+    "X": "#cc0000",
+    "b": "#2471a3",
+    "e": "#16a085",
+    "p": "#9b59b6",
+    "r": "#c0392b",
+    "x": "#263445"
+  },
+  "gameAuthor": null,
+  "gameDescription": "Red crosses r walls and blue crosses b walls. Violet p inverters are consumed when they change your phase; crossing a matching wall leaves it behind you, and later loops may meet it in a new place.",
+  "gameTitle": "Phase Shift",
+  "globalTick": null,
+  "goals": [
+    [
+      "E"
+    ]
+  ],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "xxxxxxxxx",
+        "x1-p-b-ex",
+        "xxxxxxxxx"
+      ],
+      "description": "Cross the violet inverter to become blue, then pass the blue wall and reach the exit.",
+      "minMoves": 6,
+      "title": "First Inversion"
+    },
+    {
+      "board": [
+        "xxxxxxx",
+        "x1r-p-x",
+        "xxxxx-x",
+        "xxxeb-x",
+        "xxxxxxx"
+      ],
+      "description": "Begin red, carry the red wall behind you, then invert to blue for the second half of the corridor.",
+      "minMoves": 8,
+      "title": "Full Spectrum"
+    },
+    {
+      "board": [
+        "xxxxxxx",
+        "x1p-b-x",
+        "xxxxx-x",
+        "xer-p-x",
+        "xxxxxxx"
+      ],
+      "description": "Two inverters force a complete red-blue-red cycle. Their phase changes are part of the map, not an extra command.",
+      "minMoves": 10,
+      "title": "Double Inversion"
+    },
+    {
+      "board": [
+        "xxxxxxxxx",
+        "x--br1p-x",
+        "xexx----x",
+        "xxxxxxxxx"
+      ],
+      "description": "The nearby inverter controls a tight return around the upper hook. Reach the exit from the east while the wall colors shift behind you.",
+      "minMoves": 11,
+      "title": "Return Ticket"
+    },
+    {
+      "board": [
+        "xxxxxxxx",
+        "xx---x-x",
+        "x---xx-x",
+        "x-x--xxx",
+        "xxbrr-1x",
+        "xe-xp-xx",
+        "xxxxxxxx"
+      ],
+      "description": "A tight lower loop forces one inversion and a blue crossing before the exit can be approached from the correct side.",
+      "minMoves": 12,
+      "title": "Relay Glass"
+    },
+    {
+      "board": [
+        "xxxxxxxx",
+        "xx-----x",
+        "xxr--pxx",
+        "xebx-1xx",
+        "xx-xxx-x",
+        "xxxxxxxx"
+      ],
+      "description": "Enter the upper pocket for its inverter, then thread the compact red-and-blue choke toward the exit.",
+      "minMoves": 14,
+      "title": "Side Channel"
+    },
+    {
+      "board": [
+        "xxxxxxxxx",
+        "x-e---xxx",
+        "xbxxxxx-x",
+        "xr-1---xx",
+        "x--xpx--x",
+        "xxxxxx-xx",
+        "xxxxxxxxx"
+      ],
+      "description": "The exit is close in geometry and far in state. The inverter loop turns a short walk into two distinct phase routes.",
+      "minMoves": 15,
+      "title": "Crosscurrent"
+    },
+    {
+      "board": [
+        "xxxxxxxx",
+        "xx-x-p-x",
+        "x--xr--x",
+        "x--br-xx",
+        "x---x-1x",
+        "x-e-x-xx",
+        "xxxxxxxx"
+      ],
+      "description": "Two red walls share a cramped loop. Move them in the wrong order and the route back from the inverter closes.",
+      "minMoves": 17,
+      "title": "Parallax"
+    },
+    {
+      "board": [
+        "xxxxxxxx",
+        "x------x",
+        "xxpx--xx",
+        "x-r1x-rx",
+        "x--bpxex",
+        "x--xx--x",
+        "xxxxxxxx"
+      ],
+      "description": "Both inverters matter. The route changes phase twice, revisits the red choke, then returns to red for the final approach.",
+      "minMoves": 18,
+      "title": "Double Exposure"
+    },
+    {
+      "board": [
+        "xxxxxxxx",
+        "x------x",
+        "xr--r-px",
+        "xbxx---x",
+        "x--x-xxx",
+        "xex-1--x",
+        "xxxxxxxx"
+      ],
+      "description": "The shortest routes loop around two red walls and one mandatory inverter, with phase alignment changing as the walls shift.",
+      "minMoves": 21,
+      "title": "Afterimage"
+    },
+    {
+      "board": [
+        "xxxxxxxx",
+        "xxxx1p-x",
+        "x-ex---x",
+        "xrxx-x-x",
+        "x--x---x",
+        "x-b-bp-x",
+        "xx--x--x",
+        "xxxxxxxx"
+      ],
+      "description": "Two blue walls and two mandatory inverters form a red-blue-red circuit through overlapping corridors.",
+      "minMoves": 21,
+      "title": "Interference"
+    },
+    {
+      "board": [
+        "xxxxxxx",
+        "x---1xx",
+        "xx---xx",
+        "x---pxx",
+        "x--xxxx",
+        "x--r-bx",
+        "xx--xex",
+        "xxxxxxx"
+      ],
+      "description": "Descend through the inverter chamber, cross both wall colors, and approach the exit in the only usable phase.",
+      "minMoves": 22,
+      "title": "Refraction"
+    },
+    {
+      "board": [
+        "xxxxxxxxx",
+        "x-x---xxx",
+        "xe-xxx1px",
+        "x--x-x-xx",
+        "x-br---xx",
+        "x-x----xx",
+        "xxxxxxxxx"
+      ],
+      "description": "The compact finale forces an inverter, both wall colors, and a spatial revisit through a route with many deceptively similar branches.",
+      "minMoves": 23,
+      "title": "Eventide"
+    }
+  ],
+  "rules": {
+    "move_e": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1r"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "r1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2b"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "b2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1p"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2p"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1e"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-E"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2e"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-E"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_n": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "-",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "r",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "r"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "b",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "b"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "p",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "p",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "e",
+                "1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "E",
+                "-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "e",
+                "2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "E",
+                "-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_s": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "1",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "-"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "r"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "r",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "b"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "b",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "p"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "p"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "1",
+                "e"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "E"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "2",
+                "e"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "-",
+                "E"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
+    "move_w": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "-1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "-2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "r1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1r"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "b2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2b"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "p1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "2-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "p2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "e1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "E-"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "e2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "E-"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [
+    [
+      "X"
+    ]
+  ],
+  "whitespaceChars": []
+}

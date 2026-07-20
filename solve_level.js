@@ -17,6 +17,7 @@ function runAction(context, board, key) {
 }
 
 function solveLevel(context, actions, maxDepth, maxStates) {
+  harness.prepareSolverContext(context);
   const startBoard = harness.getBoard(context);
   if (harness.levelComplete(context)) {
     return { sequence: '', explored: 0 };

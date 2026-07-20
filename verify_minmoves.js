@@ -11,10 +11,11 @@
 // reported as skipped rather than failed, so a slow level cannot flake CI —
 // but the skip is printed loudly.
 //
-// usage: node verify_minmoves.js [max-states-per-level]
+// usage: node verify_minmoves.js [max-states-per-level] [--include-experiments]
 
 const fs = require('fs');
 const path = require('path');
+const { spawnSync } = require('child_process');
 
 const harness = require('./node_harness.js');
 const { solveLevel } = require('./solve_level.js');
@@ -35,13 +36,32 @@ function usesTick(data) {
   return (data.levels || []).some((level) => level.tickInterval);
 }
 
+function solveIsolated(root, gameFile, levelIndex, claimed, maxStates) {
+  const result = spawnSync(
+    process.execPath,
+    ['solve_level.js', path.relative(root, gameFile), String(levelIndex), String(claimed), String(maxStates)],
+    { cwd: root, encoding: 'utf8', maxBuffer: 16 * 1024 * 1024 }
+  );
+  if (result.error) {
+    throw result.error;
+  }
+  const text = (result.stdout || '').trim();
+  if (!text) {
+    throw new Error(`isolated solver produced no output for ${path.relative(root, gameFile)} level ${levelIndex}: ${(result.stderr || '').trim()}`);
+  }
+  return JSON.parse(text);
+}
+
 function main() {
-  const maxStates = Number(process.argv[2] || 800000);
+  const args = process.argv.slice(2);
+  const includeExperiments = args.includes('--include-experiments');
+  const maxStatesArg = args.find((arg) => !arg.startsWith('--'));
+  const maxStates = Number(maxStatesArg || 800000);
   const root = process.cwd();
 
   const gameFiles = harness.findGameFiles(path.join(root, 'games'))
     .filter((file) => !file.includes(`${path.sep}legacy${path.sep}`))
-    .filter((file) => !file.includes(`${path.sep}experiments${path.sep}`))
+    .filter((file) => includeExperiments || !file.includes(`${path.sep}experiments${path.sep}`))
     .filter((file) => /^MINMOVES\b/m.test(fs.readFileSync(file, 'utf8')))
     .sort();
 
@@ -75,7 +95,12 @@ function main() {
         return;
       }
       harness.setLevel(context, index);
-      const result = solveLevel(context, actions, claimed, maxStates);
+      // Deep levels are isolated so V8 can return the runtime/solver heap to
+      // the OS between searches. This keeps genuinely large verified puzzles
+      // from making the all-games check depend on garbage-collection timing.
+      const result = claimed >= 35
+        ? solveIsolated(root, gameFile, index, claimed, maxStates)
+        : solveLevel(context, actions, claimed, maxStates);
       if (result.sequence != null) {
         if (result.sequence.length === claimed) {
           checked += 1;

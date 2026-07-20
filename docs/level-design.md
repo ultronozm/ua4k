@@ -3,7 +3,7 @@
 `docs/creating-games.md` teaches the DSL syntax. This document teaches the
 *method*: how to design levels that are provably solvable, honestly rated,
 and hard for the right reasons. It is the workflow that produced Clockwise's
-eighteen levels, written down so the next game can start from it.
+seventeen levels, written down so the next game can start from it.
 
 The core loop is:
 
