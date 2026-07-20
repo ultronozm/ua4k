@@ -41,6 +41,19 @@ CMD demo_rotate_pair_orbit
   ROTATE >v<^ /\
    >/ -\
 
+CMD demo_flip
+ MATCH1
+  FLIP_HORIZONTAL
+   FLIP_VERTICAL
+    12 34
+    56 78
+
+  FLIP_HORIZONTAL
+   ATOMIC
+    ab cd
+
+    CALL lock
+
 ROTATE_CMDS move >v<^
  MATCH1
   ATOMIC

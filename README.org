@@ -196,6 +196,7 @@ Important DSL ideas:
 - =ATOMIC= rolls back a group if any child rule fails.
 - =MATCH1= tries children until one succeeds.
 - =ROTATE= and =ROTATE_CMDS= generate directional rule variants.
+- =FLIP_HORIZONTAL= and =FLIP_VERTICAL= generate reflected rule variants.
 
 * Browser Data Notes
 

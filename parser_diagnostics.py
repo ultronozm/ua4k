@@ -46,6 +46,10 @@ CASES = [
         "invalid-orbit.txt",
         "invalid-orbit.txt:7: error: ROTATE orbit 'abc' must have length 2 or 4",
     ),
+    (
+        "invalid-flip.txt",
+        "invalid-flip.txt:1: error: FLIP_HORIZONTAL must appear inside CMD or a rule block",
+    ),
 ]
 
 

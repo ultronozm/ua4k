@@ -30,6 +30,8 @@ RULE_BLOCK_DIRECTIVES = {
     "ZIP",
     "LET_REPEAT",
     "ROTATE",
+    "FLIP_HORIZONTAL",
+    "FLIP_VERTICAL",
     "ATOMIC",
     "ATOMIC_VERTICAL",
     "ATOMIC_HORIZONTAL",
@@ -366,6 +368,14 @@ def rotate_grid(grid_rows: list[str], step: int) -> list[str]:
     return rotated
 
 
+def flip_grid(grid_rows: list[str], axis: str) -> list[str]:
+    if axis == "horizontal":
+        return ["".join(reversed(row)) for row in grid_rows]
+    if axis == "vertical":
+        return list(reversed(grid_rows))
+    raise ValueError(f"unknown flip axis: {axis!r}")
+
+
 def apply_orbits_to_pattern_rows(rows: list[str], orbits: list[str], step: int) -> list[str]:
     if not orbits:
         return list(rows)
@@ -424,6 +434,24 @@ def expand_rotate_subtree(rule: dict, step: int, orbits: list[str], rewrite_suff
         return
 
     fail(rule.get("line_no", 0), f"unknown rule type during ROTATE expansion: {rule_type!r}")
+
+
+def expand_flip_subtree(rule: dict, axis: str) -> None:
+    rule_type = rule["type"]
+    if rule_type == "simple":
+        rule["from"] = flip_grid(rule["from"], axis)
+        rule["to"] = flip_grid(rule["to"], axis)
+        return
+
+    if rule_type == "call":
+        return
+
+    if rule_type in {"atomic", "match1", "try_all", "random", "repeat", "cmd"}:
+        for child in rule["rules"]:
+            expand_flip_subtree(child, axis)
+        return
+
+    fail(rule.get("line_no", 0), f"unknown rule type during FLIP expansion: {rule_type!r}")
 
 
 def validate_simple_rule_buffer(buffer: RuleBuffer) -> None:
@@ -553,6 +581,15 @@ def process_rule_stack_to_level(state: ParseState, level: int) -> None:
                 for child in rule["rules"]:
                     modified = copy.deepcopy(child)
                     expand_rotate_subtree(modified, step, rule["orbits"], rewrite_suffixes=True)
+                    add_rule(state, modified)
+            continue
+
+        if rule_type == "flip":
+            for flipped in (False, True):
+                for child in rule["rules"]:
+                    modified = copy.deepcopy(child)
+                    if flipped:
+                        expand_flip_subtree(modified, rule["axis"])
                     add_rule(state, modified)
             continue
 
@@ -749,6 +786,16 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
         orbits = parts[1:]
         ensure_orbits(orbits, line_no, "ROTATE")
         state.rules_stack.append({"type": "rotate", "orbits": orbits, "rules": [], "line_no": line_no})
+        state.indent_stack.append(level)
+        return True
+
+    if head in {"FLIP_HORIZONTAL", "FLIP_VERTICAL"}:
+        ensure_rule_context(state, head, line_no)
+        expect_exact_arity(parts, 1, line_no, head)
+        level = token.indent + 1
+        process_rule_stack_to_level(state, level)
+        axis = "horizontal" if head == "FLIP_HORIZONTAL" else "vertical"
+        state.rules_stack.append({"type": "flip", "axis": axis, "rules": [], "line_no": line_no})
         state.indent_stack.append(level)
         return True
 

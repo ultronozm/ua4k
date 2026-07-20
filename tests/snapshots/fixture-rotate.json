@@ -27,6 +27,108 @@
     }
   ],
   "rules": {
+    "demo_flip": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "12",
+                "56"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "34",
+                "78"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "56",
+                "12"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "78",
+                "34"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "21",
+                "65"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "43",
+                "87"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "65",
+                "21"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "87",
+                "43"
+              ],
+              "type": "simple"
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    "ab"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "cd"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "name": "lock",
+                  "type": "call"
+                }
+              ],
+              "type": "atomic"
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    "ba"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "dc"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "name": "lock",
+                  "type": "call"
+                }
+              ],
+              "type": "atomic"
+            }
+          ],
+          "type": "match1"
+        }
+      ],
+      "type": "match1"
+    },
     "demo_rotate": {
       "rules": [
         {

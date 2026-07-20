@@ -192,6 +192,16 @@ ROTATE_CMDS move
 See `games/wip/ice-slides.txt` and `games/wip/lantern-trail.txt` for larger
 examples of `ROTATE_CMDS`.
 
+Use `FLIP_HORIZONTAL` and `FLIP_VERTICAL` when reflection, rather than
+quarter-turn rotation, preserves the rule's directional priority. Each emits
+the original rules first and the reflected rules second. Horizontal flips
+exchange left and right; vertical flips exchange top and bottom.
+
+```txt
+FLIP_HORIZONTAL
+ *-Z *Z-
+```
+
 ## Good Example Files
 
 - `games/polished/game.txt`: older but central example game.

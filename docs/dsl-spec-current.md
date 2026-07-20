@@ -15,7 +15,7 @@ It is descriptive, not aspirational. If behavior is surprising, this doc still r
   - Flush current `GOAL` block.
   - Flush current `VOID` block.
   - Flush an accumulated simple rule (`from`/`to` pattern pair list).
-- Indentation controls scope for compound rule constructs (`CMD`, `ROTATE_CMDS`, `ATOMIC`, `MATCH1`, `TRY_ALL`, `RANDOM`, `FOR`, `ZIP`, `LET_REPEAT`, `ROTATE`, `CALL`).
+- Indentation controls scope for compound rule constructs (`CMD`, `ROTATE_CMDS`, `ATOMIC`, `MATCH1`, `TRY_ALL`, `RANDOM`, `FOR`, `ZIP`, `LET_REPEAT`, `ROTATE`, `FLIP_HORIZONTAL`, `FLIP_VERTICAL`, `CALL`).
   - The parser maintains an indentation/rule stack and closes entries when indentation decreases (or equals) to the current level.
 
 ## 2. Top-Level Directives
@@ -46,6 +46,8 @@ Supported directives are:
 - `ZIP`
 - `LET_REPEAT`
 - `ROTATE`
+- `FLIP_HORIZONTAL`
+- `FLIP_VERTICAL`
 - `CALL`
 - `CALL_EACH`
 
@@ -119,6 +121,8 @@ Supported:
 - `ATOMIC_VERTICAL`
 - `ATOMIC_HORIZONTAL`
 - `ROTATE`
+- `FLIP_HORIZONTAL`
+- `FLIP_VERTICAL`
 
 All wrap a nested `rules` list. Runtime behavior:
 - `match1`: try children in order, stop on first success.
@@ -161,6 +165,15 @@ All wrap a nested `rules` list. Runtime behavior:
 - Applies to simple-rule patterns (`from`/`to`) only.
 - Rewrites command references and side-effect names ending in `_e` to directional step suffixes (`_e/_s/_w/_n`).
 - Names not ending in `_e` are unchanged.
+
+`FLIP_HORIZONTAL` and `FLIP_VERTICAL`:
+- Syntax: `FLIP_HORIZONTAL` or `FLIP_VERTICAL` inside a rule block.
+- Emit the original enclosed subtree children, followed by reflected copies.
+- `FLIP_HORIZONTAL` reverses every pattern row, exchanging left and right.
+- `FLIP_VERTICAL` reverses pattern-row order, exchanging top and bottom.
+- Both transforms apply identically to the `from` and `to` sides of simple
+  rules. Command calls and side-effect names are unchanged.
+- Nested flips expand in lexical order and can generate all four reflections.
 
 `ROTATE_CMDS`:
 - Syntax: `ROTATE_CMDS <base_name> [orbit1 orbit2 ...]` at top-level.

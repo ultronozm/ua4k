@@ -8020,51 +8020,6 @@
         },
         {
           "from": [
-            "*",
-            "?",
-            "r"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "*",
-            "?",
-            "r"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "?*",
-            "??",
-            "r?"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "?*",
-            "??",
-            "r?"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "??*",
-            "???",
-            "r??"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "??*",
-            "???",
-            "r??"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
             "*??",
             "??r"
           ],
@@ -8078,53 +8033,14 @@
         },
         {
           "from": [
-            "?*?",
-            "??r"
+            "*?",
+            "?r"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "?*?",
-            "??r"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "*",
-            "r"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "*",
-            "r"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "?*",
-            "r?"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "?*",
-            "r?"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "??*",
-            "r??"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "??*",
-            "r??"
+            "*?",
+            "?r"
           ],
           "type": "simple"
         },
@@ -8152,62 +8068,128 @@
         },
         {
           "from": [
-            "r*"
+            "??*",
+            "???",
+            "r??"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "r*"
+            "??*",
+            "???",
+            "r??"
           ],
           "type": "simple"
         },
         {
           "from": [
-            "r?*"
+            "??*",
+            "r??"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "r?*"
+            "??*",
+            "r??"
           ],
           "type": "simple"
         },
         {
           "from": [
-            "??r",
-            "*??"
+            "?*",
+            "??",
+            "r?"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "??r",
-            "*??"
+            "?*",
+            "??",
+            "r?"
           ],
           "type": "simple"
         },
         {
           "from": [
-            "?r",
-            "*?"
+            "?*",
+            "r?"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "?r",
-            "*?"
+            "?*",
+            "r?"
           ],
           "type": "simple"
         },
         {
           "from": [
-            "r",
-            "*"
+            "*",
+            "?",
+            "r"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "r",
-            "*"
+            "*",
+            "?",
+            "r"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "*",
+            "r"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "*",
+            "r"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "r??",
+            "???",
+            "??*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "r??",
+            "???",
+            "??*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "r?",
+            "??",
+            "?*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "r?",
+            "??",
+            "?*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "r??",
+            "??*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "r??",
+            "??*"
           ],
           "type": "simple"
         },
@@ -8226,14 +8208,23 @@
         },
         {
           "from": [
-            "r??",
-            "??*"
+            "r?*"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "r??",
-            "??*"
+            "r?*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "r*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "r*"
           ],
           "type": "simple"
         },
@@ -8254,6 +8245,19 @@
         },
         {
           "from": [
+            "??r",
+            "*??"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "??r",
+            "*??"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
             "?r",
             "??",
             "*?"
@@ -8263,6 +8267,19 @@
           "to": [
             "?r",
             "??",
+            "*?"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "?r",
+            "*?"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "?r",
             "*?"
           ],
           "type": "simple"
@@ -8284,31 +8301,14 @@
         },
         {
           "from": [
-            "r?",
-            "??",
-            "?*"
+            "r",
+            "*"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "r?",
-            "??",
-            "?*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "r??",
-            "???",
-            "??*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "r??",
-            "???",
-            "??*"
+            "r",
+            "*"
           ],
           "type": "simple"
         }
@@ -8743,22 +8743,6 @@
           "side_effects": [],
           "to": [
             "O2:.......................................|"
-          ],
-          "type": "simple"
-        }
-      ],
-      "type": "match1"
-    },
-    "register_clear": {
-      "rules": [
-        {
-          "from": [
-            "%:????????????????????????????"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "%:----------------------------"
           ],
           "type": "simple"
         }
@@ -24150,108 +24134,6 @@
         },
         {
           "from": [
-            "???Z",
-            "???-",
-            "????",
-            "*???"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "???-",
-            "???Z",
-            "????",
-            "*???"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "??-Z",
-            "????",
-            "????",
-            "*???"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "??Z-",
-            "????",
-            "????",
-            "*???"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "???*",
-            "????",
-            "-???",
-            "Z???"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "???*",
-            "????",
-            "Z???",
-            "-???"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "???*",
-            "????",
-            "????",
-            "Z-??"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "???*",
-            "????",
-            "????",
-            "-Z??"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z???",
-            "-???",
-            "????",
-            "???*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-???",
-            "Z???",
-            "????",
-            "???*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z-??",
-            "????",
-            "????",
-            "???*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-Z??",
-            "????",
-            "????",
-            "???*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
             "*??",
             "???",
             "??-",
@@ -24286,108 +24168,6 @@
         },
         {
           "from": [
-            "??Z",
-            "??-",
-            "???",
-            "*??"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "??-",
-            "??Z",
-            "???",
-            "*??"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "?-Z",
-            "???",
-            "???",
-            "*??"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "?Z-",
-            "???",
-            "???",
-            "*??"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "??*",
-            "???",
-            "-??",
-            "Z??"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "??*",
-            "???",
-            "Z??",
-            "-??"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "??*",
-            "???",
-            "???",
-            "Z-?"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "??*",
-            "???",
-            "???",
-            "-Z?"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z??",
-            "-??",
-            "???",
-            "??*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-??",
-            "Z??",
-            "???",
-            "??*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z-?",
-            "???",
-            "???",
-            "??*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-Z?",
-            "???",
-            "???",
-            "??*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
             "*?",
             "??",
             "?-",
@@ -24417,142 +24197,6 @@
             "??",
             "??",
             "Z-"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "?Z",
-            "?-",
-            "??",
-            "*?"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "?-",
-            "?Z",
-            "??",
-            "*?"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "-Z",
-            "??",
-            "??",
-            "*?"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "Z-",
-            "??",
-            "??",
-            "*?"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "?*",
-            "??",
-            "-?",
-            "Z?"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "?*",
-            "??",
-            "Z?",
-            "-?"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "?*",
-            "??",
-            "??",
-            "Z-"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "?*",
-            "??",
-            "??",
-            "-Z"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z?",
-            "-?",
-            "??",
-            "?*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-?",
-            "Z?",
-            "??",
-            "?*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z-",
-            "??",
-            "??",
-            "?*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-Z",
-            "??",
-            "??",
-            "?*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "*",
-            "?",
-            "-",
-            "Z"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "*",
-            "?",
-            "Z",
-            "-"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z",
-            "-",
-            "?",
-            "*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-",
-            "Z",
-            "?",
-            "*"
           ],
           "type": "simple"
         },
@@ -24588,96 +24232,6 @@
         },
         {
           "from": [
-            "???Z",
-            "???-",
-            "*???"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "???-",
-            "???Z",
-            "*???"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "??-Z",
-            "????",
-            "*???"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "??Z-",
-            "????",
-            "*???"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "???*",
-            "-???",
-            "Z???"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "???*",
-            "Z???",
-            "-???"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "???*",
-            "????",
-            "Z-??"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "???*",
-            "????",
-            "-Z??"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z???",
-            "-???",
-            "???*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-???",
-            "Z???",
-            "???*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z-??",
-            "????",
-            "???*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-Z??",
-            "????",
-            "???*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
             "*??",
             "??-",
             "??Z"
@@ -24708,96 +24262,6 @@
         },
         {
           "from": [
-            "??Z",
-            "??-",
-            "*??"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "??-",
-            "??Z",
-            "*??"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "?-Z",
-            "???",
-            "*??"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "?Z-",
-            "???",
-            "*??"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "??*",
-            "-??",
-            "Z??"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "??*",
-            "Z??",
-            "-??"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "??*",
-            "???",
-            "Z-?"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "??*",
-            "???",
-            "-Z?"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z??",
-            "-??",
-            "??*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-??",
-            "Z??",
-            "??*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z-?",
-            "???",
-            "??*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-Z?",
-            "???",
-            "??*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
             "*?",
             "?-",
             "?Z"
@@ -24823,126 +24287,6 @@
             "*?",
             "??",
             "Z-"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "?Z",
-            "?-",
-            "*?"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "?-",
-            "?Z",
-            "*?"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "-Z",
-            "??",
-            "*?"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "Z-",
-            "??",
-            "*?"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "?*",
-            "-?",
-            "Z?"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "?*",
-            "Z?",
-            "-?"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "?*",
-            "??",
-            "Z-"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "?*",
-            "??",
-            "-Z"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z?",
-            "-?",
-            "?*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-?",
-            "Z?",
-            "?*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z-",
-            "??",
-            "?*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-Z",
-            "??",
-            "?*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "*",
-            "-",
-            "Z"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "*",
-            "Z",
-            "-"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z",
-            "-",
-            "*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-",
-            "Z",
-            "*"
           ],
           "type": "simple"
         },
@@ -24974,84 +24318,6 @@
         },
         {
           "from": [
-            "???Z",
-            "*??-"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "???-",
-            "*??Z"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "??-Z",
-            "*???"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "??Z-",
-            "*???"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "-??*",
-            "Z???"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "Z??*",
-            "-???"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "???*",
-            "Z-??"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "???*",
-            "-Z??"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z???",
-            "-??*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-???",
-            "Z??*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z-??",
-            "???*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-Z??",
-            "???*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
             "*?-",
             "??Z"
           ],
@@ -25073,84 +24339,6 @@
           "to": [
             "*??",
             "?Z-"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "??Z",
-            "*?-"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "??-",
-            "*?Z"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "?-Z",
-            "*??"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "?Z-",
-            "*??"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "-?*",
-            "Z??"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "Z?*",
-            "-??"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "??*",
-            "Z-?"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "??*",
-            "-Z?"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z??",
-            "-?*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-??",
-            "Z?*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
-            "Z-?",
-            "??*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-Z?",
-            "??*"
           ],
           "type": "simple"
         },
@@ -25182,27 +24370,245 @@
         },
         {
           "from": [
-            "?Z",
-            "*-"
+            "???*",
+            "????",
+            "-???",
+            "Z???"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "?-",
-            "*Z"
+            "???*",
+            "????",
+            "Z???",
+            "-???"
           ],
           "type": "simple"
         },
         {
           "from": [
-            "-Z",
-            "*?"
+            "???*",
+            "????",
+            "????",
+            "Z-??"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "Z-",
-            "*?"
+            "???*",
+            "????",
+            "????",
+            "-Z??"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "??*",
+            "???",
+            "-??",
+            "Z??"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "??*",
+            "???",
+            "Z??",
+            "-??"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "??*",
+            "???",
+            "???",
+            "Z-?"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "??*",
+            "???",
+            "???",
+            "-Z?"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "?*",
+            "??",
+            "-?",
+            "Z?"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "?*",
+            "??",
+            "Z?",
+            "-?"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "?*",
+            "??",
+            "??",
+            "Z-"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "?*",
+            "??",
+            "??",
+            "-Z"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "???*",
+            "-???",
+            "Z???"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "???*",
+            "Z???",
+            "-???"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "???*",
+            "????",
+            "Z-??"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "???*",
+            "????",
+            "-Z??"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "??*",
+            "-??",
+            "Z??"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "??*",
+            "Z??",
+            "-??"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "??*",
+            "???",
+            "Z-?"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "??*",
+            "???",
+            "-Z?"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "?*",
+            "-?",
+            "Z?"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "?*",
+            "Z?",
+            "-?"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "?*",
+            "??",
+            "Z-"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "?*",
+            "??",
+            "-Z"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "-??*",
+            "Z???"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "Z??*",
+            "-???"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "???*",
+            "Z-??"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "???*",
+            "-Z??"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "-?*",
+            "Z??"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "Z?*",
+            "-??"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "??*",
+            "Z-?"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "??*",
+            "-Z?"
           ],
           "type": "simple"
         },
@@ -25229,6 +24635,520 @@
           "to": [
             "?*",
             "-Z"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "???Z",
+            "???-",
+            "????",
+            "*???"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "???-",
+            "???Z",
+            "????",
+            "*???"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "??-Z",
+            "????",
+            "????",
+            "*???"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "??Z-",
+            "????",
+            "????",
+            "*???"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "??Z",
+            "??-",
+            "???",
+            "*??"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "??-",
+            "??Z",
+            "???",
+            "*??"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "?-Z",
+            "???",
+            "???",
+            "*??"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "?Z-",
+            "???",
+            "???",
+            "*??"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "?Z",
+            "?-",
+            "??",
+            "*?"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "?-",
+            "?Z",
+            "??",
+            "*?"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "-Z",
+            "??",
+            "??",
+            "*?"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "Z-",
+            "??",
+            "??",
+            "*?"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "???Z",
+            "???-",
+            "*???"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "???-",
+            "???Z",
+            "*???"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "??-Z",
+            "????",
+            "*???"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "??Z-",
+            "????",
+            "*???"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "??Z",
+            "??-",
+            "*??"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "??-",
+            "??Z",
+            "*??"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "?-Z",
+            "???",
+            "*??"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "?Z-",
+            "???",
+            "*??"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "?Z",
+            "?-",
+            "*?"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "?-",
+            "?Z",
+            "*?"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "-Z",
+            "??",
+            "*?"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "Z-",
+            "??",
+            "*?"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "???Z",
+            "*??-"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "???-",
+            "*??Z"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "??-Z",
+            "*???"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "??Z-",
+            "*???"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "??Z",
+            "*?-"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "??-",
+            "*?Z"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "?-Z",
+            "*??"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "?Z-",
+            "*??"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "?Z",
+            "*-"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "?-",
+            "*Z"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "-Z",
+            "*?"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "Z-",
+            "*?"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z???",
+            "-???",
+            "????",
+            "???*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-???",
+            "Z???",
+            "????",
+            "???*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z-??",
+            "????",
+            "????",
+            "???*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-Z??",
+            "????",
+            "????",
+            "???*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z??",
+            "-??",
+            "???",
+            "??*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-??",
+            "Z??",
+            "???",
+            "??*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z-?",
+            "???",
+            "???",
+            "??*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-Z?",
+            "???",
+            "???",
+            "??*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z?",
+            "-?",
+            "??",
+            "?*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-?",
+            "Z?",
+            "??",
+            "?*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z-",
+            "??",
+            "??",
+            "?*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-Z",
+            "??",
+            "??",
+            "?*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z???",
+            "-???",
+            "???*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-???",
+            "Z???",
+            "???*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z-??",
+            "????",
+            "???*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-Z??",
+            "????",
+            "???*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z??",
+            "-??",
+            "??*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-??",
+            "Z??",
+            "??*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z-?",
+            "???",
+            "??*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-Z?",
+            "???",
+            "??*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z?",
+            "-?",
+            "?*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-?",
+            "Z?",
+            "?*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z-",
+            "??",
+            "?*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-Z",
+            "??",
+            "?*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z???",
+            "-??*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-???",
+            "Z??*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z-??",
+            "???*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-Z??",
+            "???*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z??",
+            "-?*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-??",
+            "Z?*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z-?",
+            "??*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-Z?",
+            "??*"
           ],
           "type": "simple"
         },
@@ -25261,6 +25181,38 @@
         {
           "from": [
             "*",
+            "?",
+            "-",
+            "Z"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "*",
+            "?",
+            "Z",
+            "-"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "*",
+            "-",
+            "Z"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "*",
+            "Z",
+            "-"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "*",
             "Z"
           ],
           "method": "firstmatch",
@@ -25268,6 +25220,38 @@
           "to": [
             "Z",
             "-"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z",
+            "-",
+            "?",
+            "*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-",
+            "Z",
+            "?",
+            "*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z",
+            "-",
+            "*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-",
+            "Z",
+            "*"
           ],
           "type": "simple"
         },
@@ -25297,17 +25281,6 @@
         },
         {
           "from": [
-            "Z-?*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-Z?*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
             "*-Z"
           ],
           "method": "firstmatch",
@@ -25319,23 +25292,34 @@
         },
         {
           "from": [
-            "Z-*"
-          ],
-          "method": "firstmatch",
-          "side_effects": [],
-          "to": [
-            "-Z*"
-          ],
-          "type": "simple"
-        },
-        {
-          "from": [
             "*Z"
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
             "Z-"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z-?*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-Z?*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "Z-*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-Z*"
           ],
           "type": "simple"
         },
