@@ -166,8 +166,10 @@ shift the current line."
             (let ((position (match-beginning 0))
                   (summary (buffer-substring-no-properties
                             (line-beginning-position) (line-end-position))))
-              (push (xref-make (replace-regexp-in-string
-                                "\\`[ \\t]*\\|[ \\t]*\\'" "" summary)
+              (push (xref-make (format "%d: %s"
+                                       (line-number-at-pos position)
+                                       (replace-regexp-in-string
+                                        "\\`[ \\t]*\\|[ \\t]*\\'" "" summary))
                                (xref-make-buffer-location
                                 (current-buffer) position))
                     references))))
