@@ -29,6 +29,7 @@
 
 (autoload 'ua4k-play-buffer "ua4k" nil t)
 (autoload 'ua4k-play-region "ua4k" nil t)
+(require 'cl-lib)
 (require 'xref)
 
 (defgroup ua4k-dsl nil
@@ -110,59 +111,91 @@ shift the current line."
     (setq count (if count (prefix-numeric-value count) ua4k-dsl-indent-offset))
     (indent-rigidly start end count)))
 
-(defun ua4k-dsl--xref-backend ()
-  "Return the xref backend for a UA4K DSL buffer."
-  'ua4k-dsl)
+(cl-defstruct ua4k-dsl--xref-backend buffer)
 
-(cl-defmethod xref-backend-identifier-at-point ((_backend (eql 'ua4k-dsl)))
-  (thing-at-point 'symbol t))
+(defun ua4k-dsl--xref-backend-at-point ()
+  "Return the xref backend for the current UA4K DSL buffer."
+  (make-ua4k-dsl--xref-backend :buffer (current-buffer)))
 
-(cl-defmethod xref-backend-definitions ((_backend (eql 'ua4k-dsl)) identifier)
-  (let ((names (list identifier)))
-    (when (string-match "\\`\\(.+\\)_[eswn]\\'" identifier)
-      (push (match-string 1 identifier) names))
+(cl-defmethod xref-backend-identifier-at-point
+  ((backend ua4k-dsl--xref-backend))
+  (with-current-buffer (ua4k-dsl--xref-backend-buffer backend)
+    (thing-at-point 'symbol t)))
+
+(cl-defmethod xref-backend-definitions
+  ((backend ua4k-dsl--xref-backend) identifier)
+  (with-current-buffer (ua4k-dsl--xref-backend-buffer backend)
+    (let ((names (list identifier)))
+      (when (string-match "\\`\\(.+\\)_[eswn]\\'" identifier)
+        (push (match-string 1 identifier) names))
+      (save-excursion
+        (goto-char (point-min))
+        (let ((regexp (format "^[ \\t]*\\(?:CMD[ \\t]+%s\\|ROTATE_CMDS[ \\t]+%s\\)\\_>"
+                              (regexp-quote identifier)
+                              (regexp-opt names t)))
+              definitions)
+          (while (re-search-forward regexp nil t)
+            (push (xref-make (replace-regexp-in-string
+                              "\\`[ \\t]*" "" (match-string 0))
+                             (xref-make-buffer-location
+                              (current-buffer) (line-beginning-position)))
+                  definitions))
+          (nreverse definitions))))))
+
+(cl-defmethod xref-backend-references
+  ((backend ua4k-dsl--xref-backend) identifier)
+  (with-current-buffer (ua4k-dsl--xref-backend-buffer backend)
     (save-excursion
       (goto-char (point-min))
-      (let ((regexp (format "^[ \\t]*\\(?:CMD[ \\t]+%s\\|ROTATE_CMDS[ \\t]+%s\\)\\_>"
-                            (regexp-quote identifier)
-                            (regexp-opt names t)))
-            definitions)
+      (let* ((rotate-definition
+              (re-search-forward
+               (format "^[ \\t]*ROTATE_CMDS[ \\t]+%s\\_>"
+                       (regexp-quote identifier))
+               nil t))
+             (names (if rotate-definition
+                        (mapcar (lambda (suffix) (concat identifier suffix))
+                                '("_e" "_s" "_w" "_n"))
+                      (list identifier)))
+             (regexp (concat "\\_<" (regexp-opt names t) "\\_>"))
+             references)
+        (goto-char (point-min))
         (while (re-search-forward regexp nil t)
-          (push (xref-make (replace-regexp-in-string
-                            "\\`[ \\t]*" "" (match-string 0))
-                           (xref-make-buffer-location
-                            (current-buffer) (line-beginning-position)))
-                definitions))
-        (nreverse definitions)))))
+          (unless (save-excursion
+                    (goto-char (line-beginning-position))
+                    (looking-at-p "[ \\t]*\\(?:;;\\|CMD\\_>\\|ROTATE_CMDS\\_>\\)"))
+            (let ((position (match-beginning 0))
+                  (summary (buffer-substring-no-properties
+                            (line-beginning-position) (line-end-position))))
+              (push (xref-make (replace-regexp-in-string
+                                "\\`[ \\t]*\\|[ \\t]*\\'" "" summary)
+                               (xref-make-buffer-location
+                                (current-buffer) position))
+                    references))))
+        (nreverse references)))))
 
-(cl-defmethod xref-backend-references ((_backend (eql 'ua4k-dsl)) identifier)
-  (save-excursion
-    (goto-char (point-min))
-    (let* ((rotate-definition
-            (re-search-forward
-             (format "^[ \\t]*ROTATE_CMDS[ \\t]+%s\\_>"
-                     (regexp-quote identifier))
-             nil t))
-           (names (if rotate-definition
-                      (mapcar (lambda (suffix) (concat identifier suffix))
-                              '("_e" "_s" "_w" "_n"))
-                    (list identifier)))
-           (regexp (concat "\\_<" (regexp-opt names t) "\\_>"))
-           references)
-      (goto-char (point-min))
-      (while (re-search-forward regexp nil t)
-        (unless (save-excursion
-                  (goto-char (line-beginning-position))
-                  (looking-at-p "[ \\t]*\\(?:;;\\|CMD\\_>\\|ROTATE_CMDS\\_>\\)"))
-          (let ((position (match-beginning 0))
-                (summary (buffer-substring-no-properties
-                          (line-beginning-position) (line-end-position))))
-            (push (xref-make (replace-regexp-in-string
-                              "\\`[ \\t]*\\|[ \\t]*\\'" "" summary)
-                             (xref-make-buffer-location
-                              (current-buffer) position))
-                  references))))
-      (nreverse references))))
+(defconst ua4k-dsl--defun-regexp "^\\(?:CMD\\|ROTATE_CMDS\\)\\_>")
+
+(defun ua4k-dsl-beginning-of-defun (&optional arg)
+  "Move to the beginning of a top-level command definition.
+With negative ARG, move forward to a following definition."
+  (setq arg (or arg 1))
+  (let ((search (if (> arg 0) #'re-search-backward #'re-search-forward))
+        found)
+    (when (< arg 0)
+      (unless (eobp)
+        (forward-char 1)))
+    (dotimes (_ (abs arg))
+      (setq found (funcall search ua4k-dsl--defun-regexp nil t)))
+    (when found
+      (goto-char (match-beginning 0)))
+    found))
+
+(defun ua4k-dsl-end-of-defun ()
+  "Move just past the top-level command definition at point."
+  (forward-char 1)
+  (if (re-search-forward ua4k-dsl--defun-regexp nil t)
+      (goto-char (match-beginning 0))
+    (goto-char (point-max))))
 
 (defvar ua4k-dsl-mode-map
   (let ((map (make-sparse-keymap)))
@@ -179,7 +212,9 @@ shift the current line."
   (setq-local comment-start ";; ")
   (setq-local comment-start-skip ";;+\\s-*")
   (setq-local font-lock-defaults '(ua4k-dsl-font-lock-keywords))
-  (add-hook 'xref-backend-functions #'ua4k-dsl--xref-backend nil t)
+  (add-hook 'xref-backend-functions #'ua4k-dsl--xref-backend-at-point nil t)
+  (setq-local beginning-of-defun-function #'ua4k-dsl-beginning-of-defun)
+  (setq-local end-of-defun-function #'ua4k-dsl-end-of-defun)
   (setq-local imenu-generic-expression 
               '((nil "^\\(CMD\\|ROTATE_CMDS\\)\\s-+\\([^[:space:]]+\\)" 2))))
 
