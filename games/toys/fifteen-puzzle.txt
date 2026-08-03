@@ -1,0 +1,34 @@
+TITLE Fifteen Puzzle
+DESCRIPTION Slide tiles into the empty square until they read 1..F in order.
+DESCRIPTION Use wasd to slide.
+
+GOAL
+1234
+5678
+9ABC
+DEF-
+
+1234
+5678
+9ABC
+DEF-
+
+COLOR - #444444
+
+BIND w move_n "north" s move_s "south" a move_w "west" d move_e "east"
+
+ROTATE_CMDS move
+ FOR t 123456789ABCDEF
+  t- -t
+
+CMD rand_move
+ RANDOM
+  CALL move_e
+  CALL move_s
+  CALL move_w
+  CALL move_n
+
+CMD _init
+ TRY_ALL
+  LET_REPEAT 0 400 1 % -
+   CALL rand_move

@@ -38,6 +38,7 @@ GAME_SUMMARIES = {
     "theseus-minotaur": "A pursuit puzzle inspired by Theseus and the Minotaur.",
     "towers": "A tower-moving toy puzzle.",
     "turing": "A compact Turing-machine joke/demo implemented as a board game.",
+    "fifteen-puzzle": "The Fifteen Puzzle.",
 }
 
 CATEGORY_NOTES = {
