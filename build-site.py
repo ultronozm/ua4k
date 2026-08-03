@@ -93,7 +93,11 @@ def discover_category_games(category: tuple[str, str, str]) -> list[tuple[str, s
     game_dir = root / relative_dir
     if not game_dir.is_dir():
         return []
-    return [(key, title, path) for path in sorted(game_dir.glob("*.txt"))]
+    return [
+        (key, title, path)
+        for path in sorted(game_dir.glob("*.txt"))
+        if not path.name.startswith(".")
+    ]
 
 
 def selected_game_paths(args: argparse.Namespace) -> list[tuple[str, str, Path]]:

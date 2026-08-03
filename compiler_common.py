@@ -68,6 +68,7 @@ def discover_game_files() -> list[str]:
     return sorted(
         str(path.relative_to(repo_root()))
         for path in games_root().rglob("*.txt")
+        if not path.name.startswith(".")
     )
 
 
