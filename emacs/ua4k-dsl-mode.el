@@ -199,9 +199,15 @@ With negative ARG, move forward to a following definition."
       (goto-char (match-beginning 0))
     (goto-char (point-max))))
 
+(defun ua4k-dsl-play-level (level)
+  "Prompt for LEVEL and play the current buffer starting there."
+  (interactive (list (read-number "Level number: " 0)))
+  (ua4k-play-buffer level))
+
 (defvar ua4k-dsl-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-b") #'ua4k-play-buffer)
+    (define-key map (kbd "C-c C-l") #'ua4k-dsl-play-level)
     (define-key map (kbd "C-c C-r") #'ua4k-play-region)
     (define-key map (kbd "C-c <") #'ua4k-dsl-indent-shift-left)
     (define-key map (kbd "C-c >") #'ua4k-dsl-indent-shift-right)
