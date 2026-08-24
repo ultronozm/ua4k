@@ -1,0 +1,101 @@
+GOAL
+G
+
+VOID
+x
+
+VOID
+f
+
+VOID
+F
+
+VOID
+*
+
+g*------b#
+#-->--<--#
+#-######-#
+x--->----x
+
+g*------b#
+--->--<--#
+#-######-#
+x--->----x
+
+g*--##---#
+--->--<--#
+#-######-#
+x---b----x
+
+g*########
+-------<-#
+#-######-#
+x---b----x
+
+g----*x---
+-------<--
+->--------
+---------x
+----x-----
+-b--------
+
+#############
+#g----#-----x
+###-###-###-#
+#>----o----<#
+###-#-*-#-###
+x-----b-----#
+#############
+
+#############
+#g----#-----#
+###-###-###-#
+#>----o----<#
+#-###---###-#
+#x---#*#---x#
+###-##-##-###
+#-----b-----#
+#############
+
+
+BIND w move_n "north" s move_s "south" a move_w "west" d move_e "east" f plant
+
+ROTATE_CMDS move
+ *- -* move_guard
+
+ *o- -*o move_guard
+
+ *b -* move_guard grow_flowers
+
+ *F -* move_guard
+
+ *g -G
+
+CMD plant
+ ROTATE
+  *x *f move_guard
+
+CMD move_guard
+ TRY_ALL
+  REPEAT
+   >- -]
+
+   -< [-
+
+   >* -]
+
+   *< [-
+
+   > [
+
+   < ]
+
+  REPEAT
+   [ <
+
+   ] >
+
+CMD grow_flowers
+ REPEAT
+  f F
