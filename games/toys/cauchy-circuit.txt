@@ -1,135 +1,155 @@
-;; An operational miniature of Manners, arXiv:2109.05731.
-;; Levels 1--2 implement Example 2.2.16; level 3 implements Lemma 4.1.2.
+;; A worked tutorial for Example 2.2.16 of Manners, arXiv:2109.05731.
+;; This deliberately models one small example, not the paper's full gate language.
 
 GOAL
-stage:Z
+~stage:Z
 
-TITLE Cauchy Circuit
+TITLE Cauchy–Schwarz Diagram Tutorial
 
 BY UA4K / OpenAI Codex
 
-DESCRIPTION Perform actual steps from the paper's diagram language. A CS(S) step makes left and right copies of the current diagram and identifies the leaves in S; identified leaves become internal # vertices. A morphism then relabels the four surviving copies of leaf 1 as the U2 square. The last level constructs an AggreGate by the two CS steps of Lemma 4.1.2.
+DESCRIPTION A worked, schematic version of Example 2.2.16 in Freddie Manners' True complexity and iterated Cauchy--Schwarz. It models the exact two Cauchy--Schwarz joinings and the explicit U2-to-D2 morphism for the three-term-progression average. It does not claim to implement the paper's later programmable gate language.
 
 WHITESPACE -
+HIDDEN_LINE_CHAR ~
 CHARMAP # █
 CHARMAP @ ◆
+CHARMAP J ⊙
 CHARMAP Z ✓
-CHARMAP o ○
-CHARMAP O ●
 COLOR # #46505c
 COLOR @ #ffd166
+COLOR J #b388ff
 COLOR Z #72e38e
 COLOR 1 #ef476f
 COLOR 2 #50b8e7
 COLOR 3 #b388ff
-COLOR G #06d6a0
-COLOR A #ff9f1c
-COLOR O #72e38e
+COLOR ā #ef476f
+COLOR ḅ #50b8e7
 
-#####################
-#stage:a------------#
-#---------@---------#
-#---------o---------#
-#-------1-2-3-------#
-#-------------------#
-#CS(S): choose S={3}#
-#3 becomes internal-#
-#####################
+################################################
+#~stage:R--------------------------------------#
+#READ-THIS-LEVEL-DESCRIPTION,-THEN-PRESS-n-----#
+#leaf-=-one-function-slot----------------------#
+#CS(S)-=-one-inequality-step-------------------#
+#S-may-contain-several-different-leaves--------#
+#L-copy-is-plain;-R-copy-is-conjugated---------#
+#members-of-S-become-internal-joins-J----------#
+#each-CS-adds-a-square-root--------------------#
+#wrong-keys-leave-the-board-unchanged----------#
+################################################
 
-TITLE One Cauchy–Schwarz Step
+TITLE Read This First: The Rules
 
-DESCRIPTION This is D0 = Diag(Phi) for the three-term progression: one root with leaves 1, 2, 3. Press 3 for CS({3}). The engine creates L and R copies, identifies the two copies of leaf 3 as an internal # vertex, and leaves copies of 1 and 2 exposed.
+DESCRIPTION A leaf is a slot where one 1-bounded function is evaluated. The root @ stores the variables feeding those slots. One CS(S) keypress means ONE ordinary Cauchy--Schwarz inequality, applied after jointly conditioning on the output values of every leaf in S. S may contain one leaf or many leaves carrying different functions: the product of all selected factors is still 1-bounded. The step makes L and R copies of the whole current diagram; R functions are conjugated. Matching copies of every selected leaf are identified as internal J vertices and cease to be exposed function slots. Each CS changes the outside exponent from 1 to 1/2, then 1/4, and so on. Wrong or out-of-order keys do nothing. Press n when ready.
 
 MINMOVES 1
 
-#####################
-#stage:A------------#
-#---------@---------#
-#---------o---------#
-#-------1-2-3-------#
-#-------------------#
-#target: U2---------#
-#cost: two CS steps-#
-#####################
+################################################
+#~stage:a--------------------------------------#
+#diagram-D0------------------------------------#
+#roots:-@--------------------------------------#
+#leaves:-1-2-3---------------------------------#
+#join-2:-none----------------------------------#
+#join-3:-none----------------------------------#
+#R-copies-will-be-conjugated-------------------#
+#bound-exponent:-1-----------------------------#
+#choose-S={3}----------------------------------#
+################################################
 
-TITLE The U² Derivation
+TITLE First Step: Eliminate f3
 
-DESCRIPTION Reproduce Example 2.2.16 exactly: CS({3}), then CS({(L,2),(R,2)}), then the diagram morphism to U2. The four surviving leaves are (LL,1), (LR,1), (RL,1), (RR,1), relabelled 00, 01, 10, 11.
+DESCRIPTION Start with A = E[z,w] f1(2z-w) f2(z) f3(w), where f1, f2, f3 may all be different and are each 1-bounded. Press 3 for CS({3}). Analytically, this holds the value phi3(v)=w fixed, uses |f3(w)| <= 1, and squares the remaining inner average. Diagrammatically it makes L and conjugated R copies of leaves 1 and 2, while the two copies of vertex 3 are fused into internal J3. The result is |A| <= |B|^(1/2). The checkmark ends this tutorial level only: the U2 bound is NOT proved yet; it needs the second CS step in the next level.
 
-MINMOVES 3
+MINMOVES 1
 
-#####################
-#stage:G------------#
-#-------GC(s)-------#
-#----p--1--...--q---#
-#-------------------#
-#build: AggreGate---#
-#CS(s+1), then CS(1)#
-#Lemma 4.1.2--------#
-#####################
+################################################
+#~stage:A--------------------------------------#
+#diagram-D0------------------------------------#
+#roots:-@--------------------------------------#
+#leaves:-1-2-3---------------------------------#
+#join-2:-none----------------------------------#
+#join-3:-none----------------------------------#
+#R-copies-will-be-conjugated-------------------#
+#bound-exponent:-1-----------------------------#
+#keys:-3,-then-2-------------------------------#
+################################################
 
-TITLE Build an AggreGate
+TITLE Both CS Steps: Build D2
 
-DESCRIPTION Follow Lemma 4.1.2. First press g for CS({s+1}), producing two joined generalized-convolution diagrams. Then press 1 for CS({(L,1),(R,1)}), producing the four copies labelled 00, 01, 10, 11 that underlie AggreGate.
+DESCRIPTION First press 3. Then press 2 for CS({(L,2),(R,2)}). This second action is ONE Cauchy--Schwarz inequality on the joint outer variable (z1,z2), not two inequalities silently bundled together. It removes the single 1-bounded product f2(z1) bar(f2(z2)). Equivalently, Proposition 2.1.15 permits any subset S and conditions on the tuple of all its output coordinates. The resulting D2 has four roots, four exposed copies of leaf 1, two internal joins inherited from leaf 3, and two new internal joins from the L2 and R2 leaves. LL and RR carry plain f1; LR and RL carry conjugated f1. The exponent is now 1/4.
 
 MINMOVES 2
 
-BIND 1 cs_two "CS({L2,R2}) / CS({L1,R1})" 2 wrong_two "CS on only one leaf" 3 cs_three "CS({3})" g cs_tail "CS({s+1})" m morphism "apply diagram morphism"
+################################################
+#~stage:M--------------------------------------#
+#MORPHISM-U2-→-D2-(p-odd)----------------------#
+#copy--root(x,h)----------leaf1---leaf2---leaf3#
+#LL----?-----------------?-------?-------?-----#
+#LR----?-----------------?-------?-------?-----#
+#RL----?-----------------?-------?-------?-----#
+#RR----?-----------------?-------?-------?-----#
+#joins-must-give-equal-values------------------#
+#press-m-to-reveal/check-the-witness-----------#
+################################################
 
-;; Tutorial: the literal joining D0 +_{3} D0.  The displayed #3 is no
-;; longer a leaf: it is the vertex where the two copies were identified.
+TITLE The Morphism Is More Than Relabelling
+
+DESCRIPTION The last zero-cost proof step is a genuine diagram morphism Theta: Diag(U2) -> D2, in that direction. It must map every U2 parallelogram (y, y+b, y+a, y+a+b) to four compatible three-term-progression roots, respecting all four exposed leaf-1 values and every internal join. Press m to reveal the explicit maps from the paper. Division by 2 requires odd characteristic. The general entailment formalism concludes with possibly different translates of f1 at 00 and 11 and conjugate translates at 01 and 10; the paper explicitly calls this weaker than the direct calculation and then uses Gowers--Cauchy--Schwarz to recover the usual ||f1||_U2 bound.
+
+MINMOVES 1
+
+BIND n next "rules read" 2 cs_pair_two "CS({L2,R2})" 3 cs_three "CS({3})" m morphism "show morphism U2 -> D2"
+
+CMD next
+ ~stage:R-------------------------------------- ~stage:Z--------------------------------------
+
+;; CS({3}) tutorial checkpoint: D0 -> D1.
 CMD cs_three
  ATOMIC
-  stage:a------------ stage:Z------------
+  ~stage:a-------------------------------------- ~stage:Z--------------------------------------
+  diagram-D0------------------------------------ diagram-D1-=-D0-+_{3}-D0----------------------
+  roots:-@-------------------------------------- roots:-L@-R@----------------------------------
+  leaves:-1-2-3--------------------------------- leaves:-L1-L2-Rḅ-Rā---------------------------
+  join-2:-none---------------------------------- join-2:-none----------------------------------
+  join-3:-none---------------------------------- join-3:-L@-→-J3-←-R@--------------------------
+  R-copies-will-be-conjugated------------------- ā=bar(1),-ḅ=bar(2)----------------------------
+  bound-exponent:-1----------------------------- bound-exponent:-1/2---------------------------
+  choose-S={3}---------------------------------- tutorial-done;-U2-is-NOT-proved-yet-----------
 
-  ---------@--------- -----L---#---R-----
-  ---------o--------- -----o---3---o-----
-  -------1-2-3------- -----1-2---2-1-----
-
-;; Full Example 2.2.16, first CS({3}): D0 -> D1.
+;; Full derivation, first step: D0 -> D1.
  ATOMIC
-  stage:A------------ stage:B------------
+  ~stage:A-------------------------------------- ~stage:B--------------------------------------
+  diagram-D0------------------------------------ diagram-D1-=-D0-+_{3}-D0----------------------
+  roots:-@-------------------------------------- roots:-L@-R@----------------------------------
+  leaves:-1-2-3--------------------------------- leaves:-L1-L2-Rḅ-Rā---------------------------
+  join-2:-none---------------------------------- join-2:-none----------------------------------
+  join-3:-none---------------------------------- join-3:-L@-→-J3-←-R@--------------------------
+  R-copies-will-be-conjugated------------------- ā=bar(1),-ḅ=bar(2)----------------------------
+  bound-exponent:-1----------------------------- bound-exponent:-1/2---------------------------
+  keys:-3,-then-2------------------------------- next:-choose-S={L2,R2}-with-key-2-------------
 
-  ---------@--------- -----L---#---R-----
-  ---------o--------- -----o---3---o-----
-  -------1-2-3------- -----1-2---2-1-----
-
-;; Second step of Example 2.2.16.  Both exposed copies of leaf 2 are in S.
-;; They become the two #2 internal vertices; four copies of leaf 1 survive.
-CMD cs_two
+;; One grouped CS({(L,2),(R,2)}) step: D1 -> D2.
+CMD cs_pair_two
  ATOMIC
-  stage:B------------ stage:C------------
+  ~stage:B-------------------------------------- ~stage:Z--------------------------------------
+  diagram-D1-=-D0-+_{3}-D0---------------------- diagram-D2-=-D1-+_{L2,R2}-D1------------------
+  roots:-L@-R@---------------------------------- roots:-LL@-LR@-RL@-RR@------------------------
+  leaves:-L1-L2-Rḅ-Rā--------------------------- leaves:-LL1-LRā-RLā-RR1-----------------------
+  join-2:-none---------------------------------- join-2:-LL@→JL2←RL@;-LR@→JR2←RR@--------------
+  join-3:-L@-→-J3-←-R@-------------------------- join-3:-LL@→LJ3←LR@;-RL@→RJ3←RR@--------------
+  ā=bar(1),-ḅ=bar(2)---------------------------- R-parity:-plain,-bar,-bar,-plain--------------
+  bound-exponent:-1/2--------------------------- bound-exponent:-1/4---------------------------
+  next:-choose-S={L2,R2}-with-key-2------------- two-CS-steps-complete-------------------------
 
-  -----L---#---R----- ---LL--LR--RL--RR--
-  -----o---3---o----- ---1---1---1---1---
-  -----1-2---2-1----- -----#2-----#2-----
-
-;; The final change-of-variables in the paper is a morphism U2 -> D2.
-;; It respects the four surviving leaves and gives them their square labels.
+;; Explicit compatibility witness for Theta: Diag(U2) -> D2.
 CMD morphism
  ATOMIC
-  stage:C------------ stage:Z------------
-
-  ---LL--LR--RL--RR-- ---------@---------
-  ---1---1---1---1--- ------00---01------
-  -----#2-----#2----- ------10---11------
-
-;; Lemma 4.1.2: GCs --CS({s+1})--> two joined copies.
-CMD cs_tail
- ATOMIC
-  stage:G------------ stage:H------------
-
-  -------GC(s)------- ----L:GC-#-R:GC----
-  ----p--1--...--q--- ----p--1-s+1-1--q--
-
-;; Then CS({(L,1),(R,1)}) gives the four-copy AggreGate diagram.
-CMD cs_two
- ATOMIC
-  stage:H------------ stage:Z------------
-
-  ----L:GC-#-R:GC---- ----00-01-10-11----
-  ----p--1-s+1-1--q-- ----O--O--O--O-----
-
-;; Deliberately invalid choices are represented by commands with no rule.
-CMD wrong_two
- !
+  ~stage:M-------------------------------------- ~stage:Z--------------------------------------
+  MORPHISM-U2-→-D2-(p-odd)---------------------- MORPHISM-U2-→-D2-(p-odd)----------------------
+  copy--root(x,h)----------leaf1---leaf2---leaf3 copy--root(x,h)----------leaf1---leaf2---leaf3
+  LL----?-----------------?-------?-------?----- LL----(y,0)-------------y-------y-------y-----
+  LR----?-----------------?-------?-------?----- LR----(y+b,-b/2)--------y+b-----y+b/2---y-----
+  RL----?-----------------?-------?-------?----- RL----(y+a,-a)----------y+a-----y-------y-a---
+  RR----?-----------------?-------?-------?----- RR----(y+a+b,-a-b/2)----y+a+b---y+b/2---y-a---
+  joins-must-give-equal-values------------------ joins:-JL2=y-JR2=y+b/2-LJ3=y-RJ3=y-a----------
+  press-m-to-reveal/check-the-witness----------- U2:-00=y-01=y+b-10=y+a-11=y+a+b---------------
