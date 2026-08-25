@@ -1,140 +1,135 @@
-;; A constraint-puzzle interpretation of the gate/circuit language in
-;; Freddie Manners, "True complexity and iterated Cauchy--Schwarz",
-;; arXiv:2109.05731, especially Definition 3.3.1.
+;; An operational miniature of Manners, arXiv:2109.05731.
+;; Levels 1--2 implement Example 2.2.16; level 3 implements Lemma 4.1.2.
 
 GOAL
-Z
-
-VOID
-!
+stage:Z
 
 TITLE Cauchy Circuit
 
 BY UA4K / OpenAI Codex
 
-DESCRIPTION Partition each gate's toggles into modes 1 and 2, then commit one serial Cauchy--Schwarz step. S (sum) gates need alternating modes, C (const) gates need one mode throughout, and A (aggregate) gates need equal pairs. P marks pins, o an unresolved output, and O a witnessed output.
+DESCRIPTION Perform actual steps from the paper's diagram language. A CS(S) step makes left and right copies of the current diagram and identifies the leaves in S; identified leaves become internal # vertices. A morphism then relabels the four surviving copies of leaf 1 as the U2 square. The last level constructs an AggreGate by the two CS steps of Lemma 4.1.2.
 
 WHITESPACE -
 CHARMAP # █
-CHARMAP * ◆
-CHARMAP 1 ₁
-CHARMAP 2 ₂
-CHARMAP o ·
+CHARMAP @ ◆
+CHARMAP Z ✓
+CHARMAP o ○
 CHARMAP O ●
-CHARMAP Z ★
-COLOR # #39424e
-COLOR * #ffd166
-COLOR P #ef476f
-COLOR 1 #50b8e7
-COLOR 2 #b388ff
-COLOR S #06d6a0
-COLOR C #8ecae6
+COLOR # #46505c
+COLOR @ #ffd166
+COLOR Z #72e38e
+COLOR 1 #ef476f
+COLOR 2 #50b8e7
+COLOR 3 #b388ff
+COLOR G #06d6a0
 COLOR A #ff9f1c
-COLOR o #777777
-COLOR O #7bd88f
-COLOR Z #ffe66d
+COLOR O #72e38e
 
-############
-#--*-------#
-#S|1111|Po-#
-#----------#
-#C|1111|Po-#
-#----------#
-#A|1122|PO-#
-############
+#####################
+#stage:a------------#
+#---------@---------#
+#---------o---------#
+#-------1-2-3-------#
+#-------------------#
+#CS(S): choose S={3}#
+#3 becomes internal-#
+#####################
 
-TITLE Two Primitive Gates
+TITLE One Cauchy–Schwarz Step
 
-DESCRIPTION Make the S row alternate and leave the uniform C row alone. The A row is already witnessed. Press x only after both unresolved outputs are valid.
+DESCRIPTION This is D0 = Diag(Phi) for the three-term progression: one root with leaves 1, 2, 3. Press 3 for CS({3}). The engine creates L and R copies, identifies the two copies of leaf 3 as an internal # vertex, and leaves copies of 1 and 2 exposed.
 
-MINMOVES 5
+MINMOVES 1
 
-############
-#--*-------#
-#S|1222|Po-#
-#----------#
-#C|1221|Po-#
-#----------#
-#A|1211|Po-#
-############
+#####################
+#stage:A------------#
+#---------@---------#
+#---------o---------#
+#-------1-2-3-------#
+#-------------------#
+#target: U2---------#
+#cost: two CS steps-#
+#####################
 
-TITLE AggreGate
+TITLE The U² Derivation
 
-DESCRIPTION S alternates, C is constant, and A groups its four copies into two equal pairs. A commit is atomic: one bad assignment rejects the entire circuit.
+DESCRIPTION Reproduce Example 2.2.16 exactly: CS({3}), then CS({(L,2),(R,2)}), then the diagram morphism to U2. The four surviving leaves are (LL,1), (LR,1), (RL,1), (RR,1), relabelled 00, 01, 10, 11.
 
-MINMOVES 11
+MINMOVES 3
 
-############
-#-----*----#
-#A|1212|Po-#
-#----------#
-#S|2111|Po-#
-#----------#
-#C|2122|Po-#
-############
+#####################
+#stage:G------------#
+#-------GC(s)-------#
+#----p--1--...--q---#
+#-------------------#
+#build: AggreGate---#
+#CS(s+1), then CS(1)#
+#Lemma 4.1.2--------#
+#####################
 
-TITLE Joined Circuit
+TITLE Build an AggreGate
 
-DESCRIPTION Solve three joined gates. Outputs are checked together, reflecting the paper's serial circuit discipline: the next deduction is made from the current diagram, not from a bag of remembered equalities.
+DESCRIPTION Follow Lemma 4.1.2. First press g for CS({s+1}), producing two joined generalized-convolution diagrams. Then press 1 for CS({(L,1),(R,1)}), producing the four copies labelled 00, 01, 10, 11 that underlie AggreGate.
 
-MINMOVES 9
+MINMOVES 2
 
-BIND w cursor_up "previous gate" s cursor_down "next gate" a cursor_left "left" d cursor_right "right" z toggle "toggle mode" x evaluate "commit circuit"
+BIND 1 cs_two "CS({L2,R2}) / CS({L1,R1})" 2 wrong_two "CS on only one leaf" 3 cs_three "CS({3})" g cs_tail "CS({s+1})" m morphism "apply diagram morphism"
 
-CMD cursor_left
- -* *-
-
-CMD cursor_right
- *- -*
-
-CMD cursor_up
- - *
- ? ?
- * -
-
-CMD cursor_down
- * -
- ? ?
- - *
-
-CMD toggle
- * *
- 1 2
-
- * *
- 2 1
-
-;; Mark every gate whose toggle partition realizes its advertised assignment.
-;; S abstracts the alternating signed-sum behavior; C the constant behavior;
-;; A the paired four-copy AggreGate behavior.
-CMD mark_gates
- TRY_ALL
-  S|1212|Po S|1212|PO
-
-  S|2121|Po S|2121|PO
-
-  C|1111|Po C|1111|PO
-
-  C|2222|Po C|2222|PO
-
-  A|1122|Po A|1122|PO
-
-  A|2211|Po A|2211|PO
-
-  A|1221|Po A|1221|PO
-
-  A|2112|Po A|2112|PO
-
-;; All boards use three aligned outputs.  A successful serial commit joins
-;; their witnesses and promotes the last pin to the circuit output Z.
-CMD finish_circuit
- O O
- ? ?
- O O
- ? ?
- O Z
-
-CMD evaluate
+;; Tutorial: the literal joining D0 +_{3} D0.  The displayed #3 is no
+;; longer a leaf: it is the vertex where the two copies were identified.
+CMD cs_three
  ATOMIC
-  CALL mark_gates
-  CALL finish_circuit
+  stage:a------------ stage:Z------------
+
+  ---------@--------- -----L---#---R-----
+  ---------o--------- -----o---3---o-----
+  -------1-2-3------- -----1-2---2-1-----
+
+;; Full Example 2.2.16, first CS({3}): D0 -> D1.
+ ATOMIC
+  stage:A------------ stage:B------------
+
+  ---------@--------- -----L---#---R-----
+  ---------o--------- -----o---3---o-----
+  -------1-2-3------- -----1-2---2-1-----
+
+;; Second step of Example 2.2.16.  Both exposed copies of leaf 2 are in S.
+;; They become the two #2 internal vertices; four copies of leaf 1 survive.
+CMD cs_two
+ ATOMIC
+  stage:B------------ stage:C------------
+
+  -----L---#---R----- ---LL--LR--RL--RR--
+  -----o---3---o----- ---1---1---1---1---
+  -----1-2---2-1----- -----#2-----#2-----
+
+;; The final change-of-variables in the paper is a morphism U2 -> D2.
+;; It respects the four surviving leaves and gives them their square labels.
+CMD morphism
+ ATOMIC
+  stage:C------------ stage:Z------------
+
+  ---LL--LR--RL--RR-- ---------@---------
+  ---1---1---1---1--- ------00---01------
+  -----#2-----#2----- ------10---11------
+
+;; Lemma 4.1.2: GCs --CS({s+1})--> two joined copies.
+CMD cs_tail
+ ATOMIC
+  stage:G------------ stage:H------------
+
+  -------GC(s)------- ----L:GC-#-R:GC----
+  ----p--1--...--q--- ----p--1-s+1-1--q--
+
+;; Then CS({(L,1),(R,1)}) gives the four-copy AggreGate diagram.
+CMD cs_two
+ ATOMIC
+  stage:H------------ stage:Z------------
+
+  ----L:GC-#-R:GC---- ----00-01-10-11----
+  ----p--1-s+1-1--q-- ----O--O--O--O-----
+
+;; Deliberately invalid choices are represented by commands with no rule.
+CMD wrong_two
+ !
