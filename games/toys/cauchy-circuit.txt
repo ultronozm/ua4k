@@ -1,0 +1,140 @@
+;; A constraint-puzzle interpretation of the gate/circuit language in
+;; Freddie Manners, "True complexity and iterated Cauchy--Schwarz",
+;; arXiv:2109.05731, especially Definition 3.3.1.
+
+GOAL
+Z
+
+VOID
+!
+
+TITLE Cauchy Circuit
+
+BY UA4K / OpenAI Codex
+
+DESCRIPTION Partition each gate's toggles into modes 1 and 2, then commit one serial Cauchy--Schwarz step. S (sum) gates need alternating modes, C (const) gates need one mode throughout, and A (aggregate) gates need equal pairs. P marks pins, o an unresolved output, and O a witnessed output.
+
+WHITESPACE -
+CHARMAP # █
+CHARMAP * ◆
+CHARMAP 1 ₁
+CHARMAP 2 ₂
+CHARMAP o ·
+CHARMAP O ●
+CHARMAP Z ★
+COLOR # #39424e
+COLOR * #ffd166
+COLOR P #ef476f
+COLOR 1 #50b8e7
+COLOR 2 #b388ff
+COLOR S #06d6a0
+COLOR C #8ecae6
+COLOR A #ff9f1c
+COLOR o #777777
+COLOR O #7bd88f
+COLOR Z #ffe66d
+
+############
+#--*-------#
+#S|1111|Po-#
+#----------#
+#C|1111|Po-#
+#----------#
+#A|1122|PO-#
+############
+
+TITLE Two Primitive Gates
+
+DESCRIPTION Make the S row alternate and leave the uniform C row alone. The A row is already witnessed. Press x only after both unresolved outputs are valid.
+
+MINMOVES 5
+
+############
+#--*-------#
+#S|1222|Po-#
+#----------#
+#C|1221|Po-#
+#----------#
+#A|1211|Po-#
+############
+
+TITLE AggreGate
+
+DESCRIPTION S alternates, C is constant, and A groups its four copies into two equal pairs. A commit is atomic: one bad assignment rejects the entire circuit.
+
+MINMOVES 11
+
+############
+#-----*----#
+#A|1212|Po-#
+#----------#
+#S|2111|Po-#
+#----------#
+#C|2122|Po-#
+############
+
+TITLE Joined Circuit
+
+DESCRIPTION Solve three joined gates. Outputs are checked together, reflecting the paper's serial circuit discipline: the next deduction is made from the current diagram, not from a bag of remembered equalities.
+
+MINMOVES 9
+
+BIND w cursor_up "previous gate" s cursor_down "next gate" a cursor_left "left" d cursor_right "right" z toggle "toggle mode" x evaluate "commit circuit"
+
+CMD cursor_left
+ -* *-
+
+CMD cursor_right
+ *- -*
+
+CMD cursor_up
+ - *
+ ? ?
+ * -
+
+CMD cursor_down
+ * -
+ ? ?
+ - *
+
+CMD toggle
+ * *
+ 1 2
+
+ * *
+ 2 1
+
+;; Mark every gate whose toggle partition realizes its advertised assignment.
+;; S abstracts the alternating signed-sum behavior; C the constant behavior;
+;; A the paired four-copy AggreGate behavior.
+CMD mark_gates
+ TRY_ALL
+  S|1212|Po S|1212|PO
+
+  S|2121|Po S|2121|PO
+
+  C|1111|Po C|1111|PO
+
+  C|2222|Po C|2222|PO
+
+  A|1122|Po A|1122|PO
+
+  A|2211|Po A|2211|PO
+
+  A|1221|Po A|1221|PO
+
+  A|2112|Po A|2112|PO
+
+;; All boards use three aligned outputs.  A successful serial commit joins
+;; their witnesses and promotes the last pin to the circuit output Z.
+CMD finish_circuit
+ O O
+ ? ?
+ O O
+ ? ?
+ O Z
+
+CMD evaluate
+ ATOMIC
+  CALL mark_gates
+  CALL finish_circuit
