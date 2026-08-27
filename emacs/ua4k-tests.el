@@ -15,10 +15,31 @@
 
 (require 'ert)
 (require 'ua4k)
+(require 'ua4k-dsl-mode)
 
 (defun ua4k-tests--fixture (name)
   "Return the absolute path of fixture NAME under tests/fixtures."
   (expand-file-name (format "tests/fixtures/%s.txt" name) (ua4k--repo-root)))
+
+(defun ua4k-tests--invalid-fixture (name)
+  "Return the absolute path of invalid fixture NAME."
+  (expand-file-name (format "tests/invalid-fixtures/%s.txt" name)
+                    (ua4k--repo-root)))
+
+(defun ua4k-tests--read-json (file)
+  "Read JSON FILE using the same representation as `ua4k--compile-json'."
+  (with-temp-buffer
+    (insert-file-contents file)
+    (json-parse-buffer :object-type 'alist :array-type 'list
+                       :null-object nil :false-object nil)))
+
+(defun ua4k-tests--compile-error-message (file)
+  "Compile FILE and return its error message, failing if it compiles."
+  (condition-case err
+      (progn
+        (ua4k--compile-json file)
+        (ert-fail (format "Expected compilation to fail: %s" file)))
+    (error (error-message-string err))))
 
 (defmacro ua4k-tests--with-game (data &rest body)
   "Load compiled DATA into a temporary game buffer and run BODY."
@@ -225,6 +246,91 @@ without it the Emacs frontend showed an empty, inert well."
       (should (equal (ua4k-tests--board-rows) '("B")))
       (should-not ua4k--board-history)
       (should-not ua4k--tick-timer))))
+
+(ert-deftest ua4k-tests-command-template-golden-and-native-runtime ()
+  "D45: the Emacs compile path matches the ZIP_CMDS/FOR_CMDS golden.
+The generated command is then executed by the native Elisp rule runtime,
+including its mandatory generated side-effect reference."
+  (let* ((compiled (ua4k--compile-json
+                    (ua4k-tests--fixture "fixture-zipcmds")))
+         (golden (ua4k-tests--read-json
+                  (expand-file-name "tests/snapshots/fixture-zipcmds.json"
+                                    (ua4k--repo-root)))))
+    ;; Pins both grammar forms, marker composition, product order,
+    ;; template-before-orbit, and literal angle-bracket preservation.
+    (should (equal compiled golden))
+    (ua4k-tests--with-game compiled
+      ;; step_aa moves A and calls mark_a_e!; the lower-case a and literal
+      ;; angle-register pair satisfy the generated atomic side effect.
+      (ua4k-tests--set-board '("A-a<>" "-----"))
+      (should (ua4k--apply-rule (ua4k--obj-get ua4k--rules "step_aa")))
+      (should (equal (ua4k-tests--board-rows) '("-Aa<>" "-----"))))))
+
+(ert-deftest ua4k-tests-command-template-invalid-diagnostics ()
+  "D45 invalid fixtures report the canonical compiler diagnostics in Emacs."
+  (dolist
+      (case
+       '(("invalid-zipcmds-unequal"
+          . "ZIP_CMDS value lists must have equal length: 2 vs 3")
+         ("invalid-zipcmds-no-marker"
+          . "template name 'stepx' must contain the first variable marker <g>")
+         ("invalid-zipcmds-unknown-marker"
+          . "template marker <z> names an undeclared variable")
+         ("invalid-zipcmds-unused"
+          . "template variable 'G' is declared but never used")
+         ("invalid-zipcmds-duplicate"
+          . "template generates duplicate command name 'step_a'")
+         ("invalid-zipcmds-reserved"
+          . "command name 'step_a' is reserved by a template")
+         ("invalid-zipcmds-wildcard-value"
+          . "template value list for 'g' contains the wildcard '?'")
+         ("invalid-zipcmds-for-collision"
+          . "template variable or value 'g' collides with a FOR variable declared on line 2")
+         ("invalid-zipcmds-orbit-collision"
+          . "template variable or value 'e' collides with an orbit character")
+         ("invalid-zipcmds-capture-collision"
+          . "template variable or value 'b' collides with a capture variable declared on line 2")
+         ("invalid-zipcmds-nested"
+          . "ZIP_CMDS may not be nested inside a template")))
+    (let ((message
+           (ua4k-tests--compile-error-message
+            (ua4k-tests--invalid-fixture (car case)))))
+      (should (string-match-p (regexp-quote (cdr case)) message)))))
+
+(ert-deftest ua4k-tests-command-template-dsl-mode-support ()
+  "The Emacs authoring mode recognizes command templates as definitions."
+  (should (member "ZIP_CMDS" ua4k-dsl-directives))
+  (should (member "FOR_CMDS" ua4k-dsl-directives))
+  (with-temp-buffer
+    (insert "ZIP_CMDS step_<g><g> g ab\n g- -g helper_<g>!\n\n"
+            "FOR_CMDS outer_<x> x pq\n ?? ??\n\nCMD done\n ? ?\n")
+    (ua4k-dsl-mode)
+    (font-lock-ensure)
+    (goto-char (point-min))
+    (search-forward "ZIP_CMDS")
+    (should (eq (get-text-property (1- (point)) 'face)
+                'font-lock-keyword-face))
+    (goto-char (point-max))
+    (should (ua4k-dsl-beginning-of-defun))
+    (should (looking-at-p "CMD done"))
+    (should (ua4k-dsl-beginning-of-defun))
+    (should (looking-at-p "FOR_CMDS outer_<x>"))))
+
+(ert-deftest ua4k-tests-command-template-pacman-loads ()
+  "The shipped templated Pacman compiles and normalizes in the Emacs frontend."
+  (let ((data (ua4k--compile-json
+               (expand-file-name "games/toys/pacman.txt" (ua4k--repo-root)))))
+    (should (ua4k--obj-get (ua4k--obj-get data "rules") "try_r_e"))
+    (should (ua4k--obj-get (ua4k--obj-get data "rules") "respawn_q"))
+    (should-not
+     (cl-find-if (lambda (pair)
+                   (string-match-p "[<>]" (if (symbolp (car pair))
+                                                (symbol-name (car pair))
+                                              (car pair))))
+                 (ua4k--obj-get data "rules")))
+    (ua4k-tests--with-game data
+      (should (= (length (ua4k-tests--board-rows)) 38))
+      (should (ua4k--obj-get ua4k--rules "ghost_move")))))
 
 (provide 'ua4k-tests)
 

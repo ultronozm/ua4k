@@ -44,7 +44,7 @@
 
 (defconst ua4k-dsl-directives
   '("GOAL" "VOID" "WILDCARD" "HIDDEN_LINE_CHAR" "DESCRIPTION" "MINMOVES" "TICK" "TITLE"
-    "WHITESPACE" "CHARMAP" "COLOR" "BY" "BIND" "FOR" "ZIP"
+    "WHITESPACE" "CHARMAP" "COLOR" "BY" "BIND" "FOR" "ZIP" "FOR_CMDS" "ZIP_CMDS"
     "LET_REPEAT" "ROTATE" "FLIP_HORIZONTAL" "FLIP_VERTICAL"
     "ATOMIC" "ATOMIC_VERTICAL" "ATOMIC_HORIZONTAL"
     "MATCH1" "TRY_ALL" "RANDOM" "REPEAT" "CALL" "CALL_EACH" "ROTATE_CMDS" "CMD")
@@ -61,7 +61,7 @@
        (1 font-lock-keyword-face))
       (,(concat "\\[\\(" annotations "\\)\\]")
        (1 font-lock-builtin-face))
-      ("^[ \t]*\\(CMD\\|ROTATE_CMDS\\|CALL\\)\\s-+\\([[:word:]_]+\\)\\_>"
+      ("^[ \t]*\\(CMD\\|ROTATE_CMDS\\|ZIP_CMDS\\|FOR_CMDS\\|CALL\\)\\s-+\\([^[:space:]]+\\)"
        (1 font-lock-keyword-face)
        (2 font-lock-function-name-face))
       ("^[ \t]*\\(CALL_EACH\\)\\_>"
@@ -175,7 +175,9 @@ shift the current line."
                     references))))
         (nreverse references)))))
 
-(defconst ua4k-dsl--defun-regexp "^\\(?:CMD\\|ROTATE_CMDS\\)\\_>")
+(defconst ua4k-dsl--defun-regexp
+  "^\\(?:CMD\\|ROTATE_CMDS\\|ZIP_CMDS\\|FOR_CMDS\\)\\_>"
+  "Regexp matching top-level command and command-template definitions.")
 
 (defun ua4k-dsl-beginning-of-defun (&optional arg)
   "Move to the beginning of a top-level command definition.
@@ -224,7 +226,7 @@ With negative ARG, move forward to a following definition."
   (setq-local beginning-of-defun-function #'ua4k-dsl-beginning-of-defun)
   (setq-local end-of-defun-function #'ua4k-dsl-end-of-defun)
   (setq-local imenu-generic-expression 
-              '((nil "^\\(CMD\\|ROTATE_CMDS\\)\\s-+\\([^[:space:]]+\\)" 2))))
+              '((nil "^\\(CMD\\|ROTATE_CMDS\\|ZIP_CMDS\\|FOR_CMDS\\)\\s-+\\([^[:space:]]+\\)" 2))))
 
 (provide 'ua4k-dsl-mode)
 
