@@ -1,0 +1,111 @@
+{
+  "binds": {
+    "i": {
+      "command": "inner",
+      "description": "bind inside repeat"
+    },
+    "o": {
+      "command": "outer",
+      "description": "bind outside repeat"
+    }
+  },
+  "charMap": {},
+  "colorMap": {},
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": null,
+  "globalTick": null,
+  "goals": [
+    [
+      "Z"
+    ]
+  ],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "A-B-"
+      ]
+    }
+  ],
+  "rules": {
+    "inner": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "1-"
+                  ],
+                  "fromVariables": [
+                    0
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-1"
+                  ],
+                  "toVariables": [
+                    1
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic",
+              "variables": {
+                "1": {
+                  "domain": "AB",
+                  "negated": false
+                }
+              }
+            }
+          ],
+          "type": "repeat"
+        }
+      ],
+      "type": "match1"
+    },
+    "outer": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "1-"
+                  ],
+                  "fromVariables": [
+                    0
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "-1"
+                  ],
+                  "toVariables": [
+                    1
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "repeat"
+            }
+          ],
+          "type": "atomic",
+          "variables": {
+            "1": {
+              "domain": "AB",
+              "negated": false
+            }
+          }
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [],
+  "whitespaceChars": []
+}

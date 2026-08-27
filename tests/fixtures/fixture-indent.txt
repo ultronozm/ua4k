@@ -6,5 +6,6 @@ CMD move
  MATCH1
   TRY_ALL
    a b
+
   ATOMIC
    b c

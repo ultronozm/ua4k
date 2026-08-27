@@ -1,0 +1,522 @@
+{
+  "binds": {
+    "g": {
+      "command": "move_all",
+      "description": "step all ghosts east"
+    }
+  },
+  "charMap": {},
+  "colorMap": {},
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": null,
+  "globalTick": null,
+  "goals": [
+    [
+      "Z"
+    ]
+  ],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "D.-P.o2o-K---",
+        "%(e)e[e]e----"
+      ]
+    }
+  ],
+  "rules": {
+    "move_all": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "(e"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "(e"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "B-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-B"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "B."
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-D"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "Bo"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-0"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "D-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        ".B"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "D."
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        ".D"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "Do"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        ".0"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "0-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "oB"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "0."
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "oD"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "0o"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "o0"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "match1"
+                }
+              ],
+              "type": "atomic"
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    ")e"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ")e"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "P-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-P"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "P."
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-F"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "Po"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-1"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "F-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        ".P"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "F."
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        ".F"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "Fo"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        ".1"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "1-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "oP"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "1."
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "oF"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "1o"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "o1"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "match1"
+                }
+              ],
+              "type": "atomic"
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    "[e"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "[e"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "I-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-I"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "I."
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-J"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "Io"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-2"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "J-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        ".I"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "J."
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        ".J"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "Jo"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        ".2"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "2-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "oI"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "2."
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "oJ"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "2o"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "o2"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "match1"
+                }
+              ],
+              "type": "atomic"
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    "]e"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "]e"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "K-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-K"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "K."
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-L"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "Ko"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-3"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "L-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        ".K"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "L."
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        ".L"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "Lo"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        ".3"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "3-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "oK"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "3."
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "oL"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "3o"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "o3"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "match1"
+                }
+              ],
+              "type": "atomic"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [],
+  "whitespaceChars": []
+}

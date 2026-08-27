@@ -1,0 +1,11 @@
+A
+
+BIND x broken
+
+CMD helper
+ A B
+
+CMD broken
+ ATOMIC
+  A A
+  CALL helper

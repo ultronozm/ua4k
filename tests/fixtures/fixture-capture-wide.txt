@@ -1,0 +1,26 @@
+;; Multi-variable wide rule (D19/D23): one two-row rule copies six cells at
+;; once -- the shape of the tetris line-clear rewrite.  `poke` exercises the
+;; D23 corner: the ZIP value substitutes a literal `1` into an unmasked
+;; position inside a block whose masks are already fixed, so that cell is an
+;; ordinary literal while the masked `9` stays a variable.
+
+CLASS cell ABC
+
+GOAL
+Z
+
+#ABCACB#
+#------#
+#1A#####
+
+BIND c copy_row "copy row" l poke "poke"
+
+CMD copy_row
+ ATOMIC 1 cell 2 cell 3 cell 4 cell 5 cell 6 cell
+  #123456# #123456#
+  #??????# #123456#
+
+CMD poke
+ ATOMIC 9 cell
+  ZIP z 1
+   z9 zE

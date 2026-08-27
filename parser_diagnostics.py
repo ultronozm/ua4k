@@ -50,6 +50,14 @@ CASES = [
         "invalid-flip.txt",
         "invalid-flip.txt:1: error: FLIP_HORIZONTAL must appear inside CMD or a rule block",
     ),
+    (
+        "invalid-detached-guard.txt",
+        "invalid-detached-guard.txt:11: error: blank line required after rule pattern begun on line 10 before CALL",
+    ),
+    (
+        "invalid-glued-sibling.txt",
+        "invalid-glued-sibling.txt:8: error: blank line required after rule pattern begun on line 6 before ATOMIC",
+    ),
 ]
 
 
@@ -76,6 +84,11 @@ def main() -> int:
     for name, expected in CASES:
         run_case(module, name, expected)
         print(f"ok: {name}")
+    # Adjacent pattern rows remain the syntax for a legitimate multi-row
+    # simple rule; only a directive before the terminating blank is rejected.
+    valid = ROOT / "tests" / "fixtures" / "fixture-multiline-before-call.txt"
+    module.compile_game(str(valid))
+    print(f"ok: {valid.name} (valid multi-row rule)")
     return 0
 
 

@@ -1,0 +1,351 @@
+{
+  "binds": {
+    "g": {
+      "command": "move_all",
+      "description": "step all ghosts east"
+    }
+  },
+  "charMap": {},
+  "colorMap": {},
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": null,
+  "globalTick": null,
+  "goals": [
+    [
+      "Z"
+    ]
+  ],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "B.-P.oIo-K---",
+        "%(e)e[e]e----",
+        "%!1.!2-!3o!4-"
+      ]
+    }
+  ],
+  "rules": {
+    "move_all": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "from": [
+                    "(e"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "(e"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "!1j"
+                  ],
+                  "fromVariables": [
+                    2
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "!1j"
+                  ],
+                  "toVariables": [
+                    2
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "Bv"
+                  ],
+                  "fromVariables": [
+                    1
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "jB"
+                  ],
+                  "toVariables": [
+                    0
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "!1j"
+                  ],
+                  "fromVariables": [
+                    2
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "!1v"
+                  ],
+                  "toVariables": [
+                    2
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic",
+              "variables": {
+                "j": {
+                  "domain": "-.o",
+                  "negated": false
+                },
+                "v": {
+                  "domain": "-.o",
+                  "negated": false
+                }
+              }
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    ")e"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    ")e"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "!2j"
+                  ],
+                  "fromVariables": [
+                    2
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "!2j"
+                  ],
+                  "toVariables": [
+                    2
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "Pv"
+                  ],
+                  "fromVariables": [
+                    1
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "jP"
+                  ],
+                  "toVariables": [
+                    0
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "!2j"
+                  ],
+                  "fromVariables": [
+                    2
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "!2v"
+                  ],
+                  "toVariables": [
+                    2
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic",
+              "variables": {
+                "j": {
+                  "domain": "-.o",
+                  "negated": false
+                },
+                "v": {
+                  "domain": "-.o",
+                  "negated": false
+                }
+              }
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    "[e"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "[e"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "!3j"
+                  ],
+                  "fromVariables": [
+                    2
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "!3j"
+                  ],
+                  "toVariables": [
+                    2
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "Iv"
+                  ],
+                  "fromVariables": [
+                    1
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "jI"
+                  ],
+                  "toVariables": [
+                    0
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "!3j"
+                  ],
+                  "fromVariables": [
+                    2
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "!3v"
+                  ],
+                  "toVariables": [
+                    2
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic",
+              "variables": {
+                "j": {
+                  "domain": "-.o",
+                  "negated": false
+                },
+                "v": {
+                  "domain": "-.o",
+                  "negated": false
+                }
+              }
+            },
+            {
+              "rules": [
+                {
+                  "from": [
+                    "]e"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "]e"
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "!4j"
+                  ],
+                  "fromVariables": [
+                    2
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "!4j"
+                  ],
+                  "toVariables": [
+                    2
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "Kv"
+                  ],
+                  "fromVariables": [
+                    1
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "jK"
+                  ],
+                  "toVariables": [
+                    0
+                  ],
+                  "type": "simple"
+                },
+                {
+                  "from": [
+                    "!4j"
+                  ],
+                  "fromVariables": [
+                    2
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "!4v"
+                  ],
+                  "toVariables": [
+                    2
+                  ],
+                  "type": "simple"
+                }
+              ],
+              "type": "atomic",
+              "variables": {
+                "j": {
+                  "domain": "-.o",
+                  "negated": false
+                },
+                "v": {
+                  "domain": "-.o",
+                  "negated": false
+                }
+              }
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [],
+  "whitespaceChars": []
+}

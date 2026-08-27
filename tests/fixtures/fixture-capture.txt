@@ -1,0 +1,28 @@
+;; Capture happy path (R1 and the carried-tile idiom).
+;; `step` moves G east over floor it does not destroy: variable 1 reads the
+;; carried tile from the register behind `!`, variable 2 captures the tile
+;; being stepped onto, and the register swap keeps them consistent.
+;; `merge` demonstrates within-pattern equality: `11` only matches two
+;; adjacent EQUAL cells, so the AB pair is skipped and AA becomes AE.
+
+CLASS floor -.
+
+GOAL
+GE
+
+!.G.-E
+#AB#AA
+
+BIND d step "east" m merge "merge"
+
+CMD step
+ ATOMIC 1 floor 2 floor
+  !1
+
+  G2 1G
+
+  !1 !2
+
+CMD merge
+ ATOMIC 1 AB
+  11 1E

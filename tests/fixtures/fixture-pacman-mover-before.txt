@@ -1,0 +1,44 @@
+;; D19 acceptance demonstration: representative pre-capture mover from
+;; games/codex/pacman.txt. One ghost's rotated adjacent mover plus its east/
+;; west seam extensions; the real game repeats this shape for four ghosts.
+
+GOAL
+Z
+
+!1-
+
+;; BEGIN MOVER
+ROTATE_CMDS demo_move
+ FOR g Rr
+  ZIP j -.O
+   ZIP v -.O
+    ATOMIC
+     !1j !1j [norotate]
+
+     gv jg
+
+     !1j !1v [norotate]
+
+CMD demo_move_e
+ FOR g Rr
+  ZIP j -.O
+   ZIP v -.O
+    ATOMIC
+     !1j
+
+     v???g g???j
+
+     !1j !1v
+
+CMD demo_move_w
+ FOR g Rr
+  ZIP j -.O
+   ZIP v -.O
+    ATOMIC
+     !1j
+
+     g???v j???g
+
+     !1j !1v
+;; END MOVER
+

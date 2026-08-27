@@ -23,20 +23,30 @@
         {
           "rules": [
             {
-              "rules": [],
+              "rules": [
+                {
+                  "from": [
+                    "a"
+                  ],
+                  "method": "firstmatch",
+                  "side_effects": [],
+                  "to": [
+                    "b"
+                  ],
+                  "type": "simple"
+                }
+              ],
               "type": "try_all"
             },
             {
               "rules": [
                 {
                   "from": [
-                    "a",
                     "b"
                   ],
                   "method": "firstmatch",
                   "side_effects": [],
                   "to": [
-                    "b",
                     "c"
                   ],
                   "type": "simple"

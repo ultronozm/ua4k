@@ -1,0 +1,39 @@
+;; D19 acceptance demonstration: the same mover using capture domains.
+;; Variable j is the carried floor and v is the destination floor.
+
+CLASS floor -.O
+
+GOAL
+Z
+
+!1-
+
+;; BEGIN MOVER
+ROTATE_CMDS demo_move
+ FOR g Rr
+  ATOMIC j floor v floor
+   !1j !1j [norotate]
+
+   gv jg
+
+   !1j !1v [norotate]
+
+CMD demo_move_e
+ FOR g Rr
+  ATOMIC j floor v floor
+   !1j
+
+   v???g g???j
+
+   !1j !1v
+
+CMD demo_move_w
+ FOR g Rr
+  ATOMIC j floor v floor
+   !1j
+
+   g???v j???g
+
+   !1j !1v
+;; END MOVER
+

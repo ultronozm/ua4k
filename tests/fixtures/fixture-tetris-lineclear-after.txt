@@ -1,0 +1,33 @@
+;; D19 demonstration, AFTER: the same line clear with capture variables.
+;; The label column and the `%` scratch register disappear from the board;
+;; ten variables move a whole row at once, and the sentinel row bubbles to
+;; the top of the well by REPEAT.  The parameterized ATOMIC sits INSIDE the
+;; REPEAT deliberately (decision D9): each cascade step must bind the next
+;; row fresh rather than equality-test against the first one.
+
+GOAL
+Z
+
+WHITESPACE -
+
+x----------x
+x-XX-------x
+xXXXXXXXXXXx
+x--X-------x
+xXXXXXXXXXXx
+x-------X--x
+
+CLASS cell -X
+
+BIND c line_clear "clear one full row"
+
+CMD line_clear
+ ATOMIC
+  xXXXXXXXXXX x!!!!!!!!!! [lastmatch]
+
+  REPEAT
+   ATOMIC 1 cell 2 cell 3 cell 4 cell 5 cell 6 cell 7 cell 8 cell 9 cell 0 cell
+    1234567890 !!!!!!!!!!
+    !!!!!!!!!! 1234567890
+
+  !!!!!!!!!! ----------

@@ -10,6 +10,9 @@ let board_history = [];
 let charMap = {};
 let colorMap = {};
 let globalTickInterval = null;
+// Effective wildcard for pattern matching; games may redirect it with the
+// WILDCARD directive, freeing '?' to be an ordinary board character.
+let wildcardChar = '?';
 let timerId = null;
 let whitespaceChars = [];
 let hiddenLineChars = [];
@@ -628,7 +631,7 @@ function scheduleTouchControlsLayoutUpdate() {
     }
 }
 
-function collectPatternChars(rows, alphabet) {
+function collectPatternChars(rows, alphabet, skipChar) {
     if (!Array.isArray(rows)) {
         return;
     }
@@ -637,39 +640,42 @@ function collectPatternChars(rows, alphabet) {
             continue;
         }
         for (let char of row) {
-            if (char !== '?') {
+            if (char !== skipChar) {
                 alphabet.add(char);
             }
         }
     }
 }
 
-function collectRuleChars(rule, alphabet) {
+function collectRuleChars(rule, alphabet, skipChar) {
     if (!rule || typeof rule !== 'object') {
         return;
     }
     if (rule.type === 'simple') {
-        collectPatternChars(rule.from, alphabet);
-        collectPatternChars(rule.to, alphabet);
+        collectPatternChars(rule.from, alphabet, skipChar);
+        collectPatternChars(rule.to, alphabet, skipChar);
         return;
     }
     if (Array.isArray(rule.rules)) {
         for (let child of rule.rules) {
-            collectRuleChars(child, alphabet);
+            collectRuleChars(child, alphabet, skipChar);
         }
     }
 }
 
 function collectGameAlphabet(data) {
     const alphabet = new Set();
+    // The wildcard is syntax in rule/GOAL/VOID patterns and is omitted
+    // there, but level-board cells are always literals and all collected.
+    const skipChar = data.wildcardChar || '?';
     for (let level of data.levels || []) {
-        collectPatternChars(level.board, alphabet);
+        collectPatternChars(level.board, alphabet, null);
     }
     for (let goal of data.goals || []) {
-        collectPatternChars(goal, alphabet);
+        collectPatternChars(goal, alphabet, skipChar);
     }
     for (let voidPattern of data.voids || []) {
-        collectPatternChars(voidPattern, alphabet);
+        collectPatternChars(voidPattern, alphabet, skipChar);
     }
     for (let key of Object.keys(data.charMap || {})) {
         for (let char of key) {
@@ -688,7 +694,7 @@ function collectGameAlphabet(data) {
         alphabet.add(char);
     }
     for (let rule of Object.values(data.rules || {})) {
-        collectRuleChars(rule, alphabet);
+        collectRuleChars(rule, alphabet, skipChar);
     }
     return alphabet;
 }
@@ -793,6 +799,7 @@ function initGame(data, options = {}) {
     charMap = data.charMap;
     colorMap = data.colorMap;
     globalTickInterval = data.globalTick;
+    wildcardChar = data.wildcardChar || '?';
     currentGameAlphabet = collectGameAlphabet(data);
     level_number = Number.isInteger(options.level) ? options.level : 0;
     scratchInitialBoard = null;
@@ -1130,7 +1137,40 @@ function boardsEqual(a, b) {
     return true;
 }
 
-function patternMatch(fromPattern, row, col) {
+// Capture environments (collab decisions D9/D18/D23). Shadowing is banned,
+// so one flat frame per evaluation suffices: `domains` maps a variable
+// character to its {domain, negated} spec, `bindings` maps it to its bound
+// cell value or null. Environments never cross CALL or side-effect
+// boundaries, and control nodes restore `bindings` on failed children.
+
+function captureDomainAllows(spec, char) {
+    const inSet = spec.domain.includes(char);
+    return spec.negated ? !inSet : inSet;
+}
+
+function ruleMaskSet(rule, key) {
+    const offsets = rule[key];
+    if (!offsets) {
+        return null;
+    }
+    const cacheKey = '_' + key + 'Set';
+    if (!rule[cacheKey]) {
+        rule[cacheKey] = new Set(offsets);
+    }
+    return rule[cacheKey];
+}
+
+function envSnapshot(env) {
+    return env ? Object.assign({}, env.bindings) : null;
+}
+
+function envRestore(env, snapshot) {
+    if (env) {
+        env.bindings = snapshot;
+    }
+}
+
+function patternMatch(fromPattern, row, col, fromMask, env, tentative) {
     let patternHeight = fromPattern.length;
     let patternWidth = fromPattern[0].length;
     if (row < 0 || col < 0 || row + patternHeight > board.length || col + patternWidth > board[0].length) {
@@ -1141,7 +1181,24 @@ function patternMatch(fromPattern, row, col) {
         let boardRow = board[row + i];
         for (let j = 0; j < patternWidth; j++) {
             let cell = patternRow[j];
-            if (cell != '?' && cell != boardRow[col + j]) {
+            if (fromMask && fromMask.has(i * patternWidth + j)) {
+                // Masked cells take the capture path and are never
+                // reinterpreted as the wildcard (D18).
+                let boardCell = boardRow[col + j];
+                let bound = (tentative && cell in tentative) ? tentative[cell] : env.bindings[cell];
+                if (bound != null) {
+                    if (bound !== boardCell) {
+                        return false;
+                    }
+                } else {
+                    if (!captureDomainAllows(env.domains[cell], boardCell)) {
+                        return false;
+                    }
+                    tentative[cell] = boardCell;
+                }
+                continue;
+            }
+            if (cell != wildcardChar && cell != boardRow[col + j]) {
                 return false;
             }
         }
@@ -1149,7 +1206,7 @@ function patternMatch(fromPattern, row, col) {
     return true;
 }
 
-function applyRuleAt(rule, row, col) {
+function applyRuleAt(rule, row, col, env, tentative) {
     if (DEBUG_LOGS) {
         debugLog("Applying rule " + rule + " at " + row + ", " + col);
         debugLog("Board before applying rule: " + board);
@@ -1160,6 +1217,21 @@ function applyRuleAt(rule, row, col) {
     let sideEffects = rule.side_effects;
     let patternHeight = toPattern.length;
     let patternWidth = toPattern[0].length;
+    // Destinations resolve completely before the first write (D9); an
+    // unbound variable fails the rule without touching the board.
+    let toMask = env ? ruleMaskSet(rule, 'toVariables') : null;
+    let resolvedTo = null;
+    if (toMask) {
+        resolvedTo = {};
+        for (let offset of toMask) {
+            let name = toPattern[Math.floor(offset / patternWidth)][offset % patternWidth];
+            let bound = (tentative && name in tentative) ? tentative[name] : env.bindings[name];
+            if (bound == null) {
+                return false;
+            }
+            resolvedTo[offset] = bound;
+        }
+    }
     if (row >= 0 && col >= 0 && row + patternHeight <= board.length && col + patternWidth <= board[0].length) {
         // Board rows are immutable strings, so a shallow row-array copy is a
         // full snapshot. Only mandatory ('!') side effects can roll back, so
@@ -1175,8 +1247,14 @@ function applyRuleAt(rule, row, col) {
         for (let i = 0; i < patternHeight; i++) {
             for (let j = 0; j < patternWidth; j++) {
                 let cell = toPattern[i][j];
-                if (cell == '?')
+                let offset = i * patternWidth + j;
+                if (resolvedTo && offset in resolvedTo) {
+                    // Bound values write unconditionally, even when the
+                    // value equals the wildcard character (D18).
+                    cell = resolvedTo[offset];
+                } else if (cell == wildcardChar) {
                     continue;
+                }
                 let boardRow = board[row + i];
                 board[row + i] = boardRow.substring(0, col + j) + cell + boardRow.substring(col + j + 1);
                 if (DEBUG_LOGS) debugLog("Setting cell " + (row + i) + ", " + (col + j) + " to " + cell);
@@ -1251,32 +1329,44 @@ function levelComplete() {
 let lastRow = -1;
 let lastCol = -1;
 
-function applyRule(rule, min_row=0, min_col=0) {
+function applyRule(rule, min_row=0, min_col=0, env=null) {
     switch (rule.type) {
-    case "simple":
+    case "simple": {
         var height = board.length;
         var width = board[0].length;
         if (DEBUG_LOGS) debugLog("Applying SIMPLE " + rule.from + " with min_row, min_col: " + min_row + ", " + min_col);
 
+        var fromMask = env ? ruleMaskSet(rule, 'fromVariables') : null;
+        var hasCaptures = env && (fromMask != null || rule.toVariables != null);
         var ruleApplied = false;
         if (rule.method == 'firstmatch') {
             // When the pattern anchor is a concrete character, let the native
-            // string search skip the empty space between candidates.
+            // string search skip the empty space between candidates. Masked
+            // anchors are variables, so they take the slow path.
             var anchor = rule.from[0][0];
+            var anchorConcrete = anchor != wildcardChar && !(fromMask && fromMask.has(0));
             for (let i = min_row; i < height && !ruleApplied; i++) {
-                if (anchor != '?') {
+                if (anchorConcrete) {
                     var boardRow = board[i];
                     for (let j = boardRow.indexOf(anchor, min_col); j != -1 && !ruleApplied; j = boardRow.indexOf(anchor, j + 1)) {
-                        if (patternMatch(rule.from, i, j)) {
-                            ruleApplied = applyRuleAt(rule, i, j);
+                        let tentative = hasCaptures ? {} : null;
+                        if (patternMatch(rule.from, i, j, fromMask, env, tentative)) {
+                            ruleApplied = applyRuleAt(rule, i, j, env, tentative);
+                            if (ruleApplied && tentative) {
+                                Object.assign(env.bindings, tentative);
+                            }
                             lastRow = i;
                             lastCol = j;
                         }
                     }
                 } else {
                     for (let j = min_col; j < width && !ruleApplied; j++) {
-                        if (patternMatch(rule.from, i, j)) {
-                            ruleApplied = applyRuleAt(rule, i, j);
+                        let tentative = hasCaptures ? {} : null;
+                        if (patternMatch(rule.from, i, j, fromMask, env, tentative)) {
+                            ruleApplied = applyRuleAt(rule, i, j, env, tentative);
+                            if (ruleApplied && tentative) {
+                                Object.assign(env.bindings, tentative);
+                            }
                             lastRow = i;
                             lastCol = j;
                         }
@@ -1286,8 +1376,12 @@ function applyRule(rule, min_row=0, min_col=0) {
         } else if (rule.method == 'lastmatch') {
             for (let i = height - 1; i >= min_row && !ruleApplied; i--) {
                 for (let j = width - 1; j >= min_col && !ruleApplied; j--) {
-                    if (patternMatch(rule.from, i, j)) {
-                        ruleApplied = applyRuleAt(rule, i, j);
+                    let tentative = hasCaptures ? {} : null;
+                    if (patternMatch(rule.from, i, j, fromMask, env, tentative)) {
+                        ruleApplied = applyRuleAt(rule, i, j, env, tentative);
+                        if (ruleApplied && tentative) {
+                            Object.assign(env.bindings, tentative);
+                        }
                         lastRow = i;
                         lastCol = j;
                     }
@@ -1295,98 +1389,158 @@ function applyRule(rule, min_row=0, min_col=0) {
             }
         }
         else if (rule.method == 'random') {
+            // Candidates are selected together with their tentative
+            // bindings (D9): a coordinate never inherits bindings from a
+            // different probe.
             var matchPositions = [];
             for (let i = min_row; i < height; i++) {
                 for (let j = min_col; j < width; j++) {
-                    if (patternMatch(rule.from, i, j)) {
-                        matchPositions.push([i, j]);
+                    let tentative = hasCaptures ? {} : null;
+                    if (patternMatch(rule.from, i, j, fromMask, env, tentative)) {
+                        matchPositions.push([i, j, tentative]);
                     }
                 }
             }
             if (matchPositions.length > 0) {
                 var randomIndex = Math.floor(Math.random() * matchPositions.length);
                 var matchPosition = matchPositions[randomIndex];
-                ruleApplied = applyRuleAt(rule, matchPosition[0], matchPosition[1]);
+                ruleApplied = applyRuleAt(rule, matchPosition[0], matchPosition[1], env, matchPosition[2]);
+                if (ruleApplied && matchPosition[2]) {
+                    Object.assign(env.bindings, matchPosition[2]);
+                }
                 lastRow = matchPosition[0];
                 lastCol = matchPosition[1];
             }
         }
         return ruleApplied;
-    case "call":
+    }
+    case "call": {
         var name = rule.name;
         debugLog("Applying CALL " + name);
+        // Capture environments are lexical and never cross CALL (D2/D9).
         var ruleApplied = applyRule(rules_dict[name]);
         debugLog("CALL " + name + " applied: " + ruleApplied);
         return ruleApplied;
-    case "repeat":
+    }
+    case "repeat": {
         // Like match1, repeatedly: try the children in order; when one
         // succeeds, start over from the first child. Stop when no child
         // succeeds, or the successful child made no progress (guards
         // against non-terminating loops of test rules). Always succeeds.
+        // Bindings persist across iterations; a failed child restores the
+        // environment it entered with (D9).
         while (true) {
             var beforeIteration = board.slice();
             var anySucceeded = false;
             for (let child of rule.rules) {
-                if (applyRule(child)) {
+                let snapshot = envSnapshot(env);
+                if (applyRule(child, 0, 0, env)) {
                     anySucceeded = true;
                     break;
                 }
+                envRestore(env, snapshot);
             }
             if (!anySucceeded || boardsEqual(board, beforeIteration)) {
                 break;
             }
         }
         return true;
-    case "match1":
+    }
+    case "match1": {
         var ruleApplied = false;
         var rules = rule.rules;
         for (let i = 0; i < rules.length; i++) {
-            if (applyRule(rules[i])) {
+            let snapshot = envSnapshot(env);
+            if (applyRule(rules[i], 0, 0, env)) {
                 ruleApplied = true;
                 break;
             }
+            envRestore(env, snapshot);
         }
         return ruleApplied;
-    case "try_all":
+    }
+    case "try_all": {
         var rules = rule.rules;
-        for (let i = 0; i < rules.length; i++)
-            applyRule(rules[i]);
+        for (let i = 0; i < rules.length; i++) {
+            let snapshot = envSnapshot(env);
+            if (!applyRule(rules[i], 0, 0, env)) {
+                envRestore(env, snapshot);
+            }
+        }
         return true;
-    case "random":
+    }
+    case "random": {
         var rules = rule.rules;
         var length = rules.length;
         // apply a random element
         var randomIndex = Math.floor(Math.random() * length);
-        return applyRule(rules[randomIndex]);
-    case "atomic":
+        let snapshot = envSnapshot(env);
+        if (applyRule(rules[randomIndex], 0, 0, env)) {
+            return true;
+        }
+        envRestore(env, snapshot);
+        return false;
+    }
+    case "atomic": {
         var board_copy = board.slice();
+        var entrySnapshot = envSnapshot(env);
+        var childEnv = env;
+        var addedVars = null;
+        if (rule.variables) {
+            // Parameterized atomic: open a capture frame. Shadowing is a
+            // parse error, so a single flat frame chain suffices (D23).
+            if (!childEnv) {
+                childEnv = { domains: {}, bindings: {} };
+            }
+            addedVars = Object.keys(rule.variables);
+            for (let name of addedVars) {
+                childEnv.domains[name] = rule.variables[name];
+                childEnv.bindings[name] = null;
+            }
+        }
         var ruleApplied = true;
         var rules = rule.rules;
         var condition = rule.condition;
-        var min_row = 0;
-        var min_col =0;
+        var next_min_row = 0;
+        var next_min_col = 0;
         for (let i = 0; i < rules.length; i++) {
-            var rule = rules[i];
+            var child = rules[i];
             if (DEBUG_LOGS) {
-                debugLog("Applying atomic rule " + rule + ", step " + i + " with min_row, min_col: " + min_row + ", " + min_col);
+                debugLog("Applying atomic rule " + child + ", step " + i + " with min_row, min_col: " + next_min_row + ", " + next_min_col);
                 debugLog("condition: " + condition);
             }
-            if (!applyRule(rule, min_row, min_col)) {
+            if (!applyRule(child, next_min_row, next_min_col, childEnv)) {
                 ruleApplied = false;
                 debugLog("Atomic rule fail: " + rules[i]);
                 break;
             }
             if (condition == 'vertical') {
-                min_row = lastRow + 1;
+                next_min_row = lastRow + 1;
             }
             else if (condition == 'horizontal') {
-                min_col = lastCol + 1;
+                next_min_col = lastCol + 1;
             }
         }
         if (!ruleApplied) {
             board = board_copy;
+            // Failure discards local variables and any outer bindings made
+            // inside (D9/R7). When this frame was the root, it simply dies.
+            if (addedVars && env) {
+                for (let name of addedVars) {
+                    delete childEnv.domains[name];
+                }
+            }
+            envRestore(env, entrySnapshot);
+        } else if (addedVars && childEnv === env) {
+            // Success: local variables go out of scope; bindings made to
+            // enclosing variables persist (R8).
+            for (let name of addedVars) {
+                delete childEnv.bindings[name];
+                delete childEnv.domains[name];
+            }
         }
         return ruleApplied;
+    }
     }
 }
 

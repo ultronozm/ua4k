@@ -22,40 +22,80 @@
       "rules": [
         {
           "from": [
-            "a",
+            "p"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "r"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "q"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "s"
+          ],
+          "type": "simple"
+        },
+        {
+          "name": "unit",
+          "type": "call"
+        },
+        {
+          "name": "unit",
+          "type": "call"
+        },
+        {
+          "from": [
             "."
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "b",
             "x"
           ],
           "type": "simple"
         },
         {
           "from": [
-            "a",
             ".."
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "b",
             "xx"
           ],
           "type": "simple"
         },
         {
           "from": [
-            "a",
             "..."
           ],
           "method": "firstmatch",
           "side_effects": [],
           "to": [
-            "b",
             "xxx"
+          ],
+          "type": "simple"
+        }
+      ],
+      "type": "match1"
+    },
+    "unit": {
+      "rules": [
+        {
+          "from": [
+            "p"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "q"
           ],
           "type": "simple"
         }

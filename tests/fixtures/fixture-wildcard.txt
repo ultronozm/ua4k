@@ -1,0 +1,20 @@
+;; WILDCARD happy path: `*` is the effective wildcard, so `?` is an
+;; ordinary literal board character (here, a crate the player swaps with).
+;; The move rule uses `*` in both roles: source match-any and destination
+;; preserve. The goal pattern contains a literal `?`.
+
+WILDCARD *
+
+TITLE Wildcard fixture
+
+GOAL
+1?
+
+?-1
+
+BIND a move_w "west"
+
+CMD move_w
+ ?1* 1?*
+
+ -1 1-

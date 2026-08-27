@@ -1,0 +1,22 @@
+;; REPEAT capture lifetimes (R13/R14, decision D9).
+;; `outer` declares the variable outside REPEAT: the first iteration binds
+;; it and later iterations are equality tests, so only the first-bound
+;; letter can keep moving.  `inner` declares it inside REPEAT: every
+;; iteration is a fresh invocation, so all letters pack rightward.
+
+GOAL
+Z
+
+A-B-
+
+BIND o outer "bind outside repeat" i inner "bind inside repeat"
+
+CMD outer
+ ATOMIC 1 AB
+  REPEAT
+   1- -1
+
+CMD inner
+ REPEAT
+  ATOMIC 1 AB
+   1- -1

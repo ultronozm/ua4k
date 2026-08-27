@@ -1,0 +1,13 @@
+AA
+
+BIND x go
+
+CMD helper
+ B C
+
+CMD go
+ ATOMIC
+  AA BB
+  AA BB
+
+  CALL helper

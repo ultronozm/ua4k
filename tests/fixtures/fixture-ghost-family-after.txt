@@ -1,0 +1,27 @@
+;; D19 demonstration, AFTER: the same four-ghost eastward step with
+;; capture variables and register-carried floors.  One character per
+;; ghost; the floor underneath lives behind its !N register; variable j
+;; is the carried floor and v the floor being stepped onto.
+
+GOAL
+Z
+
+CLASS floor -.o
+
+B.-P.oIo-K---
+%(e)e[e]e----
+%!1.!2-!3o!4-
+
+BIND g move_all "step all ghosts east"
+
+CMD move_all
+ TRY_ALL
+  ZIP M ()[] G BPIK N 1234
+   ATOMIC j floor v floor
+    Me
+
+    !Nj
+
+    Gv jG
+
+    !Nj !Nv

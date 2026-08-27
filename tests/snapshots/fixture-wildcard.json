@@ -1,0 +1,59 @@
+{
+  "binds": {
+    "a": {
+      "command": "move_w",
+      "description": "west"
+    }
+  },
+  "charMap": {},
+  "colorMap": {},
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": "Wildcard fixture",
+  "globalTick": null,
+  "goals": [
+    [
+      "1?"
+    ]
+  ],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "?-1"
+      ]
+    }
+  ],
+  "rules": {
+    "move_w": {
+      "rules": [
+        {
+          "from": [
+            "?1*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "1?*"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "-1"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "1-"
+          ],
+          "type": "simple"
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [],
+  "whitespaceChars": [],
+  "wildcardChar": "*"
+}

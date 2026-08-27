@@ -2,7 +2,8 @@
 
 This document describes the DSL behavior as implemented today in:
 - `make-data.py` (compiler/parser)
-- `ua4k.js` (runtime)
+- `ua4k.js` (browser runtime)
+- `emacs/ua4k.el` (Emacs runtime; a second normative rule interpreter, not a viewer)
 
 It is descriptive, not aspirational. If behavior is surprising, this doc still records it as-is.
 
@@ -16,6 +17,10 @@ It is descriptive, not aspirational. If behavior is surprising, this doc still r
   - Flush current `VOID` block.
   - Flush an accumulated simple rule (`from`/`to` pattern pair list).
 - Indentation controls scope for compound rule constructs (`CMD`, `ROTATE_CMDS`, `ATOMIC`, `MATCH1`, `TRY_ALL`, `RANDOM`, `FOR`, `ZIP`, `LET_REPEAT`, `ROTATE`, `FLIP_HORIZONTAL`, `FLIP_VERTICAL`, `CALL`).
+- Adjacent pattern lines form the rows of one simple rule. A blank line must
+  terminate those rows before any directive (including `CALL` or a sibling
+  control block); otherwise the parser reports an error instead of allowing
+  the unfinished pattern to attach to a later sibling.
   - The parser maintains an indentation/rule stack and closes entries when indentation decreases (or equals) to the current level.
 
 ## 2. Top-Level Directives
@@ -23,6 +28,8 @@ It is descriptive, not aspirational. If behavior is surprising, this doc still r
 Supported directives are:
 - `GOAL`
 - `VOID`
+- `WILDCARD`
+- `CLASS`
 - `BIND`
 - `CMD`
 - `ROTATE_CMDS`
@@ -71,6 +78,76 @@ Directive behavior:
     standalone pages.
   - `TICK` before any level sets global tick interval.
   - `MINMOVES <n>` stores a solver-backed minimum-move count for the level and is displayed in the UI.
+- `WILDCARD <char>` names the game's wildcard character (default `?`).
+  - Optional; at most one declaration, placed before the first
+    pattern-bearing construct (rule, board, `GOAL`, or `VOID`). Metadata,
+    `BIND`, `CLASS`, and display directives may precede it.
+  - The argument is exactly one non-whitespace character. Duplicate, late,
+    or multi-character declarations are parse errors.
+  - The effective wildcard plays `?`'s two roles in rule, `GOAL`, and `VOID`
+    patterns: match-any in `from`, preserve-cell in `to`. With `WILDCARD *`,
+    a `?` in a pattern is an ordinary literal, and `?` becomes a legal,
+    matchable board character.
+  - Any `ROTATE`/`ROTATE_CMDS` orbit containing the effective wildcard is a
+    parse error (in either direction, orbit substitution would silently
+    convert between wildcard syntax and literals). This applies to the
+    default `?` as well.
+  - Compiled output carries `wildcardChar` only when the directive is
+    present, so games without it compile byte-identically to before.
+  - Both runtimes honor it: pattern matching, destination preservation,
+    anchor search, and scratch-alphabet collection in the browser
+    (level-board cells are always collected as literals; unmasked wildcard
+    occurrences in patterns are syntax and omitted), and pattern
+    normalization/matching/writes/anchoring in the Emacs player, including
+    `ua4k-play-region` forwarding.
+- `CLASS <name> [NOT] <chars...>` declares a named character set for capture
+  domains.
+  - Names match `[a-z_]{2,}`; duplicates are parse errors. Character
+    arguments use the BIND quoting convention, so quoted tokens may contain
+    spaces.
+  - `NOT` marks the class as a match-time complement: a cell is in the class
+    when it is *not* one of the listed characters, including characters that
+    appear nowhere else in the game.
+- `ATOMIC <var> <domain> [<var> <domain> ...]` declares capture variables
+  scoped to that block (plain `ATOMIC` is unchanged; `ATOMIC_VERTICAL` /
+  `ATOMIC_HORIZONTAL` do not accept arguments).
+  - A variable is one character; the effective wildcard is not a legal name.
+    A domain token matching `[a-z_]{2,}` is always a declared-before-use
+    class reference; any other token is a raw character set.
+  - Inside the block (lexically, including nested control nodes, but never
+    through `CALL` or side effects), occurrences of a declared character in
+    patterns are variables: the first source occurrence binds the matched
+    cell after a domain check, later source occurrences must equal the bound
+    value, and destination occurrences write it — unconditionally, even when
+    the bound value equals the wildcard character.
+  - Binding is greedy and non-backtracking: the first candidate the rule's
+    method selects is committed; if a later child fails under that binding
+    the whole atomic fails and the board and bindings roll back. Bindings
+    commit only when a complete simple rule, including mandatory side
+    effects, succeeds; every failed nested evaluation (a `MATCH1` branch, a
+    `TRY_ALL` or `RANDOM` child, a nested `ATOMIC`, a `REPEAT` iteration)
+    restores the environment it entered with. `[random]`/`[lastmatch]` select a candidate together with
+    its bindings.
+  - Bindings persist across `REPEAT` iterations when the declaring `ATOMIC`
+    encloses the `REPEAT` (later iterations become equality tests); nest the
+    `ATOMIC` inside the `REPEAT` for a fresh binding per iteration. A
+    successful child that only changes bindings is not `REPEAT` progress.
+  - A destination occurrence with no lexically preceding source occurrence
+    anywhere in the block is a parse error; a path-dependently unbound
+    destination fails the rule at runtime without touching the board.
+  - Nested parameterized atomics may declare further variables; redeclaring
+    an enclosing one is a parse error, and locals vanish when their block
+    exits. FOR/ZIP wildcards may not collide with capture variables in
+    either nesting direction, and no applicable orbit may contain one.
+    Compile-time expansion (FOR/ZIP values) may lawfully produce a literal
+    equal to a variable character at an unmasked position; masks, not
+    characters, decide what is a variable, and masks move positionally under
+    `ROTATE`/`FLIP`.
+  - Compiled output: the atomic carries `variables` (per character:
+    resolved `domain` string and `negated` flag); simple rules carry sparse
+    `fromVariables`/`toVariables` row-major offset arrays, omitted when
+    empty. Unparameterized games emit none of these keys and compile
+    byte-identically to before.
 - `WHITESPACE` appends characters rendered as non-breaking spaces in the browser.
 - `CHARMAP` maps display characters.
 - `COLOR` maps display colors by source character.
@@ -152,8 +229,9 @@ All wrap a nested `rules` list. Runtime behavior:
 - All value strings are expected to have equal length.
 
 `LET_REPEAT`:
-- Syntax: `LET_REPEAT <initial> <final> <step> <wildcard> <seed> [<wildcard> <seed> ...]`
+- Syntax: `LET_REPEAT <initial> <final> <step> [<wildcard> <seed> ...]`
 - For each integer `i` in `range(initial, final, step)`, each wildcard is replaced with `seed * i`.
+- With no wildcard/seed pairs, it simply emits the nested rules once per iteration.
 - Expanded nested rules are deep-copied per iteration.
 
 `ROTATE`:
@@ -206,8 +284,11 @@ Runtime behavior in `applyRuleAt`:
 
 ## 5. Pattern Matching Semantics
 
-- `?` in `from` matches any cell.
-- `?` in `to` preserves existing cell (no write at that location).
+- The effective wildcard (default `?`; see `WILDCARD`) in `from` matches any cell.
+- The effective wildcard in `to` preserves the existing cell (no write at that location).
+- Capture-masked cells are never interpreted as the wildcard: a resolved
+  destination writes its bound value unconditionally, even when that value
+  equals the wildcard character.
 - Matching methods:
   - `firstmatch`: top-left scan.
   - `lastmatch`: bottom-right scan.
@@ -229,9 +310,16 @@ Compiler emits one entry per game into `gamesData.js`:
 - `colorMap`
 - `hiddenLineChars`
 - `globalTick`
+- `wildcardChar` (only when a `WILDCARD` directive is present)
 - `gameTitle`, `gameDescription`, `gameAuthor` (game-level metadata; `null` when absent)
 
 Levels may additionally carry `goals`/`voids` lists (per-level overrides).
+
+Parameterized atomics carry `variables` (per declared character: resolved
+`domain` string and `negated` flag); simple rules containing capture cells
+carry sparse `fromVariables`/`toVariables` row-major offset arrays. All of
+these keys are omitted when absent, so games using none of the new
+directives compile byte-identically to earlier output.
 
 `make-data.py` is accumulative:
 - Reads existing `gamesData.js` when possible.

@@ -1,0 +1,9 @@
+A
+
+CMD broken
+ MATCH1
+  ATOMIC
+   A B
+   A B
+  ATOMIC
+   B C

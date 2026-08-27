@@ -194,6 +194,9 @@ function compileGameJson(root, gameArg) {
   const result = spawnSync('python3', ['compile-game-json.py', path.relative(root, gameFile)], {
     cwd: root,
     encoding: 'utf8',
+    // Rule-heavy games (e.g. games/claude/pacman.txt) compile to more than
+    // spawnSync's default 1 MiB maxBuffer.
+    maxBuffer: 64 * 1024 * 1024,
   });
   if (result.status !== 0) {
     const stderr = (result.stderr || '').trim();
@@ -208,12 +211,28 @@ function createRuntime(root, data, options = {}) {
   const document = new FakeDocument();
   const window = new FakeEventTarget();
   window.location = { hash: '', search: '' };
+  // Tick games install a real interval timer. Unref'd timers still fire in
+  // long-lived harnesses (the TUI), but let one-shot tools (replay, solver)
+  // exit once their synchronous work is done.
+  const unrefdSetInterval = (fn, ms) => {
+    const timer = setInterval(fn, ms);
+    if (timer && typeof timer.unref === 'function') {
+      timer.unref();
+    }
+    return timer;
+  };
+  // Seeded runs (collab decision D17): options.random replaces only the
+  // runtime's view of Math.random via a per-context facade; the process
+  // global Math is never mutated, and parallel runtimes cannot interfere.
+  const contextMath = typeof options.random === 'function'
+    ? Object.assign(Object.create(Math), { random: options.random })
+    : Math;
   const context = {
     console,
-    Math,
+    Math: contextMath,
     JSON,
     URLSearchParams,
-    setInterval,
+    setInterval: unrefdSetInterval,
     clearInterval,
     setTimeout,
     clearTimeout,

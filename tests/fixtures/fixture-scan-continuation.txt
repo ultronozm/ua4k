@@ -1,0 +1,24 @@
+;; D30: a full source match whose mandatory side effect fails is not a
+;; successful simple-rule application. Both runtimes continue to the next
+;; candidate; the first A- candidate fails `gate`, the later B- succeeds.
+
+GOAL
+Z
+
+A-B-
+
+BIND x move y move_last
+
+CMD move
+ ATOMIC 1 AB
+  1- 1E gate!
+
+CMD gate
+ BE BE
+
+CMD move_last
+ ATOMIC 1 AB
+  1- 1E gate_a! [lastmatch]
+
+CMD gate_a
+ AE AE

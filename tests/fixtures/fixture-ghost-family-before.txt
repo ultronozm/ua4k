@@ -1,0 +1,24 @@
+;; D19 demonstration, BEFORE: games/claude/pacman.txt's ghost encoding.
+;; Each ghost is identity x floor: on-empty BPIK, on-dot DFJL, on-pellet
+;; 0123 -- twelve characters for four ghosts in one mode, and every move
+;; rule is a 3x3 floor product per ghost.  This slice is the straight-east
+;; move for all four ghosts, gated by their heading registers.
+
+GOAL
+Z
+
+D.-P.o2o-K---
+%(e)e[e]e----
+
+BIND g move_all "step all ghosts east"
+
+CMD move_all
+ TRY_ALL
+  ZIP M ()[] G BPIK H DFJL O 0123
+   ATOMIC
+    Me
+
+    MATCH1
+     ZIP X GHO u -.o
+      ZIP c -.o R GHO
+       Xc uR

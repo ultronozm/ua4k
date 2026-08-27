@@ -1,0 +1,62 @@
+;; D19 demonstration, BEFORE: tetris's shipped line-clear machinery,
+;; shrunk to a six-row well.  The board itself needs a visible label
+;; column (0-5) and a `%` scratch register purely so per-cell copies can
+;; address rows; the rules are games/toys/tetris.txt's line_clear and
+;; line_clear_internal with the label sets reduced.
+
+GOAL
+Z
+
+WHITESPACE -_
+
+----------0
+-XX-------1
+XXXXXXXXXX2
+--X-------3
+XXXXXXXXXX4
+-------X--5
+%__________
+
+BIND c line_clear "clear one full row"
+
+CMD line_clear_internal
+ TRY_ALL
+  MATCH1
+   FOR r 54321
+    ATOMIC
+     %r
+
+     ??????????r ??????????r
+     ??????????? ??????????!
+
+  ZIP p 43210 q 54321
+   ATOMIC
+    ATOMIC_VERTICAL
+     ??????????q
+
+     ??????????!
+
+    TRY_ALL
+     LET_REPEAT 0 10 1 t ?
+      FOR * -X
+       ATOMIC
+        *tp
+
+        ?tq *tq
+
+  MATCH1
+   ZIP r 54321 s _5432
+    ATOMIC
+     %r %_
+
+     r r
+     ! s
+
+CMD line_clear
+ FOR p 54321
+  ATOMIC
+   XXXXXXXXXXp
+
+   %_ %p
+
+   CALL line_clear_internal

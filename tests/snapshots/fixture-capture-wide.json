@@ -1,0 +1,138 @@
+{
+  "binds": {
+    "c": {
+      "command": "copy_row",
+      "description": "copy row"
+    },
+    "l": {
+      "command": "poke",
+      "description": "poke"
+    }
+  },
+  "charMap": {},
+  "colorMap": {},
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": null,
+  "globalTick": null,
+  "goals": [
+    [
+      "Z"
+    ]
+  ],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "#ABCACB#",
+        "#------#",
+        "#1A#####"
+      ]
+    }
+  ],
+  "rules": {
+    "copy_row": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "#123456#",
+                "#??????#"
+              ],
+              "fromVariables": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "#123456#",
+                "#123456#"
+              ],
+              "toVariables": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic",
+          "variables": {
+            "1": {
+              "domain": "ABC",
+              "negated": false
+            },
+            "2": {
+              "domain": "ABC",
+              "negated": false
+            },
+            "3": {
+              "domain": "ABC",
+              "negated": false
+            },
+            "4": {
+              "domain": "ABC",
+              "negated": false
+            },
+            "5": {
+              "domain": "ABC",
+              "negated": false
+            },
+            "6": {
+              "domain": "ABC",
+              "negated": false
+            }
+          }
+        }
+      ],
+      "type": "match1"
+    },
+    "poke": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "19"
+              ],
+              "fromVariables": [
+                1
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1E"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic",
+          "variables": {
+            "9": {
+              "domain": "ABC",
+              "negated": false
+            }
+          }
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [],
+  "whitespaceChars": []
+}

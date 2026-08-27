@@ -1,0 +1,3400 @@
+{
+  "binds": {
+    "c": {
+      "command": "line_clear",
+      "description": "clear one full row"
+    }
+  },
+  "charMap": {},
+  "colorMap": {},
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": null,
+  "globalTick": null,
+  "goals": [
+    [
+      "Z"
+    ]
+  ],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "----------0",
+        "-XX-------1",
+        "XXXXXXXXXX2",
+        "--X-------3",
+        "XXXXXXXXXX4",
+        "-------X--5",
+        "%__________"
+      ]
+    }
+  ],
+  "rules": {
+    "line_clear": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "XXXXXXXXXX5"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "XXXXXXXXXX5"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "%_"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "%5"
+              ],
+              "type": "simple"
+            },
+            {
+              "name": "line_clear_internal",
+              "type": "call"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "XXXXXXXXXX4"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "XXXXXXXXXX4"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "%_"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "%4"
+              ],
+              "type": "simple"
+            },
+            {
+              "name": "line_clear_internal",
+              "type": "call"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "XXXXXXXXXX3"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "XXXXXXXXXX3"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "%_"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "%3"
+              ],
+              "type": "simple"
+            },
+            {
+              "name": "line_clear_internal",
+              "type": "call"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "XXXXXXXXXX2"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "XXXXXXXXXX2"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "%_"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "%2"
+              ],
+              "type": "simple"
+            },
+            {
+              "name": "line_clear_internal",
+              "type": "call"
+            }
+          ],
+          "type": "atomic"
+        },
+        {
+          "rules": [
+            {
+              "from": [
+                "XXXXXXXXXX1"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "XXXXXXXXXX1"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "%_"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "%1"
+              ],
+              "type": "simple"
+            },
+            {
+              "name": "line_clear_internal",
+              "type": "call"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "line_clear_internal": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "%5"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "%5"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "??????????5",
+                        "???????????"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "??????????5",
+                        "??????????!"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "%4"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "%4"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "??????????4",
+                        "???????????"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "??????????4",
+                        "??????????!"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "%3"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "%3"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "??????????3",
+                        "???????????"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "??????????3",
+                        "??????????!"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "%2"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "%2"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "??????????2",
+                        "???????????"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "??????????2",
+                        "??????????!"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "%1"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "%1"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "??????????1",
+                        "???????????"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "??????????1",
+                        "??????????!"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                }
+              ],
+              "type": "match1"
+            },
+            {
+              "rules": [
+                {
+                  "condition": "vertical",
+                  "rules": [
+                    {
+                      "from": [
+                        "??????????5"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "??????????5"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "??????????!"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "??????????!"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-?4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X?4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-??4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X??4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-???4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X???4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-?????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X?????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-??????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??????4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???????5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??????5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X??????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??????4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???????5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??????5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-???????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???????4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????????5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???????5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X???????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???????4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????????5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???????5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-????????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????????4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????????5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????????5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X????????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????????4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????????5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????????5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-?????????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????????4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????????5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????????5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X?????????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????????4"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????????5"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????????5"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    }
+                  ],
+                  "type": "try_all"
+                }
+              ],
+              "type": "atomic"
+            },
+            {
+              "rules": [
+                {
+                  "condition": "vertical",
+                  "rules": [
+                    {
+                      "from": [
+                        "??????????4"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "??????????4"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "??????????!"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "??????????!"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-?3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X?3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-??3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X??3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-???3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X???3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-?????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X?????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-??????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??????3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??????4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X??????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??????3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??????4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-???????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???????3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???????4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X???????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???????3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???????4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-????????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????????3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????????4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X????????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????????3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????????4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-?????????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????????3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????????4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X?????????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????????3"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????????4"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????????4"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    }
+                  ],
+                  "type": "try_all"
+                }
+              ],
+              "type": "atomic"
+            },
+            {
+              "rules": [
+                {
+                  "condition": "vertical",
+                  "rules": [
+                    {
+                      "from": [
+                        "??????????3"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "??????????3"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "??????????!"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "??????????!"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-?2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X?2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-??2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X??2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-???2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X???2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-?????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X?????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-??????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??????2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??????3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X??????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??????2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??????3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-???????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???????2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???????3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X???????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???????2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???????3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-????????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????????2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????????3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X????????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????????2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????????3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-?????????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????????2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????????3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X?????????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????????2"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????????3"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????????3"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    }
+                  ],
+                  "type": "try_all"
+                }
+              ],
+              "type": "atomic"
+            },
+            {
+              "rules": [
+                {
+                  "condition": "vertical",
+                  "rules": [
+                    {
+                      "from": [
+                        "??????????2"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "??????????2"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "??????????!"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "??????????!"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-?1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X?1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-??1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X??1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-???1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X???1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-?????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X?????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-??????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??????1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??????2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X??????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??????1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??????2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-???????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???????1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???????2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X???????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???????1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???????2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-????????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????????1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????????2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X????????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????????1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????????2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-?????????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????????1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????????2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X?????????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????????1"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????????2"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????????2"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    }
+                  ],
+                  "type": "try_all"
+                }
+              ],
+              "type": "atomic"
+            },
+            {
+              "rules": [
+                {
+                  "condition": "vertical",
+                  "rules": [
+                    {
+                      "from": [
+                        "??????????1"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "??????????1"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "??????????!"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "??????????!"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-?0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X?0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-??0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X??0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-???0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X???0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-????0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X????0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-?????0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X?????0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-??????0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??????0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-??????1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X??????0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??????0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "???????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X??????1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-???????0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???????0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-???????1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X???????0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???????0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "????????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X???????1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-????????0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????????0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-????????1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X????????0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????????0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "?????????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X????????1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "-?????????0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????????0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "-?????????1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    },
+                    {
+                      "rules": [
+                        {
+                          "from": [
+                            "X?????????0"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????????0"
+                          ],
+                          "type": "simple"
+                        },
+                        {
+                          "from": [
+                            "??????????1"
+                          ],
+                          "method": "firstmatch",
+                          "side_effects": [],
+                          "to": [
+                            "X?????????1"
+                          ],
+                          "type": "simple"
+                        }
+                      ],
+                      "type": "atomic"
+                    }
+                  ],
+                  "type": "try_all"
+                }
+              ],
+              "type": "atomic"
+            },
+            {
+              "rules": [
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "%5"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "%_"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "5",
+                        "!"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "5",
+                        "_"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "%4"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "%_"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "4",
+                        "!"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "4",
+                        "5"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "%3"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "%_"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "3",
+                        "!"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "3",
+                        "4"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "%2"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "%_"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "2",
+                        "!"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "2",
+                        "3"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                },
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "%1"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "%_"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "1",
+                        "!"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "1",
+                        "2"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic"
+                }
+              ],
+              "type": "match1"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [],
+  "whitespaceChars": [
+    "-",
+    "_"
+  ]
+}

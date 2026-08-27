@@ -1,0 +1,28 @@
+;; Redirected wildcard/capture interaction (W2-W4 and D26).
+
+WILDCARD *
+
+CLASS anything NOT "#="
+
+GOAL
+Z
+
+C*-?QA-
+
+BIND c copy q question_name l literal r rotate
+
+CMD copy
+ ATOMIC 1 anything
+  C1- C11
+
+CMD question_name
+ ATOMIC ? AB
+  ?- ?E
+
+CMD literal
+ ?Q !Q
+
+CMD rotate
+ ROTATE
+  X* Y*
+

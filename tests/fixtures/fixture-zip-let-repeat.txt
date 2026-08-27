@@ -2,8 +2,14 @@ pqrs
 
 BIND x transform
 
+CMD unit
+ p q
+
 CMD transform
  ZIP a pq b rs
   a b
+
+ LET_REPEAT 0 2 1
+  CALL unit
  LET_REPEAT 1 4 1 d . e x
   d e

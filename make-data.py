@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import itertools
 import json
+import re
 import shutil
 import sys
 from dataclasses import dataclass, field
@@ -13,6 +14,8 @@ from typing import NoReturn
 TOP_LEVEL_ONLY_DIRECTIVES = {
     "GOAL",
     "VOID",
+    "WILDCARD",
+    "CLASS",
     "HIDDEN_LINE_CHAR",
     "DESCRIPTION",
     "MINMOVES",
@@ -104,6 +107,9 @@ class ParseState:
     char_map: dict[str, str] = field(default_factory=dict)
     color_map: dict[str, str] = field(default_factory=dict)
     hidden_line_chars: list[str] = field(default_factory=list)
+    wildcard_char: str | None = None
+    patterns_started: bool = False
+    classes: dict[str, tuple[str, bool]] = field(default_factory=dict)
     global_tick: int | None = None
     game_title: str | None = None
     game_description: str | None = None
@@ -205,6 +211,175 @@ def parse_bind_entries(body: str, line_no: int) -> list[tuple[str, str, str | No
 
         entries.append((key, command, description))
     return entries
+
+
+CLASS_NAME_RE = re.compile(r"[a-z_]{2,}")
+
+
+def is_class_name_token(token: str) -> bool:
+    """Domain tokens shaped like class names always resolve as classes (D8)."""
+    return CLASS_NAME_RE.fullmatch(token) is not None
+
+
+def parse_class_directive(state: ParseState, line: str, line_no: int) -> None:
+    body = line.split("CLASS", 1)[1].strip()
+    tokens = parse_bind_tokens(body, line_no)
+    if not tokens:
+        fail(line_no, "CLASS expects a name and at least one character")
+    name, name_quoted = tokens[0]
+    if name_quoted or not is_class_name_token(name):
+        fail(line_no, f"CLASS name {name!r} must match [a-z_]{{2,}}")
+    if name in state.classes:
+        fail(line_no, f"duplicate CLASS {name!r}")
+    rest = tokens[1:]
+    negated = False
+    if rest and rest[0] == ("NOT", False):
+        negated = True
+        rest = rest[1:]
+    chars = "".join(token for token, _quoted in rest)
+    if not chars:
+        fail(line_no, f"CLASS {name!r} expects at least one character")
+    # Preserve first-occurrence order while removing duplicates.
+    state.classes[name] = ("".join(dict.fromkeys(chars)), negated)
+
+
+def parse_capture_arguments(state: ParseState, args: list[str], line_no: int) -> dict:
+    """Parse `ATOMIC <var> <domain> ...` pairs into a variables table."""
+    if len(args) % 2 != 0:
+        fail(line_no, "ATOMIC expects variable/domain pairs")
+    effective_wildcard = state.wildcard_char or "?"
+    variables: dict[str, dict] = {}
+    for i in range(0, len(args), 2):
+        var = args[i]
+        domain_token = args[i + 1]
+        if len(var) != 1:
+            fail(line_no, f"capture variable {var!r} must be a single character")
+        if var == effective_wildcard:
+            fail(line_no, f"capture variable {var!r} is the effective wildcard")
+        if var in variables:
+            fail(line_no, f"duplicate capture variable {var!r}")
+        for entry in state.rules_stack:
+            entry_type = entry["type"]
+            if entry_type == "atomic" and var in (entry.get("variables") or {}):
+                fail(line_no, f"capture variable {var!r} shadows an enclosing declaration")
+            if entry_type == "for" and var in entry["wildcards_dict"]:
+                fail(line_no, f"capture variable {var!r} collides with an enclosing FOR wildcard")
+            if entry_type == "zip" and var in entry["zip_dict"]:
+                fail(line_no, f"capture variable {var!r} collides with an enclosing ZIP wildcard")
+            if entry_type in {"rotate", "rotate_cmds"}:
+                for orbit in entry.get("orbits", []):
+                    if var in orbit:
+                        fail(line_no, f"capture variable {var!r} appears in an enclosing orbit {orbit!r}")
+        if is_class_name_token(domain_token):
+            if domain_token not in state.classes:
+                fail(line_no, f"unknown class {domain_token!r} in capture domain")
+            chars, negated = state.classes[domain_token]
+        else:
+            chars, negated = domain_token, False
+        variables[var] = {"domain": chars, "negated": negated}
+    return variables
+
+
+def active_capture_chars(state: ParseState) -> set[str]:
+    """Capture variables of every parameterized ATOMIC on the parse stack."""
+    chars: set[str] = set()
+    for entry in state.rules_stack:
+        if entry["type"] == "atomic":
+            chars.update((entry.get("variables") or {}).keys())
+    return chars
+
+
+def check_wildcards_vs_captures(
+    state: ParseState, wildcard_chars, line_no: int, directive: str
+) -> None:
+    """Reject FOR/ZIP wildcards or orbits that collide with enclosing captures."""
+    active = active_capture_chars(state)
+    for char in wildcard_chars:
+        if char in active:
+            fail(
+                line_no,
+                f"{directive} uses {char!r}, which is a capture variable of an enclosing ATOMIC",
+            )
+
+
+def capture_mask_offsets(rows: list[str], chars: set[str]) -> list[int]:
+    """Row-major offsets of capture-variable cells in ROWS (D23)."""
+    if not rows:
+        return []
+    width = len(rows[0])
+    offsets = []
+    for i, row in enumerate(rows):
+        for j, cell in enumerate(row):
+            if cell in chars:
+                offsets.append(i * width + j)
+    return offsets
+
+
+def rotate_mask_offsets(offsets: list[int], height: int, width: int, step: int) -> list[int]:
+    """Move mask offsets to their post-rotation positions (D12/D23)."""
+    step %= 4
+    if step == 0 or not offsets:
+        return list(offsets)
+    result = []
+    for offset in offsets:
+        i, j = divmod(offset, width)
+        if step == 1:
+            new_i, new_j, new_width = j, height - 1 - i, height
+        elif step == 2:
+            new_i, new_j, new_width = height - 1 - i, width - 1 - j, width
+        else:
+            new_i, new_j, new_width = width - 1 - j, i, height
+        result.append(new_i * new_width + new_j)
+    return sorted(result)
+
+
+def flip_mask_offsets(offsets: list[int], height: int, width: int, axis: str) -> list[int]:
+    """Move mask offsets to their post-reflection positions (D12/D23)."""
+    if not offsets:
+        return []
+    result = []
+    for offset in offsets:
+        i, j = divmod(offset, width)
+        if axis == "horizontal":
+            result.append(i * width + (width - 1 - j))
+        else:
+            result.append((height - 1 - i) * width + j)
+    return sorted(result)
+
+
+def rule_mask_char(rule: dict, side: str, offset: int) -> str:
+    rows = rule[side]
+    width = len(rows[0])
+    return rows[offset // width][offset % width]
+
+
+def check_definitely_unbound(node: dict, line_no: int) -> None:
+    """Reject destination uses that no source occurrence could bind (D10)."""
+    declared = set((node.get("variables") or {}).keys())
+    if not declared:
+        return
+    possibly_bound: set[str] = set()
+
+    def walk(rule: dict) -> None:
+        if rule["type"] == "simple":
+            for offset in rule.get("fromVariables") or []:
+                char = rule_mask_char(rule, "from", offset)
+                if char in declared:
+                    possibly_bound.add(char)
+            for offset in rule.get("toVariables") or []:
+                char = rule_mask_char(rule, "to", offset)
+                if char in declared and char not in possibly_bound:
+                    fail(
+                        rule.get("line_no", line_no),
+                        f"capture variable {char!r} is used in a destination "
+                        "before any possible source binding",
+                    )
+            return
+        for child in rule.get("rules") or []:
+            walk(child)
+
+    for child in node["rules"]:
+        walk(child)
 
 
 def looks_like_unknown_rule_directive(head: str) -> bool:
@@ -334,10 +509,15 @@ def add_rule_to_command(state: ParseState, command_name: str, rule: dict) -> Non
     state.rules[command_name]["rules"].append(cleaned)
 
 
-def ensure_orbits(orbits: list[str], line_no: int, directive: str) -> None:
+def ensure_orbits(orbits: list[str], line_no: int, directive: str, wildcard_char: str = "?") -> None:
     for orbit in orbits:
         if len(orbit) not in {2, 4}:
             fail(line_no, f"{directive} orbit {orbit!r} must have length 2 or 4")
+        if wildcard_char in orbit:
+            fail(
+                line_no,
+                f"{directive} orbit {orbit!r} contains the effective wildcard {wildcard_char!r}",
+            )
 
 
 def rotate_grid(grid_rows: list[str], step: int) -> list[str]:
@@ -413,6 +593,16 @@ def expand_rotate_subtree(rule: dict, step: int, orbits: list[str], rewrite_suff
         to_rows = list(rule["to"])
 
         if "norotate" not in flags:
+            height = len(from_rows)
+            width = len(from_rows[0]) if from_rows else 0
+            if rule.get("fromVariables"):
+                rule["fromVariables"] = rotate_mask_offsets(
+                    rule["fromVariables"], height, width, step
+                )
+            if rule.get("toVariables"):
+                rule["toVariables"] = rotate_mask_offsets(
+                    rule["toVariables"], height, width, step
+                )
             from_rows = rotate_grid(from_rows, step)
             to_rows = rotate_grid(to_rows, step)
 
@@ -439,6 +629,12 @@ def expand_rotate_subtree(rule: dict, step: int, orbits: list[str], rewrite_suff
 def expand_flip_subtree(rule: dict, axis: str) -> None:
     rule_type = rule["type"]
     if rule_type == "simple":
+        height = len(rule["from"])
+        width = len(rule["from"][0]) if rule["from"] else 0
+        if rule.get("fromVariables"):
+            rule["fromVariables"] = flip_mask_offsets(rule["fromVariables"], height, width, axis)
+        if rule.get("toVariables"):
+            rule["toVariables"] = flip_mask_offsets(rule["toVariables"], height, width, axis)
         rule["from"] = flip_grid(rule["from"], axis)
         rule["to"] = flip_grid(rule["to"], axis)
         return
@@ -490,18 +686,24 @@ def flush_simple_rule(state: ParseState) -> None:
 
     validate_simple_rule_buffer(state.rule_buffer)
     first_line = state.rule_buffer.line_nos[0]
-    add_rule(
-        state,
-        {
-            "type": "simple",
-            "from": state.rule_buffer.from_rows,
-            "to": state.rule_buffer.to_rows,
-            "side_effects": state.rule_buffer.side_effects,
-            "method": state.rule_buffer.method,
-            "flags": sorted(state.rule_buffer.flags),
-            "line_no": first_line,
-        },
-    )
+    rule = {
+        "type": "simple",
+        "from": state.rule_buffer.from_rows,
+        "to": state.rule_buffer.to_rows,
+        "side_effects": state.rule_buffer.side_effects,
+        "method": state.rule_buffer.method,
+        "flags": sorted(state.rule_buffer.flags),
+        "line_no": first_line,
+    }
+    capture_chars = active_capture_chars(state)
+    if capture_chars:
+        from_offsets = capture_mask_offsets(rule["from"], capture_chars)
+        to_offsets = capture_mask_offsets(rule["to"], capture_chars)
+        if from_offsets:
+            rule["fromVariables"] = from_offsets
+        if to_offsets:
+            rule["toVariables"] = to_offsets
+    add_rule(state, rule)
     state.rule_buffer = RuleBuffer()
 
 
@@ -535,6 +737,8 @@ def process_rule_stack_to_level(state: ParseState, level: int) -> None:
         rule_type = rule["type"]
 
         if rule_type in {"simple", "atomic", "match1", "try_all", "random", "repeat", "cmd"}:
+            if rule_type == "atomic" and rule.get("variables"):
+                check_definitely_unbound(rule, rule.get("line_no", 0))
             add_rule(state, rule)
             continue
 
@@ -638,6 +842,19 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
     line = token.stripped
     head = parts[0]
 
+    # Pattern rows accumulate into one rectangular simple rule until a blank
+    # line flushes them.  Silently accepting a directive here used to leave
+    # the rows buffered: the directive became an earlier sibling and the rows
+    # could then glue to a later sibling's pattern.  This twice broke Pacman's
+    # steering guards while still producing valid-looking compiled JSON.
+    if head in ALL_DIRECTIVES and state.rule_buffer.from_rows:
+        first_line = state.rule_buffer.line_nos[0]
+        fail(
+            line_no,
+            f"blank line required after rule pattern begun on line {first_line} "
+            f"before {head}",
+        )
+
     if head in TOP_LEVEL_ONLY_DIRECTIVES or head in TOP_LEVEL_BLOCK_DIRECTIVES:
         process_rule_stack_to_level(state, token.indent + 1)
 
@@ -648,12 +865,30 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
 
     if head == "GOAL":
         expect_exact_arity(parts, 1, line_no, "GOAL")
+        state.patterns_started = True
         state.temp_goal = []
         return True
 
     if head == "VOID":
         expect_exact_arity(parts, 1, line_no, "VOID")
+        state.patterns_started = True
         state.temp_void = []
+        return True
+
+    if head == "CLASS":
+        parse_class_directive(state, line, line_no)
+        return True
+
+    if head == "WILDCARD":
+        expect_exact_arity(parts, 2, line_no, "WILDCARD")
+        token = parts[1]
+        if len(token) != 1:
+            fail(line_no, "WILDCARD expects exactly one character")
+        if state.wildcard_char is not None:
+            fail(line_no, "duplicate WILDCARD declaration")
+        if state.patterns_started:
+            fail(line_no, "WILDCARD must appear before any rule, board, GOAL, or VOID")
+        state.wildcard_char = token
         return True
 
     if head == "HIDDEN_LINE_CHAR":
@@ -735,6 +970,7 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
 
     if head == "CMD":
         expect_exact_arity(parts, 2, line_no, "CMD")
+        state.patterns_started = True
         level = token.indent + 1
         process_rule_stack_to_level(state, level)
         name = parts[1]
@@ -747,11 +983,12 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
     if head == "ROTATE_CMDS":
         if len(parts) < 2:
             fail(line_no, "ROTATE_CMDS expects a base command name")
+        state.patterns_started = True
         level = token.indent + 1
         process_rule_stack_to_level(state, level)
         base_name = parts[1]
         orbits = parts[2:]
-        ensure_orbits(orbits, line_no, "ROTATE_CMDS")
+        ensure_orbits(orbits, line_no, "ROTATE_CMDS", state.wildcard_char or "?")
         state.rules_stack.append(
             {
                 "type": "rotate_cmds",
@@ -773,6 +1010,7 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
         for i in range(1, len(parts), 2):
             for char in parts[i]:
                 wildcards_dict[char] = parts[i + 1]
+        check_wildcards_vs_captures(state, wildcards_dict.keys(), line_no, "FOR")
         state.rules_stack.append(
             {"type": "for", "wildcards_dict": wildcards_dict, "rules": [], "line_no": line_no}
         )
@@ -784,7 +1022,8 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
         level = token.indent + 1
         process_rule_stack_to_level(state, level)
         orbits = parts[1:]
-        ensure_orbits(orbits, line_no, "ROTATE")
+        ensure_orbits(orbits, line_no, "ROTATE", state.wildcard_char or "?")
+        check_wildcards_vs_captures(state, "".join(orbits), line_no, "ROTATE orbit")
         state.rules_stack.append({"type": "rotate", "orbits": orbits, "rules": [], "line_no": line_no})
         state.indent_stack.append(level)
         return True
@@ -810,6 +1049,7 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
             if len(wildcard) != 1:
                 fail(line_no, "ZIP wildcard keys must be a single character")
             zip_dict[wildcard] = parts[i + 1]
+        check_wildcards_vs_captures(state, zip_dict.keys(), line_no, "ZIP")
         state.rules_stack.append(
             {"type": "zip", "zip_dict": zip_dict, "rules": [], "line_no": line_no}
         )
@@ -818,10 +1058,10 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
 
     if head == "LET_REPEAT":
         ensure_rule_context(state, "LET_REPEAT", line_no)
-        if len(parts) < 6:
+        if len(parts) < 4:
             fail(
                 line_no,
-                "LET_REPEAT expects: initial final step wildcard seed [wildcard seed ...]",
+                "LET_REPEAT expects: initial final step [wildcard seed ...]",
             )
         if (len(parts) - 4) % 2 != 0:
             fail(line_no, "LET_REPEAT expects wildcard/seed pairs after step")
@@ -860,6 +1100,10 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
         level = token.indent + 1
         process_rule_stack_to_level(state, level)
         node: dict = dict(BLOCK_DIRECTIVE_NODES[head])
+        if len(parts) > 1:
+            if head != "ATOMIC":
+                fail(line_no, f"{head} arguments are not supported (yet)")
+            node["variables"] = parse_capture_arguments(state, parts[1:], line_no)
         node.update({"rules": [], "line_no": line_no})
         state.rules_stack.append(node)
         state.indent_stack.append(level)
@@ -918,6 +1162,9 @@ def parse_rule_pattern_line(state: ParseState, token: LineToken) -> None:
 
 
 def parse_plain_line(state: ParseState, token: LineToken) -> None:
+    # Board rows, GOAL/VOID pattern rows, and rule pattern rows all fix the
+    # wildcard's interpretation, so WILDCARD may no longer be declared.
+    state.patterns_started = True
     if state.rules_stack:
         parse_rule_pattern_line(state, token)
         return
@@ -957,7 +1204,7 @@ def validate_state(state: ParseState) -> None:
 
 
 def emit_result(state: ParseState) -> dict:
-    return {
+    result = {
         "levels": state.levels,
         "rules": state.rules,
         "binds": state.binds,
@@ -972,6 +1219,11 @@ def emit_result(state: ParseState) -> dict:
         "gameDescription": state.game_description,
         "gameAuthor": state.game_author,
     }
+    # Only declared wildcards reach the output, so games without the
+    # directive keep byte-identical compiled data.
+    if state.wildcard_char is not None:
+        result["wildcardChar"] = state.wildcard_char
+    return result
 
 
 def compile_game(filename: str) -> dict:

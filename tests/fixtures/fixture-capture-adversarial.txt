@@ -1,0 +1,126 @@
+;; Browser-runtime adversarial capture cases R2-R12 and R15-R21b.
+
+CLASS nonwall NOT "#="
+CLASS walkable " -.O"
+CLASS nonspace NOT " "
+
+HIDDEN_LINE_CHAR %
+
+GOAL
+Z
+
+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz%#=?. -
+
+BIND b probe c greedy d rollback e dynamic f nested g scoped h prewrite j random k last r repeat n notclass w whitespace s nonspace a anchor q question p hidden o rotate
+
+CMD probe
+ ATOMIC 1 AB
+  1X 1E
+
+CMD greedy
+ ATOMIC 1 AB
+  1- 1-
+
+  1Z 1Z
+
+CMD rollback
+ ATOMIC 1 AB
+  MATCH1
+   1- 1x never!
+
+   #1Q #1E
+
+CMD dynamic
+ ATOMIC 1 AB
+  1- 1x literal_capture!
+
+CMD nested
+ ATOMIC 1 AB
+  MATCH1
+   ATOMIC
+    1- 1x
+
+    1Z 1Z
+
+   #1- #1E
+
+CMD scoped
+ ATOMIC 1 AB
+  ATOMIC 2 CD
+   1a 1b
+
+   2c 2d
+
+  CALL independent_capture
+
+  1q 1e
+
+  2l 2e
+
+  CALL literal_capture
+
+CMD prewrite
+ ATOMIC 1 AB
+  MATCH1
+   Z1 Z1
+
+   Q- E1
+
+CMD random
+ ATOMIC 1 ABC
+  1- 1E [random]
+
+CMD last
+ ATOMIC 1 ABC
+  1- 1E [lastmatch]
+
+CMD repeat
+ ATOMIC 1 AB
+  REPEAT
+   1 1
+
+  x- x1
+
+CMD notclass
+ ATOMIC 1 nonwall
+  C1- C11
+
+CMD whitespace
+ ATOMIC 1 walkable
+  C1- C11
+
+CMD nonspace
+ ATOMIC 1 nonspace
+  C1- C11
+
+CMD anchor
+ ATOMIC 1 AB
+  C1 CE
+
+CMD question
+ ATOMIC 1 nonwall
+  C1- C11
+
+  K1 KZ
+
+CMD hidden
+ ATOMIC 1 %
+  C1- C11
+
+CMD rotate
+ ATOMIC 1 AB
+  ROTATE
+   X1 X1
+
+  FLIP_HORIZONTAL
+   Y1 Y1
+
+CMD never
+ ZZ ZZ
+
+CMD literal_capture
+ 1z 1y
+
+CMD independent_capture
+ ATOMIC 1 CD
+  1m 1n

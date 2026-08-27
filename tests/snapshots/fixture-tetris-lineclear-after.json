@@ -1,0 +1,159 @@
+{
+  "binds": {
+    "c": {
+      "command": "line_clear",
+      "description": "clear one full row"
+    }
+  },
+  "charMap": {},
+  "colorMap": {},
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": null,
+  "globalTick": null,
+  "goals": [
+    [
+      "Z"
+    ]
+  ],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "x----------x",
+        "x-XX-------x",
+        "xXXXXXXXXXXx",
+        "x--X-------x",
+        "xXXXXXXXXXXx",
+        "x-------X--x"
+      ]
+    }
+  ],
+  "rules": {
+    "line_clear": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "xXXXXXXXXXX"
+              ],
+              "method": "lastmatch",
+              "side_effects": [],
+              "to": [
+                "x!!!!!!!!!!"
+              ],
+              "type": "simple"
+            },
+            {
+              "rules": [
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "1234567890",
+                        "!!!!!!!!!!"
+                      ],
+                      "fromVariables": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "!!!!!!!!!!",
+                        "1234567890"
+                      ],
+                      "toVariables": [
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        18,
+                        19
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "atomic",
+                  "variables": {
+                    "0": {
+                      "domain": "-X",
+                      "negated": false
+                    },
+                    "1": {
+                      "domain": "-X",
+                      "negated": false
+                    },
+                    "2": {
+                      "domain": "-X",
+                      "negated": false
+                    },
+                    "3": {
+                      "domain": "-X",
+                      "negated": false
+                    },
+                    "4": {
+                      "domain": "-X",
+                      "negated": false
+                    },
+                    "5": {
+                      "domain": "-X",
+                      "negated": false
+                    },
+                    "6": {
+                      "domain": "-X",
+                      "negated": false
+                    },
+                    "7": {
+                      "domain": "-X",
+                      "negated": false
+                    },
+                    "8": {
+                      "domain": "-X",
+                      "negated": false
+                    },
+                    "9": {
+                      "domain": "-X",
+                      "negated": false
+                    }
+                  }
+                }
+              ],
+              "type": "repeat"
+            },
+            {
+              "from": [
+                "!!!!!!!!!!"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "----------"
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [],
+  "whitespaceChars": [
+    "-"
+  ]
+}

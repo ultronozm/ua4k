@@ -1,0 +1,141 @@
+{
+  "binds": {
+    "d": {
+      "command": "step",
+      "description": "east"
+    },
+    "m": {
+      "command": "merge",
+      "description": "merge"
+    }
+  },
+  "charMap": {},
+  "colorMap": {},
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": null,
+  "globalTick": null,
+  "goals": [
+    [
+      "GE"
+    ]
+  ],
+  "hiddenLineChars": [],
+  "levels": [
+    {
+      "board": [
+        "!.G.-E",
+        "#AB#AA"
+      ]
+    }
+  ],
+  "rules": {
+    "merge": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "11"
+              ],
+              "fromVariables": [
+                0,
+                1
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1E"
+              ],
+              "toVariables": [
+                0
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic",
+          "variables": {
+            "1": {
+              "domain": "AB",
+              "negated": false
+            }
+          }
+        }
+      ],
+      "type": "match1"
+    },
+    "step": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "!1"
+              ],
+              "fromVariables": [
+                1
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "!1"
+              ],
+              "toVariables": [
+                1
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "G2"
+              ],
+              "fromVariables": [
+                1
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "1G"
+              ],
+              "toVariables": [
+                0
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "!1"
+              ],
+              "fromVariables": [
+                1
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "!2"
+              ],
+              "toVariables": [
+                1
+              ],
+              "type": "simple"
+            }
+          ],
+          "type": "atomic",
+          "variables": {
+            "1": {
+              "domain": "-.",
+              "negated": false
+            },
+            "2": {
+              "domain": "-.",
+              "negated": false
+            }
+          }
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [],
+  "whitespaceChars": []
+}
