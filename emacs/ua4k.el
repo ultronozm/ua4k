@@ -31,9 +31,8 @@
 ;;   M-x ua4k-play-game
 ;;   M-x ua4k-play-asset-file
 ;;
-;; This frontend intentionally targets non-tick games first. It interprets the
-;; same compiled JSON IR used by the browser runtime, so it does not need a
-;; second DSL parser in Elisp.
+;; This frontend interprets the same compiled JSON IR used by the browser
+;; runtime, so it does not need a second DSL parser in Elisp.
 
 ;;; Code:
 
@@ -45,7 +44,23 @@
   rows
   height
   width
-  cells)
+  cells
+  variables)
+
+(cl-defstruct ua4k-capture-env
+  "Capture environment for parameterized ATOMIC blocks (decision D28).
+Both slots are hash tables keyed by variable characters: DOMAINS maps to a
+\(CHARS . NEGATED) domain spec, BINDINGS maps to the bound cell character
+or nil while unbound.  Shadowing is a parse error, so one flat environment
+per evaluation suffices."
+  domains
+  bindings)
+
+(defvar ua4k--capture-env nil
+  "Dynamic capture environment while descending a rule tree.
+Must be rebound to nil across CALL and side-effect boundaries (D2/D28):
+capture scope is lexical, and letting the dynamic binding leak into called
+commands would silently make it dynamic.")
 
 (defgroup ua4k nil
   "Play UA4K games in Emacs."
@@ -81,6 +96,9 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
 (defvar-local ua4k--color-map nil)
 (defvar-local ua4k--whitespace-chars nil)
 (defvar-local ua4k--hidden-line-chars nil)
+(defvar-local ua4k--wildcard-char ?\?
+  "Effective wildcard character for the current game.
+Games may redirect it with the WILDCARD directive; the default is `?'.")
 (defvar-local ua4k--board nil)
 (defvar-local ua4k--board-history nil)
 (defvar-local ua4k--level-number 0)
@@ -94,6 +112,14 @@ When non-nil, `ua4k-play-asset' loads game data from this directory."
 (defvar-local ua4k--board-end nil)
 (defvar-local ua4k--status-start nil)
 (defvar-local ua4k--status-end nil)
+(defvar-local ua4k--tick-timer nil
+  "Timer driving the current level's _tick command, or nil.")
+
+(defun ua4k--stop-tick-timer ()
+  "Cancel the current buffer's tick timer, if any."
+  (when (timerp ua4k--tick-timer)
+    (cancel-timer ua4k--tick-timer))
+  (setq ua4k--tick-timer nil))
 
 (defun ua4k--repo-root ()
   "Return the repository root for the current `ua4k.el' file."
@@ -165,11 +191,25 @@ before changing it (see `ua4k--apply-rule-at'), so the strings may
 be shared with the compiled game data and with snapshots."
   (vconcat rows))
 
-(defun ua4k--normalize-pattern (rows)
-  "Convert ROWS into a compiled `ua4k-pattern'."
+(defun ua4k--wildcard-from-data (data)
+  "Return the effective wildcard character declared in compiled DATA."
+  (let ((value (ua4k--obj-get data "wildcardChar")))
+    (if (and (stringp value) (= (length value) 1))
+        (aref value 0)
+      ?\?)))
+
+(defun ua4k--normalize-pattern (rows &optional wildcard variables)
+  "Convert ROWS into a compiled `ua4k-pattern'.
+WILDCARD is the effective wildcard character (default `?').  It is a
+parameter rather than a buffer-local read because normalization runs
+before the game's buffer-local state is installed.  VARIABLES is the
+rule's sparse capture-mask offset list for this side, if any; masked
+cells hold capture variables and are never wildcard syntax (D18), so
+they always join the concrete-cell vector."
   (if (ua4k-pattern-p rows)
       rows
-    (let* ((rows-vec (if (vectorp rows) rows (vconcat rows)))
+    (let* ((wildcard (or wildcard ?\?))
+           (rows-vec (if (vectorp rows) rows (vconcat rows)))
            (height (length rows-vec))
            (width (if (> height 0) (length (aref rows-vec 0)) 0))
            (cells nil))
@@ -177,41 +217,54 @@ be shared with the compiled game data and with snapshots."
         (let ((row (aref rows-vec i)))
           (dotimes (j width)
             (let ((cell (aref row j)))
-              (unless (eq cell ?\?)
+              (unless (and (eq cell wildcard)
+                           (not (memql (+ (* i width) j) variables)))
                 (push (vector i j cell) cells))))))
       (make-ua4k-pattern
        :rows rows-vec
        :height height
        :width width
-       :cells (vconcat (nreverse cells))))))
+       :cells (vconcat (nreverse cells))
+       :variables variables))))
 
-(defun ua4k--normalize-rule (rule)
-  "Normalize RULE patterns for faster runtime access."
+(defun ua4k--normalize-rule (rule &optional wildcard)
+  "Normalize RULE patterns for faster runtime access.
+WILDCARD is the effective wildcard character (default `?')."
   (when rule
     (let ((from-cell (ua4k--obj-cell rule "from"))
           (to-cell (ua4k--obj-cell rule "to"))
           (rules-cell (ua4k--obj-cell rule "rules")))
       (when from-cell
-        (setcdr from-cell (ua4k--normalize-pattern (cdr from-cell))))
+        (setcdr from-cell (ua4k--normalize-pattern
+                           (cdr from-cell) wildcard
+                           (ua4k--obj-get rule "fromVariables"))))
       (when to-cell
-        (setcdr to-cell (ua4k--normalize-pattern (cdr to-cell))))
+        (setcdr to-cell (ua4k--normalize-pattern
+                         (cdr to-cell) wildcard
+                         (ua4k--obj-get rule "toVariables"))))
       (when rules-cell
-        (setcdr rules-cell (mapcar #'ua4k--normalize-rule (cdr rules-cell)))))
+        (setcdr rules-cell
+                (mapcar (lambda (child) (ua4k--normalize-rule child wildcard))
+                        (cdr rules-cell)))))
     rule))
 
 (defun ua4k--normalize-compiled-data (data)
   "Normalize compiled DATA into faster runtime structures."
-  (dolist (pair (ua4k--obj-get data "rules"))
-    (setcdr pair (ua4k--normalize-rule (cdr pair))))
-  (setcdr (ua4k--obj-cell data "goals")
-          (mapcar #'ua4k--normalize-pattern (ua4k--obj-get data "goals")))
-  (setcdr (ua4k--obj-cell data "voids")
-          (mapcar #'ua4k--normalize-pattern (ua4k--obj-get data "voids")))
-  (dolist (level (ua4k--obj-get data "levels"))
-    (dolist (key '("goals" "voids"))
-      (let ((cell (ua4k--obj-cell level key)))
-        (when cell
-          (setcdr cell (mapcar #'ua4k--normalize-pattern (cdr cell)))))))
+  (let ((wildcard (ua4k--wildcard-from-data data)))
+    (dolist (pair (ua4k--obj-get data "rules"))
+      (setcdr pair (ua4k--normalize-rule (cdr pair) wildcard)))
+    (setcdr (ua4k--obj-cell data "goals")
+            (mapcar (lambda (p) (ua4k--normalize-pattern p wildcard))
+                    (ua4k--obj-get data "goals")))
+    (setcdr (ua4k--obj-cell data "voids")
+            (mapcar (lambda (p) (ua4k--normalize-pattern p wildcard))
+                    (ua4k--obj-get data "voids")))
+    (dolist (level (ua4k--obj-get data "levels"))
+      (dolist (key '("goals" "voids"))
+        (let ((cell (ua4k--obj-cell level key)))
+          (when cell
+            (setcdr cell (mapcar (lambda (p) (ua4k--normalize-pattern p wildcard))
+                                 (cdr cell))))))))
   data)
 
 (defun ua4k--board-copy (board)
@@ -252,8 +305,33 @@ complete snapshot."
       (aref (aref (ua4k-pattern-rows pattern) row) col)
     (aref (nth row pattern) col)))
 
-(defun ua4k--pattern-match (pattern row col)
-  "Return non-nil if PATTERN matches the current board at ROW/COL."
+(defun ua4k--domain-allows-p (spec char)
+  "Return non-nil when CHAR belongs to domain SPEC, a (CHARS . NEGATED) cons."
+  (let ((in-set (and (cl-find char (car spec)) t)))
+    (if (cdr spec) (not in-set) in-set)))
+
+(defun ua4k--env-snapshot ()
+  "Snapshot the current capture bindings, or nil without an environment."
+  (when ua4k--capture-env
+    (copy-hash-table (ua4k-capture-env-bindings ua4k--capture-env))))
+
+(defun ua4k--env-restore (snapshot)
+  "Restore capture bindings to SNAPSHOT (D9: failed evaluations roll back)."
+  (when (and ua4k--capture-env snapshot)
+    (setf (ua4k-capture-env-bindings ua4k--capture-env) snapshot)))
+
+(defun ua4k--env-lookup (name tentative)
+  "Bound value for variable NAME, with TENTATIVE overriding the environment."
+  (let ((pair (assq name tentative)))
+    (if pair
+        (cdr pair)
+      (gethash name (ua4k-capture-env-bindings ua4k--capture-env)))))
+
+(defun ua4k--pattern-match (pattern row col &optional tentative-box)
+  "Return non-nil if PATTERN matches the current board at ROW/COL.
+TENTATIVE-BOX, when non-nil, is a cons whose car accumulates tentative
+capture bindings for this candidate (D9): masked cells bind or compare
+through it and are never treated as wildcard syntax (D18)."
   (let ((height (ua4k--pattern-height pattern))
         (width (ua4k--pattern-width pattern)))
     (when (and (>= row 0)
@@ -264,16 +342,32 @@ complete snapshot."
                                    (ua4k--board-row-width (+ row i)))))
       (let ((cells (if (ua4k-pattern-p pattern)
                        (ua4k-pattern-cells pattern)
-                     nil)))
+                     nil))
+            (mask (and ua4k--capture-env
+                       tentative-box
+                       (ua4k-pattern-p pattern)
+                       (ua4k-pattern-variables pattern))))
         (if cells
             (catch 'ua4k-mismatch
               (cl-loop for cell across cells
-                       do (let* (
-                       (i (aref cell 0))
-                       (j (aref cell 1))
-                       (value (aref cell 2)))
-                  (unless (eq value (aref (aref ua4k--board (+ row i)) (+ col j)))
-                    (throw 'ua4k-mismatch nil)))
+                       do (let* ((i (aref cell 0))
+                                 (j (aref cell 1))
+                                 (value (aref cell 2))
+                                 (board-cell (aref (aref ua4k--board (+ row i)) (+ col j))))
+                            (if (and mask (memql (+ (* i width) j) mask))
+                                (let ((bound (ua4k--env-lookup value (car tentative-box))))
+                                  (if bound
+                                      (unless (eq bound board-cell)
+                                        (throw 'ua4k-mismatch nil))
+                                    (if (ua4k--domain-allows-p
+                                         (gethash value (ua4k-capture-env-domains ua4k--capture-env))
+                                         board-cell)
+                                        (setcar tentative-box
+                                                (cons (cons value board-cell)
+                                                      (car tentative-box)))
+                                      (throw 'ua4k-mismatch nil))))
+                              (unless (eq value board-cell)
+                                (throw 'ua4k-mismatch nil))))
                        finally return t))
           (cl-loop for i from 0 below height
                    always
@@ -281,7 +375,7 @@ complete snapshot."
                             always
                             (let ((cell (ua4k--pattern-char pattern i j))
                                   (board-cell (aref (aref ua4k--board (+ row i)) (+ col j))))
-                              (or (eq cell ?\?)
+                              (or (eq cell ua4k--wildcard-char)
                                   (eq cell board-cell))))))))))
 
 (defun ua4k--pattern-occurs (pattern)
@@ -326,41 +420,88 @@ current rule application. Returns the updated COPIED-ROWS."
   (aset (aref ua4k--board board-row) col value)
   copied-rows)
 
-(cl-defun ua4k--apply-rule-at (rule row col)
-  "Apply simple RULE at ROW/COL."
+(cl-defun ua4k--apply-rule-at (rule row col &optional tentative)
+  "Apply simple RULE at ROW/COL.
+TENTATIVE holds this candidate's capture bindings.  Destinations resolve
+completely before the first write (D9); an unbound destination fails the
+rule without touching the board, and resolved cells write their bound
+value unconditionally (D18)."
   (let* ((to-pattern (ua4k--rule-field rule "to"))
          (side-effects (ua4k--rule-field rule "side_effects"))
          (needs-rollback (cl-some (lambda (side-effect)
                                     (string-suffix-p "!" side-effect))
                                   side-effects))
-         (snapshot (and needs-rollback (ua4k--board-copy ua4k--board)))
-         (copied-rows nil))
-    (if (ua4k-pattern-p to-pattern)
-        (let ((cells (ua4k-pattern-cells to-pattern)))
-          (dotimes (idx (length cells))
-            (let* ((cell (aref cells idx))
-                   (i (aref cell 0))
-                   (j (aref cell 1))
-                   (value (aref cell 2)))
-              (setq copied-rows
-                    (ua4k--write-cell (+ row i) (+ col j) value copied-rows)))))
-      (let ((height (ua4k--pattern-height to-pattern))
-            (width (ua4k--pattern-width to-pattern)))
-        (dotimes (i height)
-          (dotimes (j width)
-            (let ((cell (ua4k--pattern-char to-pattern i j)))
-              (unless (eq cell ?\?)
+         (to-mask (and ua4k--capture-env
+                       (ua4k-pattern-p to-pattern)
+                       (ua4k-pattern-variables to-pattern)))
+         (resolved nil))
+    (when to-mask
+      (let ((rows (ua4k-pattern-rows to-pattern))
+            (width (ua4k-pattern-width to-pattern)))
+        (dolist (offset to-mask)
+          (let* ((name (aref (aref rows (/ offset width)) (% offset width)))
+                 (bound (ua4k--env-lookup name tentative)))
+            (unless bound
+              (cl-return-from ua4k--apply-rule-at nil))
+            (push (cons offset bound) resolved)))))
+    (let ((snapshot (and needs-rollback (ua4k--board-copy ua4k--board)))
+          (copied-rows nil))
+      (if (ua4k-pattern-p to-pattern)
+          (let ((cells (ua4k-pattern-cells to-pattern))
+                (width (ua4k-pattern-width to-pattern)))
+            (dotimes (idx (length cells))
+              (let* ((cell (aref cells idx))
+                     (i (aref cell 0))
+                     (j (aref cell 1))
+                     (value (aref cell 2))
+                     (bound (and resolved (assq (+ (* i width) j) resolved))))
                 (setq copied-rows
-                      (ua4k--write-cell (+ row i) (+ col j) cell copied-rows))))))))
-    (dolist (side-effect side-effects)
-      (if (string-suffix-p "!" side-effect)
-          (let ((name (substring side-effect 0 -1)))
-            (unless (ua4k--apply-rule (ua4k--obj-get ua4k--rules name))
-              (when snapshot
-                (setq ua4k--board snapshot))
-              (cl-return-from ua4k--apply-rule-at nil)))
-        (ua4k--apply-rule (ua4k--obj-get ua4k--rules side-effect))))
-    t))
+                      (ua4k--write-cell (+ row i) (+ col j)
+                                        (if bound (cdr bound) value)
+                                        copied-rows)))))
+        (let ((height (ua4k--pattern-height to-pattern))
+              (width (ua4k--pattern-width to-pattern)))
+          (dotimes (i height)
+            (dotimes (j width)
+              (let ((cell (ua4k--pattern-char to-pattern i j)))
+                (unless (eq cell ua4k--wildcard-char)
+                  (setq copied-rows
+                        (ua4k--write-cell (+ row i) (+ col j) cell copied-rows))))))))
+      ;; Side-effect commands never see the capture environment (D2/D28).
+      (dolist (side-effect side-effects)
+        (if (string-suffix-p "!" side-effect)
+            (let ((name (substring side-effect 0 -1)))
+              (unless (let ((ua4k--capture-env nil))
+                        (ua4k--apply-rule (ua4k--obj-get ua4k--rules name)))
+                (when snapshot
+                  (setq ua4k--board snapshot))
+                (cl-return-from ua4k--apply-rule-at nil)))
+          (let ((ua4k--capture-env nil))
+            (ua4k--apply-rule (ua4k--obj-get ua4k--rules side-effect)))))
+      t)))
+
+(defun ua4k--env-commit (tentative)
+  "Commit TENTATIVE bindings into the capture environment."
+  (when (and ua4k--capture-env tentative)
+    (dolist (pair tentative)
+      (puthash (car pair) (cdr pair)
+               (ua4k-capture-env-bindings ua4k--capture-env)))))
+
+(defun ua4k--rule-has-captures-p (rule)
+  "Return non-nil when RULE carries capture masks and an environment is live."
+  (and ua4k--capture-env
+       (let ((from-pattern (ua4k--rule-field rule "from"))
+             (to-pattern (ua4k--rule-field rule "to")))
+         (or (and (ua4k-pattern-p from-pattern) (ua4k-pattern-variables from-pattern))
+             (and (ua4k-pattern-p to-pattern) (ua4k-pattern-variables to-pattern))))))
+
+(defun ua4k--apply-simple-at (rule row col tentative-box)
+  "Apply RULE at ROW/COL, committing TENTATIVE-BOX bindings on success."
+  (let ((applied (ua4k--apply-rule-at rule row col
+                                      (and tentative-box (car tentative-box)))))
+    (when (and applied tentative-box)
+      (ua4k--env-commit (car tentative-box)))
+    applied))
 
 (defun ua4k--apply-simple-rule (rule &optional min-row min-col)
   "Apply simple RULE searching from MIN-ROW / MIN-COL."
@@ -369,39 +510,50 @@ current rule application. Returns the updated COPIED-ROWS."
          (height (ua4k--board-height))
          (method (ua4k--rule-field rule "method"))
          (from-pattern (ua4k--rule-field rule "from"))
-         (pattern-width (ua4k--pattern-width from-pattern)))
+         (pattern-width (ua4k--pattern-width from-pattern))
+         (has-captures (ua4k--rule-has-captures-p rule)))
     (cond
      ((string= method "random")
+      ;; Candidates are selected together with their tentative bindings
+      ;; (D9): a coordinate never inherits another probe's bindings.
       (let (matches)
         (cl-loop for row from min-row below height do
                  (let ((max-col (- (ua4k--board-row-width row) pattern-width)))
                    (when (>= max-col min-col)
                      (cl-loop for col from min-col to max-col do
-                              (when (ua4k--pattern-match from-pattern row col)
-                                (push (cons row col) matches))))))
+                              (let ((box (and has-captures (cons nil nil))))
+                                (when (ua4k--pattern-match from-pattern row col box)
+                                  (push (list row col box) matches)))))))
         (when matches
           (let* ((match (nth (random (length matches)) matches))
-                 (row (car match))
-                 (col (cdr match)))
+                 (row (nth 0 match))
+                 (col (nth 1 match)))
             (setq ua4k--last-row row
                   ua4k--last-col col)
-            (ua4k--apply-rule-at rule row col)))))
+            (ua4k--apply-simple-at rule row col (nth 2 match))))))
      ((string= method "lastmatch")
       (catch 'ua4k-found
         (cl-loop for row downfrom (1- height) to min-row do
                  (let ((max-col (- (ua4k--board-row-width row) pattern-width)))
                    (when (>= max-col min-col)
                      (cl-loop for col downfrom max-col to min-col do
-                              (when (ua4k--pattern-match from-pattern row col)
-                                (setq ua4k--last-row row
-                                      ua4k--last-col col)
-                                (throw 'ua4k-found (ua4k--apply-rule-at rule row col)))))))
+                              (let ((box (and has-captures (cons nil nil))))
+                                (when (ua4k--pattern-match from-pattern row col box)
+                                  (setq ua4k--last-row row
+                                        ua4k--last-col col)
+                                  (when (ua4k--apply-simple-at rule row col box)
+                                    (throw 'ua4k-found t))))))))
         nil))
      (t
       (let* ((anchor (and (> pattern-width 0)
                           (> (ua4k--pattern-height from-pattern) 0)
                           (ua4k--pattern-char from-pattern 0 0)))
-             (anchor-string (and anchor (not (eq anchor ?\?))
+             (anchor-masked (and has-captures
+                                 (ua4k-pattern-p from-pattern)
+                                 (memql 0 (ua4k-pattern-variables from-pattern))))
+             (anchor-string (and anchor
+                                 (not (eq anchor ua4k--wildcard-char))
+                                 (not anchor-masked)
                                  (char-to-string anchor))))
         (catch 'ua4k-found
           (cl-loop for row from min-row below height do
@@ -414,38 +566,74 @@ current rule application. Returns the updated COPIED-ROWS."
                                  (col min-col))
                              (while (and (setq col (string-search anchor-string board-row col))
                                          (<= col max-col))
-                               (when (ua4k--pattern-match from-pattern row col)
-                                 (setq ua4k--last-row row
-                                       ua4k--last-col col)
-                                 (throw 'ua4k-found (ua4k--apply-rule-at rule row col)))
+                               (let ((box (and has-captures (cons nil nil))))
+                                 (when (ua4k--pattern-match from-pattern row col box)
+                                   (setq ua4k--last-row row
+                                         ua4k--last-col col)
+                                   (when (ua4k--apply-simple-at rule row col box)
+                                     (throw 'ua4k-found t))))
                                (setq col (1+ col))))
                          (cl-loop for col from min-col to max-col do
-                                  (when (ua4k--pattern-match from-pattern row col)
-                                    (setq ua4k--last-row row
-                                          ua4k--last-col col)
-                                    (throw 'ua4k-found (ua4k--apply-rule-at rule row col))))))))
+                                  (let ((box (and has-captures (cons nil nil))))
+                                    (when (ua4k--pattern-match from-pattern row col box)
+                                      (setq ua4k--last-row row
+                                            ua4k--last-col col)
+                                      (when (ua4k--apply-simple-at rule row col box)
+                                        (throw 'ua4k-found t)))))))))
           nil))))))
 
 (defun ua4k--apply-atomic-rule (rule)
-  "Apply atomic RULE."
-  (let ((snapshot (ua4k--board-copy ua4k--board))
-        (rules (ua4k--rule-field rule "rules"))
-        (condition (ua4k--rule-field rule "condition"))
-        (min-row 0)
-        (min-col 0)
-        (ok t))
-    (catch 'ua4k-atomic-fail
-      (dolist (child rules)
-        (unless (ua4k--apply-rule child min-row min-col)
-          (setq ok nil)
-          (throw 'ua4k-atomic-fail nil))
-        (cond
-         ((string= condition "vertical")
-          (setq min-row (1+ ua4k--last-row)))
-         ((string= condition "horizontal")
-          (setq min-col (1+ ua4k--last-col))))))
-    (unless ok
-      (setq ua4k--board snapshot))
+  "Apply atomic RULE, opening a capture frame when it declares variables."
+  (let* ((snapshot (ua4k--board-copy ua4k--board))
+         (variables (ua4k--rule-field rule "variables"))
+         (created (and variables (null ua4k--capture-env)))
+         (ua4k--capture-env
+          (if created
+              (make-ua4k-capture-env :domains (make-hash-table :test #'eql)
+                                     :bindings (make-hash-table :test #'eql))
+            ua4k--capture-env))
+         ;; Taken before locals are added, so failure restores the outer
+         ;; variables and drops the locals in one step (D9/R7).
+         (env-snapshot (and ua4k--capture-env (not created) (ua4k--env-snapshot)))
+         (added nil)
+         (ok t))
+    (unwind-protect
+        (progn
+          (dolist (pair variables)
+            (let* ((key (car pair))
+                   (name (aref (if (symbolp key) (symbol-name key) key) 0))
+                   (spec (cdr pair)))
+              (puthash name
+                       (cons (ua4k--obj-get spec "domain")
+                             (ua4k--obj-get spec "negated"))
+                       (ua4k-capture-env-domains ua4k--capture-env))
+              (puthash name nil (ua4k-capture-env-bindings ua4k--capture-env))
+              (push name added)))
+          (let ((rules (ua4k--rule-field rule "rules"))
+                (condition (ua4k--rule-field rule "condition"))
+                (min-row 0)
+                (min-col 0))
+            (catch 'ua4k-atomic-fail
+              (dolist (child rules)
+                (unless (ua4k--apply-rule child min-row min-col)
+                  (setq ok nil)
+                  (throw 'ua4k-atomic-fail nil))
+                (cond
+                 ((string= condition "vertical")
+                  (setq min-row (1+ ua4k--last-row)))
+                 ((string= condition "horizontal")
+                  (setq min-col (1+ ua4k--last-col)))))))
+          (unless ok
+            (setq ua4k--board snapshot)))
+      ;; Cleanup under unwind protection (D28): locals go out of scope on
+      ;; every exit path; failure additionally restores outer bindings.
+      (unless created
+        (when (and (not ok) env-snapshot)
+          (ua4k--env-restore env-snapshot))
+        (dolist (name added)
+          (remhash name (ua4k-capture-env-domains ua4k--capture-env))
+          (when ok
+            (remhash name (ua4k-capture-env-bindings ua4k--capture-env))))))
     ok))
 
 (defun ua4k--boards-equal-p (a b)
@@ -467,9 +655,14 @@ Always succeeds."
   (let ((children (ua4k--rule-field rule "rules"))
         (looping t))
     (while looping
-      (let ((before (ua4k--board-copy ua4k--board)))
-        (unless (and (cl-some #'ua4k--apply-rule children)
-                     (not (ua4k--boards-equal-p ua4k--board before)))
+      (let ((before (ua4k--board-copy ua4k--board))
+            (any nil))
+        (cl-loop for child in children
+                 do (let ((env-snapshot (ua4k--env-snapshot)))
+                      (if (ua4k--apply-rule child)
+                          (progn (setq any t) (cl-return))
+                        (ua4k--env-restore env-snapshot))))
+        (unless (and any (not (ua4k--boards-equal-p ua4k--board before)))
           (setq looping nil))))
     t))
 
@@ -479,17 +672,27 @@ Always succeeds."
     (pcase (ua4k--rule-type rule)
       ("simple" (ua4k--apply-simple-rule rule min-row min-col))
       ("repeat" (ua4k--apply-repeat-rule rule))
-      ("call" (ua4k--apply-rule (ua4k--obj-get ua4k--rules (ua4k--rule-field rule "name"))))
+      ("call"
+       ;; Capture scope is lexical and never crosses CALL (D2/D28).
+       (let ((ua4k--capture-env nil))
+         (ua4k--apply-rule (ua4k--obj-get ua4k--rules (ua4k--rule-field rule "name")))))
       ("match1"
-       (cl-some #'ua4k--apply-rule (ua4k--rule-field rule "rules")))
+       (cl-loop for child in (ua4k--rule-field rule "rules")
+                thereis (let ((env-snapshot (ua4k--env-snapshot)))
+                          (or (ua4k--apply-rule child)
+                              (progn (ua4k--env-restore env-snapshot) nil)))))
       ("try_all"
        (dolist (child (ua4k--rule-field rule "rules"))
-         (ua4k--apply-rule child))
+         (let ((env-snapshot (ua4k--env-snapshot)))
+           (unless (ua4k--apply-rule child)
+             (ua4k--env-restore env-snapshot))))
        t)
       ("random"
        (let* ((rules (ua4k--rule-field rule "rules"))
-              (child (nth (random (length rules)) rules)))
-         (ua4k--apply-rule child)))
+              (child (nth (random (length rules)) rules))
+              (env-snapshot (ua4k--env-snapshot)))
+         (or (ua4k--apply-rule child)
+             (progn (ua4k--env-restore env-snapshot) nil))))
       ("atomic" (ua4k--apply-atomic-rule rule))
       (_ (error "Unsupported ua4k rule type in Emacs frontend: %s" (ua4k--rule-type rule))))))
 
@@ -650,11 +853,48 @@ Always succeeds."
            ua4k--header-start ua4k--header-end (ua4k--header-string)))
       (ua4k--render-full))))
 
+(defun ua4k--tick (buffer)
+  "Apply one automatic _tick in BUFFER.
+Stop its timer when the level completes or an error makes further ticks
+unsafe.  Automatic ticks deliberately do not enter the manual move history."
+  (when (buffer-live-p buffer)
+    (with-current-buffer buffer
+      (if (or (not (derived-mode-p 'ua4k-mode))
+              (ua4k--level-complete-p))
+          (ua4k--stop-tick-timer)
+        (condition-case err
+            (let ((rule (ua4k--obj-get ua4k--rules "_tick"))
+                  (max-lisp-eval-depth (max max-lisp-eval-depth 200000)))
+              (when (and rule (ua4k--apply-rule rule))
+                (ua4k--render))
+              (when (ua4k--level-complete-p)
+                (ua4k--stop-tick-timer)))
+          (error
+           (ua4k--stop-tick-timer)
+           (message "UA4K tick stopped: %s" (error-message-string err))))))))
+
+(defun ua4k--start-tick-timer ()
+  "Start the current level's automatic _tick timer, when configured."
+  (ua4k--stop-tick-timer)
+  (let ((interval (ua4k--rule-field (ua4k--current-level) "tickInterval")))
+    (when (and (numberp interval)
+               (> interval 0)
+               (ua4k--obj-get ua4k--rules "_tick")
+               (not (ua4k--level-complete-p)))
+      (let ((seconds (/ interval 1000.0)))
+        (setq ua4k--tick-timer
+              (run-at-time seconds seconds #'ua4k--tick (current-buffer)))))))
+
 (defun ua4k--init-level ()
   "Load the current level into the runtime."
+  (ua4k--stop-tick-timer)
   (let ((level (ua4k--current-level)))
     (setq ua4k--board (ua4k--string-list->board (ua4k--rule-field level "board")))
     (setq ua4k--board-history nil)
+    ;; Mirror the browser runtime: apply the game's _init command once per
+    ;; level load (tetris uses it to fill the preview and spawn a piece).
+    (when-let* ((init-rule (ua4k--obj-get ua4k--rules "_init")))
+      (ua4k--apply-rule init-rule))
     (setq ua4k--last-row -1
           ua4k--last-col -1
           ua4k--header-start nil
@@ -663,8 +903,7 @@ Always succeeds."
           ua4k--board-end nil
           ua4k--status-start nil
           ua4k--status-end nil)
-    (when (ua4k--rule-field level "tickInterval")
-      (message "ua4k.el does not support tick levels yet"))))
+    (ua4k--start-tick-timer)))
 
 (defun ua4k--set-level (level)
   "Jump to LEVEL."
@@ -722,6 +961,7 @@ Always succeeds."
 (defun ua4k-quit ()
   "Quit the current ua4k buffer."
   (interactive)
+  (ua4k--stop-tick-timer)
   (quit-window t))
 
 (defun ua4k--perform-action (key)
@@ -739,6 +979,8 @@ Always succeeds."
               (max-lisp-eval-depth (max max-lisp-eval-depth 200000)))
           (when (ua4k--apply-rule rule)
             (push snapshot ua4k--board-history))))
+      (when (ua4k--level-complete-p)
+        (ua4k--stop-tick-timer))
       (ua4k--render))))
 
 (defun ua4k-apply-sequence (sequence)
@@ -771,10 +1013,14 @@ Always succeeds."
   "Major mode for playing UA4K games."
   (setq buffer-read-only t)
   (setq-local truncate-lines nil)
+  (add-hook 'kill-buffer-hook #'ua4k--stop-tick-timer nil t)
   (visual-line-mode 1))
 
 (defun ua4k--load-game-into-current-buffer (game-file data level source-kind)
   "Load GAME-FILE using compiled DATA at LEVEL with SOURCE-KIND."
+  ;; Reloading calls `ua4k-mode', which clears buffer-local variables; retain
+  ;; the old timer long enough to cancel it first.
+  (ua4k--stop-tick-timer)
   (setq data (ua4k--normalize-compiled-data data))
   (ua4k-mode)
   (setq ua4k--game-file game-file
@@ -789,6 +1035,7 @@ Always succeeds."
         ua4k--color-map (ua4k--obj-get data "colorMap")
         ua4k--whitespace-chars (ua4k--obj-get data "whitespaceChars")
         ua4k--hidden-line-chars (ua4k--obj-get data "hiddenLineChars")
+        ua4k--wildcard-char (ua4k--wildcard-from-data data)
         ua4k--level-number (or level 0))
   (ua4k--install-keymap)
   (ua4k--init-level)
@@ -903,6 +1150,10 @@ the region supplies the board for the single level."
             (colorMap . ,(ua4k--obj-get compiled "colorMap"))
             (whitespaceChars . ,(ua4k--obj-get compiled "whitespaceChars"))
             (hiddenLineChars . ,(ua4k--obj-get compiled "hiddenLineChars")))))
+    ;; Forward the declared wildcard (when present) so snippet play matches
+    ;; the game's redirected pattern semantics.
+    (when-let* ((wildcard (ua4k--obj-get compiled "wildcardChar")))
+      (push (cons 'wildcardChar wildcard) data))
     (ua4k--start-game source-name data 0 'region)))
 
 (provide 'ua4k)
