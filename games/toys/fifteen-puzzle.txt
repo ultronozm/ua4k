@@ -30,5 +30,5 @@ CMD rand_move
 
 CMD _init
  TRY_ALL
-  LET_REPEAT 0 400 1 % -
+  LET_REPEAT 0 400 1
    CALL rand_move
