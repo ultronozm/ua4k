@@ -16,3 +16,4 @@ emacs-build/
 site/
 .ua4k-http-server.*
 .agent-shell/
+.#*
