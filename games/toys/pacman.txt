@@ -1,0 +1,1835 @@
+;; PACMAN.  Register-carried ghost floors, a one-way house door, a
+;; four-phase speed clock, and capture variables throughout.
+;;
+;; == Register ledger =====================================================
+;; All rows are 28 wide and rectangular.  Hidden rows start with `%`.
+;;
+;;   row A  %{-}-^1...     {  queued Pacman heading   (eswn, `-` none)
+;;                         }  current Pacman heading  (eswn, `-` none)
+;;                         ^  speed phase             (1234, cycles per tick)
+;;   row B  %(w)n[n]n...   (  R heading   )  K heading
+;;                         [  I heading   ]  C heading
+;;   row C  %!1-!2-...     !1 !2 !3 !4  carried floor under R K I C
+;;   row D  %<1>0&0+--~0... < mode        > release counter
+;;                         & eat chain    + pause field
+;;                         ~ frightened timer
+;;
+;; Actors: P pacman; R K I C normal ghosts; q x z b the same four
+;; frightened; h j l unreleased K I C; X dead Pacman.  Visible HUD strings
+;; avoid q x z b and the register anchor `!`.
+;;
+;; Tick order: clock_phase | pac_turn | pac_move | ghost_choose |
+;; ghost_move | fright_move | state_clock.  Pacman resolves before ghosts,
+;; so an energizer affects ghosts on the same tick.
+;;
+;; Collisions: normal-ghost contact in either direction turns Pacman's
+;; cell into `X`.  Eating a frightened ghost scores the chain, consumes
+;; its carried floor, and respawns it in the house.  Carried tiles
+;; survive every transition; completion is direct (GOAL P, VOIDs on `.`
+;; `O` `X` -- carried floors in the register rows block the goal too).
+
+TITLE Pacman
+DESCRIPTION Pacman with buffered movement, scoring, lives, ghost modes, staged release, frightened ghosts, and four distinct personalities.
+
+WILDCARD ?
+
+CLASS floor -.O
+CLASS open NOT #=_
+CLASS chase -.OP
+
+GOAL
+P
+
+VOID
+.
+
+VOID
+O
+
+VOID
+X
+
+WHITESPACE -_
+
+HIDDEN_LINE_CHAR %
+
+CHARMAP # █ . · O •
+CHARMAP P ☻ X †
+CHARMAP R M K M I M C M h M j M l M
+CHARMAP q W x W z W b W
+
+COLOR # #4455dd
+COLOR = #dd77aa
+COLOR . #bb7733 O #bb7733
+COLOR P #ddaa00
+COLOR X #cc2222
+COLOR R #dd2222 K #dd66aa I #00a0c0 C #dd8822
+COLOR h #dd66aa j #00a0c0 l #dd8822
+COLOR q #3333cc x #3333cc z #3333cc b #3333cc
+
+TICK 200
+
+############################
+#............##............#
+#.####.#####.##.#####.####.#
+#O####.#####.##.#####.####O#
+#.####.#####.##.#####.####.#
+#..........................#
+#.####.##.########.##.####.#
+#.####.##.########.##.####.#
+#......##....##....##......#
+######.#####-##-#####.######
+_____#.#####-##-#####.#_____
+_____#.##----R-----##.#_____
+_____#.##-###==###-##.#_____
+######.##-#--hj--#-##.######
+------.---#--l---#---.------
+######.##-#------#-##.######
+_____#.##-########-##.#_____
+_____#.##----------##.#_____
+_____#.##-########-##.#_____
+######.##-########-##.######
+#............##............#
+#.####.#####.##.#####.####.#
+#.####.#####.##.#####.####.#
+#O..##.......P-.......##..O#
+###.##.##.########.##.##.###
+###.##.##.########.##.##.###
+#......##....##....##......#
+#.##########.##.##########.#
+#.##########.##.##########.#
+#..........................#
+############################
+score:000000________________
+lives:***___________________
+status:ready________________
+%{-}-^1---------------------
+%(w)n[n]n-------------------
+%!1-!2-!3-!4----------------
+%<1>0&0+--~0----------------
+
+;; No test-step key in the default binds.  For turn-based
+;; or Emacs play, uncomment:
+;; BIND e _tick "advance one tick"
+
+BIND w queue_n "up" a queue_w "left" s queue_s "down" d queue_e "right"
+
+;; -----------------------------------------------------------------------
+;; Tick pipeline.
+
+CMD _tick
+ MATCH1
+  ATOMIC
+   +-- +--
+
+   CALL active_tick
+
+  CALL pause_tick
+
+CMD active_tick
+ TRY_ALL
+  CALL_EACH clock_phase pac_turn pac_move ghost_choose ghost_move fright_move state_clock
+
+CMD clock_phase
+ ^1 ^2
+
+ ^2 ^3
+
+ ^3 ^4
+
+ ^4 ^1
+
+CMD state_clock
+ TRY_ALL
+  MATCH1
+   ATOMIC
+    ~0
+
+    CALL_EACH release_tick mode_tick
+
+   CALL fright_tick
+
+  CALL check_clear
+
+CMD noop
+ ? ?
+
+;; -----------------------------------------------------------------------
+;; Input buffers a desired heading only; the tick does all movement.
+
+CMD queue_e
+ {? {e
+
+CMD queue_s
+ {? {s
+
+CMD queue_w
+ {? {w
+
+CMD queue_n
+ {? {n
+
+;; Adopt the queued heading when the faced cell is not a wall or door.
+
+CMD pac_turn
+ ROTATE eswn
+  ATOMIC 1 open
+   {e {e [norotate]
+
+   P1
+
+   }? }e [norotate]
+
+;; -----------------------------------------------------------------------
+;; Pacman movement: tunnel wrap first, then one step along the heading.
+
+CMD pac_move
+ ATOMIC
+  }e
+
+  -??????????????????????????P P??????????????????????????-
+
+ ATOMIC
+  }w
+
+  P??????????????????????????- -??????????????????????????P
+
+ ROTATE eswn
+  ATOMIC
+   }e }e [norotate]
+
+   MATCH1
+    ATOMIC
+     !1- !1- [norotate]
+
+     Pq -P ghost_eaten_r
+
+    ATOMIC
+     !1. !1- [norotate]
+
+     Pq -P eat_gdot_r
+
+    ATOMIC
+     !1O !1- [norotate]
+
+     Pq -P eat_gpow_r
+
+    ATOMIC
+     !2- !2- [norotate]
+
+     Px -P ghost_eaten_k
+
+    ATOMIC
+     !2. !2- [norotate]
+
+     Px -P eat_gdot_k
+
+    ATOMIC
+     !2O !2- [norotate]
+
+     Px -P eat_gpow_k
+
+    ATOMIC
+     !3- !3- [norotate]
+
+     Pz -P ghost_eaten_i
+
+    ATOMIC
+     !3. !3- [norotate]
+
+     Pz -P eat_gdot_i
+
+    ATOMIC
+     !3O !3- [norotate]
+
+     Pz -P eat_gpow_i
+
+    ATOMIC
+     !4- !4- [norotate]
+
+     Pb -P ghost_eaten_c
+
+    ATOMIC
+     !4. !4- [norotate]
+
+     Pb -P eat_gdot_c
+
+    ATOMIC
+     !4O !4- [norotate]
+
+     Pb -P eat_gpow_c
+
+    PO -P eat_energizer
+
+    P. -P eat_dot
+
+    P- -P
+
+    FOR g RKIC
+     Pg X? pac_died
+
+;; -----------------------------------------------------------------------
+;; Ghost movement.  One capture template serves all four ghosts via ZIP
+;; (register markers, identities, and carried-floor slots align), and one
+;; ROTATE serves all four directions (register tests and carried-slot
+;; rules carry [norotate], so only the geometry turns while the heading
+;; value orbits).  Per-ghost MATCH1 order: door hop, house shuffle, speed
+;; valve, tunnel wraps, then straight / turn-left / turn-right / reverse.
+
+CMD ghost_move
+ TRY_ALL
+  ZIP M ()[] G RKIC N 1234
+   MATCH1
+    ATOMIC 1 floor 2 floor
+     !N1 !N1
+
+     2 G
+     = =
+     G 1
+
+     !N? !N2
+
+     M? Mn
+
+    = =
+    - G
+    G -
+
+    ?= ?=
+    G- -G
+
+    =? =?
+    -G G-
+
+    ??= ??=
+    G-? -G?
+
+    =?? =??
+    ?-G ?G-
+
+    ?= ?=
+    ?? ??
+    G- -G
+
+    =? =?
+    ?? ??
+    -G G-
+
+    ??= ??=
+    ??? ???
+    G-? -G?
+
+    =?? =??
+    ??? ???
+    ?-G ?G-
+
+    = =
+    ? ?
+    - G
+    G -
+
+    ?= ?=
+    ?? ??
+    ?? ??
+    G- -G
+
+    =? =?
+    ?? ??
+    ?? ??
+    -G G-
+
+    ??= ??=
+    ??? ???
+    ??? ???
+    G-? -G?
+
+    =?? =??
+    ??? ???
+    ??? ???
+    ?-G ?G-
+
+    ;; Normal-ghost phase-4 rest removed after the maze redraw: with the
+    ;; classic band's extra escape columns, 3/4-speed ghosts never caught
+    ;; even the naive bot (0 losses across all seeds). Frightened ghosts
+    ;; keep their 2-of-4 valve, preserving the eat window.
+
+    ATOMIC 1 floor 2 floor
+     Me
+
+     !N1 !N1
+
+     2??????????????????????????G G??????????????????????????1
+
+     !N? !N2
+
+    ATOMIC 1 floor 2 floor
+     Mw
+
+     !N1 !N1
+
+     G??????????????????????????2 1??????????????????????????G
+
+     !N? !N2
+
+    ROTATE eswn
+     ATOMIC 1 floor 2 floor
+      Me Me [norotate]
+
+      !N1 !N1 [norotate]
+
+      G2 1G
+
+      !N? !N2 [norotate]
+
+    ROTATE eswn
+     ATOMIC
+      Me Me [norotate]
+
+      GP ?X ghost_caught
+
+    ROTATE eswn
+     ATOMIC 1 floor 2 floor
+      Me Me [norotate]
+
+      !N1 !N1 [norotate]
+
+      2 G
+      G 1
+
+      !N? !N2 [norotate]
+
+      M? Mn [norotate]
+
+    ROTATE eswn
+     ATOMIC
+      Me Me [norotate]
+
+      P X
+      G G ghost_caught
+
+    ROTATE eswn
+     ATOMIC 1 floor 2 floor
+      Me Me [norotate]
+
+      !N1 !N1 [norotate]
+
+      G 1
+      2 G
+
+      !N? !N2 [norotate]
+
+      M? Ms [norotate]
+
+    ROTATE eswn
+     ATOMIC
+      Me Me [norotate]
+
+      G G ghost_caught
+      P X
+
+    ROTATE eswn
+     ATOMIC 1 floor 2 floor
+      Me Me [norotate]
+
+      !N1 !N1 [norotate]
+
+      2G G1
+
+      !N? !N2 [norotate]
+
+      M? Mw [norotate]
+
+    ROTATE eswn
+     ATOMIC
+      Me Me [norotate]
+
+      PG XG ghost_caught
+
+;; -----------------------------------------------------------------------
+;; Steering: one policy command per ghost, writing only heading registers.
+
+CMD ghost_choose
+ TRY_ALL
+  CALL_EACH choose_r choose_k choose_i choose_c
+
+CMD choose_r
+ MATCH1
+  ATOMIC
+   CALL scatter_mode
+   MATCH1
+    CALL try_r_n
+    CALL try_r_e
+    CALL try_r_s
+    CALL try_r_w
+    CALL noop
+
+  MATCH1
+   CALL r_tunnel_to
+   CALL r_horizontal_to
+   CALL r_vertical_to
+
+CMD choose_k
+ MATCH1
+  ATOMIC
+   CALL scatter_mode
+   MATCH1
+    CALL try_k_n
+    CALL try_k_w
+    CALL try_k_s
+    CALL try_k_e
+    CALL noop
+
+  MATCH1
+   CALL k_tunnel_to
+   ATOMIC
+    }e
+
+    CALL k_horizontal_to
+   ATOMIC
+    }w
+
+    CALL k_horizontal_to
+
+   CALL k_vertical_to
+
+CMD choose_i
+ MATCH1
+  ATOMIC
+   CALL scatter_mode
+   MATCH1
+    CALL try_i_s
+    CALL try_i_e
+    CALL try_i_n
+    CALL try_i_w
+    CALL noop
+
+  MATCH1
+   CALL i_tunnel_to
+   RANDOM
+    CALL i_horizontal_to
+    CALL i_vertical_to
+
+CMD choose_c
+ MATCH1
+  ATOMIC
+   CALL scatter_mode
+   MATCH1
+    CALL try_c_s
+    CALL try_c_w
+    CALL try_c_n
+    CALL try_c_e
+    CALL noop
+
+  ATOMIC
+   CALL c_near_p
+   MATCH1
+    CALL c_tunnel_away
+    RANDOM
+     CALL c_horizontal_away
+     CALL c_vertical_away
+
+  RANDOM
+   CALL c_horizontal_to
+   CALL c_vertical_to
+
+;; -----------------------------------------------------------------------
+;; Eating, deaths, and chain scoring.
+
+CMD eat_dot
+ CALL add10
+
+CMD eat_energizer
+ TRY_ALL
+  CALL_EACH add50 fright_start
+
+CMD ghost_eaten_r
+ TRY_ALL
+  CALL_EACH ghost_points respawn_q
+
+CMD ghost_eaten_k
+ TRY_ALL
+  CALL_EACH ghost_points respawn_x
+
+CMD ghost_eaten_i
+ TRY_ALL
+  CALL_EACH ghost_points respawn_z
+
+CMD ghost_eaten_c
+ TRY_ALL
+  CALL_EACH ghost_points respawn_b
+
+CMD pac_died
+ MATCH1
+  ATOMIC
+   lives:*** lives:**-
+
+   +-- +33
+
+   status:?????? status:wait-_
+
+  ATOMIC
+   lives:**- lives:*--
+
+   +-- +33
+
+   status:?????? status:wait-_
+
+  ATOMIC
+   lives:*-- lives:---
+
+   +-- +GG
+
+   status:????????? status:game-over
+
+CMD ghost_caught
+ CALL pac_died
+
+;; -----------------------------------------------------------------------
+;; Score: the units digit is fixed, so this is a compact decimal +10.
+
+CMD add10
+ ZIP j 012345678 v 123456789
+  score:????j0_ score:????v0_
+
+  score:???j90_ score:???v00_
+
+  score:??j990_ score:??v000_
+
+  score:?j9990_ score:?v0000_
+
+  score:j99990_ score:v00000_
+
+CMD add50
+ TRY_ALL
+  CALL_EACH add10 add10 add10 add10 add10
+
+CMD add200
+ TRY_ALL
+  CALL_EACH add50 add50 add50 add50
+
+CMD add400
+ TRY_ALL
+  CALL_EACH add200 add200
+
+CMD add800
+ TRY_ALL
+  CALL_EACH add400 add400
+
+CMD add1600
+ TRY_ALL
+  CALL_EACH add800 add800
+
+CMD ghost_points
+ MATCH1
+  &0 &1 add200
+
+  &1 &2 add400
+
+  &2 &3 add800
+
+  &3 &4 add1600
+
+  &4 &4 add1600
+
+;; Completion is direct, but the visible HUD should
+;; still acknowledge the clear on the tick that consumes the final pellet.
+
+CMD check_clear
+ MATCH1
+  .
+
+  O
+
+  status:ready________________ status:maze-clear___________
+
+  status:fright_______________ status:maze-clear___________
+
+;; -----------------------------------------------------------------------
+;; Death pause: three frozen ticks, then a full round reset.
+
+CMD pause_tick
+ MATCH1
+  +33 +22
+
+  +22 +11
+
+  ATOMIC
+   +11 +--
+
+   CALL round_reset
+
+;; -----------------------------------------------------------------------
+;; Release and scatter/chase clock.  These advance once per four speed
+;; phases.  Inactive h/j/l become K/I/C at successive release epochs.
+
+CMD release_tick
+ ATOMIC
+  ^1
+
+  MATCH1
+   ATOMIC
+    >0 >1
+
+    h K
+
+   ATOMIC
+    >1 >2
+
+    j I
+
+   ATOMIC
+    >2 >3
+
+    l C
+
+   >3 >4
+
+CMD mode_tick
+ ATOMIC
+  ^1
+
+  MATCH1
+   <1 <2
+
+   <2 <3 reverse_all
+
+   <3 <4
+
+   <4 <5
+
+   <5 <6
+
+   <6 <7
+
+   <7 <1 reverse_all
+
+CMD scatter_mode
+ MATCH1
+  <1
+
+  <2
+
+CMD reverse_all
+ TRY_ALL
+  ZIP a eswn d wnes
+   (a (d
+
+   )a )d
+
+   [a [d
+
+   ]a ]d
+
+;; -----------------------------------------------------------------------
+;; Frightened mode.  Energizers reverse all ghosts, reset the eat chain,
+;; and suspend the ordinary mode/release clocks; frightened ghosts move
+;; on two of the four phases.
+
+CMD fright_start
+ TRY_ALL
+  R q
+
+  K x
+
+  I z
+
+  C b
+
+  ~? ~9
+
+  &? &0
+
+  status:ready_ status:fright
+
+  CALL reverse_all
+
+CMD fright_tick
+ MATCH1
+  ATOMIC
+   ^1 ^1
+
+   CALL fright_step
+  ATOMIC
+   ^3 ^3
+
+   CALL fright_step
+  CALL noop
+
+CMD fright_step
+ MATCH1
+  ~9 ~8
+
+  ~8 ~7
+
+  ~7 ~6
+
+  ~6 ~5
+
+  ~5 ~4
+
+  ~4 ~3
+
+  ~3 ~2
+
+  ~2 ~1
+
+  ATOMIC
+   ~1 ~0
+
+   TRY_ALL
+    q R
+
+    x K
+
+    z I
+
+    b C
+
+    &? &0
+
+    status:fright status:ready_
+
+CMD fright_move
+ TRY_ALL
+  ATOMIC
+   MATCH1
+    ^1 ^1
+
+    ^3 ^3
+
+   CALL fright_pipeline
+
+CMD fright_pipeline
+ TRY_ALL
+  CALL_EACH fcontact_r_e fcontact_r_s fcontact_r_w fcontact_r_n fcontact_k_e fcontact_k_s fcontact_k_w fcontact_k_n fcontact_i_e fcontact_i_s fcontact_i_w fcontact_i_n fcontact_c_e fcontact_c_s fcontact_c_w fcontact_c_n flee_r flee_k flee_i flee_c ghost_fmove
+
+CMD eat_gdot_r
+ TRY_ALL
+  CALL_EACH ghost_eaten_r add10
+
+CMD eat_gpow_r
+ TRY_ALL
+  CALL_EACH ghost_eaten_r add50 fright_start
+
+CMD eat_gdot_k
+ TRY_ALL
+  CALL_EACH ghost_eaten_k add10
+
+CMD eat_gpow_k
+ TRY_ALL
+  CALL_EACH ghost_eaten_k add50 fright_start
+
+CMD eat_gdot_i
+ TRY_ALL
+  CALL_EACH ghost_eaten_i add10
+
+CMD eat_gpow_i
+ TRY_ALL
+  CALL_EACH ghost_eaten_i add50 fright_start
+
+CMD eat_gdot_c
+ TRY_ALL
+  CALL_EACH ghost_eaten_c add10
+
+CMD eat_gpow_c
+ TRY_ALL
+  CALL_EACH ghost_eaten_c add50 fright_start
+
+;; Frightened mover: the same movement template bound to the frightened
+;; identities, with no lethal-contact branches; a frightened ghost
+;; stepping at Pacman is eaten (fcontact_*).
+CMD ghost_fmove
+ TRY_ALL
+  ZIP M ()[] G qxzb N 1234
+   MATCH1
+    ATOMIC 1 floor 2 floor
+     !N1 !N1
+
+     2 G
+     = =
+     G 1
+
+     !N? !N2
+
+     M? Mn
+
+    = =
+    - G
+    G -
+
+    ?= ?=
+    G- -G
+
+    =? =?
+    -G G-
+
+    ??= ??=
+    G-? -G?
+
+    =?? =??
+    ?-G ?G-
+
+    ?= ?=
+    ?? ??
+    G- -G
+
+    =? =?
+    ?? ??
+    -G G-
+
+    ??= ??=
+    ??? ???
+    G-? -G?
+
+    =?? =??
+    ??? ???
+    ?-G ?G-
+
+    = =
+    ? ?
+    - G
+    G -
+
+    ?= ?=
+    ?? ??
+    ?? ??
+    G- -G
+
+    =? =?
+    ?? ??
+    ?? ??
+    -G G-
+
+    ??= ??=
+    ??? ???
+    ??? ???
+    G-? -G?
+
+    =?? =??
+    ??? ???
+    ??? ???
+    ?-G ?G-
+
+    ;; Normal-ghost phase-4 rest removed after the maze redraw: with the
+    ;; classic band's extra escape columns, 3/4-speed ghosts never caught
+    ;; even the naive bot (0 losses across all seeds). Frightened ghosts
+    ;; keep their 2-of-4 valve, preserving the eat window.
+
+    ATOMIC 1 floor 2 floor
+     Me
+
+     !N1 !N1
+
+     2??????????????????????????G G??????????????????????????1
+
+     !N? !N2
+
+    ATOMIC 1 floor 2 floor
+     Mw
+
+     !N1 !N1
+
+     G??????????????????????????2 1??????????????????????????G
+
+     !N? !N2
+
+    ROTATE eswn
+     ATOMIC 1 floor 2 floor
+      Me Me [norotate]
+
+      !N1 !N1 [norotate]
+
+      G2 1G
+
+      !N? !N2 [norotate]
+
+    ROTATE eswn
+     ATOMIC 1 floor 2 floor
+      Me Me [norotate]
+
+      !N1 !N1 [norotate]
+
+      2 G
+      G 1
+
+      !N? !N2 [norotate]
+
+      M? Mn [norotate]
+
+    ROTATE eswn
+     ATOMIC 1 floor 2 floor
+      Me Me [norotate]
+
+      !N1 !N1 [norotate]
+
+      G 1
+      2 G
+
+      !N? !N2 [norotate]
+
+      M? Ms [norotate]
+
+    ROTATE eswn
+     ATOMIC 1 floor 2 floor
+      Me Me [norotate]
+
+      !N1 !N1 [norotate]
+
+      2G G1
+
+      !N? !N2 [norotate]
+
+      M? Mw [norotate]
+
+
+ROTATE_CMDS fcontact_r eswn
+ ATOMIC f floor
+  (e (e [norotate]
+
+  !1f !1f [norotate]
+
+  qP fP ghost_eaten_r
+
+  !1? !1- [norotate]
+
+ROTATE_CMDS fcontact_k eswn
+ ATOMIC f floor
+  )e )e [norotate]
+
+  !2f !2f [norotate]
+
+  xP fP ghost_eaten_k
+
+  !2? !2- [norotate]
+
+ROTATE_CMDS fcontact_i eswn
+ ATOMIC f floor
+  [e [e [norotate]
+
+  !3f !3f [norotate]
+
+  zP fP ghost_eaten_i
+
+  !3? !3- [norotate]
+
+ROTATE_CMDS fcontact_c eswn
+ ATOMIC f floor
+  ]e ]e [norotate]
+
+  !4f !4f [norotate]
+
+  bP fP ghost_eaten_c
+
+  !4? !4- [norotate]
+
+ROTATE_CMDS try_fq eswn
+ FOR j esn
+  ATOMIC 1 chase
+   (j (j [norotate]
+
+   q1 q1
+
+   (? (e [norotate]
+
+ROTATE_CMDS try_fx eswn
+ FOR j esn
+  ATOMIC 1 chase
+   )j )j [norotate]
+
+   x1 x1
+
+   )? )e [norotate]
+
+ROTATE_CMDS try_fz eswn
+ FOR j esn
+  ATOMIC 1 chase
+   [j [j [norotate]
+
+   z1 z1
+
+   [? [e [norotate]
+
+ROTATE_CMDS try_fb eswn
+ FOR j esn
+  ATOMIC 1 chase
+   ]j ]j [norotate]
+
+   b1 b1
+
+   ]? ]e [norotate]
+
+CMD flee_r
+ MATCH1
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    q
+
+    P
+
+   CALL try_fq_w
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    P
+
+    q
+
+   CALL try_fq_e
+  ATOMIC
+   ATOMIC_VERTICAL
+    q
+
+    P
+
+   CALL try_fq_n
+  ATOMIC
+   ATOMIC_VERTICAL
+    P
+
+    q
+
+   CALL try_fq_s
+
+CMD flee_k
+ MATCH1
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    x
+
+    P
+
+   CALL try_fx_w
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    P
+
+    x
+
+   CALL try_fx_e
+  ATOMIC
+   ATOMIC_VERTICAL
+    x
+
+    P
+
+   CALL try_fx_n
+  ATOMIC
+   ATOMIC_VERTICAL
+    P
+
+    x
+
+   CALL try_fx_s
+
+CMD flee_i
+ MATCH1
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    z
+
+    P
+
+   CALL try_fz_w
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    P
+
+    z
+
+   CALL try_fz_e
+  ATOMIC
+   ATOMIC_VERTICAL
+    z
+
+    P
+
+   CALL try_fz_n
+  ATOMIC
+   ATOMIC_VERTICAL
+    P
+
+    z
+
+   CALL try_fz_s
+
+CMD flee_c
+ MATCH1
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    b
+
+    P
+
+   CALL try_fb_w
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    P
+
+    b
+
+   CALL try_fb_e
+  ATOMIC
+   ATOMIC_VERTICAL
+    b
+
+    P
+
+   CALL try_fb_n
+  ATOMIC
+   ATOMIC_VERTICAL
+    P
+
+    b
+
+   CALL try_fb_s
+
+;; Round reset: after the death
+;; pause, every actor returns to its start, carried floors are dropped in
+;; place, and the mode/release/fright/chain clocks restart.  Placement
+;; rules anchor on the door `==`, the only stable two-cell landmark.
+
+CMD round_reset
+ ATOMIC
+  X -
+
+  CALL clear_r
+  CALL clear_k
+  CALL clear_i
+  CALL clear_c
+  CALL place_actors
+  CALL reset_regs
+
+CMD clear_r
+ MATCH1
+  ATOMIC f floor
+   !1f !1-
+
+   R f
+
+  ATOMIC f floor
+   !1f !1-
+
+   q f
+
+  CALL noop
+
+CMD clear_k
+ MATCH1
+  ATOMIC f floor
+   !2f !2-
+
+   K f
+
+  ATOMIC f floor
+   !2f !2-
+
+   x f
+
+  h -
+
+  CALL noop
+
+CMD clear_i
+ MATCH1
+  ATOMIC f floor
+   !3f !3-
+
+   I f
+
+  ATOMIC f floor
+   !3f !3-
+
+   z f
+
+  j -
+
+  CALL noop
+
+CMD clear_c
+ MATCH1
+  ATOMIC f floor
+   !4f !4-
+
+   C f
+
+  ATOMIC f floor
+   !4f !4-
+
+   l f
+
+  ATOMIC f floor
+   !4f !4-
+
+   b f
+
+  CALL noop
+
+CMD place_actors
+ ATOMIC
+  ?? R?
+  == ==
+
+  == ==
+  ?? hj
+
+  == ==
+  ?? ??
+  ?? l?
+
+  = =
+  ? ?
+  ? ?
+  ? ?
+  ? ?
+  ? ?
+  ? ?
+  ? ?
+  ? ?
+  ? ?
+  ? ?
+  ? P
+
+CMD reset_regs
+ ATOMIC
+  {? {-
+
+  }? }-
+
+  ^? ^1
+
+  (? (w
+
+  )? )n
+
+  [? [n
+
+  ]? ]n
+
+  !1? !1-
+
+  !2? !2-
+
+  !3? !3-
+
+  !4? !4-
+
+  <? <1
+
+  >? >0
+
+  &? &0
+
+  ~? ~0
+
+  status:wait- status:ready
+
+CMD respawn_q
+ MATCH1
+  ATOMIC
+   == ==
+   -? R?
+
+   (? (n
+
+  ATOMIC
+   == ==
+   ?- ?R
+
+   (? (n
+
+  ATOMIC
+   == ==
+   ?? ??
+   -? R?
+
+   (? (n
+
+  ATOMIC
+   == ==
+   ?? ??
+   ?- ?R
+
+   (? (n
+
+  ATOMIC
+   == ==
+   ?? ??
+   ?? ??
+   -? R?
+
+   (? (n
+
+  ATOMIC
+   == ==
+   ?? ??
+   ?? ??
+   ?- ?R
+
+   (? (n
+
+CMD respawn_x
+ MATCH1
+  ATOMIC
+   == ==
+   -? K?
+
+   )? )n
+
+  ATOMIC
+   == ==
+   ?- ?K
+
+   )? )n
+
+  ATOMIC
+   == ==
+   ?? ??
+   -? K?
+
+   )? )n
+
+  ATOMIC
+   == ==
+   ?? ??
+   ?- ?K
+
+   )? )n
+
+  ATOMIC
+   == ==
+   ?? ??
+   ?? ??
+   -? K?
+
+   )? )n
+
+  ATOMIC
+   == ==
+   ?? ??
+   ?? ??
+   ?- ?K
+
+   )? )n
+
+CMD respawn_z
+ MATCH1
+  ATOMIC
+   == ==
+   -? I?
+
+   [? [n
+
+  ATOMIC
+   == ==
+   ?- ?I
+
+   [? [n
+
+  ATOMIC
+   == ==
+   ?? ??
+   -? I?
+
+   [? [n
+
+  ATOMIC
+   == ==
+   ?? ??
+   ?- ?I
+
+   [? [n
+
+  ATOMIC
+   == ==
+   ?? ??
+   ?? ??
+   -? I?
+
+   [? [n
+
+  ATOMIC
+   == ==
+   ?? ??
+   ?? ??
+   ?- ?I
+
+   [? [n
+
+CMD respawn_b
+ MATCH1
+  ATOMIC
+   == ==
+   -? C?
+
+   ]? ]n
+
+  ATOMIC
+   == ==
+   ?- ?C
+
+   ]? ]n
+
+  ATOMIC
+   == ==
+   ?? ??
+   -? C?
+
+   ]? ]n
+
+  ATOMIC
+   == ==
+   ?? ??
+   ?- ?C
+
+   ]? ]n
+
+  ATOMIC
+   == ==
+   ?? ??
+   ?? ??
+   -? C?
+
+   ]? ]n
+
+  ATOMIC
+   == ==
+   ?? ??
+   ?? ??
+   ?- ?C
+
+   ]? ]n
+
+;; -----------------------------------------------------------------------
+;; Steering.  R directly pursues, K keys off Pacman's heading, I alternates
+;; axes randomly, and C retreats when nearby.  Aim commands reject an
+;; immediate reversal; the physical mover still chooses a legal fallback.
+
+;; Feasible tries: a try succeeds only when the ghost is present,
+;; the destination is walkable for a chasing ghost, and the current
+;; register (the last successful travel direction) is not the reverse of
+;; the tried direction.  An infeasible or reversing preference fails so
+;; the personality's next ordered preference runs; the mover keeps its
+;; own last-resort reversal for dead ends.
+
+ROTATE_CMDS try_r eswn
+ FOR j esn
+  ATOMIC 1 chase
+   (j (j [norotate]
+
+   R1 R1
+
+   (? (e [norotate]
+
+ROTATE_CMDS try_k eswn
+ FOR j esn
+  ATOMIC 1 chase
+   )j )j [norotate]
+
+   K1 K1
+
+   )? )e [norotate]
+
+ROTATE_CMDS try_i eswn
+ FOR j esn
+  ATOMIC 1 chase
+   [j [j [norotate]
+
+   I1 I1
+
+   [? [e [norotate]
+
+ROTATE_CMDS try_c eswn
+ FOR j esn
+  ATOMIC 1 chase
+   ]j ]j [norotate]
+
+   C1 C1
+
+   ]? ]e [norotate]
+
+;; The physical tunnel joins the row endpoints, so ordinary linear position
+;; comparisons point the wrong way there.  These seam-specific preferences
+;; retain the never-reverse check while writing only the heading register;
+;; the shared mover performs the actual wrap later in the tick.
+
+CMD r_tunnel_to
+ MATCH1
+  FOR j esn
+   ATOMIC
+    (j (j
+
+    P??????????????????????????R P??????????????????????????R
+
+    (? (e
+
+  FOR j wsn
+   ATOMIC
+    (j (j
+
+    R??????????????????????????P R??????????????????????????P
+
+    (? (w
+
+CMD k_tunnel_to
+ MATCH1
+  FOR j esn
+   ATOMIC
+    )j )j
+
+    P??????????????????????????K P??????????????????????????K
+
+    )? )e
+
+  FOR j wsn
+   ATOMIC
+    )j )j
+
+    K??????????????????????????P K??????????????????????????P
+
+    )? )w
+
+CMD i_tunnel_to
+ MATCH1
+  FOR j esn
+   ATOMIC
+    [j [j
+
+    P??????????????????????????I P??????????????????????????I
+
+    [? [e
+
+  FOR j wsn
+   ATOMIC
+    [j [j
+
+    I??????????????????????????P I??????????????????????????P
+
+    [? [w
+
+CMD c_tunnel_away
+ MATCH1
+  FOR j wsn
+   ATOMIC
+    ]j ]j
+
+    P??????????????????????????C P??????????????????????????C
+
+    ]? ]w
+
+  FOR j esn
+   ATOMIC
+    ]j ]j
+
+    C??????????????????????????P C??????????????????????????P
+
+    ]? ]e
+
+CMD r_horizontal_to
+ MATCH1
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    R
+
+    P
+
+   CALL try_r_e
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    P
+
+    R
+
+   CALL try_r_w
+
+CMD r_vertical_to
+ MATCH1
+  ATOMIC
+   ATOMIC_VERTICAL
+    R
+
+    P
+
+   CALL try_r_s
+  ATOMIC
+   ATOMIC_VERTICAL
+    P
+
+    R
+
+   CALL try_r_n
+
+CMD k_horizontal_to
+ MATCH1
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    K
+
+    P
+
+   CALL try_k_e
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    P
+
+    K
+
+   CALL try_k_w
+
+CMD k_vertical_to
+ MATCH1
+  ATOMIC
+   ATOMIC_VERTICAL
+    K
+
+    P
+
+   CALL try_k_s
+  ATOMIC
+   ATOMIC_VERTICAL
+    P
+
+    K
+
+   CALL try_k_n
+
+CMD i_horizontal_to
+ MATCH1
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    I
+
+    P
+
+   CALL try_i_e
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    P
+
+    I
+
+   CALL try_i_w
+
+CMD i_vertical_to
+ MATCH1
+  ATOMIC
+   ATOMIC_VERTICAL
+    I
+
+    P
+
+   CALL try_i_s
+  ATOMIC
+   ATOMIC_VERTICAL
+    P
+
+    I
+
+   CALL try_i_n
+
+CMD c_horizontal_to
+ MATCH1
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    C
+
+    P
+
+   CALL try_c_e
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    P
+
+    C
+
+   CALL try_c_w
+
+CMD c_vertical_to
+ MATCH1
+  ATOMIC
+   ATOMIC_VERTICAL
+    C
+
+    P
+
+   CALL try_c_s
+  ATOMIC
+   ATOMIC_VERTICAL
+    P
+
+    C
+
+   CALL try_c_n
+
+CMD c_horizontal_away
+ MATCH1
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    C
+
+    P
+
+   CALL try_c_w
+  ATOMIC
+   ATOMIC_HORIZONTAL
+    P
+
+    C
+
+   CALL try_c_e
+
+CMD c_vertical_away
+ MATCH1
+  ATOMIC
+   ATOMIC_VERTICAL
+    C
+
+    P
+
+   CALL try_c_n
+  ATOMIC
+   ATOMIC_VERTICAL
+    P
+
+    C
+
+   CALL try_c_s
+
+CMD c_near_p
+ MATCH1
+  P??????????????????????????C
+
+  C??????????????????????????P
+
+  ROTATE
+   CP
+
+   C?P
+
+   C??P
+
+   C???P
+
+   C????P
+
+  FLIP_HORIZONTAL
+   FLIP_VERTICAL
+    C?
+    ?P
+
+    C??
+    ??P
+
+    C???
+    ???P
+
+    C?
+    ??
+    ?P
+
+    C??
+    ???
+    ??P
+
+    C?
+    ??
+    ??
+    ?P
