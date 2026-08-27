@@ -649,9 +649,8 @@ CMD check_clear
 
 CMD pause_tick
  MATCH1
-  +33 +22
-
-  +22 +11
+  ZIP a 32 b 21
+   +aa +bb
 
   ATOMIC
    +11 +--
@@ -757,21 +756,8 @@ CMD fright_tick
 
 CMD fright_step
  MATCH1
-  ~9 ~8
-
-  ~8 ~7
-
-  ~7 ~6
-
-  ~6 ~5
-
-  ~5 ~4
-
-  ~4 ~3
-
-  ~3 ~2
-
-  ~2 ~1
+  ZIP a 98765432 b 87654321
+   ~a ~b
 
   ATOMIC
    ~1 ~0
