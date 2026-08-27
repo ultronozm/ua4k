@@ -1,0 +1,477 @@
+{
+  "levels": [
+    {
+      "board": [
+        "ab<>",
+        "----"
+      ],
+      "goals": [
+        [
+          "b???"
+        ]
+      ]
+    }
+  ],
+  "rules": {
+    "step_aa": {
+      "type": "match1",
+      "rules": [
+        {
+          "type": "match1",
+          "rules": [
+            {
+              "type": "simple",
+              "from": [
+                "A-"
+              ],
+              "to": [
+                "-A"
+              ],
+              "side_effects": [
+                "mark_a_e!"
+              ],
+              "method": "firstmatch"
+            },
+            {
+              "type": "simple",
+              "from": [
+                "<?"
+              ],
+              "to": [
+                "<?"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            }
+          ]
+        }
+      ]
+    },
+    "step_bb": {
+      "type": "match1",
+      "rules": [
+        {
+          "type": "match1",
+          "rules": [
+            {
+              "type": "simple",
+              "from": [
+                "B-"
+              ],
+              "to": [
+                "-B"
+              ],
+              "side_effects": [
+                "mark_b_e!"
+              ],
+              "method": "firstmatch"
+            },
+            {
+              "type": "simple",
+              "from": [
+                "<?"
+              ],
+              "to": [
+                "<?"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            }
+          ]
+        }
+      ]
+    },
+    "mark_a_e": {
+      "type": "match1",
+      "rules": [
+        {
+          "type": "atomic",
+          "rules": [
+            {
+              "type": "simple",
+              "from": [
+                "a?"
+              ],
+              "to": [
+                "a?"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            },
+            {
+              "type": "simple",
+              "from": [
+                "<>"
+              ],
+              "to": [
+                "<>"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            }
+          ]
+        }
+      ]
+    },
+    "mark_a_s": {
+      "type": "match1",
+      "rules": [
+        {
+          "type": "atomic",
+          "rules": [
+            {
+              "type": "simple",
+              "from": [
+                "a?"
+              ],
+              "to": [
+                "a?"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            },
+            {
+              "type": "simple",
+              "from": [
+                "<",
+                ">"
+              ],
+              "to": [
+                "<",
+                ">"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            }
+          ]
+        }
+      ]
+    },
+    "mark_a_w": {
+      "type": "match1",
+      "rules": [
+        {
+          "type": "atomic",
+          "rules": [
+            {
+              "type": "simple",
+              "from": [
+                "a?"
+              ],
+              "to": [
+                "a?"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            },
+            {
+              "type": "simple",
+              "from": [
+                "><"
+              ],
+              "to": [
+                "><"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            }
+          ]
+        }
+      ]
+    },
+    "mark_a_n": {
+      "type": "match1",
+      "rules": [
+        {
+          "type": "atomic",
+          "rules": [
+            {
+              "type": "simple",
+              "from": [
+                "a?"
+              ],
+              "to": [
+                "a?"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            },
+            {
+              "type": "simple",
+              "from": [
+                ">",
+                "<"
+              ],
+              "to": [
+                ">",
+                "<"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            }
+          ]
+        }
+      ]
+    },
+    "mark_b_e": {
+      "type": "match1",
+      "rules": [
+        {
+          "type": "atomic",
+          "rules": [
+            {
+              "type": "simple",
+              "from": [
+                "b?"
+              ],
+              "to": [
+                "b?"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            },
+            {
+              "type": "simple",
+              "from": [
+                "<>"
+              ],
+              "to": [
+                "<>"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            }
+          ]
+        }
+      ]
+    },
+    "mark_b_s": {
+      "type": "match1",
+      "rules": [
+        {
+          "type": "atomic",
+          "rules": [
+            {
+              "type": "simple",
+              "from": [
+                "b?"
+              ],
+              "to": [
+                "b?"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            },
+            {
+              "type": "simple",
+              "from": [
+                "<",
+                ">"
+              ],
+              "to": [
+                "<",
+                ">"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            }
+          ]
+        }
+      ]
+    },
+    "mark_b_w": {
+      "type": "match1",
+      "rules": [
+        {
+          "type": "atomic",
+          "rules": [
+            {
+              "type": "simple",
+              "from": [
+                "b?"
+              ],
+              "to": [
+                "b?"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            },
+            {
+              "type": "simple",
+              "from": [
+                "><"
+              ],
+              "to": [
+                "><"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            }
+          ]
+        }
+      ]
+    },
+    "mark_b_n": {
+      "type": "match1",
+      "rules": [
+        {
+          "type": "atomic",
+          "rules": [
+            {
+              "type": "simple",
+              "from": [
+                "b?"
+              ],
+              "to": [
+                "b?"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            },
+            {
+              "type": "simple",
+              "from": [
+                ">",
+                "<"
+              ],
+              "to": [
+                ">",
+                "<"
+              ],
+              "side_effects": [],
+              "method": "firstmatch"
+            }
+          ]
+        }
+      ]
+    },
+    "outer_p": {
+      "type": "match1",
+      "rules": [
+        {
+          "type": "call",
+          "name": "inner_p_m"
+        },
+        {
+          "type": "call",
+          "name": "inner_p_n"
+        }
+      ]
+    },
+    "outer_q": {
+      "type": "match1",
+      "rules": [
+        {
+          "type": "call",
+          "name": "inner_q_m"
+        },
+        {
+          "type": "call",
+          "name": "inner_q_n"
+        }
+      ]
+    },
+    "inner_p_m": {
+      "type": "match1",
+      "rules": [
+        {
+          "type": "simple",
+          "from": [
+            "??"
+          ],
+          "to": [
+            "??"
+          ],
+          "side_effects": [],
+          "method": "firstmatch"
+        }
+      ]
+    },
+    "inner_p_n": {
+      "type": "match1",
+      "rules": [
+        {
+          "type": "simple",
+          "from": [
+            "??"
+          ],
+          "to": [
+            "??"
+          ],
+          "side_effects": [],
+          "method": "firstmatch"
+        }
+      ]
+    },
+    "inner_q_m": {
+      "type": "match1",
+      "rules": [
+        {
+          "type": "simple",
+          "from": [
+            "??"
+          ],
+          "to": [
+            "??"
+          ],
+          "side_effects": [],
+          "method": "firstmatch"
+        }
+      ]
+    },
+    "inner_q_n": {
+      "type": "match1",
+      "rules": [
+        {
+          "type": "simple",
+          "from": [
+            "??"
+          ],
+          "to": [
+            "??"
+          ],
+          "side_effects": [],
+          "method": "firstmatch"
+        }
+      ]
+    },
+    "_tick": {
+      "type": "match1",
+      "rules": [
+        {
+          "type": "try_all",
+          "rules": [
+            {
+              "type": "call",
+              "name": "step_aa"
+            },
+            {
+              "type": "call",
+              "name": "step_bb"
+            },
+            {
+              "type": "call",
+              "name": "outer_p"
+            },
+            {
+              "type": "call",
+              "name": "outer_q"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "binds": {},
+  "goals": [],
+  "voids": [],
+  "whitespaceChars": [],
+  "charMap": {},
+  "colorMap": {},
+  "hiddenLineChars": [],
+  "globalTick": null,
+  "gameTitle": "ZIP_CMDS / FOR_CMDS fixture",
+  "gameDescription": "Both grammar forms, marker composition, and literal angle brackets.",
+  "gameAuthor": null,
+  "wildcardChar": "?"
+}

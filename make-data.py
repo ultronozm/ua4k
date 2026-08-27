@@ -48,6 +48,11 @@ RULE_BLOCK_DIRECTIVES = {
 
 TOP_LEVEL_BLOCK_DIRECTIVES = {"ROTATE_CMDS"}
 
+# Compile-time command templating (ZIP_CMDS / FOR_CMDS). Expanded by a
+# template-aware preprocessor before ordinary parsing; never seen by
+# parse_tokens.
+TEMPLATE_DIRECTIVES = {"ZIP_CMDS", "FOR_CMDS"}
+
 # Compound control blocks that share one parse shape: open a nested rule
 # list at the current indent level. Values are the runtime node skeletons.
 BLOCK_DIRECTIVE_NODES = {
@@ -84,6 +89,7 @@ class LineToken:
     indent: int
     parts: list[str]
     kind: str
+    origin: str | None = None
 
 
 @dataclass
@@ -122,6 +128,8 @@ class ParseState:
 
     rules_stack: list[dict] = field(default_factory=list)
     indent_stack: list[int] = field(default_factory=list)
+
+    generated_command_names: frozenset[str] = frozenset()
 
     call_references: list[tuple[str, int, str]] = field(default_factory=list)
     side_effect_references: list[tuple[str, int, str]] = field(default_factory=list)
@@ -420,6 +428,318 @@ def tokenize_lines(raw_lines: list[str]) -> list[LineToken]:
             )
         )
     return tokens
+
+
+
+# ---------------------------------------------------------------------------
+# Command templating: ZIP_CMDS / FOR_CMDS.
+#
+# Two grammar shapes:
+#   ZIP_CMDS name_<g> g rkic G RKIC     (implicit-CMD form: body is a
+#    <command body>                       command body; one CMD per tuple)
+#   ZIP_CMDS g rkic G RKIC              (full-body form: body is exactly one
+#    CMD name_<g> / ROTATE_CMDS ...       CMD or ROTATE_CMDS definition)
+#
+# Substitution regimes: bare variable characters substitute in pattern rows
+# exactly as ZIP does; identifiers (generated name, CALL/CALL_EACH targets,
+# side-effect fields) substitute only inside an explicit <v> marker. Markers
+# are never interpreted in pattern cells, so literal `<`/`>` board text is
+# untouched. Expansion is textual and happens before all other parsing;
+# ZIP tuples expand left-to-right.
+
+TEMPLATE_MARKER_RE = re.compile(r"<(.)>")
+
+
+def _template_fail(line_no: int, message: str) -> NoReturn:
+    fail(line_no, message)
+
+
+def _rebuild_token(line_no: int, indent: int, parts: list[str], origin: str) -> LineToken:
+    stripped = " ".join(parts)
+    raw = " " * indent + stripped + "\n"
+    return LineToken(
+        line_no=line_no,
+        raw=raw,
+        stripped=stripped,
+        indent=indent,
+        parts=parts,
+        kind="text",
+        origin=origin,
+    )
+
+
+def _marker_sub(token_text: str, assn: dict[str, str], line_no: int, declared: set[str]) -> str:
+    def replace(match: "re.Match[str]") -> str:
+        var = match.group(1)
+        if var not in declared:
+            _template_fail(line_no, f"template marker <{var}> names an undeclared variable")
+        return assn[var]
+
+    return TEMPLATE_MARKER_RE.sub(replace, token_text)
+
+
+def _scan_markers(token_text: str) -> set[str]:
+    return {m.group(1) for m in TEMPLATE_MARKER_RE.finditer(token_text)}
+
+
+def _parse_template_header(token: LineToken) -> tuple[str | None, list[tuple[str, str]]]:
+    parts = token.parts
+    line_no = token.line_no
+    head = parts[0]
+    args = parts[1:]
+    name = None
+    if args and len(args[0]) > 1:
+        name = args[0]
+        args = args[1:]
+    if len(args) < 2 or len(args) % 2 != 0:
+        _template_fail(line_no, f"{head} expects variable/value-list pairs")
+    pairs = [(args[i], args[i + 1]) for i in range(0, len(args), 2)]
+    if head == "FOR_CMDS" and len(pairs) != 1:
+        _template_fail(line_no, "FOR_CMDS takes exactly one variable (nest for products)")
+    seen_vars: set[str] = set()
+    length = None
+    for var, values in pairs:
+        if len(var) != 1:
+            _template_fail(line_no, f"template variable {var!r} must be one character")
+        if var in seen_vars:
+            _template_fail(line_no, f"duplicate template variable {var!r}")
+        seen_vars.add(var)
+        if not values:
+            _template_fail(line_no, f"template variable {var!r} has an empty value list")
+        if head == "ZIP_CMDS":
+            if length is None:
+                length = len(values)
+            elif len(values) != length:
+                _template_fail(
+                    line_no,
+                    f"ZIP_CMDS value lists must have equal length: "
+                    f"{len(values)} vs {length}",
+                )
+    return name, pairs
+
+
+def _template_body_checks(
+    directive: LineToken,
+    body: list[LineToken],
+    pairs: list[tuple[str, str]],
+    wildcard: str,
+    extra_orbits: list[str],
+) -> None:
+    """Pre-expansion collision pass (provenance-safe per the design decision)."""
+    tchars = {var for var, _ in pairs} | {c for _, values in pairs for c in values}
+    for var, values in pairs:
+        if var == wildcard:
+            _template_fail(directive.line_no, f"template variable {var!r} collides with the wildcard")
+        if wildcard in values:
+            _template_fail(
+                directive.line_no,
+                f"template value list for {var!r} contains the wildcard {wildcard!r}",
+            )
+    def check_decl(chars: list[str], line_no: int, what: str) -> None:
+        for ch in chars:
+            if ch in tchars:
+                _template_fail(
+                    directive.line_no,
+                    f"template variable or value {ch!r} collides with {what} "
+                    f"declared on line {line_no}",
+                )
+    for orbit in extra_orbits:
+        for ch in orbit:
+            if ch in tchars:
+                _template_fail(
+                    directive.line_no,
+                    f"template variable or value {ch!r} collides with an orbit character",
+                )
+    for token in body:
+        if token.kind != "text":
+            continue
+        parts = token.parts
+        head = parts[0]
+        if head == "FOR" and len(parts) >= 2:
+            check_decl([parts[1]], token.line_no, "a FOR variable")
+        elif head == "ZIP" and len(parts) >= 3:
+            check_decl(parts[1::2], token.line_no, "a ZIP variable")
+        elif head in ("ATOMIC", "ATOMIC_VERTICAL", "ATOMIC_HORIZONTAL") and len(parts) >= 3:
+            check_decl(parts[1::2], token.line_no, "a capture variable")
+        elif head == "ROTATE":
+            for orbit in parts[1:]:
+                for ch in orbit:
+                    if ch in tchars:
+                        _template_fail(
+                            directive.line_no,
+                            f"template variable or value {ch!r} collides with a ROTATE "
+                            f"orbit character on line {token.line_no}",
+                        )
+        elif head in TEMPLATE_DIRECTIVES:
+            _template_fail(token.line_no, f"{head} may not be nested inside a template")
+
+
+def _expand_one_template(
+    directive: LineToken,
+    body: list[LineToken],
+    wildcard: str,
+    generated_names: set[str],
+) -> list[LineToken]:
+    head = directive.parts[0]
+    name_template, pairs = _parse_template_header(directive)
+    declared = {var for var, _ in pairs}
+    first_var = pairs[0][0]
+
+    # Locate the full-body definition line, if any.
+    body_text = [t for t in body if t.kind == "text"]
+    def_token = None
+    if name_template is None:
+        if not body_text or body_text[0].parts[0] not in ("CMD", "ROTATE_CMDS"):
+            _template_fail(
+                directive.line_no,
+                f"{head} without a name requires the body to be one CMD or "
+                f"ROTATE_CMDS definition",
+            )
+        def_token = body_text[0]
+        if len(def_token.parts) < 2:
+            _template_fail(def_token.line_no, f"{def_token.parts[0]} expects a command name")
+        name_template = def_token.parts[1]
+        for other in body_text[1:]:
+            if other.indent <= def_token.indent and other.parts[0] in ("CMD", "ROTATE_CMDS"):
+                _template_fail(
+                    other.line_no,
+                    f"{head} full-body form allows exactly one definition",
+                )
+    if f"<{first_var}>" not in name_template:
+        _template_fail(
+            directive.line_no,
+            f"template name {name_template!r} must contain the first variable "
+            f"marker <{first_var}>",
+        )
+
+    extra_orbits = def_token.parts[2:] if def_token is not None and def_token.parts[0] == "ROTATE_CMDS" else []
+    _template_body_checks(directive, body, pairs, wildcard, extra_orbits)
+
+    # Usage accounting and undeclared-marker detection.
+    used: set[str] = _scan_markers(name_template) & declared
+    for token in _scan_markers(name_template) - declared:
+        _template_fail(directive.line_no, f"template marker <{token}> names an undeclared variable")
+    for token in body:
+        if token.kind != "text":
+            continue
+        parts = token.parts
+        head_word = parts[0]
+        if head_word in ("CALL", "CALL_EACH"):
+            for target in parts[1:]:
+                markers = _scan_markers(target)
+                if markers - declared:
+                    bad = sorted(markers - declared)[0]
+                    _template_fail(token.line_no, f"template marker <{bad}> names an undeclared variable")
+                used |= markers
+        elif head_word in ALL_DIRECTIVES or head_word in TEMPLATE_DIRECTIVES:
+            continue
+        else:
+            pattern_parts = parts[:2] if len(parts) >= 2 else parts[:1]
+            for pattern in pattern_parts:
+                used |= {var for var in declared if var in pattern}
+            for extra in parts[2:]:
+                if extra.startswith("[") and extra.endswith("]"):
+                    continue
+                markers = _scan_markers(extra)
+                if markers - declared:
+                    bad = sorted(markers - declared)[0]
+                    _template_fail(token.line_no, f"template marker <{bad}> names an undeclared variable")
+                used |= markers
+    unused = declared - used
+    if unused:
+        _template_fail(
+            directive.line_no,
+            f"template variable {sorted(unused)[0]!r} is declared but never used",
+        )
+
+    # Expansion, tuples left-to-right.
+    count = len(pairs[0][1])
+    expanded: list[LineToken] = []
+    for index in range(count):
+        assn = {var: values[index] for var, values in pairs}
+        origin = directive.parts[0] + " " + name_template + " with " + ", ".join(
+            f"{var}={assn[var]}" for var, _ in pairs
+        )
+        trans = str.maketrans(assn)
+        generated_name = _marker_sub(name_template, assn, directive.line_no, declared)
+        if generated_name in generated_names:
+            _template_fail(
+                directive.line_no,
+                f"template generates duplicate command name {generated_name!r}",
+            )
+        generated_names.add(generated_name)
+
+        if def_token is None:
+            expanded.append(
+                _rebuild_token(directive.line_no, directive.indent, ["CMD", generated_name], origin)
+            )
+            emit_body = body
+        else:
+            def_parts = [def_token.parts[0], generated_name] + def_token.parts[2:]
+            expanded.append(
+                _rebuild_token(def_token.line_no, directive.indent, def_parts, origin)
+            )
+            emit_body = [t for t in body if t is not def_token]
+
+        for token in emit_body:
+            if token.kind != "text":
+                expanded.append(token)
+                continue
+            parts = token.parts
+            head_word = parts[0]
+            indent = max(token.indent - 1, 0) if def_token is not None else token.indent
+            if head_word in ("CALL", "CALL_EACH"):
+                new_parts = [head_word] + [
+                    _marker_sub(t, assn, token.line_no, declared) for t in parts[1:]
+                ]
+            elif head_word in ALL_DIRECTIVES:
+                new_parts = parts
+            else:
+                new_parts = []
+                for i, part in enumerate(parts):
+                    if i < 2 and not (part.startswith("[") and part.endswith("]")):
+                        new_parts.append(part.translate(trans))
+                    elif part.startswith("[") and part.endswith("]"):
+                        new_parts.append(part)
+                    else:
+                        new_parts.append(_marker_sub(part, assn, token.line_no, declared))
+            expanded.append(_rebuild_token(token.line_no, indent, new_parts, origin))
+        expanded.append(
+            LineToken(directive.line_no, "\n", "", 0, [], "blank", origin)
+        )
+    return expanded
+
+
+def expand_command_templates(tokens: list[LineToken]) -> tuple[list[LineToken], frozenset[str]]:
+    wildcard = "?"
+    for token in tokens:
+        if token.kind == "text" and token.parts[0] == "WILDCARD" and len(token.parts) > 1:
+            wildcard = token.parts[1]
+            break
+    out: list[LineToken] = []
+    generated: set[str] = set()
+    i = 0
+    while i < len(tokens):
+        token = tokens[i]
+        if token.kind == "text" and token.parts[0] in TEMPLATE_DIRECTIVES:
+            if token.indent != 0:
+                fail(token.line_no, f"{token.parts[0]} must appear at top level")
+            body: list[LineToken] = []
+            j = i + 1
+            while j < len(tokens):
+                nxt = tokens[j]
+                if nxt.kind == "text" and nxt.indent <= token.indent:
+                    break
+                body.append(nxt)
+                j += 1
+            while body and body[-1].kind != "text":
+                body.pop()
+            out.extend(_expand_one_template(token, body, wildcard, generated))
+            i = j
+            continue
+        out.append(token)
+        i += 1
+    return out, frozenset(generated)
 
 
 def wildcard_assignments(wildcards_dict: dict[str, str]) -> tuple[dict[str, str], ...]:
@@ -974,6 +1294,8 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
         level = token.indent + 1
         process_rule_stack_to_level(state, level)
         name = parts[1]
+        if name in state.generated_command_names and token.origin is None:
+            fail(line_no, f"command name {name!r} is reserved by a template")
         state.rules_stack.append({"type": "cmd", "name": name, "rules": [], "line_no": line_no})
         state.indent_stack.append(level)
         if name not in state.rules:
@@ -987,6 +1309,8 @@ def parse_directive(state: ParseState, token: LineToken) -> bool:
         level = token.indent + 1
         process_rule_stack_to_level(state, level)
         base_name = parts[1]
+        if base_name in state.generated_command_names and token.origin is None:
+            fail(line_no, f"command name {base_name!r} is reserved by a template")
         orbits = parts[2:]
         ensure_orbits(orbits, line_no, "ROTATE_CMDS", state.wildcard_char or "?")
         state.rules_stack.append(
@@ -1177,8 +1501,9 @@ def parse_plain_line(state: ParseState, token: LineToken) -> None:
     state.temp_board.append(token.stripped)
 
 
-def parse_tokens(tokens: list[LineToken]) -> ParseState:
+def parse_tokens(tokens: list[LineToken], generated_names: frozenset[str] = frozenset()) -> ParseState:
     state = ParseState()
+    state.generated_command_names = generated_names
     for token in tokens:
         if token.kind == "comment":
             continue
@@ -1186,8 +1511,13 @@ def parse_tokens(tokens: list[LineToken]) -> ParseState:
             flush_on_blank_line(state)
             continue
 
-        if not parse_directive(state, token):
-            parse_plain_line(state, token)
+        try:
+            if not parse_directive(state, token):
+                parse_plain_line(state, token)
+        except DSLParseError as exc:
+            if token.origin and "(in " not in exc.message:
+                raise DSLParseError(exc.line_no, f"{exc.message} (in {token.origin})") from exc
+            raise
 
     flush_on_blank_line(state)
     process_rule_stack_to_level(state, 0)
@@ -1231,7 +1561,8 @@ def compile_game(filename: str) -> dict:
         raw_lines = file.readlines()
 
     tokens = tokenize_lines(raw_lines)
-    state = parse_tokens(tokens)
+    tokens, generated_names = expand_command_templates(tokens)
+    state = parse_tokens(tokens, generated_names)
     validate_state(state)
     return emit_result(state)
 

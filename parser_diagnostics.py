@@ -58,6 +58,50 @@ CASES = [
         "invalid-glued-sibling.txt",
         "invalid-glued-sibling.txt:8: error: blank line required after rule pattern begun on line 6 before ATOMIC",
     ),
+    (
+        "invalid-zipcmds-unequal.txt",
+        "invalid-zipcmds-unequal.txt:1: error: ZIP_CMDS value lists must have equal length: 2 vs 3",
+    ),
+    (
+        "invalid-zipcmds-no-marker.txt",
+        "invalid-zipcmds-no-marker.txt:1: error: template name 'stepx' must contain the first variable marker <g>",
+    ),
+    (
+        "invalid-zipcmds-unknown-marker.txt",
+        "invalid-zipcmds-unknown-marker.txt:2: error: template marker <z> names an undeclared variable",
+    ),
+    (
+        "invalid-zipcmds-unused.txt",
+        "invalid-zipcmds-unused.txt:1: error: template variable 'G' is declared but never used",
+    ),
+    (
+        "invalid-zipcmds-duplicate.txt",
+        "invalid-zipcmds-duplicate.txt:1: error: template generates duplicate command name 'step_a'",
+    ),
+    (
+        "invalid-zipcmds-reserved.txt",
+        "invalid-zipcmds-reserved.txt:1: error: command name 'step_a' is reserved by a template",
+    ),
+    (
+        "invalid-zipcmds-wildcard-value.txt",
+        "invalid-zipcmds-wildcard-value.txt:1: error: template value list for 'g' contains the wildcard '?'",
+    ),
+    (
+        "invalid-zipcmds-for-collision.txt",
+        "invalid-zipcmds-for-collision.txt:1: error: template variable or value 'g' collides with a FOR variable declared on line 2",
+    ),
+    (
+        "invalid-zipcmds-orbit-collision.txt",
+        "invalid-zipcmds-orbit-collision.txt:1: error: template variable or value 'e' collides with an orbit character",
+    ),
+    (
+        "invalid-zipcmds-capture-collision.txt",
+        "invalid-zipcmds-capture-collision.txt:1: error: template variable or value 'b' collides with a capture variable declared on line 2",
+    ),
+    (
+        "invalid-zipcmds-nested.txt",
+        "invalid-zipcmds-nested.txt:2: error: ZIP_CMDS may not be nested inside a template",
+    ),
 ]
 
 

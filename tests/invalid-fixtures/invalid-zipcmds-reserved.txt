@@ -1,0 +1,5 @@
+CMD step_a
+ A A
+
+ZIP_CMDS step_<g> g ab
+ g- -g

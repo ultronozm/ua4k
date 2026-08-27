@@ -1,0 +1,40 @@
+TITLE ZIP_CMDS / FOR_CMDS fixture
+DESCRIPTION Both grammar forms, marker composition, and literal angle brackets.
+
+WILDCARD ?
+
+ab<>
+----
+
+GOAL
+b???
+
+;; Implicit-CMD form: repeated and adjacent markers, mandatory side effect.
+ZIP_CMDS step_<g><g> g ab G AB
+ MATCH1
+  G- -G mark_<g>_e!
+
+  <? <?
+
+;; Full-body form wrapping ROTATE_CMDS: template before orbit; the <>
+;; cells in patterns stay literal board characters.
+ZIP_CMDS g ab
+ ROTATE_CMDS mark_<g> eswn
+  ATOMIC
+   g? g? [norotate]
+
+   <> <>
+
+;; FOR_CMDS nesting: outer-then-inner product order, names carry both.
+FOR_CMDS outer_<x> x pq
+ CALL_EACH inner_<x>_m inner_<x>_n
+
+FOR_CMDS inner_p_<y> y mn
+ ?? ??
+
+FOR_CMDS inner_q_<y> y mn
+ ?? ??
+
+CMD _tick
+ TRY_ALL
+  CALL_EACH step_aa step_bb outer_p outer_q

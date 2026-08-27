@@ -542,21 +542,9 @@ CMD eat_energizer
  TRY_ALL
   CALL_EACH add50 fright_start
 
-CMD ghost_eaten_r
+ZIP_CMDS ghost_eaten_<g> g rkic q qxzb
  TRY_ALL
-  CALL_EACH ghost_points respawn_q
-
-CMD ghost_eaten_k
- TRY_ALL
-  CALL_EACH ghost_points respawn_x
-
-CMD ghost_eaten_i
- TRY_ALL
-  CALL_EACH ghost_points respawn_z
-
-CMD ghost_eaten_c
- TRY_ALL
-  CALL_EACH ghost_points respawn_b
+  CALL_EACH ghost_points respawn_<q>
 
 CMD pac_died
  MATCH1
@@ -789,37 +777,13 @@ CMD fright_pipeline
  TRY_ALL
   CALL_EACH fcontact_r_e fcontact_r_s fcontact_r_w fcontact_r_n fcontact_k_e fcontact_k_s fcontact_k_w fcontact_k_n fcontact_i_e fcontact_i_s fcontact_i_w fcontact_i_n fcontact_c_e fcontact_c_s fcontact_c_w fcontact_c_n flee_r flee_k flee_i flee_c ghost_fmove
 
-CMD eat_gdot_r
+ZIP_CMDS eat_gdot_<g> g rkic
  TRY_ALL
-  CALL_EACH ghost_eaten_r add10
+  CALL_EACH ghost_eaten_<g> add10
 
-CMD eat_gpow_r
+ZIP_CMDS eat_gpow_<g> g rkic
  TRY_ALL
-  CALL_EACH ghost_eaten_r add50 fright_start
-
-CMD eat_gdot_k
- TRY_ALL
-  CALL_EACH ghost_eaten_k add10
-
-CMD eat_gpow_k
- TRY_ALL
-  CALL_EACH ghost_eaten_k add50 fright_start
-
-CMD eat_gdot_i
- TRY_ALL
-  CALL_EACH ghost_eaten_i add10
-
-CMD eat_gpow_i
- TRY_ALL
-  CALL_EACH ghost_eaten_i add50 fright_start
-
-CMD eat_gdot_c
- TRY_ALL
-  CALL_EACH ghost_eaten_c add10
-
-CMD eat_gpow_c
- TRY_ALL
-  CALL_EACH ghost_eaten_c add50 fright_start
+  CALL_EACH ghost_eaten_<g> add50 fright_start
 
 ;; Frightened mover: the same movement template bound to the frightened
 ;; identities, with no lethal-contact branches; a frightened ghost
@@ -968,205 +932,57 @@ CMD ghost_fmove
       M? Mw [norotate]
 
 
-ROTATE_CMDS fcontact_r eswn
- ATOMIC f floor
-  (e (e [norotate]
+ZIP_CMDS g rkic F qxzb M ()[] N 1234
+ ROTATE_CMDS fcontact_<g> eswn
+  ATOMIC f floor
+   Me Me [norotate]
 
-  !1f !1f [norotate]
+   !Nf !Nf [norotate]
 
-  qP fP ghost_eaten_r
+   FP fP ghost_eaten_<g>
 
-  !1? !1- [norotate]
+   !N? !N- [norotate]
 
-ROTATE_CMDS fcontact_k eswn
- ATOMIC f floor
-  )e )e [norotate]
+ZIP_CMDS F qxzb M ()[]
+ ROTATE_CMDS try_f<F> eswn
+  FOR j esn
+   ATOMIC 1 chase
+    Mj Mj [norotate]
 
-  !2f !2f [norotate]
+    F1 F1
 
-  xP fP ghost_eaten_k
+    M? Me [norotate]
 
-  !2? !2- [norotate]
-
-ROTATE_CMDS fcontact_i eswn
- ATOMIC f floor
-  [e [e [norotate]
-
-  !3f !3f [norotate]
-
-  zP fP ghost_eaten_i
-
-  !3? !3- [norotate]
-
-ROTATE_CMDS fcontact_c eswn
- ATOMIC f floor
-  ]e ]e [norotate]
-
-  !4f !4f [norotate]
-
-  bP fP ghost_eaten_c
-
-  !4? !4- [norotate]
-
-ROTATE_CMDS try_fq eswn
- FOR j esn
-  ATOMIC 1 chase
-   (j (j [norotate]
-
-   q1 q1
-
-   (? (e [norotate]
-
-ROTATE_CMDS try_fx eswn
- FOR j esn
-  ATOMIC 1 chase
-   )j )j [norotate]
-
-   x1 x1
-
-   )? )e [norotate]
-
-ROTATE_CMDS try_fz eswn
- FOR j esn
-  ATOMIC 1 chase
-   [j [j [norotate]
-
-   z1 z1
-
-   [? [e [norotate]
-
-ROTATE_CMDS try_fb eswn
- FOR j esn
-  ATOMIC 1 chase
-   ]j ]j [norotate]
-
-   b1 b1
-
-   ]? ]e [norotate]
-
-CMD flee_r
+ZIP_CMDS flee_<g> g rkic F qxzb
  MATCH1
   ATOMIC
    ATOMIC_HORIZONTAL
-    q
+    F
 
     P
 
-   CALL try_fq_w
+   CALL try_f<F>_w
   ATOMIC
    ATOMIC_HORIZONTAL
     P
 
-    q
+    F
 
-   CALL try_fq_e
+   CALL try_f<F>_e
   ATOMIC
    ATOMIC_VERTICAL
-    q
+    F
 
     P
 
-   CALL try_fq_n
-  ATOMIC
-   ATOMIC_VERTICAL
-    P
-
-    q
-
-   CALL try_fq_s
-
-CMD flee_k
- MATCH1
-  ATOMIC
-   ATOMIC_HORIZONTAL
-    x
-
-    P
-
-   CALL try_fx_w
-  ATOMIC
-   ATOMIC_HORIZONTAL
-    P
-
-    x
-
-   CALL try_fx_e
-  ATOMIC
-   ATOMIC_VERTICAL
-    x
-
-    P
-
-   CALL try_fx_n
+   CALL try_f<F>_n
   ATOMIC
    ATOMIC_VERTICAL
     P
 
-    x
+    F
 
-   CALL try_fx_s
-
-CMD flee_i
- MATCH1
-  ATOMIC
-   ATOMIC_HORIZONTAL
-    z
-
-    P
-
-   CALL try_fz_w
-  ATOMIC
-   ATOMIC_HORIZONTAL
-    P
-
-    z
-
-   CALL try_fz_e
-  ATOMIC
-   ATOMIC_VERTICAL
-    z
-
-    P
-
-   CALL try_fz_n
-  ATOMIC
-   ATOMIC_VERTICAL
-    P
-
-    z
-
-   CALL try_fz_s
-
-CMD flee_c
- MATCH1
-  ATOMIC
-   ATOMIC_HORIZONTAL
-    b
-
-    P
-
-   CALL try_fb_w
-  ATOMIC
-   ATOMIC_HORIZONTAL
-    P
-
-    b
-
-   CALL try_fb_e
-  ATOMIC
-   ATOMIC_VERTICAL
-    b
-
-    P
-
-   CALL try_fb_n
-  ATOMIC
-   ATOMIC_VERTICAL
-    P
-
-    b
-
-   CALL try_fb_s
+   CALL try_f<F>_s
 
 ;; Round reset: after the death
 ;; pause, every actor returns to its start, carried floors are dropped in
@@ -1308,181 +1124,49 @@ CMD reset_regs
 
   status:wait- status:ready
 
-CMD respawn_q
+ZIP_CMDS respawn_<F> F qxzb G RKIC M ()[]
  MATCH1
   ATOMIC
    == ==
-   -? R?
+   -? G?
 
-   (? (n
-
-  ATOMIC
-   == ==
-   ?- ?R
-
-   (? (n
+   M? Mn
 
   ATOMIC
    == ==
-   ?? ??
-   -? R?
+   ?- ?G
 
-   (? (n
+   M? Mn
 
   ATOMIC
    == ==
    ?? ??
-   ?- ?R
+   -? G?
 
-   (? (n
+   M? Mn
 
   ATOMIC
    == ==
    ?? ??
-   ?? ??
-   -? R?
+   ?- ?G
 
-   (? (n
+   M? Mn
 
   ATOMIC
    == ==
    ?? ??
    ?? ??
-   ?- ?R
+   -? G?
 
-   (? (n
-
-CMD respawn_x
- MATCH1
-  ATOMIC
-   == ==
-   -? K?
-
-   )? )n
-
-  ATOMIC
-   == ==
-   ?- ?K
-
-   )? )n
-
-  ATOMIC
-   == ==
-   ?? ??
-   -? K?
-
-   )? )n
-
-  ATOMIC
-   == ==
-   ?? ??
-   ?- ?K
-
-   )? )n
+   M? Mn
 
   ATOMIC
    == ==
    ?? ??
    ?? ??
-   -? K?
+   ?- ?G
 
-   )? )n
-
-  ATOMIC
-   == ==
-   ?? ??
-   ?? ??
-   ?- ?K
-
-   )? )n
-
-CMD respawn_z
- MATCH1
-  ATOMIC
-   == ==
-   -? I?
-
-   [? [n
-
-  ATOMIC
-   == ==
-   ?- ?I
-
-   [? [n
-
-  ATOMIC
-   == ==
-   ?? ??
-   -? I?
-
-   [? [n
-
-  ATOMIC
-   == ==
-   ?? ??
-   ?- ?I
-
-   [? [n
-
-  ATOMIC
-   == ==
-   ?? ??
-   ?? ??
-   -? I?
-
-   [? [n
-
-  ATOMIC
-   == ==
-   ?? ??
-   ?? ??
-   ?- ?I
-
-   [? [n
-
-CMD respawn_b
- MATCH1
-  ATOMIC
-   == ==
-   -? C?
-
-   ]? ]n
-
-  ATOMIC
-   == ==
-   ?- ?C
-
-   ]? ]n
-
-  ATOMIC
-   == ==
-   ?? ??
-   -? C?
-
-   ]? ]n
-
-  ATOMIC
-   == ==
-   ?? ??
-   ?- ?C
-
-   ]? ]n
-
-  ATOMIC
-   == ==
-   ?? ??
-   ?? ??
-   -? C?
-
-   ]? ]n
-
-  ATOMIC
-   == ==
-   ?? ??
-   ?? ??
-   ?- ?C
-
-   ]? ]n
+   M? Mn
 
 ;; -----------------------------------------------------------------------
 ;; Steering.  R directly pursues, K keys off Pacman's heading, I alternates
@@ -1496,100 +1180,38 @@ CMD respawn_b
 ;; the personality's next ordered preference runs; the mover keeps its
 ;; own last-resort reversal for dead ends.
 
-ROTATE_CMDS try_r eswn
- FOR j esn
-  ATOMIC 1 chase
-   (j (j [norotate]
+ZIP_CMDS g rkic G RKIC M ()[]
+ ROTATE_CMDS try_<g> eswn
+  FOR j esn
+   ATOMIC 1 chase
+    Mj Mj [norotate]
 
-   R1 R1
+    G1 G1
 
-   (? (e [norotate]
-
-ROTATE_CMDS try_k eswn
- FOR j esn
-  ATOMIC 1 chase
-   )j )j [norotate]
-
-   K1 K1
-
-   )? )e [norotate]
-
-ROTATE_CMDS try_i eswn
- FOR j esn
-  ATOMIC 1 chase
-   [j [j [norotate]
-
-   I1 I1
-
-   [? [e [norotate]
-
-ROTATE_CMDS try_c eswn
- FOR j esn
-  ATOMIC 1 chase
-   ]j ]j [norotate]
-
-   C1 C1
-
-   ]? ]e [norotate]
+    M? Me [norotate]
 
 ;; The physical tunnel joins the row endpoints, so ordinary linear position
 ;; comparisons point the wrong way there.  These seam-specific preferences
 ;; retain the never-reverse check while writing only the heading register;
 ;; the shared mover performs the actual wrap later in the tick.
 
-CMD r_tunnel_to
+ZIP_CMDS <g>_tunnel_to g rki G RKI M ()[
  MATCH1
   FOR j esn
    ATOMIC
-    (j (j
+    Mj Mj
 
-    P??????????????????????????R P??????????????????????????R
+    P??????????????????????????G P??????????????????????????G
 
-    (? (e
-
-  FOR j wsn
-   ATOMIC
-    (j (j
-
-    R??????????????????????????P R??????????????????????????P
-
-    (? (w
-
-CMD k_tunnel_to
- MATCH1
-  FOR j esn
-   ATOMIC
-    )j )j
-
-    P??????????????????????????K P??????????????????????????K
-
-    )? )e
+    M? Me
 
   FOR j wsn
    ATOMIC
-    )j )j
+    Mj Mj
 
-    K??????????????????????????P K??????????????????????????P
+    G??????????????????????????P G??????????????????????????P
 
-    )? )w
-
-CMD i_tunnel_to
- MATCH1
-  FOR j esn
-   ATOMIC
-    [j [j
-
-    P??????????????????????????I P??????????????????????????I
-
-    [? [e
-
-  FOR j wsn
-   ATOMIC
-    [j [j
-
-    I??????????????????????????P I??????????????????????????P
-
-    [? [w
+    M? Mw
 
 CMD c_tunnel_away
  MATCH1
@@ -1609,141 +1231,39 @@ CMD c_tunnel_away
 
     ]? ]e
 
-CMD r_horizontal_to
+ZIP_CMDS <g>_horizontal_to g rkic G RKIC
  MATCH1
   ATOMIC
    ATOMIC_HORIZONTAL
-    R
+    G
 
     P
 
-   CALL try_r_e
-  ATOMIC
-   ATOMIC_HORIZONTAL
-    P
-
-    R
-
-   CALL try_r_w
-
-CMD r_vertical_to
- MATCH1
-  ATOMIC
-   ATOMIC_VERTICAL
-    R
-
-    P
-
-   CALL try_r_s
-  ATOMIC
-   ATOMIC_VERTICAL
-    P
-
-    R
-
-   CALL try_r_n
-
-CMD k_horizontal_to
- MATCH1
-  ATOMIC
-   ATOMIC_HORIZONTAL
-    K
-
-    P
-
-   CALL try_k_e
+   CALL try_<g>_e
   ATOMIC
    ATOMIC_HORIZONTAL
     P
 
-    K
+    G
 
-   CALL try_k_w
+   CALL try_<g>_w
 
-CMD k_vertical_to
+ZIP_CMDS <g>_vertical_to g rkic G RKIC
  MATCH1
   ATOMIC
    ATOMIC_VERTICAL
-    K
+    G
 
     P
 
-   CALL try_k_s
+   CALL try_<g>_s
   ATOMIC
    ATOMIC_VERTICAL
     P
 
-    K
+    G
 
-   CALL try_k_n
-
-CMD i_horizontal_to
- MATCH1
-  ATOMIC
-   ATOMIC_HORIZONTAL
-    I
-
-    P
-
-   CALL try_i_e
-  ATOMIC
-   ATOMIC_HORIZONTAL
-    P
-
-    I
-
-   CALL try_i_w
-
-CMD i_vertical_to
- MATCH1
-  ATOMIC
-   ATOMIC_VERTICAL
-    I
-
-    P
-
-   CALL try_i_s
-  ATOMIC
-   ATOMIC_VERTICAL
-    P
-
-    I
-
-   CALL try_i_n
-
-CMD c_horizontal_to
- MATCH1
-  ATOMIC
-   ATOMIC_HORIZONTAL
-    C
-
-    P
-
-   CALL try_c_e
-  ATOMIC
-   ATOMIC_HORIZONTAL
-    P
-
-    C
-
-   CALL try_c_w
-
-CMD c_vertical_to
- MATCH1
-  ATOMIC
-   ATOMIC_VERTICAL
-    C
-
-    P
-
-   CALL try_c_s
-  ATOMIC
-   ATOMIC_VERTICAL
-    P
-
-    C
-
-   CALL try_c_n
+   CALL try_<g>_n
 
 CMD c_horizontal_away
  MATCH1

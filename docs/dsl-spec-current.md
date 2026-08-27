@@ -271,6 +271,49 @@ Rotation geometry (`M x N` patterns):
 - Orbit substitution still applies.
 - Using `[norotate]` outside `ROTATE`/`ROTATE_CMDS` is a parse error.
 
+## 3.7 Command templating: `ZIP_CMDS` / `FOR_CMDS`
+
+Compile-time templates that generate whole command definitions. Expansion is
+purely textual, happens before all other parsing, and the result is re-parsed
+as if hand-written; runtime semantics are unaffected.
+
+Two grammar shapes:
+
+```
+ZIP_CMDS name_<g> g rkic G RKIC     ;; implicit-CMD form: the body is a
+ <command body>                     ;; command body; one CMD per tuple
+
+ZIP_CMDS g rkic G RKIC              ;; full-body form: the body is exactly
+ ROTATE_CMDS name_<g> eswn          ;; one CMD or ROTATE_CMDS definition
+  <command body>
+```
+
+`ZIP_CMDS` takes parallel equal-length single-character value lists, expanded
+left-to-right. `FOR_CMDS` takes exactly one variable; nest separate
+declarations for Cartesian products (outer order, then inner).
+
+Substitution has two regimes. In pattern rows, bare variable characters
+substitute everywhere, exactly like rule-level `ZIP`. In identifiers — the
+generated command name, `CALL`/`CALL_EACH` targets, and side-effect fields —
+substitution happens only inside an explicit `<v>` marker (`CALL
+respawn_<g>`; `ghost_eaten_<g>!` composes with the mandatory suffix). Markers
+are never interpreted in `BIND`, `GOAL`, `VOID`, `COLOR`, `CHARMAP`, board
+rows, annotations, or ordinary pattern cells, so literal `<`/`>` board text
+is untouched. Repeated and adjacent markers are legal.
+
+The declared name must contain a marker for the first variable. Generated
+names must be globally unique and are reserved: a same-named ordinary `CMD`
+or `ROTATE_CMDS` anywhere in the file is a parse error rather than a merge.
+When the body is a `ROTATE_CMDS`, template expansion precedes orbit
+generation.
+
+Collisions are rejected **before** expansion (provenance would be erased by
+re-parsing): a template variable or any character in its value list may not
+equal the effective wildcard, an inner `FOR`/`ZIP` placeholder, a capture
+declaration, or an applicable orbit character. An unused declared variable
+and a nested template are parse errors. Diagnostics from generated commands
+name the originating template and tuple.
+
 ## 4. Side Effects and Mandatory Side Effects
 
 Simple rules may include side effects as command names.
