@@ -237,7 +237,7 @@ function report(ok, name, detail) {
 // --- personality steering writes only the four heading registers -------
 function personalityCase(actor, pac, expected, name, actorPos, headings) {
   const c = ctx();
-  harness.setBoard(c, rows(c).map((r) => r.replace(/[PRKIChjl]/g, '-')));
+  harness.setBoard(c, rows(c).map((r) => r.replace(/[PRKICkjp]/g, '-')));
   edit(c, [[...(actorPos || [5, 2]), actor], [pac[0], pac[1], 'P']]);
   vm.runInContext('board[34] = "%{-}e^1---------------------"', c);
   vm.runInContext(`board[35] = ${JSON.stringify(headings || '%(n)n[n]n-------------------')}`, c);
@@ -266,7 +266,7 @@ personalityCase('C', [5, 4], /\]w/, 'C retreats when Pacman is near');
   ];
   for (const [actor, marker, chooser, expected] of cases) {
     const c = ctx(1);
-    harness.setBoard(c, rows(c).map((r) => r.replace(/[PRKIChjl]/g, '-')));
+    harness.setBoard(c, rows(c).map((r) => r.replace(/[PRKICkjp]/g, '-')));
     edit(c, [[14, 0, 'P'], [14, 27, actor]]);
     vm.runInContext('board[34] = "%{-}n^1---------------------"', c);
     vm.runInContext('board[35] = "%(n)n[n]n-------------------"', c);
@@ -279,7 +279,7 @@ personalityCase('C', [5, 4], /\]w/, 'C retreats when Pacman is near');
 }
 {
   const c = ctx(1);
-  harness.setBoard(c, rows(c).map((r) => r.replace(/[PRKIChjl]/g, '-')));
+  harness.setBoard(c, rows(c).map((r) => r.replace(/[PRKICkjp]/g, '-')));
   // This diagonal adjacency was absent from the old axis-only test.
   edit(c, [[5, 5, 'C'], [6, 6, 'P']]);
   report(command(c, 'c_near_p'), 'C is shy at diagonal proximity',
@@ -294,7 +294,7 @@ personalityCase('C', [5, 4], /\]w/, 'C retreats when Pacman is near');
   ];
   for (const [actor, marker, chooser, expected] of cases) {
     const c = ctx(1);
-    harness.setBoard(c, rows(c).map((r) => r.replace(/[PRKIChjl]/g, '-')));
+    harness.setBoard(c, rows(c).map((r) => r.replace(/[PRKICkjp]/g, '-')));
     // Give every preference an open junction; the first direction is the
     // identity's corner bias, not an artifact of the physical mover.
     edit(c, [[4, 5, '-'], [5, 4, '-'], [5, 5, actor], [5, 6, '-'], [6, 5, '-'],
@@ -321,6 +321,13 @@ personalityCase('C', [5, 4], /\]w/, 'C retreats when Pacman is near');
   const c = ctx();
   const hud = rows(c).slice(31, 34).join('\n');
   report(!/[qxzb!]/.test(hud), 'HUD avoids actor/register characters', hud);
+  // Any CHARMAP'd character inside visible HUD text would render as its
+  // glyph ("Mives" instead of "lives"), so the remapped alphabet and the
+  // HUD alphabet must stay disjoint.
+  const remapped = Object.keys(data.charMap).filter((ch) => data.charMap[ch] !== ch);
+  const leaking = remapped.filter((ch) => hud.replace(/_/g, '').includes(ch));
+  report(leaking.length === 0, 'HUD text avoids all remapped characters',
+         `leaks: ${leaking.join(' ')}`);
 }
 
 {
@@ -362,7 +369,7 @@ personalityCase('C', [5, 4], /\]w/, 'C retreats when Pacman is near');
   tick(c); tick(c); tick(c);      // pause drains, reset fires
   const b = rows(c);
   report(b[23][13] === 'P', 'pacman respawns at the fixed start', b[23]);
-  report(b[11][13] === 'R' && b[13][13] === 'h' && b[13][14] === 'j' && b[14][13] === 'l',
+  report(b[11][13] === 'R' && b[13][13] === 'k' && b[13][14] === 'j' && b[14][13] === 'p',
          'ghosts reset to their house starts', b[11] + ' / ' + b[13]);
   report(b[37].startsWith('%<1>0&0+--~0'), 'mode/release/chain/fright clocks reset', b[37]);
   report(b[33].startsWith('status:ready'), 'status returns to ready', b[33]);

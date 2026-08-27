@@ -23,8 +23,8 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 import compiler_common
 
-PASSABLE = set("-.OPRKIChjlqxzb")
-GHOST_LABEL = {"R": "R", "h": "K", "j": "I", "l": "C"}
+PASSABLE = set("-.OPRKICkjpqxzb")
+GHOST_LABEL = {"R": "R", "k": "K", "j": "I", "p": "C"}
 
 
 def load_board() -> list[str]:

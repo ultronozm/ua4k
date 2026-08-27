@@ -15,7 +15,7 @@
 ;;                         ~ frightened timer
 ;;
 ;; Actors: P pacman; R K I C normal ghosts; q x z b the same four
-;; frightened; h j l unreleased K I C; X dead Pacman.  Visible HUD strings
+;; frightened; k j p unreleased K I C; X dead Pacman.  Visible HUD strings
 ;; avoid q x z b and the register anchor `!`.
 ;;
 ;; Tick order: clock_phase | pac_turn | pac_move | ghost_choose |
@@ -55,7 +55,7 @@ HIDDEN_LINE_CHAR %
 
 CHARMAP # █ . · O •
 CHARMAP P ☻ X †
-CHARMAP R M K M I M C M h M j M l M
+CHARMAP R M K M I M C M k M j M p M
 CHARMAP q W x W z W b W
 
 COLOR # #4455dd
@@ -64,7 +64,7 @@ COLOR . #bb7733 O #bb7733
 COLOR P #ddaa00
 COLOR X #cc2222
 COLOR R #dd2222 K #dd66aa I #00a0c0 C #dd8822
-COLOR h #dd66aa j #00a0c0 l #dd8822
+COLOR k #dd66aa j #00a0c0 p #dd8822
 COLOR q #3333cc x #3333cc z #3333cc b #3333cc
 
 TICK 200
@@ -82,8 +82,8 @@ TICK 200
 _____#.#####-##-#####.#_____
 _____#.##----R-----##.#_____
 _____#.##-###==###-##.#_____
-######.##-#--hj--#-##.######
-------.---#--l---#---.------
+######.##-#--kj--#-##.######
+------.---#--p---#---.------
 ######.##-#------#-##.######
 _____#.##-########-##.#_____
 _____#.##----------##.#_____
@@ -647,7 +647,7 @@ CMD pause_tick
 
 ;; -----------------------------------------------------------------------
 ;; Release and scatter/chase clock.  These advance once per four speed
-;; phases.  Inactive h/j/l become K/I/C at successive release epochs.
+;; phases.  Inactive k/j/p become K/I/C at successive release epochs.
 
 CMD release_tick
  ATOMIC
@@ -657,7 +657,7 @@ CMD release_tick
    ATOMIC
     >0 >1
 
-    h K
+    k K
 
    ATOMIC
     >1 >2
@@ -667,7 +667,7 @@ CMD release_tick
    ATOMIC
     >2 >3
 
-    l C
+    p C
 
    >3 >4
 
@@ -1026,7 +1026,7 @@ CMD clear_k
 
    x f
 
-  h -
+  k -
 
   CALL noop
 
@@ -1056,7 +1056,7 @@ CMD clear_c
   ATOMIC f floor
    !4f !4-
 
-   l f
+   p f
 
   ATOMIC f floor
    !4f !4-
@@ -1071,11 +1071,11 @@ CMD place_actors
   == ==
 
   == ==
-  ?? hj
+  ?? kj
 
   == ==
   ?? ??
-  ?? l?
+  ?? p?
 
   = =
   ? ?
