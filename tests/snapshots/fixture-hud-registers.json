@@ -1,0 +1,294 @@
+{
+  "binds": {
+    "d": {
+      "command": "walk",
+      "description": "move east"
+    },
+    "e": {
+      "command": "breathe",
+      "description": "breathe"
+    }
+  },
+  "charMap": {
+    "c": "!"
+  },
+  "colorMap": {
+    "*": "#000000",
+    "o": "#ff7700"
+  },
+  "gameAuthor": null,
+  "gameDescription": null,
+  "gameTitle": null,
+  "globalTick": null,
+  "goals": [],
+  "hiddenLineChars": [
+    "%"
+  ],
+  "levels": [
+    {
+      "board": [
+        "o*---c!",
+        "_______",
+        "O2:...|",
+        "%:--->%"
+      ],
+      "description": "oxygen counter idioms (negative-step and multi-seed LET_REPEAT)."
+    }
+  ],
+  "rules": {
+    "breathe": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "from": [
+                "*o"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "*o"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "*",
+                "o"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "*",
+                "o"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "o*"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "o*"
+              ],
+              "type": "simple"
+            },
+            {
+              "from": [
+                "o",
+                "*"
+              ],
+              "method": "firstmatch",
+              "side_effects": [],
+              "to": [
+                "o",
+                "*"
+              ],
+              "type": "simple"
+            },
+            {
+              "name": "refill_oxygen",
+              "type": "call"
+            }
+          ],
+          "type": "atomic"
+        }
+      ],
+      "type": "match1"
+    },
+    "consume_oxygen": {
+      "rules": [
+        {
+          "from": [
+            "O2:....-"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "O2:...--"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "O2:....|"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "O2:...-|"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "O2:...-"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "O2:..--"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "O2:...|"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "O2:..-|"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "O2:..-"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "O2:.--"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "O2:..|"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "O2:.-|"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "O2:.-"
+          ],
+          "method": "firstmatch",
+          "side_effects": [
+            "die"
+          ],
+          "to": [
+            "O2:--"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "O2:.|"
+          ],
+          "method": "firstmatch",
+          "side_effects": [
+            "die"
+          ],
+          "to": [
+            "O2:-|"
+          ],
+          "type": "simple"
+        }
+      ],
+      "type": "match1"
+    },
+    "die": {
+      "rules": [
+        {
+          "from": [
+            "*"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "-"
+          ],
+          "type": "simple"
+        }
+      ],
+      "type": "match1"
+    },
+    "refill_oxygen": {
+      "rules": [
+        {
+          "from": [
+            "O2:?|"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "O2:.|"
+          ],
+          "type": "simple"
+        },
+        {
+          "from": [
+            "O2:??|"
+          ],
+          "method": "firstmatch",
+          "side_effects": [],
+          "to": [
+            "O2:..|"
+          ],
+          "type": "simple"
+        }
+      ],
+      "type": "match1"
+    },
+    "walk": {
+      "rules": [
+        {
+          "rules": [
+            {
+              "rules": [
+                {
+                  "rules": [
+                    {
+                      "from": [
+                        "*-"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-*"
+                      ],
+                      "type": "simple"
+                    },
+                    {
+                      "from": [
+                        "*!"
+                      ],
+                      "method": "firstmatch",
+                      "side_effects": [],
+                      "to": [
+                        "-*"
+                      ],
+                      "type": "simple"
+                    }
+                  ],
+                  "type": "match1"
+                },
+                {
+                  "name": "consume_oxygen",
+                  "type": "call"
+                }
+              ],
+              "type": "atomic"
+            }
+          ],
+          "type": "try_all"
+        }
+      ],
+      "type": "match1"
+    }
+  },
+  "voids": [
+    [
+      "!"
+    ]
+  ],
+  "whitespaceChars": []
+}

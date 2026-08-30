@@ -1,0 +1,49 @@
+VOID
+!
+
+COLOR * #000000
+COLOR o #ff7700
+
+CHARMAP c !
+
+HIDDEN_LINE_CHAR %
+
+BIND d walk "move east" e breathe "breathe"
+
+o*---c!
+_______
+O2:...|
+%:--->%
+
+DESCRIPTION HUD fixture: hidden register rows, display maps, and the
+DESCRIPTION oxygen counter idioms (negative-step and multi-seed LET_REPEAT).
+
+CMD walk
+ TRY_ALL
+  ATOMIC
+   MATCH1
+    FOR s -!
+     *s -*
+
+   CALL consume_oxygen
+
+CMD breathe
+ ATOMIC
+  ROTATE
+   *o
+
+  CALL refill_oxygen
+
+CMD consume_oxygen
+ FOR d -|
+  LET_REPEAT 3 0 -1 r .
+   O2:r.d O2:r-d
+
+  O2:.d O2:-d die
+
+CMD die
+ * -
+
+CMD refill_oxygen
+ LET_REPEAT 1 3 1 r ? s .
+  O2:r| O2:s|
