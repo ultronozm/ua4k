@@ -39,6 +39,32 @@ function appendText(element, value) {
     element.appendChild(document.createTextNode(String(value)));
 }
 
+function appendLinkedText(element, value) {
+    const text = String(value);
+    const urlPattern = /https?:\/\/[^\s]+/g;
+    let cursor = 0;
+    let match;
+
+    while ((match = urlPattern.exec(text)) !== null) {
+        let url = match[0];
+        let trailing = '';
+        while (/[),.;:!?\]}]$/.test(url)) {
+            trailing = url.slice(-1) + trailing;
+            url = url.slice(0, -1);
+        }
+        appendText(element, text.slice(cursor, match.index));
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+        appendText(link, url);
+        element.appendChild(link);
+        appendText(element, trailing);
+        cursor = match.index + match[0].length;
+    }
+    appendText(element, text.slice(cursor));
+}
+
 function appendBreak(element) {
     element.appendChild(document.createElement('br'));
 }
@@ -86,7 +112,7 @@ function setTextLines(id, values) {
         if (index > 0) {
             appendBreak(element);
         }
-        appendText(element, value);
+        appendLinkedText(element, value);
     });
 }
 

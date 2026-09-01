@@ -25,6 +25,14 @@ function runCrashLandingSmoke(context, document) {
   }
 }
 
+function assertDescriptionLinks(document) {
+  const description = document.getElementById('description');
+  const url = 'https://github.com/fogleman/rush';
+  if (!description.innerHTML.includes(`<a href="${url}"`)) {
+    throw new Error(`description URL was not linked: ${description.innerHTML}`);
+  }
+}
+
 function run() {
   const root = process.cwd();
   const gameArg = process.argv[2] || 'dockstep';
@@ -58,6 +66,9 @@ function run() {
 
   if (gameName === 'crash-landing') {
     runCrashLandingSmoke(context, document);
+  }
+  if (gameName === 'rush-hour') {
+    assertDescriptionLinks(document);
   }
 
   console.log(JSON.stringify({
