@@ -1,3 +1,5 @@
+DESCRIPTION Guide the laser beam (or carrot, or whatever) to its target.
+
 VOID
 o
 

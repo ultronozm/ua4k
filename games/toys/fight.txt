@@ -1,3 +1,5 @@
+DESCRIPTION Turn-based combat.
+
 GOAL
 NONE
 

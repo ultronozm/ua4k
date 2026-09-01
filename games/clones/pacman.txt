@@ -29,7 +29,6 @@
 ;; `O` `X` -- carried floors in the register rows block the goal too).
 
 TITLE Pacman
-DESCRIPTION Pacman with buffered movement, scoring, lives, ghost modes, staged release, frightened ghosts, and four distinct personalities.
 
 WILDCARD ?
 

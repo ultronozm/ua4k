@@ -13,7 +13,7 @@ from compiler_common import load_make_data_module, repo_root, resolve_game_file
 
 
 SITE_CATEGORIES = (
-    ("featured", "Featured Game", "games/featured"),
+    ("featured", "Featured Games", "games/featured"),
     ("polished", "Polished Games", "games/polished"),
     ("clones", "Classic Clones", "games/clones"),
     ("toys", "Playable Toys", "games/toys"),
@@ -23,32 +23,11 @@ OPTIONAL_CATEGORIES = (
     ("wip", "Works In Progress", "games/wip"),
 )
 
-GAME_SUMMARIES = {
-    "game": "The original UA4K puzzle set: small rewrite-rule levels about moving symbols into goals.",
-    "crash-landing": "A resource-management puzzle about oxygen, mining, construction, and getting back to your ship.",
-    "dockstep": "A lockstep movement puzzle where multiple agents move together and force fields shape the route.",
-    "arithmetic": "A tiny arithmetic toy built out of board rewrites.",
-    "basic-game": "A minimal movement example for understanding the format.",
-    "bet": "A quick probability toy about wagering on which side has more dots.",
-    "fight": "A compact turn-style combat toy.",
-    "hanoi": "A Towers of Hanoi-flavored board rewrite demo.",
-    "river-crossing": "The wolf, goat, and cabbage puzzle expressed as a UA4K game.",
-    "snake": "A complete Snake implementation inside the puzzle engine.",
-    "sokoban": "A small Sokoban-style box-pushing toy.",
-    "synth": "A small symbol-manipulation puzzle with swap commands.",
-    "tetris": "A Tetris-shaped toy that stress-tests how far the engine can be pushed.",
-    "theseus-minotaur": "A pursuit puzzle inspired by Theseus and the Minotaur.",
-    "towers": "A tower-moving toy puzzle.",
-    "turing": "A compact Turing-machine joke/demo implemented as a board game.",
-    "fifteen-puzzle": "The Fifteen Puzzle.",
-    "rush-hour": "Twenty increasingly difficult traffic-jam puzzles, adapted from Michael Fogleman's Rush Hour data.",
-}
-
 CATEGORY_NOTES = {
-    "featured": "The original UA4K puzzle set and the best place to start.",
-    "polished": "Original, public-facing games with larger or more focused designs.",
-    "clones": "UA4K implementations of established games and classic puzzles.",
-    "toys": "Original engine experiments and demos. Some are intentionally small or strange.",
+    "featured": "The best place to start.",
+    "polished": "Original games with focused designs.",
+    "clones": "Implementations of established games and classic puzzles.",
+    "toys": "Original experiments and demos.",
     "wip": "Mechanic sketches that are not part of the default public build.",
 }
 
@@ -142,19 +121,11 @@ def first_level(game: SiteGame) -> dict:
     return levels[0] if levels else {"board": []}
 
 
-def game_description(game: SiteGame) -> str:
+def game_description(game: SiteGame) -> str | None:
     compiled_description = game.compiled.get("gameDescription")
     if isinstance(compiled_description, str) and compiled_description:
         return compiled_description
-
-    if game.name in GAME_SUMMARIES:
-        return GAME_SUMMARIES[game.name]
-
-    level = first_level(game)
-    description = level.get("description")
-    if isinstance(description, str) and description:
-        return description
-    return f"{game.display_name} ({len(game.compiled.get('levels', []))} level(s))"
+    return None
 
 
 def preview_board_html(game: SiteGame, max_rows: int = 10, max_cols: int = 40) -> str:
@@ -384,13 +355,14 @@ a {
 
 def game_card(game: SiteGame) -> str:
     level_count = len(game.compiled.get("levels", []))
+    description = game_description(game)
+    description_html = f"\n  <p>{html.escape(description)}</p>" if description else ""
     return f"""<a class="game-card" href="games/{html.escape(game.name)}.html">
   <div>
     <h3>{html.escape(game.display_name)}</h3>
     <p class="game-meta">{level_count} level{'s' if level_count != 1 else ''}</p>
   </div>
-  <pre class="board-preview">{preview_board_html(game)}</pre>
-  <p>{html.escape(game_description(game))}</p>
+  <pre class="board-preview">{preview_board_html(game)}</pre>{description_html}
 </a>"""
 
 
@@ -427,7 +399,7 @@ def index_html(games: list[SiteGame]) -> str:
   <body>
     <header class="site-header">
       <h1>ULTRONO ARENA 4000</h1>
-      <p>A small rule-rewriting puzzle engine. Pick a game below; each page is static, works without a backend, and includes a scratch board editor for trying custom levels.</p>
+      <p>A puzzle engine based on rewrite rules. Pick a game below. Each includes a scratch board editor for trying custom levels.</p>
     </header>
 {''.join(sections)}
   </body>

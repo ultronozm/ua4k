@@ -1,3 +1,5 @@
+DESCRIPTION A minimal example for understanding the game format.
+
 VOID
 !
 

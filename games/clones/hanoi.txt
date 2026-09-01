@@ -1,3 +1,5 @@
+DESCRIPTION Move the stack to the other side.
+
 GOAL
 1
 2

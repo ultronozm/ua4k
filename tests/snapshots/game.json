@@ -26,7 +26,7 @@
     "x": "#444444"
   },
   "gameAuthor": null,
-  "gameDescription": null,
+  "gameDescription": "Guide the laser beam (or carrot, or whatever) to its target.",
   "gameTitle": null,
   "globalTick": null,
   "goals": [],

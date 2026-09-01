@@ -1,3 +1,5 @@
+DESCRIPTION An interactive, programmable Turing machine simulator.
+
 GOAL
 State:H
 

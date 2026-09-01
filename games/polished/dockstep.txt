@@ -1,3 +1,5 @@
+DESCRIPTION Guide two characters to their targets simultaneously.
+
 GOAL
 A
 

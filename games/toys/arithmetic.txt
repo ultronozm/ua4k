@@ -1,3 +1,5 @@
+DESCRIPTION Add pairs of numbers.
+
 VOID
 o
 

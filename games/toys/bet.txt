@@ -1,3 +1,5 @@
+DESCRIPTION Bet on which side has more dots.
+
 GOAL
 BALANCE:________80$
 
@@ -782,4 +784,3 @@ CMD bet_equals_balance
      BALANCE:________s?$
 
      BET???????______s?$
-

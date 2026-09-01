@@ -1,5 +1,9 @@
+DESCRIPTION Escape the labyrinth.
+
 VOID
 o
+
+TITLE Theseus and the Minotaur
 
 COLOR # #779977
 COLOR T #0000ff

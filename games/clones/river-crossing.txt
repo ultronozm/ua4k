@@ -1,3 +1,5 @@
+DESCRIPTION The wolf, goat, and cabbage puzzle.
+
 GOAL
 W
 G
