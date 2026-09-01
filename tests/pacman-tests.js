@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-// Behavior tests for games/toys/pacman.txt.
+// Behavior tests for games/clones/pacman.txt.
 // The harness drives _tick directly (no test key in binds, decision D14).
 const path = require('path');
 const vm = require('vm');
 const root = path.resolve(__dirname, '..');
 const harness = require(path.join(root, 'node_harness.js'));
 
-const { data } = harness.compileGameJson(root, 'games/toys/pacman.txt');
+const { data } = harness.compileGameJson(root, 'games/clones/pacman.txt');
 let failures = 0;
 
 // Pinned PRNG (decision D17): Mulberry32, seed normalized with >>> 0.

@@ -63,9 +63,9 @@ Add a check job and make deploy depend on it.
 - =Clockwise= remains unpublished under =games/experiments/=. A second
   replay-and-mutation pass rebuilt the wait-to-win Body Check and cut the
   padded Heel level, but mechanical verification is not a human playtest.
-- =games/toys/life.txt= no longer has the old "24 neighbor rules" problem:
+- =games/clones/life.txt= no longer has the old "24 neighbor rules" problem:
   neighbor counting is already expressed with =FOR=, =ROTATE=, and =REPEAT=.
-- The =SUP= level in =games/polished/game.txt= is a good regression example
+- The =SUP= level in =games/featured/game.txt= is a good regression example
   for "interesting by thought, not just by BFS": full BFS over the general
   runtime can explode, while the intended route is to clear row 3, move the
   slash mirror to the far right, and fire north into the goal.
@@ -85,8 +85,10 @@ defaults, and snapshots should use Dockstep.
 
 ** Put game files in clear buckets
 
-- =games/polished/=: public-facing candidates.
-- =games/toys/=: working toy/demo games.
+- =games/featured/=: the original UA4K showcase.
+- =games/polished/=: polished original public-facing games.
+- =games/clones/=: adaptations of established games and puzzles.
+- =games/toys/=: original working toy/demo games.
 - =games/wip/=: playable but not curated mechanic sketches.
 - =games/experiments/=: jokes or odd experiments that are not in the normal
   curated set.
@@ -95,8 +97,10 @@ defaults, and snapshots should use Dockstep.
 
 Initial classification:
 
-- polished: =game=, =crash-landing=, =dockstep=
-- toys: =bet=, =snake=, =tetris=, =turing=, plus smaller working demos
+- featured: =game=
+- polished: =crash-landing=, =dockstep=
+- clones: =snake=, =tetris=, and the other recognizable adaptations
+- toys: =bet=, =turing=, plus smaller original working demos
 - WIP: =ice-slides=, =lantern-trail=, =signal-relay=, =phase-shift=,
   =drone-gate-*=
 - experiments: =pong=

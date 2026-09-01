@@ -218,7 +218,7 @@ succeeds."
 Tetris relies on it to populate the preview and spawn the first piece;
 without it the Emacs frontend showed an empty, inert well."
   (let ((data (ua4k--compile-json
-               (expand-file-name "games/toys/tetris.txt" (ua4k--repo-root)))))
+               (expand-file-name "games/clones/tetris.txt" (ua4k--repo-root)))))
     (ua4k-tests--with-game data
       ;; A piece exists somewhere in the spawn rows and stepping moves it.
       (let ((before (ua4k-tests--board-rows)))
@@ -337,7 +337,7 @@ including its mandatory generated side-effect reference."
 (ert-deftest ua4k-tests-command-template-pacman-loads ()
   "The shipped templated Pacman compiles and normalizes in the Emacs frontend."
   (let ((data (ua4k--compile-json
-               (expand-file-name "games/toys/pacman.txt" (ua4k--repo-root)))))
+               (expand-file-name "games/clones/pacman.txt" (ua4k--repo-root)))))
     (should (ua4k--obj-get (ua4k--obj-get data "rules") "try_r_e"))
     (should (ua4k--obj-get (ua4k--obj-get data "rules") "respawn_q"))
     (should-not

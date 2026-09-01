@@ -6,8 +6,10 @@ played either in a browser or in Emacs.
 
 * Repository Layout
 
-- =games/polished/=: games that are closest to public-facing examples.
-- =games/toys/=: playable small demos and joke-sized implementations.
+- =games/featured/=: the original UA4K puzzle set and primary showcase.
+- =games/polished/=: polished original games that are ready to publish.
+- =games/clones/=: implementations of established games and classic puzzles.
+- =games/toys/=: original small demos and joke-sized experiments.
 - =games/wip/=: mechanic sketches and prototypes that still need curation.
 - =games/experiments/=: odd experiments that are not part of the normal build.
 - =games/legacy/=: old format experiments not expected to compile today.
@@ -71,7 +73,8 @@ python3 build-site.py
 open site/index.html
 #+end_src
 
-The site build publishes =games/polished/= and =games/toys/= by default. Use
+The site build publishes =games/featured/=, =games/polished/=,
+=games/clones/=, and =games/toys/= by default, in that order. Use
 =python3 build-site.py --include-wip= to include =games/wip/= prototypes.
 
 Generated game pages also include an =Edit Scratch Level= panel. It lets you
@@ -156,17 +159,25 @@ python3 golden_snapshots.py refresh
 
 * Game Buckets
 
+Featured:
+
+- =games/featured/game.txt=
+
 Polished:
 
-- =games/polished/game.txt=
 - =games/polished/crash-landing.txt=
 - =games/polished/dockstep.txt=
+
+Classic clones:
+
+- =games/clones/rush-hour.txt=
+- =games/clones/snake.txt=
+- =games/clones/tetris.txt=
+- and other adaptations in =games/clones/=
 
 Playable toys:
 
 - =games/toys/bet.txt=
-- =games/toys/snake.txt=
-- =games/toys/tetris.txt=
 - =games/toys/turing.txt=
 - and other compact demos in =games/toys/=
 

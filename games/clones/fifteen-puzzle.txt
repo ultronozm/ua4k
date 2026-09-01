@@ -1,6 +1,5 @@
 TITLE Fifteen Puzzle
 DESCRIPTION Slide tiles into the empty square until they read 1..F in order.
-DESCRIPTION Use wasd to slide.
 
 GOAL
 1234

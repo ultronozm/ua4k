@@ -1,7 +1,7 @@
 ;; D19 demonstration, BEFORE: tetris's shipped line-clear machinery,
 ;; shrunk to a six-row well.  The board itself needs a visible label
 ;; column (0-5) and a `%` scratch register purely so per-cell copies can
-;; address rows; the rules are games/toys/tetris.txt's line_clear and
+;; address rows; the rules are games/clones/tetris.txt's line_clear and
 ;; line_clear_internal with the label sets reduced.
 
 GOAL

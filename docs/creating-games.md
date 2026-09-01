@@ -204,10 +204,10 @@ FLIP_HORIZONTAL
 
 ## Good Example Files
 
-- `games/polished/game.txt`: older but central example game.
+- `games/featured/game.txt`: the original and central UA4K example game.
 - `games/polished/crash-landing.txt`: larger resource-management puzzle.
 - `games/polished/dockstep.txt`: polished lockstep movement puzzle.
-- `games/toys/snake.txt`: complete arcade-style toy.
+- `games/clones/snake.txt`: complete arcade-style clone.
 - `games/toys/turing.txt`: compact computational joke/demo.
 - `tests/fixtures/fixture-rotate.txt`: tiny focused rotation example.
 

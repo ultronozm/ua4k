@@ -6,7 +6,7 @@ This is a lightweight working roadmap, not a release promise.
 
 - Playtest =Crash Landing= and =Dockstep= on laptop and phone.
 - Tighten confusing level descriptions and level ordering.
-- Keep the public site focused on =games/polished/= and the clearest toys.
+- Keep the public site ordered by =featured=, =polished=, =clones=, then =toys=.
 - Add one or two hand-written notes to each polished game explaining its hook.
 - Keep mobile controls usable, but optimize first for keyboard play.
 - Cancel stale GitHub Pages deploys when rapid pushes supersede them.
@@ -19,7 +19,7 @@ This is a lightweight working roadmap, not a release promise.
 - Add curated screenshots or richer board previews to the site index.
 - Improve =docs/creating-games.md= with a full tiny tutorial game.
 - Add more parser diagnostics for common authoring mistakes.
-- Decide whether =games/toys/= should all remain public by default.
+- Decide whether every small =games/toys/= experiment should remain public by default.
 - Replace the prompt-based level jump with a real level picker, and avoid
   accidental keypresses skipping the next level's description.
 - Add shareable solution replays; the solver already emits compact key
@@ -47,7 +47,7 @@ This is a lightweight working roadmap, not a release promise.
 - Do not publish the candidate games under =games/experiments/= until they
   have been played by a human. Exact solver proofs and mutation audits are
   necessary authoring checks, not substitutes for playtesting.
-- Do not spend time simplifying =games/toys/life.txt= under the old "24
+- Do not spend time simplifying =games/clones/life.txt= under the old "24
   neighbor rules" premise. Current =life.txt= already uses =FOR= + =ROTATE= +
   =REPEAT= for neighbor counting; any further cleanup needs a specific,
   observed authoring pain.

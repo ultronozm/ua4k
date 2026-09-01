@@ -13,7 +13,9 @@ from compiler_common import load_make_data_module, repo_root, resolve_game_file
 
 
 SITE_CATEGORIES = (
+    ("featured", "Featured Game", "games/featured"),
     ("polished", "Polished Games", "games/polished"),
+    ("clones", "Classic Clones", "games/clones"),
     ("toys", "Playable Toys", "games/toys"),
 )
 
@@ -39,11 +41,14 @@ GAME_SUMMARIES = {
     "towers": "A tower-moving toy puzzle.",
     "turing": "A compact Turing-machine joke/demo implemented as a board game.",
     "fifteen-puzzle": "The Fifteen Puzzle.",
+    "rush-hour": "Twenty increasingly difficult traffic-jam puzzles, adapted from Michael Fogleman's Rush Hour data.",
 }
 
 CATEGORY_NOTES = {
-    "polished": "The clearest examples right now. Start here.",
-    "toys": "Playable experiments and demos. Some are intentionally small or strange.",
+    "featured": "The original UA4K puzzle set and the best place to start.",
+    "polished": "Original, public-facing games with larger or more focused designs.",
+    "clones": "UA4K implementations of established games and classic puzzles.",
+    "toys": "Original engine experiments and demos. Some are intentionally small or strange.",
     "wip": "Mechanic sketches that are not part of the default public build.",
 }
 
@@ -72,7 +77,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument(
         "game_files",
         nargs="*",
-        help="Optional game files or unique stems. Defaults to polished games and toys.",
+        help="Optional game files or unique stems. Defaults to all public game categories.",
     )
     parser.add_argument(
         "-o",

@@ -29,7 +29,7 @@ GHOST_LABEL = {"R": "R", "k": "K", "j": "I", "p": "C"}
 
 def load_board() -> list[str]:
     module = compiler_common.load_make_data_module()
-    data = module.compile_game(str(ROOT / "games" / "toys" / "pacman.txt"))
+    data = module.compile_game(str(ROOT / "games" / "clones" / "pacman.txt"))
     board = data["levels"][0]["board"]
     # Maze rows: everything before the first HUD row.
     maze = []

@@ -28,10 +28,10 @@ site-check:
 	python3 build-site.py -o "$(CHECK_SITE)"
 
 scratch-smoke:
-	@for file in games/polished/*.txt games/toys/*.txt; do \
+	@set -e; for file in games/featured/*.txt games/polished/*.txt games/clones/*.txt games/toys/*.txt; do \
 		name=$$(basename "$$file" .txt); \
 		echo "scratch smoke: $$name"; \
-		node scratch_smoke.js "$$name" >/dev/null; \
+		node scratch_smoke.js "$$file" >/dev/null; \
 	done
 
 solve-smoke:
