@@ -43,7 +43,7 @@
   :group 'ua4k-dsl)
 
 (defconst ua4k-dsl-directives
-  '("GOAL" "VOID" "WILDCARD" "HIDDEN_LINE_CHAR" "DESCRIPTION" "MINMOVES" "TICK" "TITLE"
+  '("GOAL" "VOID" "WILDCARD" "CLASS" "HIDDEN_LINE_CHAR" "DESCRIPTION" "MINMOVES" "TICK" "TITLE"
     "WHITESPACE" "CHARMAP" "COLOR" "BY" "BIND" "FOR" "ZIP" "FOR_CMDS" "ZIP_CMDS"
     "LET_REPEAT" "ROTATE" "FLIP_HORIZONTAL" "FLIP_VERTICAL"
     "ATOMIC" "ATOMIC_VERTICAL" "ATOMIC_HORIZONTAL"
@@ -61,6 +61,10 @@
        (1 font-lock-keyword-face))
       (,(concat "\\[\\(" annotations "\\)\\]")
        (1 font-lock-builtin-face))
+      ("^[ \t]*\\(CLASS\\)\\s-+\\([a-z_]+\\)\\(?:\\s-+\\(NOT\\)\\_>\\)?"
+       (1 font-lock-keyword-face)
+       (2 font-lock-type-face)
+       (3 font-lock-builtin-face nil t))
       ("^[ \t]*\\(CMD\\|ROTATE_CMDS\\|ZIP_CMDS\\|FOR_CMDS\\|CALL\\)\\s-+\\([^[:space:]]+\\)"
        (1 font-lock-keyword-face)
        (2 font-lock-function-name-face))

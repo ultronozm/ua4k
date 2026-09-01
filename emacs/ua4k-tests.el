@@ -316,6 +316,24 @@ including its mandatory generated side-effect reference."
     (should (ua4k-dsl-beginning-of-defun))
     (should (looking-at-p "FOR_CMDS outer_<x>"))))
 
+(ert-deftest ua4k-tests-class-dsl-mode-support ()
+  "The authoring mode recognizes CLASS declarations and NOT modifiers."
+  (should (member "CLASS" ua4k-dsl-directives))
+  (with-temp-buffer
+    (insert "CLASS floor -.\nCLASS actor NOT -.\n")
+    (ua4k-dsl-mode)
+    (font-lock-ensure)
+    (goto-char (point-min))
+    (search-forward "CLASS")
+    (should (eq (get-text-property (1- (point)) 'face)
+                'font-lock-keyword-face))
+    (search-forward "floor")
+    (should (eq (get-text-property (1- (point)) 'face)
+                'font-lock-type-face))
+    (search-forward "NOT")
+    (should (eq (get-text-property (1- (point)) 'face)
+                'font-lock-builtin-face))))
+
 (ert-deftest ua4k-tests-command-template-pacman-loads ()
   "The shipped templated Pacman compiles and normalizes in the Emacs frontend."
   (let ((data (ua4k--compile-json
