@@ -1,3 +1,5 @@
+DESCRIPTION A small symbol-manipulation puzzle with swap commands.
+
 GOAL
 abc
 
